@@ -21,7 +21,5 @@ using OpenRA.Traits;
 
 namespace OpenRA.Mods.CA.Traits
 {
-
 	public interface ILoadsOverlayPlayerPalettes { void LoadOverlayPlayerPalettes(WorldRenderer wr, string playerName, Color playerColor, bool replaceExisting); }
-
 }
