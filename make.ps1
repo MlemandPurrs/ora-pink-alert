@@ -326,12 +326,6 @@ if ($command -eq "all" -or $command -eq "clean" -or $command -eq "check")
 		echo ""
 		cd $templateDir
 	}
-	elseif ($env:AUTOMATIC_ENGINE_MANAGEMENT -ne "True")
-	{
-		echo "Automatic engine management is disabled."
-		echo "Please manually update the engine to version $env:ENGINE_VERSION."
-		WaitForInput
-	}
 	else
 	{
 		echo "OpenRA engine version $env:ENGINE_VERSION is required."
