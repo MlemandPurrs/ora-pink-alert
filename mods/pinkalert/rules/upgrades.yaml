@@ -1,0 +1,155 @@
+^Upgrade:
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	Buildable:
+		Queue: Upgrades.Allies, Upgrades.Soviet, ClassicUpgrades.Allies, ClassicUpgrades.Soviet
+		BuildLimit: 1
+		BuildDurationModifier: 100
+	ProvidesPrerequisite@upgradename:
+
+#   Allies upgrades
+jeepcapacity.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Jeep Carrying hold
+	Buildable:
+		BuildPaletteOrder: 1
+		Queue: Upgrades.Allies, ClassicUpgrades.Allies
+		Prerequisites: ~vehicleproduction, ~techlevel.high
+		BuildDuration: 1500
+		Description: Allows Jeeps to carry one Infantry.\n   + Jeep can carry one Infantry
+        Icon: jeepcapacity
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: alliesupgrades.combined
+
+amphibian.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Amphibian Light Tank
+	Buildable:
+		BuildPaletteOrder: 2
+		Queue: Upgrades.Allies, ClassicUpgrades.Allies
+		Prerequisites: ~vehicleproduction, ~techlevel.high
+		BuildDuration: 1500
+		Description: Refits all Light Tanks with amphibian chassis.\n   + Light Tanks gain capacity to cross River and Sea\n  - In crossing gets slowed down and takes more damage\n  - May sink if left out in open water for long
+        Icon: amphibian
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: alliesupgrades.combined
+
+helidepth.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Depthcharges for Apache
+	Buildable:
+		BuildPaletteOrder: 3
+		Queue: Upgrades.Allies, ClassicUpgrades.Allies
+		Prerequisites: ~hpad, ~techlevel.high
+		BuildDuration: 1500
+		Description: Adds an extra Anti-submarine weapon to Apaches\n   + Apache may throw a pair of depthcharges to Submarines.\n   - Needs to hover over the Submarine to throw em
+        Icon: helidepth
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: alliesupgrades.combined
+
+armedspy.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: License to Kill
+	Buildable:
+		BuildPaletteOrder: 7
+		Queue: Upgrades.Allies, ClassicUpgrades.Allies
+		Prerequisites: ~dome, ~techlevel.high
+		BuildDuration: 1500
+		Description: Allows Spies to engage in lethal combat.\n   + Spy can attack using a silenced gun\n   - Will break disguise when attacking\n   - Never acquires targets on its own
+        Icon: armedspy
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: alliesupgrades.combined
+
+#   Soviet upgrades
+heavytank.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Double-Barreled Heavy Tank
+	Buildable:
+		BuildPaletteOrder: 1
+		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
+		Prerequisites: vehicleproduction, ~techlevel.high
+		BuildDuration: 1500
+		Description: Doubles the firepower of Heavy Tanks\n   + Heavy Tank gains an extra barrel\n   - Heavy Tank prerequisites Service Depot
+        Icon: heavytank
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: sovietupgrades.combined
+
+migbombs.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Bombs for MiG
+	Buildable:
+		BuildPaletteOrder: 2
+		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
+		Prerequisites: afld, ~techlevel.high
+		BuildDuration: 1500
+		Description: Adds an extra Bomb weapon to MiGs\n   + MiG uses Bombs versus Buildings and Infantry.\n   - Only one Bomb per plane
+        Icon: migbombs
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: sovietupgrades.combined
+
+hindrockets.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Rockets for Hind
+	Buildable:
+		BuildPaletteOrder: 3
+		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
+		Prerequisites: hpad, ~techlevel.high
+		BuildDuration: 1500
+		Description: Adds an extra Rocket weapon to Hinds\n   + Hind gains powerful anti-armor rockets
+        Icon: hindrockets
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: sovietupgrades.combined
+
+subcapacity.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Submarine Carrying hold
+	Buildable:
+		BuildPaletteOrder: 4
+		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
+		Prerequisites: spen, ~techlevel.high
+		BuildDuration: 1500
+		Description: Allows Submarines to carry one Infantry.\n   + Submarines can carry one Infantry\n  ! Breaks capacity to Surface on order(Engine limitation)\n  ! Submarine will use Grenadelauncher by itself to compensate
+        Icon: subcapacity
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: sovietupgrades.combined
+
+minefinder.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Mine-detector Dogs
+	Buildable:
+		BuildPaletteOrder: 5
+		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
+		Prerequisites: kenn, ~techlevel.high
+		BuildDuration: 1500
+		Description: Allows Attack Dogs to sniff out Mines.\n   + Detects Land Mines nearby.
+        Icon: minefinder
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: sovietupgrades.combined

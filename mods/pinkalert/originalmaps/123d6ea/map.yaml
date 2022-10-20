@@ -1,0 +1,131 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Hastings
+Author: Westwood Studios
+Tileset: TEMPERAT
+MapSize: 128,128
+Bounds: 32,32,64,64
+Visibility: Lobby
+Categories: Aftermath, 4-player
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+Actors:
+	Actor0: t03
+		Location: 57,88
+		Owner: Neutral
+	Actor1: t05
+		Location: 55,70
+		Owner: Neutral
+	Actor2: t05
+		Location: 60,70
+		Owner: Neutral
+	Actor3: tc05
+		Location: 92,39
+		Owner: Neutral
+	Actor4: tc05
+		Location: 39,78
+		Owner: Neutral
+	Actor5: tc05
+		Location: 82,81
+		Owner: Neutral
+	Actor6: t10
+		Location: 91,32
+		Owner: Neutral
+	Actor7: t10
+		Location: 94,32
+		Owner: Neutral
+	Actor8: tc05
+		Location: 32,60
+		Owner: Neutral
+	Actor9: tc05
+		Location: 68,68
+		Owner: Neutral
+	Actor10: tc03
+		Location: 80,46
+		Owner: Neutral
+	Actor11: tc04
+		Location: 85,57
+		Owner: Neutral
+	Actor12: tc04
+		Location: 61,32
+		Owner: Neutral
+	Actor13: tc04
+		Location: 50,36
+		Owner: Neutral
+	Actor14: tc05
+		Location: 38,68
+		Owner: Neutral
+	Actor15: tc01
+		Location: 60,86
+		Owner: Neutral
+	Actor16: tc01
+		Location: 75,32
+		Owner: Neutral
+	Actor17: t02
+		Location: 51,78
+		Owner: Neutral
+	Actor18: mine
+		Location: 58,80
+		Owner: Neutral
+	Actor19: mine
+		Location: 69,74
+		Owner: Neutral
+	Actor20: mine
+		Location: 62,48
+		Owner: Neutral
+	Actor21: mine
+		Location: 57,51
+		Owner: Neutral
+	waypoint0: waypoint
+		Location: 86,38
+		Owner: Neutral
+	waypoint1: waypoint
+		Location: 43,89
+		Owner: Neutral
+	waypoint2: waypoint
+		Location: 40,38
+		Owner: Neutral
+	waypoint3: waypoint
+		Location: 85,75
+		Owner: Neutral
+	Actor27: mpspawn
+		Owner: Neutral
+		Location: 40,38
+	Actor28: mpspawn
+		Owner: Neutral
+		Location: 86,38
+	Actor29: mpspawn
+		Owner: Neutral
+		Location: 43,89
+	Actor30: mpspawn
+		Owner: Neutral
+		Location: 85,75

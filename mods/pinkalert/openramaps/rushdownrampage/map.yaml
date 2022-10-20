@@ -1,0 +1,84 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Rush Down Rampage
+Author: AchromicWhite
+Tileset: TEMPERAT
+MapSize: 128,128
+Bounds: 1,1,54,43
+Visibility: Lobby
+Categories: Remastered, 2-player
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor0: tc01
+		Location: 12,10
+		Owner: Neutral
+	Actor1: t16
+		Location: 33,11
+		Owner: Neutral
+	Actor2: t08
+		Location: 36,22
+		Owner: Neutral
+	Actor3: tc04
+		Location: 14,24
+		Owner: Neutral
+	Actor4: tc05
+		Location: 39,25
+		Owner: Neutral
+	Actor5: tc02
+		Location: 31,27
+		Owner: Neutral
+	Actor8: v19
+		Owner: Neutral
+		Location: 27,28
+	Actor9: mpspawn
+		Owner: Neutral
+		Location: 48,10
+	Actor10: mpspawn
+		Owner: Neutral
+		Location: 7,9
+	Actor11: mine
+		Owner: Neutral
+		Location: 43,33
+	Actor12: mine
+		Owner: Neutral
+		Location: 45,29
+	Actor13: mine
+		Owner: Neutral
+		Location: 12,33
+	Actor14: mine
+		Owner: Neutral
+		Location: 10,29
+	Actor15: mine
+		Owner: Neutral
+		Location: 52,3
+	Actor16: mine
+		Owner: Neutral
+		Location: 3,3
+	Actor17: mine
+		Owner: Neutral
+		Location: 21,3
+	Actor18: mine
+		Owner: Neutral
+		Location: 34,3

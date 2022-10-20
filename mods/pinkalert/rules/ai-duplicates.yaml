@@ -1,0 +1,83 @@
+
+YAK.ai:
+    Inherits: YAK
+    Buildable:
+        Prerequisites: afld, ~techlevel.medium, ~aitoodumb
+    Selectable:
+        Class: YAK
+    Armament@PRIMARY:
+        -RequiresCondition:
+    Armament@SECONDARY:
+        -RequiresCondition:
+    -Armament@PRIMARY_SPAIN:
+    -Armament@SECONDARY_SPAIN:
+    RenderSprites:
+        Image: YAK
+    -MapEditorData:
+
+MIG.ai:
+    Inherits: MIG
+    Buildable:
+        Prerequisites: afld, stek, ~techlevel.high, ~aitoodumb
+    Selectable:
+        Class: MIG
+    Armament:
+        -RequiresCondition:
+    -Armament@SECONDARY:
+    -Armament@SPAIN:
+    -Armament@SECONDARY_SPAIN:
+    -AmmoPool@SECONDARY:
+    -WithAmmoPipsDecoration@2:
+    -GrantConditionOnPrerequisite@MIGUPG:
+    AttackAircraft:
+        Armaments: primary
+    Rearmable:
+        AmmoPools: ammo
+    RenderSprites:
+        Image: MIG
+    -MapEditorData:    
+
+HELI.ai:
+    Inherits: HELI
+    Buildable:
+        Prerequisites: hpad, ~techlevel.medium, ~aitoodumb
+    Selectable:
+        Class: HELI
+    Armament:
+        -RequiresCondition:
+    -Armament@AS:
+    -Armament@SPAIN:
+    -Armament@AS_SPAIN:
+    -AmmoPool@AS:
+    -WithAmmoPipsDecoration@2:
+    -GrantConditionOnPrerequisite@HELIUPG:
+    Rearmable:
+        AmmoPools: ammo
+    RenderSprites:
+        Image: HELI
+    -MapEditorData:
+
+HIND.ai:
+    Inherits: HIND
+    Buildable:
+        Prerequisites: hpad, ~techlevel.medium, ~aitoodumb
+    Selectable:
+        Class: HIND
+    Armament@PRIMARY:
+        -RequiresCondition:
+    Armament@SECONDARY:
+        -RequiresCondition:  
+    -Armament@TERTIARY:
+    -Armament@PRIMARY_SPAIN:
+    -Armament@SECONDARY_SPAIN:
+    -Armament@TERTIARY_SPAIN:
+    AttackAircraft:
+        Armaments: primary, secondary
+    -AmmoPool@ROCKETS:
+    -WithAmmoPipsDecoration@2:
+    Rearmable:
+        AmmoPools: ammo
+    -GrantConditionOnPrerequisite@HINDUPG:
+    RenderSprites:
+        Image: HIND
+    -MapEditorData:

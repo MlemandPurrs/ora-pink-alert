@@ -1,0 +1,872 @@
+MINP:
+	Inherits: ^Mine
+	Mine:
+		DetonateClasses: mine_ap
+	Explodes:
+		Weapon: APMine
+
+MINV:
+	Inherits: ^Mine
+	Mine:
+		DetonateClasses: mine_av
+	Explodes:
+		Weapon: AVMine
+
+CRATE:
+	Inherits: ^Crate
+	GiveCashCrateAction:
+		Amount: 2000
+		SelectionShares: 50
+		Sequence: dollar
+	ExplodeCrateAction@fire:
+		Weapon: CrateNapalm
+		SelectionShares: 5
+        RequiresCondition: !noharmful
+	ExplodeCrateAction@boom:
+		Weapon: CrateExplosion
+		SelectionShares: 5
+        RequiresCondition: !noharmful
+	ExplodeCrateAction@timequake:
+		Weapon: TimeQuake
+		SelectionShares: 3
+		Sequence: timequake
+        RequiresCondition: !noharmful
+	HealActorsCrateAction:
+		Sound: heal2.aud
+		SelectionShares: 1
+		Sequence: heal
+	HideMapCrateAction:
+		SelectionShares: 1
+		Sequence: hide-map
+	RevealMapCrateAction:
+		SelectionShares: 1
+		Sequence: reveal-map
+	SupportPowerCrateAction@parabombs:
+		SelectionShares: 3
+		Proxy: powerproxy.parabombs.crate
+		Sequence: parabombs
+	SupportPowerCrateAction@sonar:
+		SelectionShares: 3
+		Proxy: powerproxy.sonarpulse.crate
+		Sequence: sonar
+	SupportPowerCrateAction@abomb:
+		SelectionShares: 1
+		Proxy: powerproxy.abomb.crate
+		Sequence: nuke
+	GiveMcvCrateAction:
+		SelectionShares: 0
+		NoBaseSelectionShares: 100
+		Units: mcv
+	GiveUnitCrateAction@harv_all:
+		SelectionShares: 2
+		Units: harv
+		ValidFactions: allies, england, germany, france, spain
+        RequiresCondition: !mineimmune
+	GiveUnitCrateAction@harv_sov:
+		SelectionShares: 3
+		Units: ahrv
+		ValidFactions: soviet, russia, ukraine, belarus, kazakh
+        RequiresCondition: !mineimmune
+	GiveUnitCrateAction@harv_all_mineimmune:
+		SelectionShares: 2
+		Units: harv.mineimmune
+		ValidFactions: allies, england, germany, france, spain
+        RequiresCondition: mineimmune
+	GiveUnitCrateAction@harv_sov_mineimmune:
+		SelectionShares: 3
+		Units: ahrv.mineimmune
+		ValidFactions: soviet, russia, ukraine, belarus, kazakh
+        RequiresCondition: mineimmune
+	GiveUnitCrateAction@brdm:
+		SelectionShares: 2
+		Units: brdm
+		ValidFactions: soviet, russia, ukraine, belarus, kazakh
+        Prerequisites: techlevel.low
+	GiveUnitCrateAction@jeep:
+		SelectionShares: 2
+		Units: jeep
+		ValidFactions: allies, england, germany, france, spain
+        Prerequisites: techlevel.low
+	GiveUnitCrateAction@apc:
+		SelectionShares: 2
+		Units: apc
+		ValidFactions: allies, england, germany, france, spain
+        Prerequisites: techlevel.medium
+	GiveUnitCrateAction@hapc:
+		SelectionShares: 2
+		Units: hapc
+		ValidFactions: soviet, russia, ukraine, belarus, kazakh
+        Prerequisites: techlevel.medium
+	GiveUnitCrateAction@arty:
+		SelectionShares: 2
+		Units: arty
+		ValidFactions: allies, england, germany, france, spain
+        Prerequisites: techlevel.medium
+	GiveUnitCrateAction@v2rl:
+		SelectionShares: 2
+		Units: v2rl
+		ValidFactions: soviet, russia, ukraine, belarus, kazakh
+        Prerequisites: techlevel.medium
+	GiveUnitCrateAction@1tnk:
+		SelectionShares: 2
+		Units: 1tnk
+		ValidFactions: allies, england, germany, france, spain
+        Prerequisites: techlevel.low
+	GiveUnitCrateAction@2tnk:
+		SelectionShares: 2
+		Units: 2tnk
+		ValidFactions: allies, england, germany, france, spain
+        Prerequisites: techlevel.medium
+	GiveUnitCrateAction@3tnk:
+		SelectionShares: 4
+		Units: 3tnk
+		ValidFactions: soviet, russia, ukraine, belarus, kazakh
+        Prerequisites: techlevel.low, !heavytank.upgrade
+	GiveUnitCrateAction@3tnk:
+		SelectionShares: 4
+		Units: 3tnk.upgraded
+		ValidFactions: soviet, russia, ukraine, belarus, kazakh
+        Prerequisites: techlevel.medium, heavytank.upgrade
+	GiveUnitCrateAction@4tnk:
+		SelectionShares: 3
+		Units: 4tnk
+		ValidFactions: soviet, russia, ukraine, belarus, kazakh
+        Prerequisites: techlevel.high
+	GiveUnitCrateAction@mrj:
+		SelectionShares: 2
+		Units: mrj
+		ValidFactions: allies, england, germany, france, spain
+        Prerequisites: techlevel.medium
+	GiveUnitCrateAction@mnly:
+		SelectionShares: 3
+		Units: mnly
+		ValidFactions: allies, england, germany, france, spain, soviet, russia, ukraine, belarus, kazakh
+        Prerequisites: techlevel.medium
+	GiveUnitCrateAction@mcv:
+		SelectionShares: 2
+		Units: mcv
+		ValidFactions: allies, england, germany, france, spain, soviet, russia, ukraine, belarus, kazakh
+        Prerequisites: techlevel.medium
+	GiveUnitCrateAction@mgg:
+		SelectionShares: 2
+		Units: mgg
+		ValidFactions: allies, england, germany, france, spain
+        Prerequisites: techlevel.high
+	GrantExternalConditionCrateAction@firepower:
+		SelectionShares: 5
+        Sequence: firepowerup
+		Sound: firepowerup.aud
+		Condition: firepower-crate-collected
+	GrantExternalConditionCrateAction@armorup:
+		SelectionShares: 5
+		Sequence: armorup
+		Sound: armorup.aud
+		Condition: armor-crate-collected
+	GrantExternalConditionCrateAction@speedup:
+		SelectionShares: 5
+		Sequence: speedup
+		Sound: speedup.aud
+		Condition: speed-crate-collected
+	GrantExternalConditionCrateAction@cloak:
+		SelectionShares: 5
+		Sequence: cloak
+		Condition: cloak-crate-collected
+	GrantExternalConditionCrateAction@invuln:
+		SelectionShares: 5
+		Sequence: invuln
+		Sound: ironcur9.aud
+		Condition: invulnerability-crate-collected
+		Duration: 400
+	GrantExternalConditionCrateAction@emp:
+		SelectionShares: 5
+		Sequence: emp
+		Sound: shktrop1.aud
+		Condition: emp-crate-collected
+		Duration: 300
+        RequiresCondition: !noharmful
+	GrantExternalConditionCrateAction@instadeath:
+		SelectionShares: 1
+		Sequence: redskull
+		Sound: madexplo.aud
+		Condition: death-crate-collected
+        RequiresCondition: !noharmful
+	ExplodeCrateAction@nuke:
+		Weapon: CrateNuke
+		SelectionShares: 1
+        RequiresCondition: !noharmful
+	GrantConditionOnPrerequisite@MineImmune:
+		Condition: mineimmune
+		Prerequisites: global-mineimmune
+	GrantConditionOnPrerequisite@Noharmful:
+		Condition: noharmful
+		Prerequisites: global-noharmful
+	GiveUnitCrateAction@pt:
+		SelectionShares: 3
+		Units: pt
+		ValidFactions: allies, england, germany, france, spain
+        Prerequisites: techlevel.low
+	GiveUnitCrateAction@ss:
+		SelectionShares: 3
+		Units: ss
+		ValidFactions: soviet, russia, ukraine, belarus, kazakh
+        Prerequisites: techlevel.low
+	GiveUnitCrateAction@horde:
+		SelectionShares: 3
+		Units: tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn
+	GiveUnitCrateAction@creep:
+		Units: ant
+		Owner: Creeps
+		SelectionShares: 10
+        RequiresCondition: !noharmful
+
+MONEYCRATE:
+	Inherits: ^Crate
+	Tooltip:
+		Name: Money Crate
+	GiveCashCrateAction:
+		Amount: 1000
+		SelectionShares: 1
+		Sequence: dollar
+
+HEALCRATE:
+	Inherits: ^Crate
+	Tooltip:
+		Name: Heal Crate
+	HealActorsCrateAction:
+		Sound: heal2.aud
+		SelectionShares: 1
+		Sequence: heal
+	RenderSprites:
+		Image: scrate-healup
+
+WCRATE:
+	Inherits: ^Crate
+	Tooltip:
+		Name: Wooden Crate
+	RenderSprites:
+		Image: wcrate
+
+SCRATE:
+	Inherits: ^Crate
+	Tooltip:
+		Name: Steel Crate
+	RenderSprites:
+		Image: scrate
+
+CAMERA:
+	Interactable:
+	EditorOnlyTooltip:
+		Name: (reveals area to owner)
+	AlwaysVisible:
+	Immobile:
+		OccupiesSpace: false
+	RevealsShroud:
+		Range: 10c0
+		Type: CenterPosition
+	BodyOrientation:
+		QuantizedFacings: 1
+	WithSpriteBody:
+	RenderSpritesEditorOnly:
+		Image: camera
+	MapEditorData:
+		Categories: System
+
+camera.paradrop:
+	Inherits: CAMERA
+	EditorOnlyTooltip:
+		Name: (support power proxy camera)
+	RevealsShroud:
+		Range: 6c0
+
+camera.spyplane:
+	Inherits: CAMERA
+	EditorOnlyTooltip:
+		Name: (support power proxy camera)
+	DetectCloaked:
+		Range: 10c0
+		CloakTypes: Cloak
+
+SONAR:
+	Inherits: camera.spyplane
+	EditorOnlyTooltip:
+		Name: (support power proxy camera)
+	-RevealsShroud:
+	DetectCloaked:
+		CloakTypes: Underwater
+
+FLARE:
+	Immobile:
+		OccupiesSpace: false
+	RevealsShroud:
+		Range: 3c0
+		Type: CenterPosition
+	RenderSprites:
+		Image: smokland
+	WithSpriteBody:
+		StartSequence: open
+	BodyOrientation:
+		QuantizedFacings: 1
+	HiddenUnderFog:
+		Type: CenterPosition
+	Interactable:
+	Tooltip:
+		Name: Flare
+		ShowOwnerRow: false
+	MapEditorData:
+		Categories: Decoration
+	Interactable:
+
+MINE:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	HiddenUnderShroud:
+	Tooltip:
+		Name: Ore Mine
+	RenderSprites:
+		Palette: terrain
+	WithSpriteBody:
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Ore
+	AppearsOnMapPreview:
+		Terrain: Ore
+	SeedsResource@Slow:
+		Interval: 87
+		RequiresCondition: growthslow
+	ExternalCondition@Slow:
+		Condition: growthslow
+	SeedsResource@Normal:
+		Interval: 75
+		RequiresCondition: growthnormal
+	ExternalCondition@Normal:
+		Condition: growthnormal
+	SeedsResource@Fast:
+		Interval: 63
+		RequiresCondition: growthfast
+	ExternalCondition@Fast:
+		Condition: growthfast
+	MapEditorData:
+		Categories: Resource spawn
+	RequiresSpecificOwners:
+		ValidOwnerNames: Neutral
+	ActorSpawner:
+
+GMINE:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	HiddenUnderShroud:
+	Tooltip:
+		Name: Gem Mine
+	RenderSprites:
+		Palette: player
+	WithSpriteBody:
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Gems
+	AppearsOnMapPreview:
+		Terrain: Gems
+	SeedsResource@Slow:
+		Interval: 87
+		ResourceType: Gems
+		RequiresCondition: growthslow
+	ExternalCondition@Slow:
+		Condition: growthslow
+	SeedsResource@Normal:
+		Interval: 75
+		ResourceType: Gems
+		RequiresCondition: growthnormal
+	ExternalCondition@Normal:
+		Condition: growthnormal
+	SeedsResource@Fast:
+		Interval: 63
+		ResourceType: Gems
+		RequiresCondition: growthfast
+	ExternalCondition@Fast:
+		Condition: growthfast
+	MapEditorData:
+		Categories: Resource spawn
+	RequiresSpecificOwners:
+		ValidOwnerNames: Neutral
+	ActorSpawner:
+
+RAILMINE:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	HiddenUnderShroud:
+	Tooltip:
+		Name: Abandoned Mine
+	RenderSprites:
+		Palette: player
+	WithSpriteBody:
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+		Categories: Civilian building
+	RequiresBuildableArea:
+		AreaTypes: building
+
+QUEE:
+	Inherits@1: ^SpriteActor
+	Inherits@shape: ^2x1Shape
+	Interactable:
+	HiddenUnderShroud:
+	Tooltip:
+		Name: Queen Ant
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	WithSpriteBody:
+	AppearsOnRadar:
+	MapEditorData:
+		RequireTilesets: INTERIOR
+		Categories: Critter
+	RequiresBuildableArea:
+		AreaTypes: building
+
+LAR1:
+	Inherits@1: ^SpriteActor
+	Inherits@shape: ^1x1Shape
+	Interactable:
+	HiddenUnderShroud:
+	Tooltip:
+		Name: Ant Larva
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	RenderSprites:
+		Palette: terrain
+	WithSpriteBody:
+	AppearsOnRadar:
+	MapEditorData:
+		RequireTilesets: INTERIOR
+		Categories: Critter
+	RequiresBuildableArea:
+		AreaTypes: building
+
+LAR2:
+	Inherits@1: LAR1
+	Tooltip:
+		Name: Ant Larvae
+
+powerproxy.parabombs.crate:
+	AlwaysVisible:
+	AirstrikePower:
+		OrderName: ParabombsCrate
+		Icon: parabombs
+		Description: Parabombs
+		ChargeInterval: 0
+		LongDesc: A Badger drops a load of parachuted\nbombs on your target.
+		OneShot: true
+		AllowMultiple: true
+		UnitType: badr.bomber
+		SelectTargetSpeechNotification: SelectTarget
+		QuantizedFacings: 8
+		DisplayBeacon: True
+		BeaconPoster: pbmbicon
+		CameraActor: camera
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		RequiresCondition: !directional-abilities
+        SupportPowerPaletteOrder: 3
+	AirstrikePower@directional:
+		OrderName: ParabombsDirectional
+		Icon: parabombs
+		Description: Parabombs
+		ChargeInterval: 0
+		LongDesc: A Badger drops a load of parachuted\nbombs on your target.
+		OneShot: true
+		AllowMultiple: true
+		UnitType: badr.bomber
+		SelectTargetSpeechNotification: SelectTarget
+		QuantizedFacings: 8
+		DisplayBeacon: True
+		BeaconPoster: pbmbicon
+		CameraActor: camera
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		RequiresCondition: directional-abilities
+        SupportPowerPaletteOrder: 3
+	GrantConditionOnPrerequisite@GLOBALDIRECTIONALABILITY:
+		Condition: directional-abilities
+		Prerequisites: global-directional-abilities
+
+powerproxy.sonarpulse:
+	AlwaysVisible:
+	SpawnActorPower:
+        OrderName: SonarPulse
+		Icon: sonar
+		Description: Sonar Pulse
+		LongDesc: Reveals all submarines in the vicinity for a short time.
+		ChargeInterval: 1500
+		EndChargeSpeechNotification: SonarPulseReady
+		SelectTargetSpeechNotification: SelectTarget
+		Actor: sonar
+		LifeTime: 250
+		DeploySound: sonpulse.aud
+		EffectImage: moveflsh
+		EffectPalette: moveflash
+		EffectSequence: idle
+        SupportPowerPaletteOrder: 7
+        Cursor: sonar-target
+
+powerproxy.sonarpulse.crate:
+	AlwaysVisible:
+	SpawnActorPower:
+        OrderName: SonarpulseCrate
+		Icon: sonar
+		Description: Sonar Pulse
+		LongDesc: Reveals all submarines in the vicinity for a short time.
+		ChargeInterval: 0
+		OneShot: true
+		AllowMultiple: true
+		SelectTargetSpeechNotification: SelectTarget
+		Actor: sonar
+		LifeTime: 250
+		DeploySound: sonpulse.aud
+		EffectImage: moveflsh
+		EffectPalette: moveflash
+		EffectSequence: idle
+        SupportPowerPaletteOrder: 7
+        Cursor: sonar-target
+
+powerproxy.abomb.crate:
+	AlwaysVisible:
+	NukePower:
+		OrderName: NukePowerCrate
+		Cursor: nuke
+		Icon: abomb
+		ChargeInterval: 0
+		FlightDelay: 100
+		FlightVelocity: 1c0
+		Description: Atom Bomb
+		LongDesc: Launches a devastating atomic bomb\nat a target location.
+		OneShot: true
+		AllowMultiple: true
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		IncomingSpeechNotification: AbombLaunchDetected
+		SkipAscent: true
+		MissileWeapon: atomic
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: atomicon
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+
+powerproxy.paratroopers:
+	AlwaysVisible:
+	ParatroopersPower:
+        OrderName: ParatroopersCrate
+        ChargeInterval: 0
+		Icon: paratroopers
+		Description: Paratroopers
+		LongDesc: A Badger drops a squad of infantry\nanywhere on the map.
+		DropItems: E1,E3,E1,E3,E1
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		RequiresCondition: !directional-abilities
+        Cursor: airdrop
+	ParatroopersPower@directional:
+        OrderName: ParatroopersCrateDirectional
+        ChargeInterval: 0
+		Icon: paratroopers
+		Description: Paratroopers
+		LongDesc: A Badger drops a squad of infantry\nanywhere on the map.
+		DropItems: E1,E3,E1,E3,E1
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		RequiresCondition: directional-abilities
+        Cursor: airdrop
+	GrantConditionOnPrerequisite@GLOBALDIRECTIONALABILITY:
+		Condition: directional-abilities
+		Prerequisites: global-directional-abilities
+
+infantry.upgraded:
+	AlwaysVisible:
+	ProvidesPrerequisite:
+
+vehicles.upgraded:
+	AlwaysVisible:
+	ProvidesPrerequisite:
+
+aircraft.upgraded:
+	AlwaysVisible:
+	ProvidesPrerequisite:
+
+navy.upgraded:
+	AlwaysVisible:
+	ProvidesPrerequisite:
+
+mpspawn:
+	Interactable:
+	EditorOnlyTooltip:
+		Name: (multiplayer player starting point)
+	AlwaysVisible:
+	Immobile:
+		OccupiesSpace: false
+	WithSpriteBody:
+	RenderSpritesEditorOnly:
+	BodyOrientation:
+		QuantizedFacings: 1
+	MapEditorData:
+		Categories: System
+
+waypoint:
+	Interactable:
+	EditorOnlyTooltip:
+		Name: (waypoint for scripted behavior)
+	AlwaysVisible:
+	Immobile:
+		OccupiesSpace: false
+	WithSpriteBody:
+	RenderSpritesEditorOnly:
+	BodyOrientation:
+		QuantizedFacings: 1
+	MapEditorData:
+		Categories: System
+
+TRAN.Husk2:
+	Inherits: ^Husk
+	-TransformOnCapture:
+	Tooltip:
+		Name: Husk (Transport Helicopter)
+	RenderSprites:
+		Image: tran2husk
+
+^Sticky:
+	Interactable:
+	AlwaysVisible:
+	Aircraft:
+	KillsSelf:
+		Delay: 1
+		RemoveInstead: true
+		RequiresCondition: !hasprereq
+	GrantConditionOnPrerequisite:
+		Condition: hasprereq
+	ProvidesPrerequisite:
+
+building-fact:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Construction Yard
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: fact
+
+building-powr:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Power Plant
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: powr
+    ProvidesPrerequisite@2:
+        Prerequisite: anypower
+
+building-apwr:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Advanced Power Plant
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: apwr
+    ProvidesPrerequisite@2:
+        Prerequisite: anypower
+
+building-proc:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Refinery
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: proc
+
+building-tent:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Allied Barracks
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: tent
+    ProvidesPrerequisite@2:
+        Prerequisite: infantryproduction
+
+building-barr:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Soviet Barracks
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: barr
+    ProvidesPrerequisite@2:
+        Prerequisite: infantryproduction
+
+building-weap:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: War Factory
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: weap
+    ProvidesPrerequisite@2:
+        Prerequisite: vehicleproduction
+    ProvidesPrerequisite@3:
+        Prerequisite: afldorweap
+
+building-fix:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Service Depot
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: fix
+
+building-syrd:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Naval Yard
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: syrd
+
+building-spen:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Submarine Pen
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: spen
+
+building-hpad:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Helipad
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: hpad
+
+building-afld:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Airfield
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: afld
+    ProvidesPrerequisite@2:
+        Prerequisite: afldorweap
+
+building-dome:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Radar Dome
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: dome
+
+building-atek:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Allied Tech Center
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: atek
+    ProvidesPrerequisite@2:
+        Prerequisite: techcenter
+
+building-stek:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Soviet Tech Center
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: stek
+    ProvidesPrerequisite@2:
+        Prerequisite: techcenter
+
+building-fcom:
+	Inherits: ^Sticky
+	Tooltip:
+		Name: Command Post
+	GrantConditionOnPrerequisite:
+		Prerequisites: global-stickytech
+    ProvidesPrerequisite:
+        Prerequisite: fcom
+
+QueueUpdaterDummy:
+	AlwaysVisible:
+	ProvidesPrerequisite:
+	KillsSelf:
+		RemoveInstead: true
+
+ColorPickerDummy:
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+    WithSpriteBody:
+    RenderSprites:
+        Image: colorpicker.mammy
+        Palette: colorpicker
+
+dummy.qtnk:
+	Interactable:
+	EditorOnlyTooltip:
+		Name: (dummy to workaround QTNK)
+	AlwaysVisible:
+	Immobile:
+		OccupiesSpace: false
+	RevealsShroud:
+		Range: 1c0
+		Type: CenterPosition
+	KillsSelf:
+		Delay: 144
+	BodyOrientation:
+		QuantizedFacings: 1
+	WithSpriteBody:
+	RenderSpritesEditorOnly:
+		Image: camera

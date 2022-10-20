@@ -1,0 +1,566 @@
+E1:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+	Buildable:
+		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		BuildDuration: 100
+		BuildPaletteOrder: 1
+		Prerequisites: infantryproduction, ~techlevel.low, ~!global-squadenabled
+		Description: General-purpose infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Selectable:
+		Class: E1
+	Valued:
+		Cost: 100
+	Tooltip:
+		Name: Soldier
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 50
+	Armament@PRIMARY:
+		Weapon: M1Carbine
+        RequiresCondition: !spain
+	Armament@GARRISON:
+		Name: garrisoned
+        Weapon: M60mg
+        MuzzleSequence: garrison-muzzle
+        RequiresCondition: !spain
+	Armament@PRIMARY_SPAIN:
+		Weapon: M1Carbine.spain
+        RequiresCondition: spain
+	Armament@GARRISON_SPAIN:
+		Name: garrisoned
+        Weapon: M60mg.spain
+        MuzzleSequence: garrison-muzzle
+        RequiresCondition: spain
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+        RequiresCondition: !parachute && !smolinfantry
+	WithInfantryBody@SMOLINFANTRY:
+		DefaultAttackSequence: shoot-small
+        RequiresCondition: !parachute && smolinfantry
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute && !smolinfantry
+	WithInfantryBody@SMOLPARACHUTE:
+		StandSequences: parachute-small
+		RequiresCondition: parachute && smolinfantry    
+	AttackFrontal:
+	RenderSprites:
+		Image: E1
+	Passenger:
+		CustomPipType: green
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 25
+		Type: InfantryRefund
+
+E3:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
+	Buildable:
+		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		BuildDuration: 300
+		BuildPaletteOrder: 2
+		Prerequisites: vehicleproduction, ~techlevel.low, ~!global-squadenabled
+		Description: Anti-tank/Anti-aircraft infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+	Selectable:
+		Class: E3
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Rocket Soldier
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 45
+	Mobile:
+		Speed: 30
+	Armament@PRIMARY:
+		Weapon: RedEye
+		LocalOffset: 0,0,555
+        ReloadingCondition: reload-aa
+        PauseOnCondition: reload-ag
+        RequiresCondition: !spain
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: Dragon
+		LocalOffset: 0,0,555
+        ReloadingCondition: reload-ag
+        PauseOnCondition: reload-aa
+        RequiresCondition: !spain
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Dragon
+        RequiresCondition: !spain
+	Armament@PRIMARY_SPAIN:
+		Weapon: RedEye.spain
+		LocalOffset: 0,0,555
+        ReloadingCondition: reload-aa
+        PauseOnCondition: reload-ag
+        RequiresCondition: spain
+	Armament@SECONDARY_SPAIN:
+		Name: secondary
+		Weapon: Dragon.spain
+		LocalOffset: 0,0,555
+        ReloadingCondition: reload-ag
+        PauseOnCondition: reload-aa
+        RequiresCondition: spain
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Dragon.spain
+        RequiresCondition: spain
+	TakeCover:
+		ProneOffset: 384,0,-395
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+        RequiresCondition: !parachute && !smolinfantry
+	WithInfantryBody@SMOLINFANTRY:
+		DefaultAttackSequence: shoot-small
+        RequiresCondition: !parachute && smolinfantry
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute && !smolinfantry
+	WithInfantryBody@SMOLPARACHUTE:
+		StandSequences: parachute-small
+		RequiresCondition: parachute && smolinfantry
+	AttackFrontal:
+	RenderSprites:
+		Image: E3
+	Passenger:
+		CustomPipType: green
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 75
+		Type: InfantryRefund
+
+MECH:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Buildable:
+		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		BuildDuration: 450
+		BuildPaletteOrder: 4
+		Prerequisites: fix, ~techlevel.medium
+		Description: Repairs nearby vehicles.\nRepairs the Transport when inside.\n  Unarmed
+	Selectable:
+		Class: MECH
+	Valued:
+		Cost: 450
+	Tooltip:
+		Name: Mechanic
+	Health:
+		HP: 60
+	Mobile:
+		Voice: Move
+	RevealsShroud:
+		Range: 3c0
+	Passenger:
+		CustomPipType: yellow
+		Voice: Move
+	Armament:
+		Weapon: Repair
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: Repair.spain
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+        RequiresCondition: spain
+	AttackFrontal:
+		Voice: Move
+	WithInfantryBody:
+		DefaultAttackSequence: repair
+		StandSequences: stand
+	WithInfantryBody@SMOLINFANTRY:
+		DefaultAttackSequence: repair-small
+		StandSequences: stand-small
+	Voiced:
+		VoiceSet: MechanicVoice
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle
+	RenderSprites:
+		Image: MECH
+	Passenger:
+		CustomPipType: blue
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 112
+		Type: InfantryRefund
+
+E6:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Buildable:
+		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		BuildDuration: 500
+		BuildPaletteOrder: 5
+		Prerequisites: proc, ~techlevel.low
+		Description: Captures enemy structures.\n  Unarmed
+	Selectable:
+		Priority: 5
+		Class: E6
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Engineer
+	EngineerRepair:
+        Cursor: enter-yellow
+        RepairBlockedCursor: enter-yellow-blocked        
+	RepairsBridges:
+	Captures@Single:
+		CaptureTypes: building
+		PlayerExperience: 0
+		RequiresCondition: !multiengineer
+	Captures@Multi:
+		CaptureTypes: building
+		SabotageHPRemoval: 25
+		SabotageThreshold: 25
+		PlayerExperience: 0
+		RequiresCondition: multiengineer
+	Captures@Tech:
+		CaptureTypes: building-tech
+		PlayerExperience: 0
+	Captures@Restore:
+		CaptureTypes: restore-build, restore-unit, restore-tech
+		PlayerExperience: 0
+        EnterCursor: goldwrench
+        EnterBlockedCursor: goldwrench-blocked
+        RequiresCondition: restorehusk
+	GrantConditionOnPrerequisite@MULTIENGINEER:
+		Condition: multiengineer
+		Prerequisites: global-multiengineer
+	GrantConditionOnPrerequisite@RESTOREHUSKS:
+		Condition: restorehusk
+		Prerequisites: global-restorehusks
+	Voiced:
+		VoiceSet: EngineerVoice
+	RenderSprites:
+		Image: E6
+	CaptureManager:
+	Passenger:
+		CustomPipType: blue
+
+EINSTEIN:
+	Inherits: ^CivInfantry
+	-Wanders:
+	Tooltip:
+		Name: Prof. Einstein
+	Voiced:
+		VoiceSet: EinsteinVoice
+
+EINSTEIN2:
+	Inherits: ^CivInfantry
+	-Wanders:
+	Tooltip:
+		Name: Prof. Einstein
+	Voiced:
+		VoiceSet: EinsteinVoice
+
+DELPHI:
+	Inherits: ^CivInfantry
+	-Wanders:
+	Tooltip:
+		Name: Agent Delphi
+
+CHAN:
+	Inherits: ^CivInfantry
+	Valued:
+		Cost: 500
+	Selectable:
+		Class: CHAN
+	Tooltip:
+		Name: Scientist
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 125
+		Type: InfantryRefund    
+
+GNRL:
+	Inherits@1: ^ArmedCivilian
+	-Wanders:
+	Tooltip:
+		Name: General
+	Selectable:
+		Class: GNRL
+	Mobile:
+		Voice: Move
+	AttackFrontal:
+		Voice: Attack
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Voiced:
+		VoiceSet: StavrosVoice
+	-ScaredyCat:
+	WithInfantryBody:
+		IdleSequences: idle1
+	WithInfantryBody@SMOLINFANTRY:
+		IdleSequences: idle1-small
+
+ANT:
+	Inherits: ^GiantAnt
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Giant Ant
+		GenericName: Ant
+	Buildable:
+		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 1954
+		Prerequisites: ~bio, ~disabled
+		Description: Irradiated insect that grew oversize.
+	Selectable:
+        Class: ANT
+		Bounds: 24,24,0,-5
+		DecorationBounds: 30,30,0,-2
+	SelectionDecorations:
+	Health:
+		HP: 750
+	Mobile:
+		Speed: 99
+		TurnSpeed: 48
+		Locomotor: wheeled-non-crusher
+	AutoTarget:
+		ScanRadius: 5
+	Armament:
+		Weapon: mandible
+	Voiced:
+		VoiceSet: AntVoice
+
+#   Experimental squad production
+
+E1.squad.allies:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Soldier
+	Buildable:
+		Queue: Infantry.Allies
+		BuildPaletteOrder: 1
+        Prerequisites: infantryproduction, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
+		Description: Deploys a squad of four\ngeneral-purpose infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+        Icon: e1icon
+    Valued:
+		Cost: 225
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Multiqueue:
+		Actors: e1, e1, e1, e1
+		Type: Infantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+
+E1.squad.allies.classic:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Soldier
+	Buildable:
+		Queue: ClassicInfantry.Allies
+		BuildPaletteOrder: 1
+        Prerequisites: infantryproduction, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
+		Description: Deploys a squad of four\ngeneral-purpose infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+        Icon: e1icon
+    Valued:
+		Cost: 225
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Classicqueue:
+		Actors: e1, e1, e1, e1
+		Type: ClassicInfantry.Allies
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+
+E1.squad.soviet:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Soldier
+	Buildable:
+		Queue: Infantry.Soviet
+		BuildPaletteOrder: 1
+        Prerequisites: infantryproduction, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
+		Description: Deploys a squad of four\ngeneral-purpose infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+        Icon: e1icon
+    Valued:
+		Cost: 225
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Multiqueue:
+		Actors: e1, e1, e1, e1
+		Type: Infantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+
+E1.squad.soviet.classic:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Soldier
+	Buildable:
+		Queue: ClassicInfantry.Soviet
+		BuildPaletteOrder: 1
+        Prerequisites: infantryproduction, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
+		Description: Deploys a squad of four\ngeneral-purpose infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+        Icon: e1icon
+    Valued:
+		Cost: 225
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Classicqueue:
+		Actors: e1, e1, e1, e1
+		Type: ClassicInfantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+
+E3.squad.allies:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Rocket Soldier
+	Buildable:
+		Queue: Infantry.Allies
+		BuildPaletteOrder: 2
+        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
+		Description: Deploys a pair of\nAnti-tank infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+        Icon: e3icon
+    Valued:
+		Cost: 450
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Multiqueue:
+		Actors: e3, e3
+		Type: Infantry.Allies
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+ 
+E3.squad.allies.classic:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Rocket Soldier
+	Buildable:
+		Queue: ClassicInfantry.Allies
+		BuildPaletteOrder: 2
+        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
+		Description: Deploys a pair of\nAnti-tank infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+        Icon: e3icon
+    Valued:
+		Cost: 450
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Classicqueue:
+		Actors: e3, e3
+		Type: ClassicInfantry.Allies
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+
+E3.squad.soviet:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Rocket Soldier
+	Buildable:
+		Queue: Infantry.Soviet
+		BuildPaletteOrder: 2
+        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
+		Description: Deploys a pair of\nAnti-tank infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+        Icon: e3icon
+    Valued:
+		Cost: 450
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Multiqueue:
+		Actors: e3, e3
+		Type: Infantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+ 
+E3.squad.soviet.classic:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Rocket Soldier
+	Buildable:
+		Queue: ClassicInfantry.Soviet
+		BuildPaletteOrder: 2
+        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
+		Description: Deploys a pair of\nAnti-tank infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+        Icon: e3icon
+    Valued:
+		Cost: 450
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Classicqueue:
+		Actors: e3, e3
+		Type: ClassicInfantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true

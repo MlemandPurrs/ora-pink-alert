@@ -1,0 +1,470 @@
+^BasePlayer:
+	AlwaysVisible:
+	Shroud:
+
+EditorPlayer:
+	Inherits: ^BasePlayer
+
+Player:
+	Inherits: ^BasePlayer
+	AlwaysVisible:
+	TechTree:
+	ClassicProductionQueue@BuildingAllies:
+		Type: ClassicBuilding.Allies
+        Group: Building
+        Factions: allies, england, france, germany, spain
+        DisplayOrder: 0
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@BuildingSoviet:
+		Type: ClassicBuilding.Soviet
+        Group: Building
+        Factions: soviet, russia, ukraine, belarus, kazakh
+        DisplayOrder: 0
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@DefenseAllies:
+		Type: ClassicDefense.Allies
+        Group: Defense
+        Factions: allies, england, france, germany, spain
+        DisplayOrder: 1
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@DefenseSoviet:
+		Type: ClassicDefense.Soviet
+        Group: Defense
+        Factions: soviet, russia, ukraine, belarus, kazakh
+        DisplayOrder: 1
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@InfantryAllies:
+		Type: ClassicInfantry.Allies
+        Group: Infantry
+        Factions: allies, england, france, germany, spain
+        DisplayOrder: 2
+		LowPowerModifier: 300
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@InfantrySoviet:
+		Type: ClassicInfantry.Soviet
+        Group: Infantry
+        Factions: soviet, russia, ukraine, belarus, kazakh
+        DisplayOrder: 2
+		LowPowerModifier: 300
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@VehicleAllies:
+		Type: ClassicVehicle.Allies
+        Group: Vehicle
+        Factions: allies, england, france, germany, spain
+        DisplayOrder: 3
+		LowPowerModifier: 300
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@VehicleSoviet:
+		Type: ClassicVehicle.Soviet
+        Group: Vehicle
+        Factions: soviet, russia, ukraine, belarus, kazakh
+        DisplayOrder: 3
+		LowPowerModifier: 300
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@AircraftAllies:
+		Type: ClassicAircraft.Allies
+        Group: Aircraft
+        Factions: allies, england, france, germany, spain
+        DisplayOrder: 4
+		LowPowerModifier: 300
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@AircraftSoviet:
+		Type: ClassicAircraft.Soviet
+        Group: Aircraft
+        Factions: soviet, russia, ukraine, belarus, kazakh
+        DisplayOrder: 4
+		LowPowerModifier: 300
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@NavyAllies:
+		Type: ClassicNavy.Allies
+        Group: Navy
+        Factions: allies, england, france, germany, spain
+        DisplayOrder: 5
+		LowPowerModifier: 300
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@NavySoviet:
+		Type: ClassicNavy.Soviet
+        Group: Navy
+        Factions: soviet, russia, ukraine, belarus, kazakh
+        DisplayOrder: 5
+		LowPowerModifier: 300
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@UpgradesAllies:
+		Type: ClassicUpgrades.Allies
+        Group: Upgrades
+        Factions: allies, england, france, germany, spain
+        DisplayOrder: 6
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	ClassicProductionQueue@UpgradesSoviet:
+		Type: ClassicUpgrades.Soviet
+        Group: Upgrades
+        Factions: soviet, russia, ukraine, belarus, kazakh
+        DisplayOrder: 6
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		SpeedUp: True
+		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
+	PlaceBuilding:
+		NewOptionsNotification: NewOptions
+		CannotPlaceNotification: BuildingCannotPlaceAudio
+	SupportPowerManager:
+	ScriptTriggers:
+	MissionObjectives:
+		WinNotification: Win
+		LoseNotification: Lose
+		LeaveNotification: Leave
+	ConquestVictoryConditions:
+	PowerManager:
+        AdviceInterval: 500
+		SpeechNotification: LowPower
+	AllyRepair:
+	PlayerResources:
+		SelectableCash: 5000, 10000, 15000, 20000, 25000, 50000, 100000
+		DefaultCash: 10000
+		CashTickUpNotification: CashTickUp
+		CashTickDownNotification: CashTickDown
+		InsufficientFundsNotification: InsufficientFunds
+	DeveloperMode:
+		CheckboxDisplayOrder: 99
+	GpsWatcher:
+	Shroud:
+		FogCheckboxEnabled: false
+        ExploredMapCheckboxDisplayOrder: 0
+		FogCheckboxDisplayOrder: 1
+	ProvidesRadar@GLOBALRADAR:
+		RequiresCondition: minimap.always.on && !isbeingjammed
+	GrantConditionOnPrerequisite@GLOBALRADAR:
+		Condition: minimap.always.on
+		Prerequisites: global-minimap
+	ProvidesRadar@LOCALRADAR:
+		RequiresCondition: !minimap.always.on && minimap.with.radar && !isbeingjammed
+	GrantConditionOnPrerequisite@LOCALRADAR:
+		Condition: minimap.with.radar
+		Prerequisites: activedome
+	GrantConditionOnPrerequisite@GLOBALJAM:
+		Condition: isbeingjammed
+		Prerequisites: isbeingjammed
+	LobbyPrerequisiteCheckbox@FREERADAR:
+		ID: freeradar
+		Label: Minimap Always On
+		Description: Minimap available independent of Radar structure
+		Enabled: False
+		DisplayOrder: 2
+		Prerequisites: global-minimap
+	LobbyPrerequisiteCheckbox@GLOBALMULTIQUEUE:
+		ID: multiqueue
+		Label: Multi Queue
+		Description: Each production facility can produce individually
+		Enabled: False
+		DisplayOrder: 9
+		Prerequisites: global-multiqueue
+	LobbyPrerequisiteCheckbox@GLOBALMULTIENGINEER:
+		ID: multiengineer
+		Label: Multi Engineer
+		Description: Multiple Engineers are required to capture a building
+		Enabled: True
+		DisplayOrder: 7
+		Prerequisites: global-multiengineer
+	LobbyPrerequisiteCheckbox@GLOBALFACTUNDEPLOY:
+		ID: factundeploy
+		Label: Redeployable MCVs
+		Description: Allow undeploying Construction Yard
+		Enabled: True
+		DisplayOrder: 8
+		Prerequisites: global-factundeploy
+	LobbyPrerequisiteCheckbox@GLOBALMINEIMMUNE:
+		ID: mineimmune
+		Label: Mineproof Harvesters
+		Description: Harvesters do not trigger Land mines
+		Enabled: false
+		DisplayOrder: 13
+		Prerequisites: global-mineimmune
+	LobbyPrerequisiteCheckbox@GLOBALLPDAMAGE:
+		ID: lpdamage
+		Label: Low Power Damage
+		Description: Buildings get damaged while low on power
+		Enabled: True
+		DisplayOrder: 10
+		Prerequisites: global-lpdamage
+	LobbyPrerequisiteCheckbox@GLOBALAUTOREPAIRS:
+		ID: autorepairs
+		Label: Auto Repairs
+		Description: Buildings slowly self-repair when under 50% health
+		Enabled: false
+		DisplayOrder: 28
+		Prerequisites: global-autorepairs
+	LobbyPrerequisiteCheckbox@GLOBALUNITHUSK:
+		ID: unithusks
+		Label: Unit Husks
+		Description: Vehicles and Aircraft leave behind husks when they die
+		Enabled: False
+		DisplayOrder: 89
+		Prerequisites: global-unithusks
+	LobbyPrerequisiteCheckbox@GLOBALBUILDINGHUSK:
+		ID: buildinghusks
+		Label: Building Husks
+		Description: Buildings leave behind husks when they die
+		Enabled: True
+		DisplayOrder: 90
+		Prerequisites: global-buildinghusks
+	LobbyPrerequisiteCheckbox@GLOBALRESTOREHUSKS:
+		ID: restorehusks
+		Label: Restorable Husks
+		Description: Husks can be restored with Engineers
+		Enabled: False
+		DisplayOrder: 91
+		Prerequisites: global-restorehusks
+	LobbyPrerequisiteCheckbox@GLOBALSTICKYTECH:
+		ID: stickytech
+		Label: Sticky Tech
+		Description: Losing the structure wont remove the prerequisites
+		Enabled: False
+		DisplayOrder: 15
+		Prerequisites: global-stickytech
+	LobbyPrerequisiteCheckbox@GLOBALTECHLIMIT:
+		ID: techlimit
+		Label: Limited Tech Center
+		Description: Only one Tech Center per player allowed
+		Enabled: True
+		DisplayOrder: 16
+		Prerequisites: global-techlimit
+	LobbyPrerequisiteCheckbox@NOSUPERWEAPONS:
+		ID: nosw
+		Label: No Super Weapons
+		Description: Chronosphere, Iron Curtain and Missile Silo cannot be built
+		Enabled: False
+		DisplayOrder: 17
+		Prerequisites: nosuperweapons
+	LobbyPrerequisiteCheckbox@FREEAIRCRAFT:
+		ID: freeaircraft
+		Label: Free Aircraft
+		Description: Helipads come with free Helicopter, price increased to 1500
+		Enabled: False
+		DisplayOrder: 18
+		Prerequisites: global-freeaircraft
+	LobbyPrerequisiteCheckbox@SMALLINFANTRY:
+		ID: smallinfantry
+		Label: Small Infantry
+		Description: Infantry are sized down like in Tiberian Dawn
+		Enabled: True
+		DisplayOrder: 19
+		Prerequisites: global-smallinfantry
+	LobbyPrerequisiteCheckbox@AIBOOSTER:
+		ID: aibooster
+		Label: AI Booster
+		Description: AI gets 20% price discount and +10% build speed
+		Enabled: False
+		DisplayOrder: 20
+		Prerequisites: aiboosteron
+	LobbyPrerequisiteCheckbox@NAVYDISABLER:
+		ID: disablenavy
+		Label: Disable Navy
+		Description: Use this to fix spamming Cruisers in ponds
+		Enabled: False
+		DisplayOrder: 22
+		Prerequisites: global-disablenavy
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		ID: bounty
+		Label: Kill Bounties
+		Description: Players receive cash bonuses when killing enemy units
+		Enabled: False
+		DisplayOrder: 14
+		Prerequisites: global-bounty
+	LobbyPrerequisiteCheckbox@GLOBALSQUADPRODUCTION:
+		ID: squadproduction
+		Label: Infantry Squads
+		Description: Most combat Infantry gets produced in fours or pairs
+		Enabled: False
+		DisplayOrder: 24
+		Prerequisites: global-squadenabled
+	LobbyPrerequisiteCheckbox@BOINK:
+		ID: boinksound
+		Label: Boink !
+		Description: All Vehicles emit Renegade's "boink" sound on die
+		Enabled: False
+		DisplayOrder: 25
+		Prerequisites: global-boink
+	LobbyPrerequisiteCheckbox@GLOBALDIRECTIONALABILITY:
+		ID: directional-abilities
+		Label: Directional Abilities
+		Description: Allows selection of which direction ability planes come from
+		Enabled: False
+		DisplayOrder: 26
+		Prerequisites: global-directional-abilities
+	LobbyPrerequisiteCheckbox@NOHARMFUL:
+		ID: noharmful
+		Label: No Harmful Crates
+		Description: Crates will not contain bad surprises
+		Enabled: False
+		DisplayOrder: 6
+		Prerequisites: global-noharmful
+	LobbyPrerequisiteCheckbox@SCRAPMETAL:
+		ID: scrapmetal
+		Label: Scrap Metal
+		Description: Most Vehicles leave behind Scrap, that is half-value of Ore
+		Enabled: False
+		DisplayOrder: 27
+		Prerequisites: global-scrapmetal
+	FrozenActorLayer:
+	BaseAttackNotifier:
+	PlayerStatistics:
+	PlaceBeacon:
+	ProvidesTechPrerequisite@low:
+		Name: Low
+		Prerequisites: techlevel.low
+		Id: low
+	ProvidesTechPrerequisite@medium:
+		Name: Medium
+		Prerequisites: techlevel.low, techlevel.medium
+		Id: medium
+	ProvidesTechPrerequisite@high:
+		Name: High
+		Prerequisites: techlevel.low, techlevel.medium, techlevel.high
+		Id: high
+	GrantConditionOnPrerequisiteManager:
+	EnemyWatcher:
+	ResourceStorageWarning:
+	PlayerExperience:
+	PlayerRadarTerrain:
+	ProvidesPrerequisite@England:
+		Factions: england
+		Prerequisite: player.england
+	ProvidesPrerequisite@Germany:
+		Factions: germany
+		Prerequisite: player.germany
+	ProvidesPrerequisite@France:
+		Factions: france
+		Prerequisite: player.france
+	ProvidesPrerequisite@Spain:
+		Factions: spain
+		Prerequisite: player.spain
+	ProvidesPrerequisite@Russia:
+		Factions: russia
+		Prerequisite: player.russia
+	ProvidesPrerequisite@Ukraine:
+		Factions: ukraine
+		Prerequisite: player.ukraine
+	ProvidesPrerequisite@Belarus:
+		Factions: belarus
+		Prerequisite: player.belarus
+	ProvidesPrerequisite@Kazakh:
+		Factions: kazakh
+		Prerequisite: player.kazakh
+    GameSaveViewportManager:
+
+	#   ExternalCondition@TechBuildingHusks:
+	#	Condition: techbuilding-husks-on
+    #   ProvidesPrerequisite@TechBuildingHusks:
+    #   Prerequisite: techbuilding-husks-on
+    #   RequiresCondition: techbuilding-husks-on
+	#   ExternalCondition@BuildingHusks:
+	#	Condition: building-husks-on
+    #   ProvidesPrerequisite@BuildingHusks:
+    #    Prerequisite: building-husks-on
+    #    RequiresCondition: building-husks-on
+	#   ExternalCondition@VehicleHusks:
+	#	 Condition: vehicle-husks-on
+    #   ProvidesPrerequisite@VehicleHusks:
+    #   Prerequisite: global-husks
+    #   RequiresCondition: vehicle-husks-on

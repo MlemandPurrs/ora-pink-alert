@@ -1,0 +1,333 @@
+MISS:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^3x2Shape
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 840,0,0, 840,-1024,0, 420,768,0, -840,0,0, -840,-1024,0, -840,1024,0
+	Selectable:
+		Priority: 0
+        Bounds: 72,48
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 400
+	RevealsShroud:
+		Range: 10c0
+	Armor:
+		Type: Wood
+	Tooltip:
+		Name: Observatory
+	TooltipDescription@ally:
+		Description: Provides range of vision.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to give visual range.
+		ValidRelationships: Neutral, Enemy
+	WithBuildingBib:
+	ProvidesPrerequisite@buildingname:
+	RequiresBuildableArea:
+		AreaTypes: building
+	SpawnActorOnDeath:
+		Actor: MISS.Husk
+        OwnerType: InternalName
+
+MISS.Husk:
+	Inherits: ^TechBuildingHusk
+	Interactable:
+		Bounds: 72, 48
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Obervatory (Destroyed)
+	TransformOnCapture:
+		IntoActor: miss
+	RenderSprites:
+		Image: miss.destroyed
+
+HOSP:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Priority: 0
+        Bounds: 48,48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 400
+	Tooltip:
+		Name: Hospital
+	TooltipDescription@ally:
+		Description: Provides infantry with self-healing.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to enable self-healing for infantry.
+        ValidRelationships: Neutral, Enemy
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+		HasMinibib: true
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	RequiresBuildableArea:
+		AreaTypes: building
+	CaptureManager:
+	SpawnActorOnDeath:
+		Actor: HOSP.Husk
+        OwnerType: InternalName
+
+HOSP.Husk:
+	Inherits: ^TechBuildingHusk
+	Interactable:
+		Bounds: 48, 48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+        LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Hospital (Destroyed)
+	TooltipDescription:
+		Description: Capture to enable self-healing for Infantry.
+		ValidRelationships: Neutral, Enemy, Ally
+	WithBuildingBib:
+		HasMinibib: true
+	TransformOnCapture:
+		IntoActor: hosp
+	RenderSprites:
+        Image: hosp.destroyed
+
+BIO:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 48,48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 600
+	Power:
+		Amount: 30
+	RevealsShroud:
+		Range: 4c0
+	Tooltip:
+		Name: Nuclear Lab
+	TooltipDescription@ally:
+		Description: Provides a +25% boost to power generation.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to boost Power production output.
+		ValidRelationships: Neutral, Enemy
+	WithBuildingBib:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	RequiresBuildableArea:
+		AreaTypes: building
+	SpawnActorOnDeath:
+		Actor: BIO.Husk
+        OwnerType: InternalName
+
+BIO.Husk:
+	Inherits: ^TechBuildingHusk
+	Interactable:
+		Bounds: 48, 48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+        LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Nuclear Lab (Destroyed)
+	TooltipDescription:
+		Description: Capture to boost Power production output.
+		ValidRelationships: Neutral, Enemy
+	TransformOnCapture:
+		IntoActor: bio
+	RenderSprites:
+		Image: bio.destroyed
+
+EXPB:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^2x2Shape
+	CaptureManager:
+		BeingCapturedCondition: being-captured
+	Selectable:
+		Bounds: 48, 48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 250
+	Tooltip:
+		Name: Expansion Post
+	RevealsShroud:
+		MinRange: 5c0
+	GivesBuildableArea:
+		AreaTypes: building
+	BaseProvider:
+		PauseOnCondition: being-captured
+		Range: 8c0
+	TooltipDescription@ally:
+		Description: Provides buildable area.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to gain buildable area.
+		ValidRelationships: Neutral, Enemy
+	WithBuildingBib:
+	ProvidesPrerequisite@buildingname:
+	SpawnActorOnDeath:
+		Actor: EXPB.Husk
+        OwnerType: InternalName
+	RenderSprites:
+		Image: acom
+
+EXPB.Husk:
+	Inherits: ^TechBuildingHusk
+	Inherits@shape: ^2x2Shape
+	Interactable:
+		Bounds: 48, 48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Expansion Post (Destroyed)
+	TooltipDescription:
+		Description: Capture to gain buildable area.
+		ValidRelationships: Neutral, Enemy, Ally        
+	RenderSprites:
+		Image: acom.destroyed
+	TransformOnCapture:
+		IntoActor: expb
+
+RPAD:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 48, 48
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 768,-512,0, 768,512,0, -281,-512,0, -630,512,0
+	Building:
+		Footprint: ++ ++
+		Dimensions: 2,2
+	Health:
+		HP: 250
+	Tooltip:
+		Name: Reinforcements Pad
+	TooltipDescription@ally:
+		Description: Periodically provides Reinforcements, free of charge.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to periodically obtain Reinforcements.
+		ValidRelationships: Neutral, Enemy
+	SpawnActorOnDeath:
+		Actor: RPAD.Husk
+        OwnerType: InternalName
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: rpad
+	ProductionAirdrop@Allies:
+		Produces: PadReinforcementsAllies
+		ActorType: tran.delivery
+		ReadyAudio: UnitReady
+	ProductionAirdrop@Soviet:
+		Produces: PadReinforcementsSoviet
+		ActorType: hip.delivery
+        ReadyAudio: UnitReady
+	WithDeliveryAnimation:
+	Exit@1:
+		SpawnOffset: 0,-256,0
+		Facing: 896
+	RallyPoint:
+	PeriodicProducer@Allies1:
+		Type: PadReinforcementsAllies
+		ChargeDuration: 1500
+		Actors: jeep
+		ShowSelectionBar: true
+		RequiresCondition: allies.player && enabled && tech.low && !noteligibletechI 
+	PeriodicProducer@Allies2:
+		Type: PadReinforcementsAllies
+		ChargeDuration: 1500
+		Actors: apc
+		ShowSelectionBar: true
+		RequiresCondition: allies.player && enabled && tech.medium && !noteligibletechII
+	PeriodicProducer@Allies3:
+		Type: PadReinforcementsAllies
+		ChargeDuration: 1500
+		Actors: 2tnk
+		ShowSelectionBar: true
+		RequiresCondition: allies.player && enabled && tech.high
+	PeriodicProducer@Soviet1:
+		Type: PadReinforcementsSoviet
+		ChargeDuration: 1500
+		Actors: brdm
+		ShowSelectionBar: true
+		RequiresCondition: soviet.player && enabled && tech.low && !noteligibletechI 
+	PeriodicProducer@Soviet2:
+		Type: PadReinforcementsSoviet
+		ChargeDuration: 1500
+		Actors: hapc
+		ShowSelectionBar: true
+		RequiresCondition: soviet.player && enabled && tech.medium && !noteligibletechII
+	PeriodicProducer@Soviet3:
+		Type: PadReinforcementsSoviet
+		ChargeDuration: 1500
+		Actors: 3tnk
+		ShowSelectionBar: true
+		RequiresCondition: soviet.player && enabled && tech.high
+	GrantConditionOnFaction@Allies:
+		Condition: allies.player
+		Factions: allies, england, germany, france, spain
+		ResetOnOwnerChange: True
+	GrantConditionOnFaction@Soviet:
+		Condition: soviet.player
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		ResetOnOwnerChange: True
+	GrantConditionOnCombatantOwner:
+		Condition: enabled
+	GrantConditionOnPrerequisite@Tech1:
+		Condition: tech.low
+		Prerequisites: techlevel.low, !notwhilemedium
+	GrantConditionOnPrerequisite@Tech2:
+		Condition: tech.medium
+		Prerequisites: techlevel.medium
+	GrantConditionOnPrerequisite@Tech3:
+		Condition: tech.high
+		Prerequisites: techlevel.high
+	GrantConditionOnPrerequisite@Tech1Blocker:
+		Condition: noteligibletechI
+		Prerequisites: techlevel.medium, techlevel.high
+	GrantConditionOnPrerequisite@Tech2Blocker:
+		Condition: noteligibletechII
+		Prerequisites: techlevel.high
+    ProvidesPrerequisite@Tech2Blocker:
+        Prerequisite: notwhilemedium
+        RequiresPrerequisites: techlevel.medium
+
+RPAD.Husk:
+	Inherits: ^TechBuildingHusk
+	Interactable:
+		Bounds: 48, 48
+	Building:
+		Footprint: ++ ++
+		Dimensions: 2,2
+	Tooltip:
+		Name: Reinforcements Pad (Destroyed)
+	TooltipDescription:
+		Description: Capture to periodically obtain Reinforcements.
+		ValidRelationships: Ally, Neutral, Enemy
+	TransformOnCapture:
+		IntoActor: rpad
+	RenderSprites:
+		Image: rpad.destroyed

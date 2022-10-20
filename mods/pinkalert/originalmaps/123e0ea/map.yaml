@@ -1,0 +1,116 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Stalingrad
+Author: Westwood Studios
+Tileset: SNOW
+MapSize: 128,128
+Bounds: 32,32,64,64
+Visibility: Lobby
+Categories: Aftermath, 4-player
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+Actors:
+	Actor0: t16
+		Location: 87,48
+		Owner: Neutral
+	Actor1: t15
+		Location: 78,80
+		Owner: Neutral
+	Actor2: t17
+		Location: 76,84
+		Owner: Neutral
+	Actor3: t15
+		Location: 45,52
+		Owner: Neutral
+	Actor4: t01
+		Location: 36,62
+		Owner: Neutral
+	Actor5: t06
+		Location: 40,59
+		Owner: Neutral
+	Actor6: tc04
+		Location: 39,55
+		Owner: Neutral
+	Actor7: tc01
+		Location: 41,54
+		Owner: Neutral
+	Actor8: t11
+		Location: 62,41
+		Owner: Neutral
+	Actor9: t13
+		Location: 64,49
+		Owner: Neutral
+	Actor10: t15
+		Location: 64,45
+		Owner: Neutral
+	Actor11: t16
+		Location: 53,89
+		Owner: Neutral
+	Actor12: t15
+		Location: 50,78
+		Owner: Neutral
+	Actor13: mine
+		Location: 65,36
+		Owner: Neutral
+	Actor14: mine
+		Location: 68,41
+		Owner: Neutral
+	Actor15: mine
+		Location: 62,93
+		Owner: Neutral
+	Actor16: mine
+		Location: 68,87
+		Owner: Neutral
+	waypoint0: waypoint
+		Location: 41,88
+		Owner: Neutral
+	waypoint1: waypoint
+		Location: 89,36
+		Owner: Neutral
+	waypoint2: waypoint
+		Location: 89,89
+		Owner: Neutral
+	waypoint3: waypoint
+		Location: 37,43
+		Owner: Neutral
+	Actor21: mpspawn
+		Owner: Neutral
+		Location: 37,43
+	Actor22: mpspawn
+		Owner: Neutral
+		Location: 89,36
+	Actor23: mpspawn
+		Owner: Neutral
+		Location: 41,88
+	Actor24: mpspawn
+		Owner: Neutral
+		Location: 89,89

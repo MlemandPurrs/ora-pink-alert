@@ -1,0 +1,214 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Oz
+Author: Westwood Studios
+Tileset: TEMPERAT
+MapSize: 128,128
+Bounds: 21,11,96,96
+Visibility: Lobby
+Categories: Counterstrike, 8-player, Naval
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3, Multi4, Multi5, Multi6, Multi7
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi4:
+		Name: Multi4
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi5:
+		Name: Multi5
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi6:
+		Name: Multi6
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi7:
+		Name: Multi7
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+Actors:
+	Actor0: t13
+		Location: 75,33
+		Owner: Neutral
+	Actor1: t13
+		Location: 77,36
+		Owner: Neutral
+	Actor2: t13
+		Location: 70,43
+		Owner: Neutral
+	Actor3: t13
+		Location: 72,42
+		Owner: Neutral
+	Actor4: t13
+		Location: 71,41
+		Owner: Neutral
+	Actor5: t13
+		Location: 71,43
+		Owner: Neutral
+	Actor6: t14
+		Location: 68,47
+		Owner: Neutral
+	Actor7: t15
+		Location: 70,49
+		Owner: Neutral
+	Actor8: t15
+		Location: 72,41
+		Owner: Neutral
+	Actor9: t15
+		Location: 74,41
+		Owner: Neutral
+	Actor10: t15
+		Location: 69,39
+		Owner: Neutral
+	Actor11: t15
+		Location: 58,61
+		Owner: Neutral
+	Actor12: tc05
+		Location: 59,65
+		Owner: Neutral
+	Actor13: tc04
+		Location: 68,65
+		Owner: Neutral
+	Actor14: tc02
+		Location: 65,64
+		Owner: Neutral
+	Actor15: tc01
+		Location: 63,66
+		Owner: Neutral
+	Actor16: tc01
+		Location: 56,62
+		Owner: Neutral
+	Actor17: tc02
+		Location: 56,42
+		Owner: Neutral
+	Actor18: tc02
+		Location: 85,72
+		Owner: Neutral
+	Actor19: tc04
+		Location: 87,70
+		Owner: Neutral
+	Actor20: tc03
+		Location: 80,75
+		Owner: Neutral
+	Actor21: tc02
+		Location: 81,76
+		Owner: Neutral
+	Actor22: tc01
+		Location: 78,78
+		Owner: Neutral
+	Actor23: mine
+		Location: 59,73
+		Owner: Neutral
+	Actor24: mine
+		Location: 36,81
+		Owner: Neutral
+	Actor25: mine
+		Location: 67,54
+		Owner: Neutral
+	Actor26: mine
+		Location: 64,59
+		Owner: Neutral
+	Actor27: mine
+		Location: 75,39
+		Owner: Neutral
+	Actor28: mine
+		Location: 101,49
+		Owner: Neutral
+	Actor29: mine
+		Location: 89,90
+		Owner: Neutral
+	Actor30: mine
+		Location: 78,62
+		Owner: Neutral
+	Actor31: mine
+		Location: 84,54
+		Owner: Neutral
+	Actor32: mine
+		Location: 44,75
+		Owner: Neutral
+	Actor33: mine
+		Location: 44,39
+		Owner: Neutral
+	waypoint0: waypoint
+		Location: 91,80
+		Owner: Neutral
+	waypoint1: waypoint
+		Location: 98,39
+		Owner: Neutral
+	waypoint2: waypoint
+		Location: 69,29
+		Owner: Neutral
+	waypoint3: waypoint
+		Location: 37,54
+		Owner: Neutral
+	waypoint4: waypoint
+		Location: 80,70
+		Owner: Neutral
+	waypoint5: waypoint
+		Location: 62,53
+		Owner: Neutral
+	waypoint6: waypoint
+		Location: 56,35
+		Owner: Neutral
+	waypoint7: waypoint
+		Location: 105,56
+		Owner: Neutral
+	DefaultCameraPosition: waypoint
+		Location: 25,48
+		Owner: Neutral
+	Actor43: mpspawn
+		Owner: Neutral
+		Location: 69,29
+	Actor44: mpspawn
+		Owner: Neutral
+		Location: 56,35
+	Actor45: mpspawn
+		Owner: Neutral
+		Location: 37,54
+	Actor46: mpspawn
+		Owner: Neutral
+		Location: 62,53
+	Actor47: mpspawn
+		Owner: Neutral
+		Location: 80,70
+	Actor48: mpspawn
+		Owner: Neutral
+		Location: 105,56
+	Actor49: mpspawn
+		Owner: Neutral
+		Location: 98,39
+	Actor50: mpspawn
+		Owner: Neutral
+		Location: 91,80

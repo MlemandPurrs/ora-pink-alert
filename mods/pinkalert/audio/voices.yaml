@@ -1,0 +1,196 @@
+GenericVoice:
+	Variants:
+		allies: .v01,.v03
+		england: .v01,.v03
+		france: .v01,.v03
+		germany: .v01,.v03
+        spain: .v01,.v03
+		soviet: .r01,.r03
+		russia: .r01,.r03
+		ukraine: .r01,.r03
+        belarus: .r01,.r03
+        kazakh: .r01,.r03
+	Voices:
+		Select: await1,ready,report1,yessir1
+		Action: ackno,affirm1,noprob,overout,ritaway,roger,ugotit
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+	DisableVariants: Die, Burned, Zapped, Boink
+
+VehicleVoice:
+	Variants:
+		allies: .v00,.v02
+		england: .v00,.v02
+		france: .v00,.v02
+		germany: .v00,.v02
+        spain: .v00,.v02
+		soviet: .r00,.r02
+		russia: .r00,.r02
+		ukraine: .r00,.r02
+        belarus: .r00,.r02
+        kazakh: .r00,.r02
+	Voices:
+		Select: vehic1,yessir1,report1,await1
+		Action: ackno,affirm1
+		Boink: boink
+    DisableVariants: Boink
+
+EngineerVoice:
+	Voices:
+		Select: eengin1,eyessir1
+		Action: eaffirm1,emovout1
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink
+
+MedicVoice:
+	Voices:
+		Select: mrespon1,myessir1
+		Action: maffirm1,mmovout1
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink
+
+MechanicVoice:
+	Voices:
+		Select: mhuh1,mhowdy1,myes1,mrise1
+		Move: mboss1,mhear1
+		Action: mhotdig1,mwrench1
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink
+
+TanyaVoice:
+	Voices:
+		Select: yo1,yes1,yeah1
+		Move: onit1,cmon1,rokroll1
+		Action: tuffguy1,bombit1
+		Die: tandeth1
+		Burned: tandeth1
+		Zapped: tandeth1
+		Build: laugh1
+		Kill: gotit1,lefty1
+		Demolish: keepem1,tuffguy1
+		Boink: boink
+    DisableVariants: Boink
+
+VolkovVoice:
+	DefaultVariant: .aud
+	Voices:
+		Select: sv2await,sv2ready,sv2report,sv2yessir
+		Move: sv2ackno,sv2affirm,sv2noprob,sv2overout,sv2ritaway,sv2roger,sv2ugotit
+		Action: sv2ackno,sv2affirm,sv2noprob,sv2overout,sv2ritaway,sv2roger,sv2ugotit
+		Attack: sv2ackno,sv2affirm,sv2noprob,sv2overout,sv2ritaway,sv2roger,sv2ugotit
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Build: sv2ready
+		Kill: sv2ugotit,sv2noprob
+		Demolish: sv2ritaway,sv2overout
+		Boink: boink
+    DisableVariants: Boink
+
+DogVoice:
+	Voices:
+		Select: dogw3px
+		Move: dogy1
+		Attack: dogg5p
+		Die: dogw5,dogw7
+		Burned: dogw6
+		Zapped: dogw6
+		Boink: boink
+    DisableVariants: Boink
+
+SpyVoice:
+	Voices:
+		Select: syessir1,scomnd1
+		Move: sonway1,sindeed1
+		Action: sking1
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink
+
+ThiefVoice:
+	Voices:
+		Select: swhat1,syeah1
+		Action: saffirm1,smout1,sokay1
+        Attack: candy,pickclean,fivefinger
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink
+
+CivilianMaleVoice:
+	Voices:
+		Select: guyyeah1
+		Action: guyokay1
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink
+
+CivilianFemaleVoice:
+	Voices:
+		Select: girlyeah
+		Action: girlokay
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink
+
+EinsteinVoice:
+	Voices:
+		Select: einah1
+		Action: einok1,einyes1
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink
+
+ShokVoice:
+	Voices:
+		Select: jchrge1,jjuice1,jjump1,jpower1
+		Move: jdance1,jyes1
+		Attack: jburn1,jcrisp1,jshock1,jlight1
+		Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink
+
+AntVoice:
+	Voices:
+		Select: antbite
+		Action: antbite
+		Die: antdie
+		Burned: antdie
+		Zapped: antdie
+		Boink: boink
+    DisableVariants: Boink
+
+StavrosVoice:
+	Voices:
+		Select: stavcmdr
+		Move: stavcrse, stavyes, stavmov
+		Attack: stavcrse, stavyes
+		Build: stavcmdr
+        Kill: stavcmdr
+        Die: dedman1,dedman2,dedman3,dedman4,dedman5,dedman7,dedman8
+		Burned: dedman10
+		Zapped: dedman6
+		Boink: boink
+    DisableVariants: Boink

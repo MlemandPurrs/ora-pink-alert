@@ -1,0 +1,305 @@
+^AntiGroundMissile:
+	ReloadDelay: 50
+	Range: 5c0
+	MinRange: 0c512
+	Report: missile6.aud
+	Projectile: Missile
+		Speed: 375
+		Arm: 2
+		Blockable: true
+		Inaccuracy: 128
+		TrailImage: smokey
+		TrailInterval: 1
+		Image: DRAGON
+		Shadow: True
+		HorizontalRateOfTurn: 20
+		RangeLimit: 6c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 35
+		ValidTargets: Ground, Water, Air
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion
+		ImpactSounds: kaboom25.aud
+		ValidTargets: Ground, Air, Ship, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Ship, Structure, Bridge
+
+^AntiAirMissile:
+	Inherits: ^AntiGroundMissile
+	ValidTargets: Air
+	Warhead@3Eff: CreateEffect
+		ImpactActors: false
+
+Maverick:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 30
+	Range: 6c0
+	MinRange: 3c0
+	Report: missile7.aud
+	Burst: 2
+	Projectile: Missile
+		Speed: 450
+		Inaccuracy: 512
+		CruiseAltitude: 2c0
+		RangeLimit: 9c410
+        Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Damage: 50
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Concrete: 50
+
+MaverickHind:
+	Inherits: Maverick
+	ReloadDelay: 3
+	Range: 5c0
+    MinRange: 0c768
+	InvalidTargets: Infantry
+
+Dragon:
+	Inherits: ^AntiGroundMissile
+
+Hellfire:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 60
+	Range: 4c0
+	MinRange: 1c256
+	Burst: 2
+	Projectile: Missile
+		Speed: 450
+		HorizontalRateOfTurn: 40
+		RangeLimit: 5c512
+        Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Damage: 40
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Concrete: 50
+
+MammothTusk:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 80
+	Range: 5c0
+	Burst: 2
+	ValidTargets: Air, Infantry
+	Projectile: Missile
+		Speed: 450
+		HorizontalRateOfTurn: 60
+		RangeLimit: 9c614
+        Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 75
+		ValidTargets: Air, Infantry
+		Versus:
+			None: 90
+			Wood: 75
+			Light: 60
+			Heavy: 25
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom12.aud
+		ValidTargets: Ground, Trees
+	Warhead@5EffAir: CreateEffect
+		Explosions: med_explosion_air
+		ImpactSounds: kaboom25.aud
+		ValidTargets: Air
+
+Nike:
+	Inherits: ^AntiAirMissile
+	ReloadDelay: 20
+	Range: 7c512
+	Report: missile1.aud
+	Projectile: Missile
+		Arm: 3
+		Inaccuracy: 0
+		Image: MISSILE
+		HorizontalRateOfTurn: 100
+		RangeLimit: 9c0
+		Speed: 750
+        Blockable: false
+        CloseEnough: 149
+	Warhead@1Dam: SpreadDamage
+		Damage: 50
+		ValidTargets: Air
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Concrete: 50
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion_air
+		ImpactSounds: kaboom25.aud
+
+RedEye:
+	Inherits: Nike
+	ReloadDelay: 50
+
+Stinger:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 60
+	Range: 8c0
+	Burst: 2
+	BurstDelays: 0
+	InvalidTargets: Underwater
+	Projectile: Missile
+		Arm: 3
+		Inaccuracy: 0
+		HorizontalRateOfTurn: 80
+		RangeLimit: 8c512
+		Speed: 300
+		CloseEnough: 149
+	Warhead@1Dam: SpreadDamage
+		Damage: 30
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Concrete: 50
+
+StingerAA:
+	Inherits: Stinger
+	ValidTargets: Air
+	Projectile: Missile
+		CloseEnough: 298
+        Blockable: false
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion_air
+		ImpactSounds: kaboom25.aud
+
+APTusk:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 80
+	Range: 5c0
+	Projectile: Missile
+		Speed: 450
+		HorizontalRateOfTurn: 40
+		RangeLimit: 7c204
+	Warhead@1Dam: SpreadDamage
+		Damage: 75
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Concrete: 50
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+
+TorpTube:
+	ReloadDelay: 60
+	Range: 9c0
+	Report: torpedo1.aud
+	ValidTargets: Ship, WaterStructure, Underwater, Bridge
+	Projectile: Missile
+		Image: torpedo
+		Arm: 3
+		Speed: 225
+		TrailImage: bubbles
+		HorizontalRateOfTurn: 4
+		RangeLimit: 10c819
+		BoundToTerrainType: Water
+		Palette: shadow
+		MaximumLaunchAngle: 0
+		CruiseAltitude: 0
+	Warhead@1Dam: SpreadDamage
+		Spread: 426
+		Damage: 90
+		ValidTargets: Ship, WaterStructure, Underwater, Bridge
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Concrete: 500
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom15.aud
+		ValidTargets: Ship, Structure, Underwater, Ground, Bridge
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water
+		InvalidTargets: Ship, Structure, Underwater, Bridge
+
+SubSCUD:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 300
+	Range: 14c0
+	TargetActorCenter: true
+	Burst: 2
+	InvalidTargets: Ship
+	Projectile: Missile
+		Speed: 300
+		Inaccuracy: 0c614
+		HorizontalRateOfTurn: 20
+		RangeLimit: 15c0
+		Image: MISSILE
+		TrailImage: smokey
+		TrailInterval: 1
+        Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 426
+		Damage: 40
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Versus:
+			None: 90
+			Wood: 75
+			Light: 60
+			Heavy: 25
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: kaboom15.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
+		ImpactSounds: splash9.aud
+
+SCUD:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 0
+	Range: 10c0
+	Report: missile1.aud
+	-Projectile:
+	Projectile: Bullet
+		Speed: 375
+		Blockable: false
+		TrailImage: smokey
+		TrailDelay: 5
+		TrailInterval: 1
+		Inaccuracy: 213
+		Image: V2
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 341
+		Damage: 40
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: Ground, Water, Trees
+		Versus:
+			None: 90
+			Wood: 75
+			Light: 60
+			Heavy: 25
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath, Incendiary
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: kaboom15.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash

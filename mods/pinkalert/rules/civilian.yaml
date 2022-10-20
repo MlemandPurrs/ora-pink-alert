@@ -1,0 +1,366 @@
+C1:
+	Inherits@1: ^ArmedCivilian
+
+C2:
+	Inherits: ^CivInfantry
+
+C3:
+	Inherits: ^CivInfantry
+	Voiced:
+		VoiceSet: CivilianFemaleVoice
+
+C4:
+	Inherits: ^CivInfantry
+	Voiced:
+		VoiceSet: CivilianFemaleVoice
+
+C5:
+	Inherits: ^CivInfantry
+	Voiced:
+		VoiceSet: CivilianFemaleVoice
+
+C6:
+	Inherits: ^CivInfantry
+
+C7:
+	Inherits@1: ^ArmedCivilian
+
+C8:
+	Inherits: ^CivInfantry
+
+C9:
+	Inherits: ^CivInfantry
+
+C10:
+	Inherits: ^CivInfantry
+	Tooltip:
+		Name: Scientist
+
+C11:
+	Inherits: ^CivInfantry
+
+TECN:
+	Inherits@1: ^ArmedCivilian
+	Tooltip:
+		Name: Technician
+	Selectable:
+		Class: C1
+	RenderSprites:
+		Image: C1
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 10
+		Type: InfantryRefund
+
+TECN_YELLOW:
+	Inherits@1: ^ArmedCivilian
+	Tooltip:
+		Name: Technician
+	Selectable:
+		Class: C7
+	RenderSprites:
+		Image: C7
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 10
+		Type: InfantryRefund
+
+V01:
+	Inherits: ^CivBuilding
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Tooltip:
+		Name: Church
+	RevealsShroud:
+		Range: 10c0
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: -490,-384,0, 0,0,0, 0,470,0
+		Type: Rectangle
+			TopLeft: -768, -597
+			BottomRight: 896, 683
+	RequiresBuildableArea:
+		AreaTypes: building
+
+V02:
+	Inherits: ^CivBuilding
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: -490,-512,0, 0,0,0, 0,512,0
+		Type: Rectangle
+			TopLeft: -1024, -512
+			BottomRight: 1024, 597
+	RequiresBuildableArea:
+		AreaTypes: building
+
+V03:
+	Inherits: ^CivBuilding
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: -490,-512,0, 0,0,0, 421,512,0, -210,512,0
+		Type: Rectangle
+			TopLeft: -1024, -597
+			BottomRight: 1024, 597
+	RequiresBuildableArea:
+		AreaTypes: building
+
+V04:
+	Inherits: ^CivBuilding
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, -421,-256,0, -421,256,0
+		Type: Rectangle
+			TopLeft: -683, -432
+			BottomRight: 683, 683
+	RequiresBuildableArea:
+		AreaTypes: building
+
+V05:
+	Inherits: ^CivBuilding
+	Inherits@shape: ^2x1Shape
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	RequiresBuildableArea:
+		AreaTypes: building
+
+V06:
+	Inherits: ^CivBuilding
+	Inherits@shape: ^2x1Shape
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	RequiresBuildableArea:
+		AreaTypes: building
+
+V07:
+	Inherits: ^CivBuilding
+	Inherits@shape: ^2x1Shape
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	RequiresBuildableArea:
+		AreaTypes: building
+
+V08:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V09:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V10:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V11:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V12:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V13:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V14:
+	Inherits: ^CivField
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V15:
+	Inherits: ^CivField
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V16:
+	Inherits: ^CivField
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V17:
+	Inherits: ^CivField
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V18:
+	Inherits: ^CivField
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+V19:
+	Inherits: ^TechBuilding
+	Selectable:
+		Bounds: 24, 24
+	CashTrickler:
+        Interval: 50
+		Amount: 20
+		RequiresCondition: enabled
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	Health:
+		HP: 400
+	Tooltip:
+		Name: Oil Derrick
+	TooltipDescription@ally:
+		Description: Provides additional funds.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to receive additional funds.
+		ValidRelationships: Neutral, Enemy
+	SpawnActorOnDeath:
+		Actor: V19.Husk
+        OwnerType: InternalName
+	UpdatesDerrickCount:
+	GrantConditionOnCombatantOwner:
+		Condition: enabled
+	RenderSprites:
+		Image: v19
+
+V19.Husk:
+	Inherits: ^TechBuildingHusk
+	Interactable:
+		Bounds: 24, 24
+	WithSpriteBody:
+	WithIdleOverlay:
+		StartSequence: fire-start
+		Sequence: fire-loop
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	Tooltip:
+		Name: Oil Derrick (Destroyed)
+	TooltipDescription:
+		Description: Capture to receive additional funds.
+		ValidRelationships: Neutral, Enemy, Ally
+	TransformOnCapture:
+		IntoActor: v19
+	RenderSprites:
+		Image: v19.husk
+
+BARL:
+	Inherits: ^CivBuilding
+	-Selectable:
+	SelectionDecorations:
+	Health:
+		HP: 10
+	Explodes:
+		Weapon: BarrelExplode
+	Tooltip:
+		Name: Explosive Barrel
+		ShowOwnerRow: False
+	Armor:
+		Type: None
+	Targetable:
+		TargetTypes: Ground, DemoTruck, Barrel, NoAutoTarget
+	-ShakeOnDeath:
+	-SoundOnDamageTransition:
+	-Demolishable:
+	MapEditorData:
+		Categories: Decoration
+	Interactable:
+		Bounds: 24,24
+
+BRL3:
+	Inherits: ^CivBuilding
+	-Selectable:
+	SelectionDecorations:
+	Health:
+		HP: 10
+	Explodes:
+		Weapon: BarrelExplode
+	Tooltip:
+		Name: Explosive Barrel
+		ShowOwnerRow: False
+	Armor:
+		Type: None
+	Targetable:
+		TargetTypes: Ground, DemoTruck, Barrel, NoAutoTarget
+	-ShakeOnDeath:
+	-SoundOnDamageTransition:
+	-Demolishable:
+	MapEditorData:
+		Categories: Decoration
+	Interactable:
+		Bounds: 24,24
+
+RICE:
+	Inherits: ^CivField
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+RUSHOUSE:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+	Building:
+		Footprint: x x
+		Dimensions: 1,2
+	HitShape:
+		UseTargetableCellsOffsets: false
+	RequiresBuildableArea:
+		AreaTypes: building
+
+LHUS:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+	Selectable:
+		Bounds: 24,48,0,-16
+	Tooltip:
+		Name: Lighthouse
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	RequiresBuildableArea:
+		AreaTypes: building
+
+WINDMILL:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+	Selectable:
+		Bounds: 24,24,0,-14
+		DecorationBounds: 36,36,0,-14
+	SelectionDecorations:
+	Tooltip:
+		Name: Windmill
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	RequiresBuildableArea:
+		AreaTypes: building

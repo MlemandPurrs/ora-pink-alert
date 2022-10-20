@@ -1,0 +1,2066 @@
+^ExistsInWorld:
+	AppearsOnRadar:
+    UpdatesPlayerStatistics:
+	CombatDebugOverlay:
+	GivesExperience:
+		PlayerExperienceModifier: 1
+	ScriptTriggers:
+	RenderDebugState:
+
+^SpriteActor:
+	BodyOrientation:
+	QuantizeFacingsFromSequence:
+	RenderSprites:
+
+^ClassicFacingSpriteActor:
+	ClassicFacingBodyOrientation:
+	QuantizeFacingsFromSequence:
+	RenderSprites:
+
+^1x1Shape:
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -512, -512
+			BottomRight: 512, 512
+
+^2x1Shape:
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -512
+			BottomRight: 1024, 512
+
+^2x2Shape:
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -1024
+			BottomRight: 1024, 1024
+
+^3x2Shape:
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1536, -1024
+			BottomRight: 1536, 1024
+
+^GainsExperience:
+	GainsExperience:
+		LevelUpNotification: LevelUp
+		Conditions:
+			250: rank-veteran
+			500: rank-veteran
+			750: rank-veteran
+		LevelUpImage: crate-effects
+	GrantCondition@RANK-ELITE:
+		RequiresCondition: rank-veteran >= 3
+		Condition: rank-elite
+	FirepowerMultiplier@RANK-1:
+		RequiresCondition: rank-veteran == 1
+		Modifier: 125
+	FirepowerMultiplier@RANK-2:
+		RequiresCondition: rank-veteran == 2
+		Modifier: 125
+	FirepowerMultiplier@RANK-ELITE:
+		RequiresCondition: rank-elite
+		Modifier: 125
+	DamageMultiplier@RANK-2:
+		RequiresCondition: rank-veteran == 2
+		Modifier: 80
+	DamageMultiplier@RANK-ELITE:
+		RequiresCondition: rank-elite
+		Modifier: 80
+	SpeedMultiplier@RANK-ELITE:
+		RequiresCondition: rank-elite
+		Modifier: 125
+	RangeMultiplier@RANK-ELITE:
+		RequiresCondition: rank-elite
+		Modifier: 125
+	RevealsShroudMultiplier@RANK-ELITE:
+		RequiresCondition: rank-elite
+		Modifier: 125
+	ChangesHealth@ELITE:
+		Step: 0
+		PercentageStep: 5
+		Delay: 75
+		StartIfBelow: 101
+		DamageCooldown: 125
+		RequiresCondition: rank-elite
+	WithDecoration@RANK-1:
+		Image: rank
+		Sequence: rank-veteran-1
+		Palette: effect
+		Position: TopLeft
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: rank-veteran == 1
+	WithDecoration@RANK-2:
+		Image: rank
+		Sequence: rank-veteran-2
+		Palette: effect
+		Position: TopLeft
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: rank-veteran == 2
+	WithDecoration@RANK-ELITE:
+		Image: rank
+		Sequence: rank-veteran-3
+		Palette: effect
+		Position: TopLeft
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: rank-elite
+
+^AffectedByCountryBonuses:
+	DamageMultiplier@England:
+		RequiresCondition: england
+		Modifier: 90
+	FirepowerMultiplier@Germany:
+		RequiresCondition: germany
+		Modifier: 110
+	ReloadDelayMultiplier@France:
+		RequiresCondition: france
+		Modifier: 90
+	RangeMultiplier@Spain:
+		RequiresCondition: spain
+		Modifier: 100
+	ProductionCostMultiplier@Russia:
+		Multiplier: 90
+		Prerequisites: player.russia
+	SpeedMultiplier@Ukraine:
+		RequiresCondition: ukraine
+		Modifier: 110
+	ProductionTimeMultiplier@Belarus:
+		Multiplier: 90
+		Prerequisites: player.belarus
+	GrantConditionOnPrerequisite@England:
+		Condition: england
+		Prerequisites: player.england
+	GrantConditionOnPrerequisite@Germany:
+		Condition: germany
+		Prerequisites: player.germany
+	GrantConditionOnPrerequisite@France:
+		Condition: france
+		Prerequisites: player.france
+	GrantConditionOnPrerequisite@Spain:
+		Condition: spain
+		Prerequisites: player.spain
+	GrantConditionOnPrerequisite@Ukraine:
+		Condition: ukraine
+		Prerequisites: player.ukraine
+
+^InfantryAffectedByCountryBonus:
+	DamageMultiplier@Kazakh:
+		RequiresCondition: kazakh
+		Modifier: 90
+	FirepowerMultiplier@Kazakh:
+		RequiresCondition: kazakh
+		Modifier: 110
+	ReloadDelayMultiplier@Kazakh:
+		RequiresCondition: kazakh
+		Modifier: 90
+	GrantConditionOnPrerequisite@Kazakh:
+		Condition: kazakh
+		Prerequisites: player.kazakh
+
+
+^AutoTargetGround:
+	AutoTarget:
+		AttackAnythingCondition: stance-attackanything
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything
+		ValidTargets: Infantry, Vehicle, Ship, Water, Underwater, Defense
+		InvalidTargets: NoAutoTarget, WaterStructure, Spy
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything
+		ValidTargets: Infantry, Vehicle, Ship, Water, Underwater, Structure, Defense
+		InvalidTargets: NoAutoTarget, Spy
+
+^AutoTargetGroundAssaultMove:
+	Inherits: ^AutoTargetGround
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything && !assault-move
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move
+	AttackMove:
+		AssaultMoveCondition: assault-move
+
+^AutoTargetAir:
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Air
+		InvalidTargets: NoAutoTarget
+
+^AutoTargetAll:
+	AutoTarget:
+		AttackAnythingCondition: stance-attackanything
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything
+		ValidTargets: Infantry, Vehicle, Ship, Water, Underwater, Air, Defense
+		InvalidTargets: NoAutoTarget, WaterStructure, Spy
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything
+		ValidTargets: Infantry, Vehicle, Ship, Water, Underwater, Air, Structure, Defense
+		InvalidTargets: NoAutoTarget, Spy
+
+^AutoTargetAllAssaultMove:
+	Inherits: ^AutoTargetAll
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything && !assault-move
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move
+	AttackMove:
+		AssaultMoveCondition: assault-move
+
+^AutoTargetPreferInfantry:
+    AutoTargetPriority@FavouredEnemy:
+        ValidTargets: Infantry
+        InvalidTargets: NoAutoTarget, WaterStructure, Spy
+        Priority: 3
+
+^AutoTargetPreferVehicle:
+    AutoTargetPriority@FavouredEnemy:
+        ValidTargets: Vehicle
+        InvalidTargets: NoAutoTarget, WaterStructure, Spy
+        Priority: 3
+
+^AutoTargetPreferTank:
+    AutoTargetPriority@FavouredEnemy:
+        ValidTargets: Tank
+        InvalidTargets: NoAutoTarget, WaterStructure, Spy
+        Priority: 3
+
+^AutoTargetPreferBuilding:
+    AutoTargetPriority@FavouredEnemy:
+        ValidTargets: Building
+        InvalidTargets: NoAutoTarget, Spy
+        Priority: 3
+
+^AutoTargetPreferDefense:
+    AutoTargetPriority@FavouredEnemy:
+        ValidTargets: Defense
+        InvalidTargets: NoAutoTarget, WaterStructure, Spy
+        Priority: 3
+
+^AutoTargetPreferNaval:
+    AutoTargetPriority@FavouredEnemy:
+        ValidTargets: Ship, Submarine
+        InvalidTargets: NoAutoTarget, WaterStructure, Spy
+        Priority: 3
+
+^PlayerHandicaps:
+	HandicapFirepowerMultiplier:
+	HandicapDamageMultiplier:
+	HandicapProductionTimeMultiplier:
+
+^StoresResources:
+	StoresResources:
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 10
+
+^Transport:
+	Cargo:
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		CustomPipSequences:
+			pip-gray: pip-gray
+			pip-yellow: pip-yellow
+			pip-blue: pip-blue
+			pip-red: pip-red
+			pip-green: pip-green
+            pip-white: pip-white
+			gray: pip-gray
+			yellow: pip-yellow
+			blue: pip-blue
+			red: pip-red
+			green: pip-green
+            white: pip-white
+
+^GenericSpeedModifier:
+	SpeedMultiplier@Generic:
+		Modifier: 125
+
+^SlowdownWhenDamaged:
+	SpeedMultiplier@HEAVYDAMAGE:
+		Modifier: 85
+		RequiresCondition: heavily-damaged
+	GrantConditionOnDamageState@HEAVYDAMAGE:
+		Condition: heavily-damaged
+		ValidDamageStates: Heavy, Critical	
+
+^Vehicle:
+	Inherits@1: ^ExistsInWorld
+    Inherits@2: ^InvulnerabilityApplicable
+	Inherits@3: ^ClassicFacingSpriteActor
+	Inherits@handicaps: ^PlayerHandicaps
+    Inherits@slowdown: ^SlowdownWhenDamaged
+	Inherits@aiboost: ^ProductionAIBoost
+    Inherits@bounty: ^GlobalBounty
+    Inherits@boink: ^BoinkSound
+	Inherits@4: ^AffectedByCountryBonuses
+	Inherits@5: ^GenericSpeedModifier
+	Inherits@husks: ^GlobalUnitHusks
+    Inherits@scrapmetal: ^GlobalScraps
+	Huntable:
+	OwnerLostAction:
+		Action: Kill
+	DrawLineToTarget:
+	UpdatesPlayerStatistics:
+	Mobile:
+		TurnSpeed: 20
+		Locomotor: wheeled-non-crusher
+	SelectionDecorations:
+	WithSpriteControlGroupDecoration:
+	Selectable:
+		Bounds: 24, 24
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, DetonateAttack
+	Targetable@REPAIR:
+		RequiresCondition: !parachute && damaged
+		TargetTypes: Repair
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	GrantConditionOnDamage@Repair:
+		Types: Repair
+		Condition: repairflash
+		Duration: 3
+	WithColoredOverlay@repairflash:
+		RequiresCondition: repairflash
+		Palette: highlight
+	Repairable:
+		RepairActors: fix
+	Passenger:
+		CargoType: Vehicle
+        Weight: 5        
+	Sellable:
+		SellSounds: cashturn.aud
+		Cursor: sell2
+		ShowTicks: false
+		RequiresCondition: unit.sellable
+	ProximityExternalCondition:
+		Condition: unit.docked
+		Range: 1c0
+	ExternalCondition@Sellable:
+		Condition: unit.sellable
+	ActorLostNotification:
+	HiddenUnderFog:
+	AttackMove:
+	WithDamageOverlay:
+	WithFacingSpriteBody:    
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	Guard:
+	Guardable:        
+	Tooltip:
+		GenericName: Vehicle
+	MustBeDestroyed:        
+	Voiced:
+		VoiceSet: VehicleVoice
+	HitShape:
+	MapEditorData:
+		Categories: Vehicle
+	Chronoshiftable:
+	ProximityCaptor:
+		Types: Vehicle
+	CaptureManager:
+	Capturable:
+		Types: vehicle
+		CancelActivity: True
+	Parachutable:
+		FallRate: 26
+		KilledOnImpassableTerrain: true
+		GroundCorpseSequence:
+		GroundCorpsePalette:
+		WaterCorpseSequence:
+		WaterCorpsePalette:
+		ParachutingCondition: parachute
+	WithParachute:
+		ShadowImage: parach-shadow
+		ShadowSequence: idle
+		Image: parach
+		Sequence: idle
+		OpeningSequence: open
+		Offset: 0,0,200
+		RequiresCondition: parachute
+	TimedConditionBar@THUMPSNARE:
+		Condition: thumpsnare
+		Color: 8C5600
+	SpeedMultiplier@THUMPSNARE:
+		Modifier: 60
+		RequiresCondition: thumpsnare
+	ExternalCondition@THUMPSNARE:
+		Condition: thumpsnare
+	Carryable:
+		LocalOffset: 0,0,200
+
+^SlowedByCrushing:
+	ExternalCondition@CRUSHATTEMPTSLOW:
+		Condition: crush-attempt-slow
+	SpeedMultiplier@CRUSHATTEMPTSLOW:
+		RequiresCondition: crush-attempt-slow && !crush-slow
+		Modifier: 80
+	ExternalCondition@CRUSHSLOW:
+		Condition: crush-slow
+	SpeedMultiplier@CRUSHSLOW:
+		RequiresCondition: crush-slow
+		Modifier: 50
+
+^TrackedVehicle:
+	Inherits: ^Vehicle
+	Inherits@SLOWCRUSH: ^SlowedByCrushing
+	Mobile:
+		Locomotor: tracked
+		TurnSpeed: 20
+	Tooltip:
+		GenericName: Tank
+
+^InfantryHealing:
+	ChangesHealth@SELFHEAL:
+		Step: 3
+		Delay: 100
+		StartIfBelow: 101
+		DamageCooldown: 125
+		RequiresCondition: ( barracksheal || hospitalheal )
+	Targetable@HEAL:
+		TargetTypes: Heal
+		RequiresCondition: !parachute && damaged
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	GrantConditionOnPrerequisite@HOSPITAL:
+		Condition: hospital
+		Prerequisites: hosp
+	GrantCondition@HOSPITAL:
+		RequiresCondition: hospital && damaged
+		Condition: hospitalheal
+	ExternalCondition@BARRACKS:
+		Condition: barracks
+	GrantCondition@BARRACKSHEALING:
+		RequiresCondition: barracks && damaged
+		Condition: barracksheal
+	WithDecoration@REDCROSS:
+		Image: pips
+		Sequence: pip-heal
+		Position: TopRight
+		Margin: 5, 6
+		RequiresCondition: ( barracksheal || hospitalheal )
+		BlinkInterval: 32
+		BlinkPattern: On, Off
+
+^SlowdownWhenDamagedInfantry:
+	SpeedMultiplier@HEAVYDAMAGE:
+		Modifier: 90
+		RequiresCondition: heavily-damaged
+	GrantConditionOnDamageState@HEAVYDAMAGE:
+		Condition: heavily-damaged
+		ValidDamageStates: Heavy, Critical	
+
+^Infantry:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Inherits@handicaps: ^PlayerHandicaps
+    Inherits@slowdown: ^SlowdownWhenDamagedInfantry
+	Inherits@3: ^AffectedByCountryBonuses
+	Inherits@4: ^GenericSpeedModifier
+	Inherits@bounty: ^GlobalBounty
+    Inherits@healing: ^InfantryHealing
+    Inherits@5: ^InfantryAffectedByCountryBonus
+	Huntable:
+	OwnerLostAction:
+		Action: Kill
+        DeathTypes: DefaultDeath
+	Health:
+		HP: 25
+	Armor:
+		Type: None
+	RevealsShroud:
+		Range: 3c0
+	Mobile:
+		Speed: 40
+        AlwaysTurnInPlace: true
+		Locomotor: foot
+	SelectionDecorations:
+	WithSpriteControlGroupDecoration:
+	Selectable:
+		Bounds: 12,18,0,-8
+	Targetable:
+		TargetTypes: Ground, Infantry, DetonateAttack, Disguise
+		RequiresCondition: !parachute
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithInfantryBody:
+        RequiresCondition: !smolinfantry
+    WithInfantryBody@SMOLINFANTRY:
+        MoveSequence: run-small
+        RequiresCondition: smolinfantry
+    GrantConditionOnPrerequisite@SMOLINFANTRY:
+		Condition: smolinfantry
+		Prerequisites: global-smallinfantry
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			FireDeath: 5
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+        RequiresCondition: !smolinfantry
+	WithDeathAnimation@SMOLINFANTRY:
+        DeathSequence: die-small
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			FireDeath: 5
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed-small
+        RequiresCondition: smolinfantry        
+	AttackMove:
+	Passenger:
+		CargoType: Infantry
+	HiddenUnderFog:
+	ActorLostNotification:
+	Crushable:
+		CrushSound: squishy2.aud
+		WarnProbability: 75
+	Guard:
+	Guardable:
+	Tooltip:
+		GenericName: Soldier
+	DeathSounds@NORMAL:
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath
+	DeathSounds@BURNED:
+		Voice: Burned
+		DeathTypes: FireDeath
+	DeathSounds@ZAPPED:
+		Voice: Zapped
+		DeathTypes: ElectricityDeath
+	Voiced:
+		VoiceSet: GenericVoice
+	HitShape:
+		Type: Circle
+			Radius: 128
+	MapEditorData:
+		Categories: Infantry
+	EdibleByLeap:
+	GrantExternalConditionToCrusher@CRUSHATTEMPTSLOW:
+		WarnCrushCondition: crush-attempt-slow
+		WarnCrushDuration: 50
+		OnCrushCondition: crush-attempt-slow
+		OnCrushDuration: 100
+	GrantExternalConditionToCrusher@CRUSHSLOW:
+		OnCrushCondition: crush-slow
+		OnCrushDuration: 50
+	DrawLineToTarget:
+	Parachutable:
+		FallRate: 26
+		KilledOnImpassableTerrain: true
+		GroundImpactSound: squishy2.aud
+		GroundCorpseSequence: corpse
+		WaterImpactSound: splash9.aud
+		WaterCorpseSequence: small_splash
+		ParachutingCondition: parachute
+	WithParachute:
+		ShadowImage: parach-shadow
+		ShadowSequence: idle
+		Image: parach
+		Sequence: idle
+		OpeningSequence: open
+		Offset: 0,0,427
+		RequiresCondition: parachute
+	Cloneable:
+		Types: Infantry
+	DetectCloaked:
+		CloakTypes: Cloak
+		Range: 1c826
+        RequiresCondition: !parachute
+
+^Soldier:
+	Inherits: ^Infantry
+	Inherits@aiboost: ^ProductionAIBoost
+	UpdatesPlayerStatistics:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	TakeCover:
+        SpeedModifier: 80
+		DamageModifiers:
+			Prone50Percent: 50
+		DamageTriggers: TriggerProne
+	WithInfantryBody:
+		IdleSequences: idle1,idle2
+		StandSequences: stand,stand2
+    WithInfantryBody@SMOLINFANTRY:
+		IdleSequences: idle1-small,idle2-small
+		StandSequences: stand-small,stand2-small
+	AttackFrontal:
+		FacingTolerance: 0
+
+^CivInfantry:
+	Inherits: ^Infantry
+	Selectable:
+		Class: CivInfantry
+	Valued:
+		Cost: 10
+	Tooltip:
+		Name: Civilian
+		GenericVisibility: None
+	Mobile:
+		Speed: 50
+	Health:
+		HP: 25
+	RevealsShroud:
+		Range: 2c0
+	ProximityCaptor:
+		Types: CivilianInfantry
+	ScaredyCat:
+	Voiced:
+		VoiceSet: CivilianMaleVoice
+	Wanders:
+		MinMoveDelay: 150
+		MaxMoveDelay: 750
+	MapEditorData:
+		Categories: Civilian infantry
+	Passenger:
+		CustomPipType: pip-gray
+	WithInfantryBody:
+		StandSequences: stand
+    WithInfantryBody@SMOLINFANTRY:
+		StandSequences: stand-small
+
+^ArmedCivilian:
+    Inherits: ^CivInfantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Armament:
+		Weapon: Pistol
+	AttackFrontal:
+        FacingTolerance: 0
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+    WithInfantryBody@SMOLINFANTRY:
+        DefaultAttackSequence: shoot-small
+
+^SlowdownWhenDamagedShip:
+	GrantConditionOnDamageState@HEAVY:
+		Condition: heavily-damaged
+		ValidDamageStates: Heavy
+	GrantConditionOnDamageState@CRITICAL:
+		Condition: critical-damage
+		ValidDamageStates: Critical
+	SpeedMultiplier@HEAVYDAMAGE:
+		RequiresCondition: heavily-damaged
+		Modifier: 90
+	SpeedMultiplier@CRITICALDAMAGE:
+		RequiresCondition: critical-damage
+		Modifier: 85
+
+^Ship:
+	Inherits@1: ^ExistsInWorld
+    Inherits@2: ^InvulnerabilityApplicable
+	Inherits@3: ^SpriteActor
+	Inherits@4: ^AffectedByCountryBonuses
+	Inherits@5: ^GenericSpeedModifier
+	Inherits@handicaps: ^PlayerHandicaps
+    Inherits@slowdown: ^SlowdownWhenDamagedShip 
+	Inherits@aiboost: ^ProductionAIBoost
+    Inherits@bounty: ^GlobalBounty
+	Huntable:
+	OwnerLostAction:
+		Action: Kill
+	DrawLineToTarget:
+	UpdatesPlayerStatistics:
+	Mobile:
+		Locomotor: naval
+        TurnSpeed: 10
+	SelectionDecorations:
+	WithSpriteControlGroupDecoration:
+	Selectable:
+		Bounds: 24,24
+	Targetable:
+		TargetTypes: Ground, Water, Ship, DetonateAttack
+	Targetable@REPAIR:
+		TargetTypes: Repair
+		RequiresCondition: damaged
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	GrantConditionOnDamage@Repair:
+		Types: Repair
+		Condition: repairflash
+		Duration: 3
+	WithColoredOverlay@repairflash:
+		RequiresCondition: repairflash
+		Palette: highlight
+	HiddenUnderFog:
+	AttackMove:
+	ActorLostNotification:
+		Notification: NavalUnitLost
+	ProximityCaptor:
+		Types: Ship
+	Chronoshiftable:
+	RepairableNear:
+		RepairActors: syrd, spen
+	WithDamageOverlay:
+	Explodes:
+		Weapon: UnitExplodeShip
+		EmptyWeapon: UnitExplodeShip
+        RequiresCondition: !under-bridge
+	Guard:
+	Guardable:
+	Tooltip:
+		GenericName: Ship
+	MustBeDestroyed:
+	MapEditorData:
+		Categories: Naval
+	Voiced:
+		VoiceSet: VehicleVoice
+	WithFacingSpriteBody:
+	HitShape:
+	Sellable:
+		RefundPercent: 50
+		SellSounds: cashturn.aud
+		Cursor: sell2
+		ShowTicks: false
+		RequiresCondition: ship.sellable
+	ExternalCondition@Sellable:
+		Condition: ship.sellable
+	GrantConditionOnTerrain@UNDERBRIDGE:
+		Condition: under-bridge
+		TerrainTypes: Bridge, Tunnel
+	Cloak@UNDERBRIDGE:
+		CloakTypes: Underbridge
+		UncloakOn: Unload
+		InitialDelay: 0
+		CloakDelay: 0
+		RequiresCondition: under-bridge
+	DamageMultiplier@UNDERBRIDGE:
+		RequiresCondition: under-bridge
+		Modifier: 1
+	Targetable@UNDERBRIDGE:
+		RequiresCondition: under-bridge
+		TargetTypes: Underbridge
+	DetectCloaked@UNDERBRIDGE:
+		CloakTypes: Underbridge
+		Range: 5c0
+	GrantConditionOnBotOwner@IAMBOT:
+		Condition: botowner
+		Bots: normal
+	Wanders@NOIDLENAVY:
+		WanderMoveRadius: 3
+		RequiresCondition: (botowner && under-bridge)
+
+^Submarine:
+	Inherits: ^Ship
+	-MustBeDestroyed:
+	RevealsShroud:
+		Range: 6c0
+		RequiresCondition: !underwater
+	RevealsShroud@UNDERWATER:
+		Range: 3c0
+		RequiresCondition: underwater
+	RepairableNear:
+		RepairActors: spen, syrd
+	Cloak:
+		CloakTypes: Underwater
+		InitialDelay: 0
+		CloakDelay: 75
+		CloakSound: subshow1.aud
+		UncloakSound: subshow1.aud
+		CloakedCondition: underwater
+		UncloakOn: Attack, Unload, Heal, Dock, SelfHeal, Demolish
+		PauseOnCondition: cloak-force-disabled || crossing-ford || minehit || emp-crate-collected
+		RequiresCondition: !deployed
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Targetable:
+		TargetTypes: Ground, Water, Ship, Submarine
+		RequiresCondition: !underwater
+	Targetable@UNDERWATER:
+		TargetTypes: Underwater, Submarine
+		RequiresCondition: underwater
+	Targetable@REPAIR:
+		RequiresCondition: !underwater && damaged
+		TargetTypes: Repair
+	GrantConditionOnTerrain@CROSSINGFORD:
+		Condition: crossing-ford
+		TerrainTypes: Ford
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+        AllowedTerrainTypes: Water
+	ExternalCondition@MINEHIT:
+		Condition: minehit
+	Explodes:
+		Weapon: UnitExplodeSubmarine
+		EmptyWeapon: UnitExplodeSubmarine
+        RequiresCondition: !under-bridge
+	DetectCloaked:
+		CloakTypes: Underwater
+		Range: 3c768
+	RenderDetectionCircle:
+	Sellable:
+		SellSounds: cashturn.aud
+		Cursor: sell2
+		ShowTicks: false
+		RequiresCondition: ship.sellable && !underwater
+	SpeedMultiplier@ONSURFACE:
+		Modifier: 120
+		RequiresCondition: deployed && !heavily-damaged
+	GrantConditionOnBotOwner@IAMBOT:
+		Condition: botowner
+		Bots: ai-player
+	Wanders@NOIDLENAVY:
+		RequiresCondition: (botowner && crossing-ford) || (botowner && under-bridge)
+	Targetable@sonarhelper:
+		TargetTypes: SonarTarget
+		RequiresCondition: underwater
+
+^Plane:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^InvulnerabilityApplicableBuilding
+	Inherits@3: ^SpriteActor
+	Inherits@4: ^AffectedByCountryBonuses
+	Inherits@5: ^GenericSpeedModifier
+	Inherits@handicaps: ^PlayerHandicaps
+	Inherits@husks: ^GlobalUnitHusks
+	Inherits@aiboost: ^ProductionAIBoost
+    Inherits@bounty: ^GlobalBounty
+	Huntable:
+	OwnerLostAction:
+		Action: Kill
+	DrawLineToTarget:
+	UpdatesPlayerStatistics:
+	AppearsOnRadar:
+		UseLocation: true
+	SelectionDecorations:
+	WithSpriteControlGroupDecoration:
+	Selectable:
+		Bounds: 24,24
+	Aircraft:
+		TakeOffOnCreation: false
+		AirborneCondition: airborne
+	Targetable@GROUND:
+		TargetTypes: Ground, Vehicle, DetonateAttack
+		RequiresCondition: !airborne
+	Targetable@AIRBORNE:
+		TargetTypes: Air, Plane
+		RequiresCondition: airborne
+	Targetable@REPAIR:
+		TargetTypes: Repair
+		RequiresCondition: !airborne && damaged
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	GrantConditionOnDamage@Repair:
+		Types: Repair
+		Condition: repairflash
+		Duration: 3
+	WithColoredOverlay@repairflash:
+		RequiresCondition: repairflash
+		Palette: highlight
+	HiddenUnderFog:
+		Type: GroundPosition
+	Sellable:
+		SellSounds: cashturn.aud
+		Cursor: sell2
+		ShowTicks: false
+		RequiresCondition: unit.sellable && !airborne
+	ProximityExternalCondition:
+		Condition: unit.docked
+		Range: 1c0
+		RequiresCondition: !airborne
+	ExternalCondition@Sellable:
+		Condition: unit.sellable
+	AttackMove:
+	Guard:
+	Guardable:
+	ActorLostNotification:
+		Notification: AirUnitLost
+	ProximityCaptor:
+		Types: Plane
+	# EjectOnDeath:
+	#	PilotActor: E1
+	#	SuccessRate: 50
+	#	EjectOnGround: false
+	#	EjectInAir: true
+	#	AllowUnsuitableCell: true
+	Tooltip:
+		GenericName: Plane
+	WithShadow:
+		Offset: 43, 128, 0
+		ZOffset: -129
+	WithFacingSpriteBody:
+	MustBeDestroyed:
+	Voiced:
+		VoiceSet: GenericVoice
+	HitShape:
+	MapEditorData:
+		Categories: Aircraft
+	SpawnActorOnDeath:
+		RequiresCondition: airborne && global-unithusks
+	Explodes:
+		Weapon: UnitExplode
+		RequiresCondition: !airborne
+	Explodes@NOHUSK:
+		Weapon: UnitExplodeAir
+		RequiresCondition: airborne && !global-unithusks
+	Repairable:
+		RepairActors: fix
+	Rearmable:
+		RearmActors: afld
+
+^Helicopter:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^InvulnerabilityApplicable
+	Inherits@3: ^SpriteActor
+	Inherits@4: ^AffectedByCountryBonuses
+	Inherits@5: ^GenericSpeedModifier
+	Inherits@handicaps: ^PlayerHandicaps
+	Inherits@husks: ^GlobalUnitHusks
+	Inherits@aiboost: ^ProductionAIBoost
+    Inherits@bounty: ^GlobalBounty
+	Huntable:
+	OwnerLostAction:
+		Action: Kill
+	DrawLineToTarget:
+	UpdatesPlayerStatistics:
+	AppearsOnRadar:
+		UseLocation: true
+	SelectionDecorations:
+	WithSpriteControlGroupDecoration:
+	Selectable:
+		Bounds: 24,24
+	Aircraft:
+		CanHover: True
+		CruisingCondition: cruising
+		WaitDistanceFromResupplyBase: 4c0
+		LandableTerrainTypes: Clear,Rough,Road,Ore,Beach,Gems,Ford,Scrap
+		AltitudeVelocity: 0c58
+		VTOL: true
+		CanSlide: True
+		TakeOffOnCreation: false
+		AirborneCondition: airborne
+	Hovers@CRUISING:
+		RequiresCondition: cruising
+	Targetable@GROUND:
+		TargetTypes: Ground, Vehicle, DetonateAttack
+		RequiresCondition: !airborne
+	Targetable@AIRBORNE:
+		TargetTypes: Air, Helicopter
+		RequiresCondition: airborne
+	Targetable@REPAIR:
+		TargetTypes: Repair
+		RequiresCondition: !airborne && damaged
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	GrantConditionOnDamage@Repair:
+		Types: Repair
+		Condition: repairflash
+		Duration: 3
+	WithColoredOverlay@repairflash:
+		RequiresCondition: repairflash
+		Palette: highlight
+	HiddenUnderFog:
+		Type: GroundPosition
+	Sellable:
+		SellSounds: cashturn.aud
+		Cursor: sell2
+		ShowTicks: false
+		RequiresCondition: unit.sellable && !airborne
+	ProximityExternalCondition:
+		Condition: unit.docked
+		Range: 1c0
+		RequiresCondition: !airborne
+	ExternalCondition@Sellable:
+		Condition: unit.sellable
+	AttackMove:
+	Guard:
+	Guardable:
+	ActorLostNotification:
+		Notification: AirUnitLost
+	ProximityCaptor:
+		Types: Plane
+	Tooltip:
+		GenericName: Helicopter
+	WithShadow:
+		Offset: 43, 128, 0
+		ZOffset: -129
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	WithFacingSpriteBody:
+	MustBeDestroyed:
+	Voiced:
+		VoiceSet: GenericVoice
+	HitShape:
+	MapEditorData:
+		Categories: Aircraft
+	SpawnActorOnDeath:
+		RequiresCondition: airborne && global-unithusks
+	Explodes:
+		Weapon: UnitExplode
+		RequiresCondition: !airborne
+	Explodes@NOHUSK:
+		Weapon: UnitExplodeAir
+		RequiresCondition: airborne && !global-unithusks
+	Repairable:
+		RepairActors: fix
+	Rearmable:
+		RearmActors: hpad
+
+^BasicBuilding:
+	Inherits@1: ^ExistsInWorld
+	Inherits@3: ^SpriteActor
+	Inherits@handicaps: ^PlayerHandicaps
+	Inherits@shape: ^1x1Shape
+	SelectionDecorations:
+	WithSpriteControlGroupDecoration:
+	Selectable:
+		Priority: 3
+	Targetable:
+		TargetTypes: Ground, C4, DetonateAttack, Structure
+	Building:
+		Dimensions: 1,1
+		Footprint: x
+		TerrainTypes: Clear,Road
+		RequiresBaseProvider: True
+		BuildSounds: placbldg.aud, build5.aud
+		UndeploySounds: cashturn.aud
+	FootprintPlaceBuildingPreview:
+	RequiresBuildableArea:
+		AreaTypes: building
+	SoundOnDamageTransition:
+		DamagedSounds: kaboom1.aud
+		DestroyedSounds: kaboom22.aud
+	WithSpriteBody:
+	Explodes:
+		Type: Footprint
+		Weapon: BuildingExplode
+		EmptyWeapon: BuildingExplode
+	CaptureNotification:
+	ShakeOnDeath:
+	ProximityCaptor:
+		Types: Building
+	Guardable:
+		Range: 3c0
+	FrozenUnderFog:
+	FrozenUnderFogUpdatedByGps:
+	Tooltip:
+		GenericName: Structure
+	Demolishable:
+	MapEditorData:
+		Categories: Building
+	CommandBarBlacklist:
+
+^BuildingAutoRepairs:
+	ChangesHealth@AUTOREPAIRS:
+		Step: 7
+		Delay: 24
+		StartIfBelow: 51
+		DamageCooldown: 150
+        RequiresCondition: autorepairon && heavily-damaged && !repairing
+    GrantConditionOnPrerequisite@AUTOREPAIRS:
+		Condition: autorepairon
+		Prerequisites: global-autorepairs
+	WithDecoration@HEAVILYDAMAGED:
+		Image: select
+		Palette: chrome
+		Sequence: repair
+		Position: Center
+		BlinkInterval: 24
+		BlinkPattern: on, off
+		RequiresCondition: autorepairon && heavily-damaged && !repairing
+		RequiresSelection: False
+		ValidRelationships: Ally
+	GrantConditionOnDamageState@HEAVILYDAMAGED:
+		Condition: heavily-damaged
+		ValidDamageStates: Heavy, Critical
+
+^Building:
+	Inherits: ^BasicBuilding
+	Inherits@1: ^AffectedByCountryBonuses
+	Inherits@2: ^InvulnerabilityApplicableBuilding
+	Inherits@3: ^BuildingAutoRepairs
+    Inherits@husks: ^GlobalBuildingHusks
+	Huntable:
+	OwnerLostAction:
+		Action: Kill
+	UpdatesPlayerStatistics:
+	GivesBuildableArea:
+		AreaTypes: building
+	RepairableBuilding:
+		RepairingNotification: Repairing
+		PlayerExperience: 0
+        RepairCondition: repairing
+	EngineerRepairable:
+	WithMakeAnimation:
+		Condition: build-incomplete
+	Capturable:
+		Types: building
+	SpawnActorsOnSell:
+		ActorTypes: e1,e1,e1,e1,e1,tecn,tecn_yellow
+    #   SpawnActorOnDeath:
+    #   Actor: e1
+    #   Probability: 33
+    #   SpawnAfterDefeat: false
+	MustBeDestroyed:
+		RequiredForShortGame: true
+	Demolishable:
+		Condition: being-demolished
+	Sellable:
+		SellSounds: cashturn.aud
+		ShowTicks: false
+		RequiresCondition: !build-incomplete && !being-demolished && !being-captured
+	WithBuildingRepairDecoration:
+		Image: allyrepair
+		Sequence: repair
+		Position: Center
+		Palette: player
+		IsPlayerPalette: True
+	CaptureManager:
+        BeingCapturedCondition: being-captured
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+
+^BuildingHusk:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	AppearsOnRadar:
+	Building:
+		Dimensions: 1,1
+		Footprint: x
+	WithSpriteBody:
+	Health:
+		HP: 400
+	Armor:
+		Type: Wood
+	WithIdleOverlay@Burns:
+		Image: fire
+		Sequence: 1
+		IsDecoration: true
+	ChangesHealth@Burns:
+		Step: -8
+		StartIfBelow: 101
+		Delay: 8
+	HitShape:
+	OwnerLostAction:
+		Action: ChangeOwner
+	Targetable:
+		TargetTypes: Ground, StructureHusk, NoAutoTarget
+		RequiresForceFire: true
+	Tooltip:
+		GenericName: Destroyed Building
+	HiddenUnderFog:
+		Type: CenterPosition
+		AlwaysVisibleRelationships: None
+	ScriptTriggers:
+	Explodes:
+		Weapon: BuildingExplode
+	MapEditorData:
+		Categories: Building Husk
+	CaptureManager:
+	Capturable:
+		Types: restore-build
+		ValidRelationships: Enemy, Neutral, Ally
+        RequiresCondition: restorehusk
+	GrantConditionOnPrerequisite@RESTOREHUSKS:
+		Condition: restorehusk
+		Prerequisites: global-restorehusks   
+    CapturableProgressBlink:
+	TransformOnCapture:
+		ForceHealthPercentage: 30
+
+^Defense:
+	Inherits: ^Building
+	Targetable:
+		TargetTypes: Ground, C4, DetonateAttack, Structure, Defense
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	DrawLineToTarget:
+	RenderRangeCircle:
+	MapEditorData:
+		Categories: Defense
+	-CommandBarBlacklist:
+
+^DefenseHusk:
+	Inherits@1: ^BuildingHusk
+	Health:
+		HP: 200
+	Explodes:
+		Weapon: SmallBuildingExplode
+
+^Wall:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Inherits@3: ^AffectedByCountryBonuses
+	Inherits@handicaps: ^PlayerHandicaps
+	Inherits@shape: ^1x1Shape
+	Interactable:
+		Bounds: 24,24
+	OwnerLostAction:
+		Action: ChangeOwner
+	Building:
+		Dimensions: 1,1
+		Footprint: x
+		BuildSounds: placbldg.aud
+		TerrainTypes: Clear,Road
+		UndeploySounds: cashturn.aud
+	FootprintPlaceBuildingPreview:
+		LineBuildSegmentPalette: placelinesegment
+	RequiresBuildableArea:
+		AreaTypes: building
+		Adjacent: 3
+	SoundOnDamageTransition:
+		DamagedSounds: sandbag2.aud
+		DestroyedSounds: sandbag2.aud
+	Crushable:
+		CrushClasses: wall
+	LineBuild:
+		Range: 5
+		NodeTypes: wall
+	LineBuildNode:
+		Types: wall
+	Targetable:
+		TargetTypes: Ground, DetonateAttack, Wall, NoAutoTarget
+	RenderSprites:
+		Palette: effect
+	WithWallSpriteBody:
+	Sellable:
+		SellSounds: cashturn.aud
+		ShowTicks: false
+	Guardable:
+	FrozenUnderFog:
+	FrozenUnderFogUpdatedByGps:
+	Health:
+		HP: 100
+	MapEditorData:
+		Categories: Wall
+
+^FakeBuilding:
+	Inherits: ^Building
+    Inherits@infiltration: ^InfiltratableFake
+	-GivesBuildableArea:
+    -SpawnActorOnDeath:
+    -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
+	Health:
+		HP: 30
+	Armor:
+		Type: Wood
+	Valued:
+		Cost: 50
+	RevealsShroud:
+		Range: 4c0
+	WithDecoration@fake:
+		Position: Top
+		Margin: 0, 4
+		RequiresSelection: false
+		Image: pips
+		Sequence: tag-fake
+	-SpawnActorsOnSell:
+	-MustBeDestroyed:
+	Power:
+		Amount: 0
+	Capturable:
+		Types: building
+	MapEditorData:
+		Categories: Fake building
+	CaptureManager:
+    Selectable:
+        Class: FAKE
+
+^CivBuilding:
+	Inherits: ^BasicBuilding
+	Huntable:
+	Health:
+		HP: 400
+	Armor:
+		Type: Wood
+	Tooltip:
+		Name: Civilian Building
+		GenericVisibility: None
+	FrozenUnderFog:
+	RenderSprites:
+		Palette: terrain
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+		Categories: Civilian building
+	SpawnActorOnDeath@1:
+		Actor: c1
+		Probability: 40
+	SpawnActorOnDeath@2:
+		Actor: c4
+		Probability: 20
+	SpawnActorOnDeath@3:
+		Actor: c3
+		Probability: 15
+	Explodes:
+		Weapon: CivBuildingExplosion
+
+^CivField:
+	Inherits: ^CivBuilding
+	-HitShape:
+	-Health:
+	-Explodes:
+	-Selectable:
+	-SelectionDecorations:
+	Tooltip:
+		Name: Field
+	-Targetable:
+	-Demolishable:
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	Interactable:
+
+^TechBuilding:
+	Inherits: ^CivBuilding
+    Inherits@autorepairs: ^BuildingAutoRepairs
+    Inherits@husks: ^GlobalBuildingHusks
+    -SpawnActorOnDeath@1:
+    -SpawnActorOnDeath@2:
+    -SpawnActorOnDeath@3:
+    ChangesHealth@AUTOREPAIRS:
+        RequiresCondition: autorepairon && heavily-damaged
+    WithDecoration@HEAVILYDAMAGED:
+        RequiresCondition: autorepairon && heavily-damaged
+	Explodes:
+		Weapon: BuildingExplode
+	OwnerLostAction:
+		Action: ChangeOwner
+	CaptureManager:
+	Capturable:
+		Types: building-tech
+	EngineerRepairable:
+	RevealsShroud:
+		Range: 3c0
+	Tooltip:
+		ShowOwnerRow: True
+	MapEditorData:
+		Categories: Tech building
+	AppearsOnMapPreview:
+    -RenderSprites:
+	RenderSprites:
+
+^TechBuildingHusk:
+	Inherits@1: ^SpriteActor
+	Inherits@shape: ^1x1Shape
+	Interactable:
+	AppearsOnRadar:
+	Health:
+		HP: 200
+	Building:
+		Dimensions: 1,1
+		Footprint: x
+	WithSpriteBody:
+	Targetable:
+		RequiresForceFire: true
+		TargetTypes: Ground, StructureHusk, NoAutoTarget
+	Tooltip:
+		GenericName: Tech Building (Destroyed)
+		GenericStancePrefix: false
+		ShowOwnerRow: false
+	FrozenUnderFog:
+	ScriptTriggers:
+	MapEditorData:
+		Categories: Building Husk
+	CaptureManager:
+	Capturable:
+		Types: restore-tech
+		ValidRelationships: Enemy, Neutral, Ally
+        RequiresCondition: restorehusk
+	GrantConditionOnPrerequisite@RESTOREHUSKS:
+		Condition: restorehusk
+		Prerequisites: global-restorehusks   
+    CapturableProgressBlink:
+	TransformOnCapture:
+		ForceHealthPercentage: 30
+
+^Tree:
+	Inherits@1: ^SpriteActor
+	Inherits@shape: ^1x1Shape
+	Interactable:
+	Tooltip:
+		Name: Tree
+		ShowOwnerRow: false
+	RenderSprites:
+		Palette: terrain
+	WithSpriteBody:
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Tree
+	Health:
+		HP: 500
+	Armor:
+		Type: Wood
+	Targetable:
+		TargetTypes: Trees
+	WithDamageOverlay@SmallBurn:
+		DamageTypes: Incendiary
+		Image: burn-s
+		MinimumDamageState: Light
+		MaximumDamageState: Medium
+	WithDamageOverlay@MediumBurn:
+		DamageTypes: Incendiary
+		Image: burn-m
+		MinimumDamageState: Medium
+		MaximumDamageState: Heavy
+	WithDamageOverlay@LargeBurn:
+		DamageTypes: Incendiary
+		Image: burn-l
+		MinimumDamageState: Heavy
+		MaximumDamageState: Dead
+	HiddenUnderShroud:
+	ScriptTriggers:
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+		Categories: Tree
+
+^TreeHusk:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Tree
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	WithSpriteBody:
+	Tooltip:
+		Name: Tree (Burnt)
+		ShowOwnerRow: false
+	FrozenUnderFog:
+	ScriptTriggers:
+	MapEditorData:
+		Categories: Tree
+
+^BasicHusk:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	Health:
+		HP: 280
+	Armor:
+		Type: Heavy
+	HiddenUnderFog:
+		Type: CenterPosition
+	ScriptTriggers:
+	WithFacingSpriteBody:
+	HitShape:
+	MapEditorData:
+		Categories: Husk
+
+^Husk:
+	Inherits: ^BasicHusk
+	Inherits@2: ^ClassicFacingSpriteActor
+    -BodyOrientation:
+	Husk:
+		AllowedTerrain: Clear, Rough, Road, Ore, Gems, Beach, Ford, Scrap
+	CaptureManager:
+	Capturable:
+		Types: restore-unit
+		ValidRelationships: Enemy, Neutral, Ally
+        RequiresCondition: restorehusk
+	GrantConditionOnPrerequisite@RESTOREHUSKS:
+		Condition: restorehusk
+		Prerequisites: global-restorehusks   
+    CapturableProgressBlink:        
+	TransformOnCapture:
+		ForceHealthPercentage: 30
+	WithColoredOverlay@IDISABLE:
+		Palette: disabled
+	Targetable:
+		TargetTypes: Ground, Husk, NoAutoTarget
+		RequiresForceFire: true
+	Chronoshiftable:
+	Tooltip:
+		GenericName: Destroyed Vehicle
+	WithIdleOverlay@Burns:
+		Image: fire
+		Sequence: 1
+		IsDecoration: True
+	ChangesHealth:
+		Step: -4
+		StartIfBelow: 101
+		Delay: 8
+	MapEditorData:
+		Categories: Husk
+
+^PlaneHusk:
+	Inherits: ^BasicHusk
+	WithShadow:
+		Offset: 43, 128, 0
+		ZOffset: -129
+	Tooltip:
+		GenericName: Destroyed Plane
+	Aircraft:
+	FallsToEarth:
+		Moves: True
+		Velocity: 86
+		MaximumSpinSpeed: 0
+	-MapEditorData:
+	RevealOnDeath:
+		Duration: 60
+		Radius: 4c0
+
+^HelicopterHusk:
+	Inherits: ^BasicHusk
+	Inherits@2: ^ClassicFacingSpriteActor
+    -BodyOrientation:
+	WithShadow:
+		Offset: 43, 128, 0
+		ZOffset: -129
+	Tooltip:
+		GenericName: Destroyed Helicopter
+	Aircraft:
+		CanHover: True
+		TakeOffOnResupply: true
+		VTOL: true
+		CanSlide: True
+	FallsToEarth:
+	-MapEditorData:
+	RevealOnDeath:
+		Duration: 60
+		Radius: 4c0
+
+^Bridge:
+	Inherits@shape: ^1x1Shape
+	AlwaysVisible:
+	Tooltip:
+		Name: Bridge
+		ShowOwnerRow: false
+	Targetable:
+		TargetTypes: Ground, Water, Bridge
+		RequiresForceFire: true
+	Building:
+		Footprint: ____ ____
+		Dimensions: 4,2
+	Health:
+		HP: 1000
+	Armor:
+		Type: Concrete
+	ScriptTriggers:
+	BodyOrientation:
+		QuantizedFacings: 1
+	Interactable:
+		Bounds: 96,48
+
+^Crate:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	HiddenUnderFog:
+	Tooltip:
+		Name: Crate
+		GenericName: Crate
+		ShowOwnerRow: false
+	Crate:
+		Lifetime: 180
+		TerrainTypes: Clear, Rough, Road, Ore, Beach
+	RenderSprites:
+		Palette: effect
+		Image: wcrate
+	WithCrateBody:
+		XmasImages: xcratea, xcrateb, xcratec, xcrated
+		LandSequence: land
+		WaterSequence: water
+	Parachutable:
+		FallRate: 26
+		KilledOnImpassableTerrain: false
+		ParachutingCondition: parachute
+	Passenger:
+	WithParachute:
+		Image: parach
+		Sequence: idle
+		OpeningSequence: open
+		ShadowImage: parach-shadow
+		ShadowSequence: idle
+		RequiresCondition: parachute
+	MapEditorData:
+		Categories: System
+
+^Mine:
+	Inherits: ^SpriteActor
+	Interactable:
+		Bounds: 24,24
+	WithSpriteBody:
+	HiddenUnderFog:
+	Mine:
+		CrushClasses: mine
+		AvoidFriendly: false
+		BlockFriendly: false
+	Health:
+		HP: 100
+		NotifyAppliedDamage: false
+	Armor:
+		Type: None
+	Cloak:
+		CloakSound:
+		UncloakSound:
+		Palette:
+		CloakTypes: Mine
+		InitialDelay: 0
+	Tooltip:
+		Name: Mine
+	Targetable:
+		TargetTypes: Ground, Mine
+	Immobile:
+		OccupiesSpace: true
+	HitShape:
+	MapEditorData:
+		Categories: System
+	GrantConditionOnTerrain@BADTERRAIN:
+		Condition: badterrain
+		TerrainTypes: Rock, River, Tree, Tunnel
+	KillsSelf@BADTERRAIN:
+		RequiresCondition: badterrain
+
+^DisableOnLowPower:
+	GrantConditionOnPowerState@LOWPOWER:
+		Condition: lowpower
+		ValidPowerStates: Low, Critical
+
+^PrimaryBuilding:
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+        RequiresCondition: !multiqueue
+	WithDecoration@primary:
+		RequiresCondition: primary && !multiqueue
+		Position: Top
+		Margin: 0, 4
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+
+^ProductionAIBoost:
+	ProductionTimeMultiplier@productionboost:
+		Multiplier: 110
+		Prerequisites: aiboostready
+	ProductionCostMultiplier@productionboost:
+		Multiplier: 80
+		Prerequisites: aiboostready
+    GrantConditionOnBotOwner@productionboost:
+        Condition: aiboosted
+        Bots: normal
+	ProvidesPrerequisite@productionboost:
+		Prerequisite: aiboostready
+		RequiresCondition: aiboosted
+        RequiresPrerequisites: aiboosteron
+        ResetOnOwnerChange: true
+
+^GlobalUnitHusks:
+	GrantConditionOnPrerequisite@GLOBALUNITHUSKS:
+		Condition: global-unithusks
+		Prerequisites: global-unithusks
+	SpawnActorOnDeath:
+		RequiresCondition: global-unithusks
+
+^GlobalBuildingHusks:
+	GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
+		Condition: global-buildinghusks
+		Prerequisites: global-buildinghusks
+	SpawnActorOnDeath:
+		RequiresCondition: global-buildinghusks
+
+^DamagedOnLowPower:
+	GrantConditionOnPrerequisite@GLOBALLPDAMAGE:
+		Condition: global-lpdamage
+		Prerequisites: global-lpdamage
+	GrantConditionOnDamageState@LOWPOWERDMG:
+		Condition: stopatmedium
+		ValidDamageStates: Heavy
+	GrantConditionOnPowerState@LOWPOWER:
+		Condition: atlowpower
+		ValidPowerStates: Low, Critical
+	ChangesHealth@LOWPOWER:
+		Step: 0
+		PercentageStep: -1
+		Delay: 750
+		StartIfBelow: 101
+		DamageCooldown: 0
+		RequiresCondition: atlowpower && global-lpdamage && !stopatmedium
+
+^GlobalBounty:
+	GrantConditionOnPrerequisite@GLOBALBOUNTY:
+		Condition: global-bounty
+		Prerequisites: global-bounty
+	GivesBounty:
+		RequiresCondition: global-bounty
+
+^AcceptsFirepowerCrate:
+	FirepowerMultiplier@FirepowerCrate:
+		RequiresCondition: firepower-crate-collected
+		Modifier: 110
+	ExternalCondition@Firepower:
+		Condition: firepower-crate-collected
+		TotalCap: 10
+
+^AcceptsArmorCrate:
+	DamageMultiplier@ArmorCrate:
+		RequiresCondition: armor-crate-collected
+		Modifier: 90
+	ExternalCondition@Armor:
+		Condition: armor-crate-collected
+		TotalCap: 9
+		#	100% would mean no damage taken
+
+^AcceptsSpeedCrate:
+	SpeedMultiplier@SpeedCrate:
+		RequiresCondition: speed-crate-collected
+		Modifier: 110
+	ExternalCondition@Speed:
+		Condition: speed-crate-collected
+		TotalCap: 10
+
+^AcceptsUpgradeCrates:
+	Inherits@firepowerup: ^AcceptsFirepowerCrate
+	Inherits@armorup: ^AcceptsArmorCrate
+	Inherits@speedup: ^AcceptsSpeedCrate
+
+^AcceptsCloakCrate:
+	Cloak:
+		InitialDelay: 90
+		CloakDelay: 90
+		CloakSound: appear1.aud
+		UncloakSound: appear1.aud
+		Palette: cloak
+		IsPlayerPalette: false
+		UncloakOn: Attack, Unload, Dock, Damage, Heal
+		PauseOnCondition: cloak-force-disabled || emp-crate-collected
+		RequiresCondition: cloak-crate-collected
+	ExternalCondition@CLOAK:
+		Condition: cloak-crate-collected
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+
+^AcceptsInvulnerabilityCrate:
+	ExternalCondition@InvulnerabilityCrate:
+		Condition: invulnerability-crate-collected
+	TimedConditionBar@InvulnerabilityCrate:
+		Condition: invulnerability-crate-collected
+
+^AcceptsEMPCrate:
+	WithColoredOverlay@EMPulse:
+		RequiresCondition: emp-crate-collected
+        Palette: disabled
+	WithIdleOverlay@EMPulse:
+		Sequence: emp-overlay
+		RequiresCondition: emp-crate-collected
+	TimedConditionBar@EMPulse:
+		Condition: emp-crate-collected
+		Color: FFFFFF
+	ExternalCondition@EMPulse:
+		Condition: emp-crate-collected
+    Targetable@EMPulse:
+        TargetTypes: EMPApplicable
+	Targetable@EMPulseTargeting:
+		TargetTypes: EMPInEffect
+		RequiresCondition: emp-crate-collected
+
+^AcceptsDeathCrate:
+	ExternalCondition@InstaDeath:
+		Condition: death-crate-collected
+	KillsSelf@InstaDeath:
+		RequiresCondition: death-crate-collected
+
+^AcceptsAllCratesExceptCloak:
+	Inherits@crates1: ^AcceptsUpgradeCrates
+	Inherits@crates3: ^AcceptsInvulnerabilityCrate
+	Inherits@crates4: ^AcceptsEMPCrate
+	Inherits@crates5: ^AcceptsDeathCrate	
+
+^AcceptsAllCrates:
+	Inherits@crates1: ^AcceptsUpgradeCrates
+	Inherits@crates2: ^AcceptsCloakCrate
+	Inherits@crates3: ^AcceptsInvulnerabilityCrate
+	Inherits@crates4: ^AcceptsEMPCrate
+	Inherits@crates5: ^AcceptsDeathCrate
+
+^InvulnerabilityApplicable:
+	WithColoredOverlay@Invulnerability:
+		RequiresCondition: (invulnerability || invulnerability-crate-collected)
+	DamageMultiplier@Invulnerability:
+		RequiresCondition: (invulnerability || invulnerability-crate-collected)
+		Modifier: 0
+	TimedConditionBar@Invulnerability:
+		Condition: invulnerability
+	ExternalCondition@Invulnerability:
+		Condition: invulnerability
+	Targetable@DontDebuffWhileInvuln:
+		TargetTypes: Invulnerable
+		RequiresCondition: (invulnerability || invulnerability-crate-collected)
+
+^InvulnerabilityApplicableBuilding:
+	WithColoredOverlay@Invulnerability:
+		RequiresCondition: invulnerability
+	DamageMultiplier@Invulnerability:
+		RequiresCondition: invulnerability
+		Modifier: 0
+	TimedConditionBar@Invulnerability:
+		Condition: invulnerability
+	ExternalCondition@Invulnerability:
+		Condition: invulnerability
+	Targetable@DontEMPWhileInvuln:
+		TargetTypes: Invulnerable
+		RequiresCondition: invulnerability
+
+^BoinkSound:
+	DeathSounds@Boink:
+		Voice: Boink
+		VolumeMultiplier: 2
+		RequiresCondition: boink-boink
+	GrantConditionOnPrerequisite@Boink:
+		Condition: boink-boink
+		Prerequisites: global-boink
+
+^GiantAnt:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Inherits@handicaps: ^PlayerHandicaps
+	Inherits@4: ^GenericSpeedModifier
+	Inherits@bounty: ^GlobalBounty
+	Huntable:
+	OwnerLostAction:
+		Action: Kill
+        DeathTypes: DefaultDeath
+	Health:
+		HP: 25
+	Armor:
+		Type: None
+	RevealsShroud:
+		Range: 3c0
+	AttackFrontal:
+	Mobile:
+		Speed: 99
+		TurnSpeed: 48
+        AlwaysTurnInPlace: true
+		Locomotor: wheeled-non-crusher
+	SelectionDecorations:
+	WithSpriteControlGroupDecoration:
+	Selectable:
+		Bounds: 24,24,0,-5
+		DecorationBounds: 30,30,0,-2
+	Targetable:
+		TargetTypes: Ground, Infantry, Ant
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithInfantryBody:
+		DefaultAttackSequence: bite
+	WithDeathAnimation:
+        UseDeathTypeSuffix: false
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			FireDeath: 5
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+	AttackMove:
+	HiddenUnderFog:
+	ActorLostNotification:
+	Guard:
+	Guardable:
+	Tooltip:
+		Name: Giant Ant
+		GenericName: Ant
+	DeathSounds@NORMAL:
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath
+	DeathSounds@BURNED:
+		Voice: Burned
+		DeathTypes: FireDeath
+	DeathSounds@ZAPPED:
+		Voice: Zapped
+		DeathTypes: ElectricityDeath
+	Voiced:
+		VoiceSet: GenericVoice
+	HitShape:
+		Type: Circle
+			Radius: 469
+	MapEditorData:
+		Categories: Infantry
+	DrawLineToTarget:
+	RenderSprites:
+		Image: ant1
+
+^RottingInfantry:
+	WithDeathAnimation@ROT:
+		DeathSequence: rot
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+
+^GlobalScraps:
+	GrantConditionOnPrerequisite@SCRAPMETAL:
+		Condition: scrapmetalon
+		Prerequisites: global-scrapmetal
+	Explodes@SCRAPMETAL:
+		RequiresCondition: scrapmetalon
+		Weapon: ScrapExplosion
+
+^HarvesterBalancer:
+	SpeedMultiplier@HARVBALANCE:
+		RequiresCondition: harv-balance
+		Modifier: 138
+	HarvesterBalancer:
+		Condition: harv-balance
+        RequiresCondition: get-this-working
+    GrantCondition@HARVBALANCE:
+        Condition: get-this-working
+
+^RepairsAircraftWithRepairBay:
+	ExternalCondition@AIRCRAFTREPAIR:
+		Condition: aircraft-repair
+	RepairsUnits:
+		ValuePercentage: 0
+		HpPerStep: 10
+		Interval: 7
+		StartRepairingNotification: Repairing
+		FinishRepairingNotification: UnitRepaired
+		PlayerExperience: 0
+		RequiresCondition: aircraft-repair
+        RepairDamageTypes: Repair
+	WithDecoration@AIRCRAFTREPAIR:
+		Image: select
+		Palette: chrome
+		Sequence: repair-small
+		Position: Bottom
+		BlinkInterval: 15
+		BlinkPattern: on, off
+		RequiresCondition: aircraft-repair && unit.docked
+		RequiresSelection: True
+		ValidRelationships: Ally, Neutral
+
+^KilledWithoutAirfield:
+	ChangesHealth@PLANE:
+		Step: 0
+		PercentageStep: -5
+		Delay: 25
+		StartIfBelow: 101
+		DamageCooldown: 0
+		RequiresCondition: !hasairfield
+	GrantConditionOnPrerequisite@AIRFIELD:
+		Prerequisites: afldexist
+		Condition: hasairfield
+
+^InfiltratablePower:
+    Targetable@INFILTRATION:
+        TargetTypes: SpyInfiltrate
+	InfiltrateForPowerOutage:
+		Types: SpyInfiltrate
+        Duration: 750
+        InfiltratedNotification: BuildingInfiltrated
+        #   InfiltrationNotification: BuildingInfiltrated
+	WithColoredOverlay@IDISABLE:
+		RequiresCondition: disabled
+		Palette: disabled
+	GrantCondition@IDISABLE:
+		RequiresCondition: power-outage
+		Condition: disabled
+	AffectedByPowerOutage:
+		Condition: power-outage
+	Power@1:
+		RequiresCondition: !disabled && !build-incomplete && !powerboost
+    Power@2:
+        RequiresCondition: !disabled && !build-incomplete && powerboost
+
+^InfiltratableProduction:
+    Targetable@INFILTRATION:
+        TargetTypes: SpyInfiltrate
+	InfiltrateForCondition:
+		Types: SpyInfiltrate
+        Condition: sabotage
+        Duration: 750
+        InfiltratedNotification: BuildingInfiltrated
+        #   InfiltrationNotification: BuildingInfiltrated
+	TimedConditionBar@Sabotage:
+		Condition: sabotage
+
+^InfiltratableRefinery:
+    Targetable@INFILTRATION:
+        TargetTypes: SpyInfiltrate
+    InfiltrateForCash:
+        Types: SpyInfiltrate
+        Percentage: 50
+        Minimum: 500
+        InfiltratedNotification: BuildingInfiltrated
+        #   InfiltrationNotification: BuildingInfiltrated
+        ShowTicks: false
+
+^InfiltratableRadarProvider:
+    Targetable@INFILTRATION:
+        TargetTypes: SpyInfiltrate
+	InfiltrateForCondition:
+		Types: SpyInfiltrate
+        Condition: jammed-infiltrate
+        Duration: 750
+        InfiltratedNotification: BuildingInfiltrated
+        #   InfiltrationNotification: BuildingInfiltrated
+	TimedConditionBar@Sabotage:
+		Condition: jammed-infiltrate
+        Color: 0000FF80
+
+^InfiltratableTechCenter:
+    Targetable@INFILTRATION:
+        TargetTypes: SpyInfiltrate
+    InfiltrateForExploration: 
+        Types: SpyInfiltrate
+        InfiltratedNotification: BuildingInfiltrated
+        #   InfiltrationNotification: BuildingInfiltrated        
+
+^InfiltratableSuperWeapon:
+    Targetable@INFILTRATION:
+        TargetTypes: SpyInfiltrate
+	InfiltrateForSupportPowerReset:
+		Types: SpyInfiltrate
+        InfiltratedNotification: BuildingInfiltrated
+        #   InfiltrationNotification: BuildingInfiltrated
+
+^InfiltratableFake:
+    Targetable@INFILTRATION:
+        TargetTypes: SpyInfiltrate
+	InfiltrateForDecoration:
+		Types: SpyInfiltrate
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-fake
+		Position: Top
+
+^DecorativeObject:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	RenderSprites:
+		Palette: player
+	Tooltip:
+		Name: Object
+		ShowOwnerRow: false
+	WithSpriteBody:
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Tree
+	AppearsOnMapPreview:
+		Terrain: Tree
+	HiddenUnderShroud:
+	ScriptTriggers:
+	MapEditorData:
+		Categories: Decoration
+	RequiresSpecificOwners:
+		ValidOwnerNames: Neutral

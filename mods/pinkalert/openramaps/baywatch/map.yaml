@@ -1,0 +1,162 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Baywatch
+Author: Nuke'm Bro.
+Tileset: SNOW
+MapSize: 128,128
+Bounds: 50,50,62,62
+Visibility: Lobby
+Categories: OpenRA, 3-player
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		Palette: neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: Random
+		Enemies: Multi0, Multi1, Multi2
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor1: t16
+		Location: 109,110
+		Owner: Neutral
+	Actor2: tc01
+		Location: 110,108
+		Owner: Neutral
+	Actor0: tc03
+		Location: 110,110
+		Owner: Neutral
+	Actor3: tc04
+		Location: 50,109
+		Owner: Neutral
+	Actor4: t16
+		Location: 53,110
+		Owner: Neutral
+	Actor5: tc04
+		Location: 59,97
+		Owner: Neutral
+	Actor6: t16
+		Location: 60,100
+		Owner: Neutral
+	Actor7: t17
+		Location: 58,99
+		Owner: Neutral
+	Actor8: tc04
+		Location: 64,50
+		Owner: Neutral
+	Actor9: t17
+		Location: 64,53
+		Owner: Neutral
+	Actor10: tc03
+		Location: 59,51
+		Owner: Neutral
+	Actor11: t16
+		Location: 60,52
+		Owner: Neutral
+	Actor12: t13
+		Location: 76,73
+		Owner: Neutral
+	Actor13: t17
+		Location: 74,81
+		Owner: Neutral
+	Actor14: t08
+		Location: 76,78
+		Owner: Neutral
+	Actor15: tc05
+		Location: 109,49
+		Owner: Neutral
+	Actor16: tc04
+		Location: 109,51
+		Owner: Neutral
+	Actor17: tc03
+		Location: 107,50
+		Owner: Neutral
+	Actor19: barr
+		Location: 58,53
+		Owner: Creeps
+	Actor18: mine
+		Location: 55,98
+		Owner: Neutral
+	Actor20: tc05
+		Location: 84,61
+		Owner: Neutral
+	Actor21: t07
+		Location: 96,79
+		Owner: Neutral
+	Actor22: mine
+		Location: 106,108
+		Owner: Neutral
+	Actor23: mine
+		Location: 102,57
+		Owner: Neutral
+	Actor25: fenc
+		Location: 58,52
+		Owner: Creeps
+	Actor24: fenc
+		Location: 57,53
+		Owner: Creeps
+	Actor26: fenc
+		Location: 57,52
+		Owner: Creeps
+	Actor27: fenc
+		Location: 56,53
+		Owner: Creeps
+	Actor28: fenc
+		Location: 60,54
+		Owner: Creeps
+	Actor29: fenc
+		Location: 60,55
+		Owner: Creeps
+	Actor30: fenc
+		Location: 59,55
+		Owner: Creeps
+	Actor31: e1
+		Location: 57,56
+		Owner: Creeps
+	Actor32: e3
+		Location: 56,55
+		Owner: Creeps
+	Actor33: e3
+		Location: 60,57
+		Owner: Creeps
+	Actor34: e1
+		Location: 58,57
+		Owner: Creeps
+	Actor35: dog
+		Location: 58,55
+		Owner: Creeps
+	Actor36: e1
+		Location: 54,53
+		Owner: Creeps
+	Actor37: e2
+		Location: 51,54
+		Owner: Creeps
+	Actor38: mpspawn
+		Location: 55,83
+		Owner: Neutral
+	Actor39: mpspawn
+		Location: 95,101
+		Owner: Neutral
+	Actor40: mpspawn
+		Location: 95,59
+		Owner: Neutral

@@ -1,0 +1,935 @@
+BADR:
+	Inherits: ^Plane
+	ParaDrop:
+		DropRange: 4c0
+		ChuteSound: chute1.aud
+	Health:
+		HP: 60
+	Armor:
+		Type: Light
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 20
+		Speed: 160
+		Repulsable: False
+		MaximumPitch: 56
+	Cargo:
+		MaxWeight: 10
+	-Selectable:
+	SelectionDecorations:
+	-Voiced:
+	Tooltip:
+		Name: Badger
+	SpawnActorOnDeath:
+		Actor: BADR.Husk
+	SmokeTrailWhenDamaged@0:
+		Offset: -432,560,0
+		Interval: 2
+	SmokeTrailWhenDamaged@1:
+		Offset: -432,-560,0
+		Interval: 2
+	RejectsOrders:
+	GivesExperience:
+		Experience: 1000
+	Interactable:
+
+BADR.Husk:
+	Inherits: ^PlaneHusk
+	Tooltip:
+		Name: Badger
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 160
+	SmokeTrailWhenDamaged@0:
+		Offset: -432,560,0
+		Interval: 2
+		MinDamage: Undamaged
+	SmokeTrailWhenDamaged@1:
+		Offset: -432,-560,0
+		Interval: 2
+		MinDamage: Undamaged
+	RenderSprites:
+		Image: badr
+	-RevealOnDeath:
+
+BADR.Bomber:
+	Inherits: ^Plane
+	AttackBomber:
+	Armament:
+		Weapon: ParaBomb
+		PauseOnCondition: !ammo
+	Health:
+		HP: 60
+	Armor:
+		Type: Light
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 20
+		Speed: 160
+		Repulsable: False
+		MaximumPitch: 56
+	AmmoPool:
+		Ammo: 7
+		AmmoCondition: ammo
+	-Selectable:
+	SelectionDecorations:
+	-Voiced:
+	Tooltip:
+		Name: Badger
+	SpawnActorOnDeath:
+		Actor: BADR.Husk
+	SmokeTrailWhenDamaged@0:
+		Offset: -432,560,0
+		Interval: 2
+	SmokeTrailWhenDamaged@1:
+		Offset: -432,-560,0
+		Interval: 2
+	RejectsOrders:
+	-MapEditorData:
+	RenderSprites:
+		Image: badr
+	GivesExperience:
+		Experience: 1000
+	Interactable:
+
+YAK:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+    #   Inherits@AUTODAMAGE: ^KilledWithoutAirfield
+	Buildable:
+		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		BuildAtProductionType: Airplane
+		BuildDuration: 800
+		BuildPaletteOrder: 4
+		Prerequisites: afld, ~techlevel.medium
+		Description: Anti-Infantry Plane.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Yak
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 60
+	Armor:
+		Type: Light
+	Armament@PRIMARY:
+		Weapon: ChainGun.Yak.Left
+		LocalOffset: 256,-213,0
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+        RequiresCondition: !spain
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: ChainGun.Yak.Right
+		LocalOffset: 256,213,0
+		MuzzleSequence: muzzle
+		FireDelay: 1
+		PauseOnCondition: !ammo
+        RequiresCondition: !spain
+	Armament@PRIMARY_SPAIN:
+		Weapon: ChainGun.Yak.Left.spain
+		LocalOffset: 256,-213,0
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+        RequiresCondition: spain
+	Armament@SECONDARY_SPAIN:
+		Name: secondary
+		Weapon: ChainGun.Yak.Right.spain
+		LocalOffset: 256,213,0
+		MuzzleSequence: muzzle
+		FireDelay: 1
+		PauseOnCondition: !ammo
+        RequiresCondition: spain
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 20
+		Speed: 160
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+		MoveIntoShroud: false
+		IdleBehavior: ReturnToBase
+	#   AutoTarget:
+	#	InitialStance: HoldFire
+	#	InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 16
+		ReloadDelay: 60
+		AmmoCondition: ammo
+	SelectionDecorations:
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: YAK.Husk
+	SmokeTrailWhenDamaged:
+		Offset: -853,0,0
+		Interval: 2
+	Selectable:
+		Class: YAK
+		DecorationBounds: 30,28,0,2
+	RenderSprites:
+		Image: YAK
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 2
+
+YAK.Husk:
+	Inherits: ^PlaneHusk
+	Tooltip:
+		Name: Yak
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 149
+	SmokeTrailWhenDamaged:
+		Offset: -853,0,0
+		Interval: 2
+		MinDamage: Undamaged
+	RenderSprites:
+		Image: yak
+
+MIG:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
+    #   Inherits@AUTODAMAGE: ^KilledWithoutAirfield
+	Buildable:
+		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		BuildAtProductionType: Airplane
+		BuildDuration: 1500
+		BuildPaletteOrder: 5
+		Prerequisites: afld, stek, ~techlevel.high
+		Description: Fast Ground-Attack Plane.\n  Strong vs Buildings, Tanks\n  Weak vs Infantry, Light armor, Aircraft
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: MiG
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 50
+	Armor:
+		Type: Light
+	Armament:
+        Name: primary
+		Weapon: Maverick
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+        RequiresCondition: !spain
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: ScatterBomb
+		LocalOffset: 0,-440,0, 0,440,0
+		PauseOnCondition: !ammo_b
+        RequiresCondition: mig.upgrade && !spain
+	Armament@SPAIN:
+        Name: primary
+		Weapon: Maverick.spain
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+        RequiresCondition: spain
+	Armament@SECONDARY_SPAIN:
+		Name: secondary
+		Weapon: ScatterBomb.spain
+		LocalOffset: 0,-440,0, 0,440,0
+		PauseOnCondition: !ammo_b
+        RequiresCondition: mig.upgrade && spain
+	AttackAircraft:
+        Armaments: primary, secondary
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 20
+		Speed: 200
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+		MoveIntoShroud: false
+		IdleBehavior: ReturnToBase
+	#   AutoTarget:
+	#	InitialStance: HoldFire
+	#	InitialStanceAI: HoldFire
+	AmmoPool:
+        Name: ammo
+		Ammo: 6
+        Armaments: primary
+		ReloadDelay: 60
+		AmmoCondition: ammo
+	AmmoPool@SECONDARY:
+        Name: ammo_b
+		Ammo: 2
+		Armaments: secondary
+        ReloadDelay: 60
+        InitialAmmo: 0
+		AmmoCondition: ammo_b
+	Selectable:
+		Class: MIG
+		Bounds: 36,28,0,2
+		DecorationBounds: 40,29,0,1
+	SelectionDecorations:
+	SpawnActorOnDeath:
+		Actor: MIG.Husk
+	SmokeTrailWhenDamaged:
+		Offset: -853,0,171
+		Interval: 2
+	RenderSprites:
+		Image: MIG
+	WithAmmoPipsDecoration@1:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 3
+        AmmoPools: ammo
+	WithAmmoPipsDecoration@2:
+		Position: BottomLeft
+		Margin: 4, 6
+        FullSequence: gray
+		RequiresSelection: true
+		PipCount: 1
+        AmmoPools: ammo_b
+        RequiresCondition: mig.upgrade
+	Rearmable:
+        AmmoPools: ammo, ammo_b
+	GrantConditionOnPrerequisite@MIGUPG:
+		Condition: mig.upgrade
+		Prerequisites: migbombs.upgrade
+
+MIG.Husk:
+	Inherits: ^PlaneHusk
+	Tooltip:
+		Name: Mig Attack Plane
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 186
+	SmokeTrailWhenDamaged:
+		Offset: -853,0,171
+		Interval: 2
+		MinDamage: Undamaged
+	RenderSprites:
+		Image: mig
+
+U2:
+	Inherits: ^Plane
+	Health:
+		HP: 2000
+	Tooltip:
+		Name: Spy Plane
+	Armor:
+		Type: Heavy
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 28
+		Speed: 400
+		Repulsable: False
+		MaximumPitch: 56
+	AttackBomber:
+	-Selectable:
+	SelectionDecorations:
+	-Voiced:
+	-Targetable@AIRBORNE:
+	Contrail@1:
+		Offset: -725,683,0
+		TrailLength: 6
+		TrailWidth: 48
+		UsePlayerColor: false
+	Contrail@2:
+		Offset: -725,-683,0
+		TrailLength: 6
+		TrailWidth: 48
+		UsePlayerColor: false
+	SpawnActorOnDeath:
+		Actor: U2.Husk
+	SmokeTrailWhenDamaged:
+		Offset: -1c43,0,0
+		Interval: 2
+	RejectsOrders:
+	Interactable:
+	-MapEditorData:
+
+U2.Husk:
+	Inherits: ^PlaneHusk
+	Tooltip:
+		Name: Husk (Spy Plane)
+	Aircraft:
+		TurnSpeed: 28
+		Speed: 373
+	Contrail@1:
+		Offset: -725,683,0
+	Contrail@2:
+		Offset: -725,-683,0
+	SmokeTrailWhenDamaged:
+		Offset: -1c43,0,0
+		Interval: 2
+		MinDamage: Undamaged
+	RenderSprites:
+		Image: u2
+
+TRAN:
+	Inherits: ^Helicopter
+    Inherits@TRANSPORT: ^Transport
+	Inherits@Speed: ^AcceptsSpeedCrate
+	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Inherits@EMP: ^AcceptsEMPCrate
+	Buildable:
+		Queue: ClassicAircraft.Allies, Aircraft.Allies
+		BuildAtProductionType: Helicopter
+		BuildDuration: 1000
+		BuildPaletteOrder: 1
+		Prerequisites: hpad, ~techlevel.medium
+		Description: Fast Infantry Transport Helicopter.\n  Unarmed
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Chinook
+	Health:
+		HP: 90
+	Armor:
+		Type: Light
+	Aircraft:
+		InitialFacing: 896
+		TurnSpeed: 20
+		Speed: 120
+		MoveIntoShroud: false
+        PauseOnCondition: emp-crate-collected
+	WithIdleOverlay@ROTOR1AIR:
+		Offset: 597,0,213
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR1GROUND:
+		Offset: 597,0,213
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	WithIdleOverlay@ROTOR2AIR:
+		Offset: -597,0,341
+		Sequence: rotor2
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR2GROUND:
+		Offset: -597,0,341
+		Sequence: slow-rotor2
+		RequiresCondition: !airborne
+	Sellable:
+		RequiresCondition: unit.sellable && !airborne && !loaded
+	Cargo:
+		LoadedCondition: loaded
+		Types: Infantry
+		MaxWeight: 5
+		PassengerConditions:
+			mech: selfrepair
+    ChangesHealth@SelfRepair:
+		RequiresCondition: selfrepair
+        Step: 20
+		Delay: 80
+		StartIfBelow: 101
+	SpawnActorOnDeath:
+		Actor: TRAN.Husk
+	SelectionDecorations:
+	Selectable:
+		Class: TRAN
+		DecorationBounds: 40,36
+	RenderSprites:
+		Image: TRAN
+
+TRAN.Husk:
+	Inherits: ^HelicopterHusk
+	Tooltip:
+		Name: Transport Helicopter
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 149
+	WithIdleOverlay@PRIMARY:
+		Offset: -597,0,341
+		Sequence: rotor
+	WithIdleOverlay@SECONDARY:
+		Offset: 597,0,213
+		Sequence: rotor2
+	RenderSprites:
+		Image: tran
+
+TRAN.delivery:
+    Inherits: TRAN
+	-Buildable:
+    -Sellable:
+    -ExternalCondition@Sellable:
+    -ProximityExternalCondition:
+	-Selectable:
+    -Voiced:
+    -Cargo:
+    -WithCargoPipsDecoration:
+    -ChangesHealth@SelfRepair:
+	RejectsOrders:
+	Interactable:
+	Aircraft:
+		IdleBehavior: LeaveMap
+        Speed: 180
+        Repulsable: False
+        PauseOnCondition: emp-crate-collected
+	Carryall:
+		BeforeLoadDelay: 10
+		BeforeUnloadDelay: 15
+		LocalOffset: 0, 0, -256
+    RenderSprites:
+        Image: TRAN
+	-MapEditorData:
+
+HELI:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
+    Inherits@Crates: ^AcceptsAllCratesExceptCloak
+	Buildable:
+		Queue: ClassicAircraft.Allies, Aircraft.Allies
+		BuildAtProductionType: Helicopter
+		BuildDuration: 1200
+		BuildPaletteOrder: 2
+		Prerequisites: hpad, ~techlevel.medium
+		Description: Helicopter gunship armed\nwith multi-purpose missiles.\n  Strong vs Tanks, Aircraft\n  Weak vs Infantry
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Apache
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 225
+	Armor:
+		Type: Heavy
+	Armament:
+		Weapon: Hellfire
+		LocalOffset: 0,-213,-85, 0,213,-85
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: !spain
+	Armament@AS:
+		Name: secondary
+		Weapon: HeliDepthCharge
+		PauseOnCondition: !ammo_b || emp-crate-collected
+        RequiresCondition: heli.upgraded && !spain
+	Armament@SPAIN:
+		Weapon: Hellfire.spain
+		LocalOffset: 0,-213,-85, 0,213,-85
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: spain
+	Armament@AS_SPAIN:
+		Name: secondary
+		Weapon: HeliDepthCharge.spain
+		PauseOnCondition: !ammo_b || emp-crate-collected
+        RequiresCondition: heli.upgraded && spain
+	AttackAircraft:
+		AttackType: Hover
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		InitialFacing: 896
+		TurnSpeed: 16
+		Speed: 160
+		MoveIntoShroud: false
+        PauseOnCondition: emp-crate-collected
+	#   AutoTarget:
+	#	InitialStance: HoldFire
+	#	InitialStanceAI: HoldFire
+	WithIdleOverlay@ROTORAIR:
+		Offset: 0,0,85
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTORGROUND:
+		Offset: 0,0,85
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	AmmoPool:
+        Name: ammo
+        Armaments: primary
+		Ammo: 6
+		ReloadDelay: 60
+		AmmoCondition: ammo
+	AmmoPool@AS:
+		Name: ammo_b
+		Armaments: secondary
+		Ammo: 2
+		ReloadDelay: 60
+        InitialAmmo: 0
+		AmmoCondition: ammo_b
+	SelectionDecorations:
+	SpawnActorOnDeath:
+		Actor: HELI.Husk
+	SmokeTrailWhenDamaged:
+		Offset: -427,0,0
+	Selectable:
+		Class: HELI
+		DecorationBounds: 36,28
+	RenderSprites:
+		Image: HELI
+	WithAmmoPipsDecoration@1:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 3
+        AmmoPools: ammo
+	WithAmmoPipsDecoration@2:
+		Position: BottomLeft
+		Margin: 4, 6
+        FullSequence: blue
+		RequiresSelection: true
+		PipCount: 1
+        AmmoPools: ammo_b
+        RequiresCondition: heli.upgraded
+	GrantConditionOnPrerequisite@HELIUPG:
+		Condition: heli.upgraded
+		Prerequisites: helidepth.upgrade
+	Rearmable:
+        AmmoPools: ammo, ammo_b
+
+HELI.Husk:
+	Inherits: ^HelicopterHusk
+	Tooltip:
+		Name: Longbow
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 149
+	WithIdleOverlay:
+		Offset: 0,0,85
+		Sequence: rotor
+	SmokeTrailWhenDamaged:
+		Offset: -427,0,0
+		MinDamage: Undamaged
+	RenderSprites:
+		Image: heli
+
+HIND:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+    Inherits@Crates: ^AcceptsAllCratesExceptCloak
+	Buildable:
+		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		BuildAtProductionType: Helicopter
+		BuildDuration: 1200
+		BuildPaletteOrder: 2
+		Prerequisites: hpad, ~techlevel.medium
+		Description: Helicopter gunship armed\nwith dual chainguns.\n  Can be upgraded to gain Missiles too.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Hind
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 225
+	Armor:
+		Type: Heavy
+	Armament@PRIMARY:
+		Weapon: ChainGun
+		LocalOffset: 85,-213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: ChainGun
+		LocalOffset: 85,213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: !spain
+	Armament@TERTIARY:
+		Name: tertiary
+		Weapon: MaverickHind
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo_b || emp-crate-collected
+        RequiresCondition: hind.upgraded && !spain
+	Armament@PRIMARY_SPAIN:
+		Weapon: ChainGun.spain
+		LocalOffset: 85,-213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: spain
+	Armament@SECONDARY_SPAIN:
+		Name: secondary
+		Weapon: ChainGun.spain
+		LocalOffset: 85,213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: spain
+	Armament@TERTIARY_SPAIN:
+		Name: tertiary
+		Weapon: MaverickHind.spain
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo_b || emp-crate-collected
+        RequiresCondition: hind.upgraded && spain
+	AttackAircraft:
+        Armaments: primary, secondary, tertiary
+		AttackType: Hover
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		InitialFacing: 896
+		TurnSpeed: 16
+		Speed: 120
+		MoveIntoShroud: false
+        PauseOnCondition: emp-crate-collected
+	#   AutoTarget:
+	#	InitialStance: HoldFire
+	#	InitialStanceAI: HoldFire
+	WithIdleOverlay@ROTORAIR:
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTORGROUND:
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	AmmoPool:
+        Name: ammo
+        Armaments: primary, secondary
+		Ammo: 12
+		ReloadDelay: 60
+        ReloadCount: 2
+		AmmoCondition: ammo
+	AmmoPool@ROCKETS:
+		Name: ammo_b
+		Armaments: tertiary
+		Ammo: 6
+		ReloadDelay: 60
+        InitialAmmo: 0
+		AmmoCondition: ammo_b
+	SelectionDecorations:
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: HIND.Husk
+	SmokeTrailWhenDamaged:
+		Offset: -427,0,0
+	Selectable:
+		Class: HIND
+		DecorationBounds: 38,32
+	RenderSprites:
+		Image: HIND
+	WithAmmoPipsDecoration@1:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 5
+        AmmoPools: ammo
+	WithAmmoPipsDecoration@2:
+		Position: BottomLeft
+		Margin: 4, 6
+		FullSequence: red
+		PipCount: 3
+		RequiresSelection: true
+		AmmoPools: ammo_b
+        RequiresCondition: hind.upgraded
+	Rearmable:
+        AmmoPools: ammo, ammo_b
+	GrantConditionOnPrerequisite@HINDUPG:
+		Condition: hind.upgraded
+		Prerequisites: hindrockets.upgrade
+
+HIND.Husk:
+	Inherits: ^HelicopterHusk
+	Tooltip:
+		Name: Hind
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 112
+	WithIdleOverlay:
+		Sequence: rotor
+	SmokeTrailWhenDamaged:
+		Offset: -427,0,0
+		MinDamage: Undamaged
+	RenderSprites:
+		Image: hind
+
+HIP:
+	Inherits: ^Helicopter
+    Inherits@TRANSPORT: ^Transport
+	Inherits@Speed: ^AcceptsSpeedCrate
+	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Inherits@EMP: ^AcceptsEMPCrate
+	Buildable:
+		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		BuildAtProductionType: Helicopter
+		BuildDuration: 1000
+		BuildPaletteOrder: 1
+		Prerequisites: hpad, ~techlevel.medium
+		Description: Fast Infantry Transport Helicopter.\n  Unarmed
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Hip Transport
+	Health:
+		HP: 90
+	Armor:
+		Type: Light
+	Aircraft:
+		InitialFacing: 896
+		TurnSpeed: 20
+		Speed: 120
+		MoveIntoShroud: false
+        PauseOnCondition: emp-crate-collected
+	WithIdleOverlay@ROTORAIR:
+		Sequence: rotor
+		Offset: 432,0,128
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTORGROUND:
+		Sequence: slow-rotor
+		Offset: 432,0,128
+		RequiresCondition: !airborne
+	SelectionDecorations:
+	Sellable:
+		RequiresCondition: unit.sellable && !airborne && !loaded
+	Cargo:
+		LoadedCondition: loaded
+		Types: Infantry
+		MaxWeight: 5
+		PassengerConditions:
+			mech: selfrepair
+    ChangesHealth@SelfRepair:
+		RequiresCondition: selfrepair
+        Step: 20
+		Delay: 80
+		StartIfBelow: 101
+	SpawnActorOnDeath:
+		Actor: HIP.Husk
+	Selectable:
+		Class: HIP
+		DecorationBounds: 40,36
+	RenderSprites:
+		Image: HIP
+
+HIP.Husk:
+	Inherits: ^HelicopterHusk
+	Tooltip:
+		Name: Hip Transport
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 112
+	WithIdleOverlay:
+		Sequence: rotor
+        Offset: 432,0,128
+	RenderSprites:
+		Image: hip
+
+HIP.delivery:
+    Inherits: HIP
+	-Buildable:
+    -Sellable:
+    -ExternalCondition@Sellable:
+    -ProximityExternalCondition:
+	-Selectable:
+    -Voiced:
+    -Cargo:
+    -WithCargoPipsDecoration:
+    -ChangesHealth@SelfRepair:
+	RejectsOrders:
+	Interactable:
+	Aircraft:
+		IdleBehavior: LeaveMap
+        Speed: 180
+        Repulsable: False
+        PauseOnCondition: emp-crate-collected
+	Carryall:
+		BeforeLoadDelay: 10
+		BeforeUnloadDelay: 15
+		LocalOffset: 0, 0, -256
+    RenderSprites:
+        Image: HIP
+	-MapEditorData:
+
+NEBR:
+	Inherits: ^Plane
+    Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferBuilding
+    #   Inherits@AUTODAMAGE: ^KilledWithoutAirfield
+	Buildable:
+		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		BuildAtProductionType: Airplane
+        BuildDuration: 2400
+		BuildPaletteOrder: 6
+		BuildLimit: 1
+		Prerequisites: afld, fcom, ~techlevel.high
+		Description: Badger modified to carry and drop a Paranuke.\n  Maximum 1 can be built.\n  Strong vs everything on Ground\n  Weak vs Anti-Aircraft measures
+        Icon: alticon
+	Tooltip:
+		Name: Nuclear Bomber
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Valued:
+		Cost: 2400
+	Health:
+		HP: 60
+	Armor:
+		Type: Light
+	Armament:
+		Weapon: ParaNuke
+		LocalOffset: 0,0,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 20
+		Speed: 160
+		Repulsable: True
+        RepulsionSpeed: 40
+		MaximumPitch: 56
+        InitialFacing: 768
+		MoveIntoShroud: false
+		IdleBehavior: ReturnToBase
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 1
+		AmmoCondition: ammo
+		ReloadDelay: 400
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		FullSequence: red
+	SpawnActorOnDeath:
+		Actor: NEBR.Husk
+	SmokeTrailWhenDamaged@0:
+		Offset: -432,560,0
+		Interval: 2
+	SmokeTrailWhenDamaged@1:
+		Offset: -432,-560,0
+		Interval: 2
+	Selectable:
+        Class: NEBR
+		Bounds: 36,28,0,2
+		DecorationBounds: 40,29,0,1
+	SelectionDecorations:
+	ReloadArmamentsBar:
+		Color: FFFF00
+    RenderSprites:
+		Image: badr
+
+NEBR.Husk:
+	Inherits: ^PlaneHusk
+	Tooltip:
+		Name: Nuclear Bomber
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 160
+	SmokeTrailWhenDamaged@0:
+		Offset: -432,560,0
+		Interval: 2
+		MinDamage: Undamaged
+	SmokeTrailWhenDamaged@1:
+		Offset: -432,-560,0
+		Interval: 2
+		MinDamage: Undamaged
+	RenderSprites:
+		Image: badr

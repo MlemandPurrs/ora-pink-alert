@@ -1,0 +1,156 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Amazeing
+Author: Super Newbie
+Tileset: SNOW
+MapSize: 74,74
+Bounds: 1,1,72,72
+Visibility: Lobby
+Categories: OpenRA, 2-player
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor10: mine
+		Owner: Neutral
+		Location: 36,70
+	Actor14: mine
+		Owner: Neutral
+		Location: 37,3
+	Actor15: mine
+		Owner: Neutral
+		Location: 70,37
+	Actor17: mine
+		Owner: Neutral
+		Location: 3,36
+	Actor21: mpspawn
+		Owner: Neutral
+		Location: 15,23
+	Actor22: mpspawn
+		Owner: Neutral
+		Location: 58,49
+	Actor12: mine
+		Owner: Neutral
+		Location: 22,29
+	Actor23: mine
+		Owner: Neutral
+		Location: 29,51
+	Actor24: mine
+		Owner: Neutral
+		Location: 51,44
+	Actor25: mine
+		Owner: Neutral
+		Location: 44,22
+	Actor13: mine
+		Owner: Neutral
+		Location: 16,53
+	Actor19: mine
+		Owner: Neutral
+		Location: 57,20
+	Actor20: mine
+		Owner: Neutral
+		Location: 53,57
+	Actor18: mine
+		Owner: Neutral
+		Location: 20,16
+	Actor26: tc04
+		Owner: Neutral
+		Location: 35,7
+	Actor27: tc03
+		Owner: Neutral
+		Location: 33,4
+	Actor28: tc05
+		Owner: Neutral
+		Location: 40,68
+	Actor29: tc01
+		Owner: Neutral
+		Location: 39,65
+	Actor30: tc02
+		Owner: Neutral
+		Location: 36,63
+	Actor31: t16
+		Owner: Neutral
+		Location: 39,61
+	Actor32: t17
+		Owner: Neutral
+		Location: 33,10
+	Actor33: t16
+		Owner: Neutral
+		Location: 32,7
+	Actor34: t13
+		Owner: Neutral
+		Location: 41,63
+	Actor35: tc02
+		Owner: Neutral
+		Location: 30,3
+	Actor36: t11
+		Owner: Neutral
+		Location: 44,69
+	Actor38: t03
+		Owner: Neutral
+		Location: 29,5
+	Actor37: t08
+		Owner: Neutral
+		Location: 43,67
+	Actor40: v19
+		Owner: Neutral
+		Location: 32,32
+	Actor42: v19
+		Owner: Neutral
+		Location: 40,40
+	Actor41: v19
+		Owner: Neutral
+		Location: 41,31
+	Actor43: v19
+		Owner: Neutral
+		Location: 31,41
+	Actor39: t06
+		Owner: Neutral
+		Location: 38,10
+	Actor44: t07
+		Owner: Neutral
+		Location: 34,61
+	Actor45: t05
+		Owner: Neutral
+		Location: 29,9
+	Actor47: t03
+		Owner: Neutral
+		Location: 44,60
+	Actor46: tc05
+		Owner: Neutral
+		Location: 13,37
+	Actor48: tc04
+		Owner: Neutral
+		Location: 58,33
+	Actor49: t05
+		Owner: Neutral
+		Location: 61,10
+	Actor50: t10
+		Owner: Neutral
+		Location: 11,63
+	Actor52: tc01
+		Owner: Neutral
+		Location: 60,62
+	Actor51: t15
+		Owner: Neutral
+		Location: 12,9

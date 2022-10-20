@@ -1,0 +1,856 @@
+AHRV:
+    Inherits: HARV
+    Inherits@AUTOTARGET: ^AutoTargetGround
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+	-SpawnActorOnDeath:
+	-HarvesterHuskModifier:
+	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Prerequisites: proc, ~!global-mineimmune, ~techlevel.low
+        Description: Collects Valuable Minerals and Scrap Metal for processing.\nSlowly self-repairs when below 50% health.\n  Armed with basic Gun.
+        Icon: alticon
+	Tooltip:
+		Name: Armed Ore Truck
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 508,0,128
+		TurnSpeed: 28
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: secondary
+		Weapon: M1Carbine
+		LocalOffset: 320,0,60
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SECONDARY_SPAIN:
+		Name: secondary
+		Turret: secondary
+		Weapon: M1Carbine.spain
+		LocalOffset: 320,0,60
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackTurreted:
+		Armaments: secondary
+		Turrets: secondary
+        PauseOnCondition: emp-crate-collected
+	WithSpriteTurret@SECONDARY:
+		Turret: secondary
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: AHRV.EmptyHusk
+		OwnerType: InternalName
+        RequiresCondition: global-unithusks
+	HarvesterHuskModifier:
+		FullHuskActor: AHRV.FullHusk
+		FullnessThreshold: 50
+	Selectable:
+		Class: HARV
+    RenderSprites:
+        Image: HARV
+
+AHRV.FullHusk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Armed Ore Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: ahrv
+	RenderSprites:
+		Image: hhusk
+
+AHRV.EmptyHusk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Armed Ore Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: ahrv
+	RenderSprites:
+		Image: hhusk2
+
+AHRV.MineImmune
+    Inherits: AHRV
+	Buildable:
+        Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Prerequisites: proc, ~global-mineimmune, ~techlevel.low  
+    MineImmune:
+	SpawnActorOnDeath:
+		Actor: AHRV.MineImmune.EmptyHusk
+		OwnerType: InternalName
+        RequiresCondition: global-unithusks
+	HarvesterHuskModifier:
+		FullHuskActor: AHRV.MineImmune.FullHusk
+		FullnessThreshold: 50 
+	Selectable:
+		Class: HARV
+    RenderSprites:
+        Image: HARV
+    -MapEditorData:
+
+AHRV.MineImmune.FullHusk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Armed Ore Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: ahrv
+	RenderSprites:
+		Image: hhusk
+    -MapEditorData:
+
+AHRV.MineImmune.EmptyHusk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Armed Ore Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: ahrv
+	RenderSprites:
+		Image: hhusk2
+    -MapEditorData:
+
+BRDM:
+	Inherits: ^Vehicle
+	Inherits@Crates: ^AcceptsAllCrates    
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
+	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildPaletteOrder: 2
+		Prerequisites: ~techlevel.low
+		Description: Fast armored car with anti-armor rockets.\nCannot attack Air units.\n  Strong vs Light Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Armored Recon
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 150
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 90
+		PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 6c0
+	Turreted:
+		TurnSpeed: 40
+        Offset: 40,0,16
+	Armament:
+		Weapon: Dragon
+		LocalOffset: 192,0,176
+		PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: Dragon.spain
+		LocalOffset: 192,0,176
+		PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackTurreted:
+		PauseOnCondition: emp-crate-collected
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: BRDM.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+    Selectable:
+        Class: BRDM
+	RenderSprites:
+		Image: BRDM
+	Passenger:
+		CustomPipType: green
+
+BRDM.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Armored Recon (Destroyed)
+	TransformOnCapture:
+		IntoActor: brdm
+	RenderSprites:
+		Image: brdm.destroyed
+
+HAPC:
+	Inherits: APC
+    -AttackFrontal:
+	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildPaletteOrder: 3
+        BuildDuration: 800
+		Prerequisites: barr, ~techlevel.medium
+        Icon: alticon
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Heavy APC
+	Health:
+		HP: 350
+	Mobile:
+		Speed: 80
+	AttackTurreted:
+	Turreted:
+		TurnSpeed: 28
+	WithSpriteTurret:
+	Armament:
+		LocalOffset: 150,0,100
+	RenderSprites:
+		Image: APC
+
+HAPC.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Heavy APC (Destroyed)
+	TransformOnCapture:
+		IntoActor: hapc
+	RenderSprites:
+		Image: hapc.destroyed
+
+3TNK:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferTank
+	Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 900
+		BuildPaletteOrder: 4
+		Prerequisites: ~techlevel.low, ~!heavytank.upgrade
+		Description: Soviet Main Battle Tank.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+        Icon: alticon
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Heavy Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 400
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 70
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 20
+	Armament:
+		Weapon: 105mm.half
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 768,85,90, 768,-85,90
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: 105mm.half.spain
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 768,85,90, 768,-85,90
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackTurreted:
+        PauseOnCondition: emp-crate-collected
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+        Sequence: turret-one
+	SpawnActorOnDeath:
+		Actor: 3TNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	SelectionDecorations:
+	Selectable:
+		Class: 3TNK
+		DecorationBounds: 28,28
+	RenderSprites:
+		Image: 3TNK
+	Passenger:
+		CustomPipType: green
+	GrantConditionOnPrerequisite@HEAVYTANKUPG:
+		Condition: heavytank.upgrade
+		Prerequisites: heavytank.upgrade
+	TransformOnCondition@HEAVYTANKUPG:
+		IntoActor: 3TNK.Upgraded
+		RequiresCondition: heavytank.upgrade
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+
+3TNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Heavy Tank (Destroyed)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: 3tnk
+	RenderSprites:
+		Image: 3tnk1b.destroyed
+
+3TNK.Upgraded:
+    Inherits: 3TNK
+    -GrantConditionOnPrerequisite@HEAVYTANKUPG:
+    -TransformOnCondition@HEAVYTANKUPG:
+ 	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 900
+		BuildPaletteOrder: 4
+		Prerequisites: fix, ~techlevel.medium, ~heavytank.upgrade
+        Description: Soviet Main Battle Tank, with dual cannons.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+        Icon: icon
+	Armament:
+		Weapon: 105mm
+    Armament@SPAIN:
+        Weapon: 105mm.spain
+	WithSpriteTurret:
+        Sequence: turret
+	SpawnActorOnDeath:
+		Actor: 3TNK.Upgraded.Husk
+    Selectable:
+        Class: 3TNK
+    RenderSprites:
+        Image: 3TNK
+	Passenger:
+		CustomPipType: yellow
+    -MapEditorData:
+
+3TNK.Upgraded.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Heavy Tank (Destroyed)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: 3tnk.upgraded
+	RenderSprites:
+		Image: 3tnk.destroyed
+    -MapEditorData:
+
+4TNK:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferTank
+	Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 1800
+		BuildPaletteOrder: 5
+		Prerequisites: stek, ~techlevel.high
+		Description: Big and slow tank, with anti-air capability.\nSlowly self-repairs when below 50% health.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Mammoth Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 600
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 40
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 6c0
+	Turreted:
+		TurnSpeed: 20
+	Armament@PRIMARY:
+		Weapon: 120mm
+		LocalOffset: 900,180,340, 900,-180,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: MammothTusk
+		LocalOffset: -85,384,340, -85,-384,340
+		LocalYaw: -100,100
+		Recoil: 43
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@PRIMARY_SPAIN:
+		Weapon: 120mm.spain
+		LocalOffset: 900,180,340, 900,-180,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	Armament@SECONDARY_SPAIN:
+		Name: secondary.spain
+		Weapon: MammothTusk
+		LocalOffset: -85,384,340, -85,-384,340
+		LocalYaw: -100,100
+		Recoil: 43
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackTurreted:
+        PauseOnCondition: emp-crate-collected
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: 4TNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	ChangesHealth:
+		Step: 1
+		Delay: 3
+		StartIfBelow: 51
+		DamageCooldown: 150
+	SelectionDecorations:
+	Selectable:
+		Class: 4TNK
+		DecorationBounds: 44,38,0,-4
+	RenderSprites:
+		Image: 4TNK
+	Passenger:
+		CustomPipType: red
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+
+4TNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Mammoth Tank (Destroyed)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: 4tnk
+	RenderSprites:
+		Image: 4tnk.destroyed
+
+V2RL:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferDefense
+	Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 700
+		BuildPaletteOrder: 6
+		Prerequisites: dome, ~techlevel.medium
+		Description: Long-range rocket artillery.\n  Strong vs Infantry, Light armor, Buildings\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: V2 Rocket Launcher
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 150
+	Armor:
+		Type: Light
+	Mobile:
+        Locomotor: wheeled-crusher
+		Speed: 70
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 5c0
+	Armament:
+		Weapon: SCUD
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: SCUD.spain
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: spain
+	AmmoPool:
+		Ammo: 1
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Delay: 250
+		Count: 1
+        SelectionBarColor: FFFF00
+        PauseOnCondition: emp-crate-collected
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+        PauseOnCondition: emp-crate-collected
+	WithFacingSpriteBody:
+		Name: full
+		RequiresCondition: ammo
+	WithFacingSpriteBody@EMPTY:
+		Name: empty
+		RequiresCondition: !ammo
+		Sequence: empty-idle
+	SpawnActorOnDeath:
+		Actor: V2RL.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	SelectionDecorations:
+	Explodes:
+		Weapon: V2Explode
+	Selectable:
+		Class: V2RL
+		DecorationBounds: 28,28
+	RenderSprites:
+		Image: V2RL
+	Passenger:
+		CustomPipType: yellow
+	RenderRangeCircle:
+	RevealOnFire:
+		ArmamentNames: primary
+
+V2RL.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: V2 Rocket Launcher (Destroyed)
+	TransformOnCapture:
+		IntoActor: v2rl
+	RenderSprites:
+		Image: v2rl.destroyed
+
+TTNK:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
+	Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 1200
+		BuildPaletteOrder: 8
+		Prerequisites: stek, ~techlevel.high
+		Description: Tank with mounted tesla coil.\nTesla briefly short-circuits Vehicle and Ships.\n  Strong vs Infantry, Vehicles, Buildings\n  Weak vs Aircraft
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Tesla Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 110
+	Armor:
+		Type: Light
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 80
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 7c0
+	Armament:
+		Weapon: TTankZap
+		LocalOffset: 0,0,213
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: TTankZap.spain
+		LocalOffset: 0,0,213
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackFrontal:
+        PauseOnCondition: emp-crate-collected
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+	SpawnActorOnDeath:
+		Actor: TTNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	SelectionDecorations:
+	Selectable:
+		Class: TTNK
+		DecorationBounds: 30,30
+	RenderSprites:
+		Image: TTNK
+	Passenger:
+		CustomPipType: red
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+
+TTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Tesla Tank (Destroyed)
+	TransformOnCapture:
+		IntoActor: ttnk
+	WithIdleOverlay@spinner:
+		Sequence: spinner
+	RenderSprites:
+		Image: ttnk.destroyed
+
+QTNK:
+	Inherits: ^Vehicle
+	Inherits@Speed: ^AcceptsSpeedCrate
+	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Inherits@EMP: ^AcceptsEMPCrate
+	Buildable:
+        Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 2300
+		BuildPaletteOrder: 14
+		Prerequisites: fcom, ~techlevel.high
+		Description: Deals seismic damage to nearby vehicles and structures.\nVehicles get slowed down, Infantry is forced to ground.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 2300
+	Tooltip:
+		Name: M.A.D. Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 300
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 30
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !madweakness
+	RevealsShroud:
+		Range: 6c0
+	SelectionDecorations:
+	MadTank:
+        ThumpInterval: 12
+        DriverActor: dummy.qtnk
+        DeployedCondition: madweakness
+	ToggleConditionOnOrder@InvulnerabilityDisable:
+		Condition: invulnerability
+		OrderName: deploy
+		RequiresCondition: invulnerability && !madweakness
+	DamageMultiplier@Invulnerability:
+		RequiresCondition: invulnerability && invulnerability-crate-collected && !madweakness
+		Modifier: 0
+	WithColoredOverlay@Invulnerability:
+		RequiresCondition: invulnerability && invulnerability-crate-collected && !madweakness
+	Targetable:
+		TargetTypes: Ground, MADTank, Repair, Vehicle
+	SpawnActorOnDeath:
+		Actor: QTNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Selectable:
+		Class: QTNK
+		DecorationBounds: 44,38,0,-4
+	RenderSprites:
+		Image: QTNK
+	Passenger:
+		CustomPipType: red
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+
+QTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: M.A.D. Tank (Destroyed)
+	TransformOnCapture:
+		IntoActor: qtnk
+	RenderSprites:
+		Image: qtnk.destroyed
+
+GTNK:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+    Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 950
+        BuildPaletteOrder: 9
+		Prerequisites: stek, dome, ~techlevel.high
+		Description: Tank with Anti-Air battery mounted on it.\nUses Chaingun against ground units.\n  Strong vs Aircraft, Infantry\n  Weak vs anything Else
+	Valued:
+		Cost: 950
+	Tooltip:
+		Name: Gattling Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 250
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 72
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 6c0
+	Turreted:
+		TurnSpeed: 20
+	Armament@AG:
+		Name: primary
+		Weapon: Vulcan
+		LocalOffset: 320,140,160
+		MuzzleSequence: muzzle-mg
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@AA:
+		Name: secondary
+		Weapon: ZSU-23
+		LocalOffset: 460,-100,400
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: !spain
+	Armament@AG_SPAIN:
+		Name: primary
+		Weapon: Vulcan.spain
+		LocalOffset: 320,140,160
+		MuzzleSequence: muzzle-mg
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	Armament@AA_SPAIN:
+		Name: secondary
+		Weapon: ZSU-23.spain
+		LocalOffset: 460,-100,400
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo || emp-crate-collected
+        RequiresCondition: spain
+	AmmoPool:
+		Armaments: secondary
+		Ammo: 10
+		AmmoCondition: ammo
+		ReloadDelay: 6
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		PipCount: 6
+		RequiresSelection: true
+	ReloadAmmoPool:
+		Delay: 50
+		Count: 10
+		RequiresCondition: !ammo
+        SelectionBarColor: FFFF00
+	AttackTurreted:
+        PauseOnCondition: emp-crate-collected
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: GTNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Selectable:
+		DecorationBounds: 28,28
+        Class: GTNK
+    RenderSprites:
+        Image: GTNK
+	Passenger:
+		CustomPipType: red
+	RenderRangeCircle:
+		RangeCircleType: aa
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+
+GTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Gattling Tank (Destroyed)
+	TransformOnCapture:
+		IntoActor: gtnk
+	ThrowsParticle@turret:
+		Anim: turret
+	RenderSprites:
+		Image: gtnk.destroyed
+
+5TNK:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@Crates: ^AcceptsAllCrates
+	Tooltip:
+		Name: Behemoth Tank
+		GenericName: Tank
+	Valued:
+		Cost: 3600
+	Buildable:
+		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 3600
+		BuildPaletteOrder: 15
+		Prerequisites: dome, fix, fcom, ~techlevel.high
+		BuildLimit: 1
+		Description: Extra large and slow tank, with anti-infantry extra.\nMaximum 1 can be built.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft, Ships\n  Special: Robotic\nWireless communications powered.\nRequires a Radar Dome to operate.
+	ExternalCondition@WIRELESS:
+		Condition: wireless
+	WithColoredOverlay@DISCONNECTED:
+		Palette: disabled
+		RequiresCondition: !wireless
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 30
+        PauseOnCondition: emp-crate-collected || !wireless
+	RevealsShroud:
+		Range: 6c0
+	Health:
+		HP: 1200
+	Armor:
+		Type: Heavy
+	DamageMultiplier@DISCONNECTED:
+		Modifier: 200
+		RequiresCondition: !wireless
+	AttackTurreted:
+		PauseOnCondition: emp-crate-collected || !wireless
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	Turreted:
+		TurnSpeed: 10
+	Armament@PRIMARY:
+		Weapon: 8Inch
+		LocalOffset: 900,180,340, 900,-180,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+	Armament@PRIMARY_2:
+		Weapon: 8Inch
+		LocalOffset: 900,180,340, 900,-180,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		FireDelay: 5
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: ChainGun.5tnk
+		LocalOffset: -85,384,340, -85,-384,340
+		LocalYaw: -100,100
+		Recoil: 43
+		MuzzleSequence: muzzle-mg
+	ChangesHealth:
+		Step: 1
+		Delay: 3
+		StartIfBelow: 51
+		DamageCooldown: 150
+        RequiresCondition: wireless
+	SelectionDecorations:
+	Selectable:
+        Class: 5TNK
+		DecorationBounds: 44,38,0,-4
+	SpawnActorOnDeath:
+		Actor: 5TNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Explodes:
+		Weapon: UnitExplode
+		EmptyWeapon: UnitExplode
+	Passenger:
+        Weight: 10
+		CustomPipType: white
+	RevealOnDeath:
+		Duration: 100
+		Radius: 2c512
+    GrantConditionOnPrerequisite@WIRELESS:
+        Condition: wireless
+        Prerequisites: activedome
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+	ChangesHealth:
+		Step: 1
+		Delay: 3
+		StartIfBelow: 51
+		DamageCooldown: 150
+        RequiresCondition: wireless
+
+5TNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Behemoth Tank (Destroyed)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: 5tnk
+	InfiltrateForTransform:
+		IntoActor: 5tnk
+	RenderSprites:
+		Image: 5tnk.destroyed

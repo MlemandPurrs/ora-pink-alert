@@ -1,0 +1,111 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Iron Valley
+Author: AchromicWhite
+Tileset: TEMPERAT
+MapSize: 128,128
+Bounds: 1,1,62,37
+Visibility: Lobby
+Categories: Remastered, 2-player
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor0: t08
+		Location: 53,9
+		Owner: Neutral
+	Actor1: t08
+		Location: 35,12
+		Owner: Neutral
+	Actor2: t08
+		Location: 14,14
+		Owner: Neutral
+	Actor3: t08
+		Location: 25,14
+		Owner: Neutral
+	Actor4: t14
+		Location: 2,14
+		Owner: Neutral
+	Actor5: t08
+		Location: 24,15
+		Owner: Neutral
+	Actor6: t08
+		Location: 29,19
+		Owner: Neutral
+	Actor7: t08
+		Location: 33,20
+		Owner: Neutral
+	Actor8: t15
+		Location: 61,22
+		Owner: Neutral
+	Actor9: t08
+		Location: 39,24
+		Owner: Neutral
+	Actor10: t08
+		Location: 38,25
+		Owner: Neutral
+	Actor11: t08
+		Location: 28,26
+		Owner: Neutral
+	Actor12: t08
+		Location: 10,29
+		Owner: Neutral
+	Actor15: mpspawn
+		Owner: Neutral
+		Location: 56,15
+	Actor16: mpspawn
+		Owner: Neutral
+		Location: 7,22
+	Actor17: mine
+		Owner: Neutral
+		Location: 60,8
+	Actor18: mine
+		Owner: Neutral
+		Location: 60,11
+	Actor19: mine
+		Owner: Neutral
+		Location: 3,30
+	Actor20: mine
+		Owner: Neutral
+		Location: 3,27
+	Actor21: mine
+		Owner: Neutral
+		Location: 4,6
+	Actor22: mine
+		Owner: Neutral
+		Location: 59,32
+	Actor23: v19
+		Owner: Neutral
+		Location: 52,32
+	Actor24: v19
+		Owner: Neutral
+		Location: 10,5
+	Actor25: mine
+		Owner: Neutral
+		Location: 50,3
+	Actor26: mine
+		Owner: Neutral
+		Location: 12,35
+	Actor27: miss
+		Owner: Neutral
+		Location: 30,19

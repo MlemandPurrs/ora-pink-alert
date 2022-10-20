@@ -1,0 +1,221 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Docklands 2
+Author: captain_cac
+Tileset: SNOW
+MapSize: 128,128
+Bounds: 1,1,126,126
+Visibility: Lobby
+Categories: Remastered, Remake, 6-player
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3, Multi4, Multi5
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi4:
+		Name: Multi4
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi5:
+		Name: Multi5
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor0: ice01
+		Location: 47,34
+		Owner: Neutral
+	Actor1: ice01
+		Location: 89,87
+		Owner: Neutral
+	Actor2: ice01
+		Location: 36,86
+		Owner: Neutral
+	Actor3: ice01
+		Location: 89,38
+		Owner: Neutral
+	Actor4: ice03
+		Location: 71,72
+		Owner: Neutral
+	Actor5: ice03
+		Location: 55,51
+		Owner: Neutral
+	Actor6: ice04
+		Location: 41,75
+		Owner: Neutral
+	Actor7: ice04
+		Location: 69,49
+		Owner: Neutral
+	Actor8: ice04
+		Location: 88,72
+		Owner: Neutral
+	Actor9: ice04
+		Location: 43,53
+		Owner: Neutral
+	Actor10: ice04
+		Location: 54,76
+		Owner: Neutral
+	Actor11: ice04
+		Location: 67,77
+		Owner: Neutral
+	Actor12: ice04
+		Location: 76,39
+		Owner: Neutral
+	Actor13: ice04
+		Location: 90,53
+		Owner: Neutral
+	Actor14: mpspawn
+		Location: 14,63
+		Owner: Neutral
+	Actor15: mpspawn
+		Location: 111,63
+		Owner: Neutral
+	Actor16: mpspawn
+		Location: 97,15
+		Owner: Neutral
+	Actor17: mpspawn
+		Location: 28,15
+		Owner: Neutral
+	Actor18: mpspawn
+		Location: 28,112
+		Owner: Neutral
+	Actor19: mpspawn
+		Location: 97,112
+		Owner: Neutral
+	Actor20: mine
+		Owner: Neutral
+		Location: 33,10
+	Actor21: mine
+		Owner: Neutral
+		Location: 23,5
+	Actor22: mine
+		Owner: Neutral
+		Location: 38,5
+	Actor23: mine
+		Owner: Neutral
+		Location: 28,10
+	Actor24: mine
+		Owner: Neutral
+		Location: 92,10
+	Actor25: mine
+		Owner: Neutral
+		Location: 97,10
+	Actor26: mine
+		Owner: Neutral
+		Location: 87,5
+	Actor27: mine
+		Owner: Neutral
+		Location: 102,5
+	Actor28: mine
+		Owner: Neutral
+		Location: 117,68
+	Actor29: mine
+		Owner: Neutral
+		Location: 117,63
+	Actor30: mine
+		Owner: Neutral
+		Location: 122,59
+	Actor31: mine
+		Owner: Neutral
+		Location: 122,72
+	Actor32: mine
+		Owner: Neutral
+		Location: 10,68
+	Actor33: mine
+		Owner: Neutral
+		Location: 10,63
+	Actor34: mine
+		Owner: Neutral
+		Location: 5,59
+	Actor35: mine
+		Owner: Neutral
+		Location: 5,72
+	Actor36: mine
+		Owner: Neutral
+		Location: 33,117
+	Actor37: mine
+		Owner: Neutral
+		Location: 28,117
+	Actor38: mine
+		Owner: Neutral
+		Location: 23,122
+	Actor39: mine
+		Owner: Neutral
+		Location: 39,122
+	Actor40: mine
+		Owner: Neutral
+		Location: 86,122
+	Actor41: mine
+		Owner: Neutral
+		Location: 102,122
+	Actor42: mine
+		Owner: Neutral
+		Location: 92,117
+	Actor43: mine
+		Owner: Neutral
+		Location: 97,117
+	Actor44: v19
+		Owner: Neutral
+		Location: 79,100
+	Actor45: v19
+		Owner: Neutral
+		Location: 46,100
+	Actor46: v19
+		Owner: Neutral
+		Location: 46,26
+	Actor47: v19
+		Owner: Neutral
+		Location: 79,26
+	Actor48: v19
+		Owner: Neutral
+		Location: 61,37
+	Actor49: v19
+		Owner: Neutral
+		Location: 64,37
+	Actor50: v19
+		Owner: Neutral
+		Location: 64,88
+	Actor51: v19
+		Owner: Neutral
+		Location: 61,88
+	Actor52: v19
+		Owner: Neutral
+		Location: 81,62
+	Actor53: v19
+		Owner: Neutral
+		Location: 44,62
+	Actor54: v19
+		Owner: Neutral
+		Location: 101,77
+	Actor55: v19
+		Owner: Neutral
+		Location: 23,48

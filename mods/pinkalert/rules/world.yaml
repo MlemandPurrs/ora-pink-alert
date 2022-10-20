@@ -1,0 +1,426 @@
+^BaseWorld:
+	Inherits: ^Palettes
+	AlwaysVisible:
+	ActorMap:
+	ScreenMap:
+	Selection:
+	MusicPlaylist:
+		VictoryMusic: score
+		DefeatMusic: map
+	TerrainGeometryOverlay:
+	DebugVisualizations:
+	Locomotor@FOOT:
+		Name: foot
+		Crushes: mine, mine_ap, crate
+		SharesCell: true
+		TerrainSpeeds:
+			Clear: 90
+			Rough: 80
+			Road: 100
+			Bridge: 100
+			Ore: 80
+			Gems: 80
+			Beach: 80
+            Ford: 90
+            Scrap: 80
+	Locomotor@WHEELED-NON-CRUSHER:
+		Name: wheeled-non-crusher
+		Crushes: mine, mine_ap, mine_av, crate
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 40
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Beach: 40
+            Ford: 80
+            Scrap: 70
+	Locomotor@WHEELED-CRUSHER:
+		Name: wheeled-crusher
+		Crushes: wall, mine, mine_ap, mine_av, crate, infantry
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 40
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Beach: 40
+            Ford: 80
+            Scrap: 70
+	Locomotor@TRACKED-NON-CRUSHER:
+		Name: tracked-non-crusher
+		Crushes: wall, mine, mine_ap, mine_av, crate
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 70
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Beach: 70
+            Ford: 80
+            Scrap: 70
+	Locomotor@TRACKED-CRUSHER:
+		Name: tracked-crusher
+		Crushes: wall, mine, mine_ap, mine_av, crate, infantry
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 70
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Beach: 70
+            Ford: 80
+            Scrap: 70
+	Locomotor@TRACKED-CRUSHER-NOMINES:
+		Name: tracked-crusher-nomines
+		Crushes: wall, crate, infantry
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 70
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Beach: 70
+            Ford: 80
+            Scrap: 70
+	Locomotor@TRACKED-AMPHIBIAN:
+		Name: tracked-amphibian
+		Crushes: wall, mine, mine_ap, mine_av, crate, infantry
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 70
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Beach: 70
+            Ford: 80
+            Scrap: 70
+			Water: 50
+			River: 30
+	Locomotor@NAVAL:
+		Name: naval
+		Crushes: crate, mine, mine_as
+		TerrainSpeeds:
+			Water: 100
+            Ford: 90
+            Tunnel: 100
+	Locomotor@IMMOBILE:
+		Name: immobile
+		TerrainSpeeds:
+	TerrainRenderer:
+	ShroudRenderer:
+		FogVariants: shroud
+		Index: 255, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 20, 40, 56, 65, 97, 130, 148, 194, 24, 33, 66, 132, 28, 41, 67, 134, 1, 2, 4, 8, 3, 6, 12, 9, 7, 14, 13, 11, 5, 10, 15, 255
+		UseExtendedIndex: true
+	Faction@allies:
+		Name: Allies
+		Side: Allies
+		InternalName: allies
+		Description: Allies\nGeneric Allied faction doesn't have any bonuses.
+	Faction@england:
+		Name: Britain
+		Side: Allies
+		InternalName: england
+		Description: Britain\nBritain has 10% taken damage bonus on all units and structures.
+	Faction@germany:
+		Name: Germany
+		Side: Allies
+		InternalName: germany
+		Description: Germany\nGermany has 10% dealt damage bonus on on all combat units and defenses.
+	Faction@france:
+		Name: France
+		Side: Allies
+		InternalName: france
+		Description: France\nFrance has 10% rate of fire bonus on all combat units and defenses.
+	Faction@spain:
+		Name: Spain
+		Side: Allies
+		InternalName: spain
+		Description: Spain\nSpain has +1 range bonus on all combat units and defenses.
+	Faction@soviet:
+		Name: Soviet
+		Side: Soviet
+		InternalName: soviet
+		Description: Soviet\nGeneric Soviet faction doesn't have any bonuses.
+	Faction@russia:
+		Name: Russia
+		Side: Soviet
+		InternalName: russia
+		Description: Russia\nRussia has 10% cost bonus on all units and structures.
+	Faction@ukraine:
+		Name: Ukraine
+		Side: Soviet
+		InternalName: ukraine
+		Description: Ukraine\nUkraine has 10% speed bonus on all units.
+	Faction@belarus:
+		Name: Belarus
+		Side: Soviet
+		InternalName: belarus
+		Description: Belarus\nBelarus has 10% build time bonus on all units and structures.
+	Faction@kazakh:
+		Name: Kazakhstan
+		Side: Soviet
+		InternalName: kazakh
+		Description: Kazakhstan\nKazakhstan has 10% rate of fire, taken and dealt damage bonus on all Infantry.
+	Faction@random:
+		Name: Any
+		Side: Random
+		InternalName: Random
+		RandomFactionMembers: england, germany, france, spain, russia, ukraine, belarus, kazakh
+		Description: Random Country\nA random country will be chosen when the game starts.
+	Faction@randomallies:
+		Name: Allies
+		InternalName: RandomAllies
+		RandomFactionMembers: england, germany, france, spain
+		Side: Random
+		Description: Random Allied Country\nA random Allied country will be chosen when the game starts.
+	Faction@randomsoviet:
+		Name: Soviet
+		InternalName: RandomSoviet
+		RandomFactionMembers: russia, ukraine, belarus, kazakh
+		Side: Random
+		Description: Random Soviet Country\nA random Soviet country will be chosen when the game starts.
+	ResourceType@ore:
+		Type: Ore
+		Name: Valuable Minerals
+		ResourceType: 1
+		TerrainType: Ore
+		Palette: player
+		Sequences: gold01,gold02,gold03,gold04
+		MaxDensity: 12
+		ValuePerUnit: 30
+		AllowedTerrainTypes: Clear,Road
+		AllowUnderActors: true
+	ResourceType@gem:
+		Type: Gems
+		Name: Valuable Minerals
+		ResourceType: 2
+		TerrainType: Gems
+		Palette: player
+		Sequences: gem01,gem02,gem03,gem04
+		MaxDensity: 3
+		ValuePerUnit: 45
+		AllowedTerrainTypes: Clear,Road
+		AllowUnderActors: true
+	ResourceType@scrap:
+		Type: Scrap
+		Name: Scrap Metal
+		ResourceType: 3
+		TerrainType: Scrap
+		Palette: scrapmetal
+		Sequences: scrap01,scrap02,scrap03,scrap04
+		MaxDensity: 6
+		ValuePerUnit: 15
+		AllowedTerrainTypes: Clear,Road
+		AllowUnderActors: true
+	ResourceRenderer:
+		RenderTypes: Ore, Gems, Scrap
+
+World:
+	Inherits: ^BaseWorld
+	ChatCommands:
+	DevCommands:
+	DebugVisualizationCommands:
+	PlayerCommands:
+	HelpCommand:
+	ScreenShaker:
+	BuildingInfluence:
+	ProductionQueueFromSelection:
+		ProductionPaletteWidget: PRODUCTION_PALETTE
+	LegacyBridgeLayer:
+		Bridges: bridge1, bridge2, br1, br2, br3, sbridge1, sbridge2, sbridge3, sbridge4, brg1, brg2, brg3, brv1, brv2, brv3, brh1, brh2, brh3
+	CustomTerrainDebugOverlay:
+	CrateSpawner:
+		Minimum: 1
+		Maximum: 3
+		SpawnInterval: 3000
+		WaterChance: 20
+		InitialSpawnDelay: 1500
+		CheckboxDisplayOrder: 5
+	DomainIndex:
+	SmudgeLayer@SCORCH:
+		Type: Scorch
+		Sequence: scorches
+		SmokeChance: 50
+		SmokeImage: smoke_m
+		SmokeSequences: idle
+	SmudgeLayer@CRATER:
+		Type: Crater
+		Sequence: craters
+		SmokeChance: 25
+		SmokeImage: smoke_m
+		SmokeSequences: idle
+	ResourceLayer:
+	ResourceClaimLayer:
+	WarheadDebugOverlay:
+	SpawnMapActors:
+	MapBuildRadius:
+		AllyBuildRadiusCheckboxDisplayOrder: 11
+        AllyBuildRadiusCheckboxEnabled: false
+		BuildRadiusCheckboxDisplayOrder: 12
+		BuildRadiusCheckboxEnabled: false
+	MapOptions:
+		ShortGameCheckboxDisplayOrder: 4
+		TechLevel: high
+		TechLevelDropdownDisplayOrder: 2
+		GameSpeedDropdownDisplayOrder: 3
+	CreateMPPlayers:
+	MPStartUnits@mcvonly:
+		Class: mcv
+		ClassName: MCV Only
+		Factions: allies, england, france, germany, spain, soviet, russia, ukraine, belarus, kazakh
+		BaseActor: mcv
+	MPStartUnits@doublemcv:
+		Class: doublemcv
+		ClassName: Double MCV
+		Factions: allies, england, france, germany, spain, soviet, russia, ukraine, belarus, kazakh
+		BaseActor: mcv
+		SupportActors: mcv
+	MPStartUnits@lightalliesa:
+		Class: light
+		ClassName: Light Support
+		Factions: allies, england, france, germany, spain
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,jeep,1tnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	MPStartUnits@lightalliesb:
+		Class: light
+		ClassName: Light Support
+		Factions: allies, england, france, germany, spain
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,apc,jeep
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	MPStartUnits@lightsovieta:
+		Class: light
+		ClassName: Light Support
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,brdm,brdm
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	MPStartUnits@lightsovietb:
+		Class: light
+		ClassName: Light Support
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,hapc,3tnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	MPStartUnits@heavyalliesa:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: allies, england, france, germany, spain
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,jeep,1tnk,2tnk,1tnk,2tnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	MPStartUnits@heavyalliesb:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: allies, england, france, germany, spain
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,apc,jeep,2tnk,2tnk,1tnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	MPStartUnits@heavysovieta:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,brdm,brdm,3tnk,3tnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	MPStartUnits@heavysovietb:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,hapc,brdm,3tnk,brdm
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	MPStartLocations:
+		SeparateTeamSpawnsCheckboxDisplayOrder: 99
+        SeparateTeamSpawnsCheckboxLocked: true
+        SeparateTeamSpawnsCheckboxVisible: false
+	SpawnMPUnits:
+		StartingUnitsClass: mcv
+		DropdownDisplayOrder: 1
+	PathFinder:
+	ValidateOrder:
+	DebugPauseState:
+	RadarPings:
+	StartGameNotification:
+	ObjectivesPanel:
+		PanelName: SKIRMISH_STATS
+	LoadWidgetAtGameStart:
+	ScriptTriggers:
+    TimeLimitManager:
+		TimeLimitWarnings:
+			40: FourtyMinutesRemaining
+			30: ThirtyMinutesRemaining
+			20: TwentyMinutesRemaining
+			10: TenMinutesRemaining
+			5: WarningFiveMinutesRemaining
+			4: WarningFourMinutesRemaining
+			3: WarningThreeMinutesRemaining
+			2: WarningTwoMinutesRemaining
+			1: WarningOneMinuteRemaining
+	ScriptLobbyDropdown@EcoSpeed:
+		ID: growthrate
+		Label: Ore Growth
+		Values:
+			sloweco: Slow
+			normaleco: Normal
+			fasteco: Fast
+		Default: fasteco
+		Description: The speed with which Resources grow
+		DisplayOrder: 5
+	LuaScript:
+		Scripts: ecosetting.lua
+	MapCreeps:
+		CheckboxVisible: True
+		CheckboxLabel: Antfestation
+		CheckboxDescription: Periodically will Giant Ants emerge from Mineshafts, that are hostile to all
+		CheckboxEnabled: False
+		CheckboxDisplayOrder: 21
+	ActorSpawnManager@1:
+		Minimum: 0
+		Maximum: 16
+		SpawnInterval: 3750
+		Actors: Ant
+		Owner: Creeps
+		Types: mine,gmine	
+		RequiresCondition: !conditionforants
+	GrantTimedCondition@initialantprevention:
+		Condition: conditionforants
+		# not before 3 minutes
+		Duration: 4500
+    
+    #   need to finally get IDE for this
+    #   ScriptLobbyDropdown@HusksControl:
+    #   ID: huskscontrol
+    #   Label: Husks
+    #   Values:
+    #   techonly: Tech Buildings
+    #   structures: All Buildings
+    #   vehicles: Buildings + Vehicles
+    #   Default: structures
+    #   Description: Types of Husks that may appear ingame
+    #   DisplayOrder: 9
+
+EditorWorld:
+	Inherits: ^BaseWorld
+	EditorActorLayer:
+	EditorCursorLayer:
+	EditorResourceLayer:
+	EditorSelectionLayer:
+	LoadWidgetAtGameStart:
+	EditorActionManager:

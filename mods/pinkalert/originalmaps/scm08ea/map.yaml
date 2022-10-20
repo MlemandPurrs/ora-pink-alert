@@ -1,0 +1,124 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Shallow Grave
+Author: Westwood Studios
+Tileset: SNOW
+MapSize: 128,128
+Bounds: 39,37,48,48
+Visibility: Lobby
+Categories: Red Alert, 4-player, Naval
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor0: mine
+		Location: 46,81
+		Owner: Neutral
+	Actor1: mine
+		Location: 68,81
+		Owner: Neutral
+	Actor2: mine
+		Location: 82,43
+		Owner: Neutral
+	Actor3: mine
+		Location: 57,40
+		Owner: Neutral
+	Actor4: tc04
+		Location: 48,64
+		Owner: Neutral
+	Actor5: tc03
+		Location: 48,49
+		Owner: Neutral
+	Actor6: tc03
+		Location: 74,52
+		Owner: Neutral
+	Actor7: t08
+		Location: 73,52
+		Owner: Neutral
+	Actor8: tc04
+		Location: 68,72
+		Owner: Neutral
+	Actor9: tc01
+		Location: 74,60
+		Owner: Neutral
+	Actor10: tc02
+		Location: 85,83
+		Owner: Neutral
+	Actor11: t08
+		Location: 62,74
+		Owner: Neutral
+	Actor12: t01
+		Location: 59,82
+		Owner: Neutral
+	Actor13: t02
+		Location: 41,52
+		Owner: Neutral
+	Actor14: t05
+		Location: 69,38
+		Owner: Neutral
+	Actor15: t05
+		Location: 84,68
+		Owner: Neutral
+	Actor16: tc04
+		Location: 39,82
+		Owner: Neutral
+	Actor17: tc01
+		Location: 39,36
+		Owner: Neutral
+	waypoint0: waypoint
+		Location: 44,41
+		Owner: Neutral
+	waypoint1: waypoint
+		Location: 81,81
+		Owner: Neutral
+	waypoint2: waypoint
+		Location: 81,57
+		Owner: Neutral
+	waypoint3: waypoint
+		Location: 43,70
+		Owner: Neutral
+	DefaultCameraPosition: waypoint
+		Location: 63,61
+		Owner: Neutral
+	Actor23: mpspawn
+		Owner: Neutral
+		Location: 44,41
+	Actor24: mpspawn
+		Owner: Neutral
+		Location: 81,57
+	Actor25: mpspawn
+		Owner: Neutral
+		Location: 81,81
+	Actor26: mpspawn
+		Owner: Neutral
+		Location: 43,70

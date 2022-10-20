@@ -1,0 +1,565 @@
+E2:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferDefense
+	Buildable:
+		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		BuildDuration: 160
+		BuildPaletteOrder: 3
+		Prerequisites: proc, ~techlevel.low, ~!global-squadenabled
+		Description: Infantry armed with grenades.\n  Strong vs Buildings, Infantry\n  Weak vs Vehicles, Aircraft
+	Selectable:
+		Class: E2
+	Valued:
+		Cost: 150
+	Tooltip:
+		Name: Grenadier
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 50
+	Mobile:
+		Speed: 50
+	Armament@PRIMARY:
+		Weapon: Grenade
+		LocalOffset: 0,0,555
+		FireDelay: 15
+        RequiresCondition: !spain
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Grenade
+		FireDelay: 15
+        RequiresCondition: !spain
+	Armament@PRIMARY_SPAIN:
+		Weapon: Grenade.spain
+		LocalOffset: 0,0,555
+		FireDelay: 15
+        RequiresCondition: spain
+	Armament@GARRISONED_SPAIN:
+		Name: garrisoned
+		Weapon: Grenade.spain
+		FireDelay: 15
+        RequiresCondition: spain
+	TakeCover:
+		ProneOffset: 256,64,-331
+	AttackFrontal:
+	WithInfantryBody:
+		DefaultAttackSequence: throw
+        RequiresCondition: !parachute && !smolinfantry
+	WithInfantryBody@SMOLINFANTRY:
+		DefaultAttackSequence: throw-small
+        RequiresCondition: !parachute && smolinfantry
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute && !smolinfantry
+	WithInfantryBody@SMOLPARACHUTE:
+		StandSequences: parachute-small
+		RequiresCondition: parachute && smolinfantry    
+	Explodes:
+		Weapon: UnitExplodeSmall
+		Chance: 50
+	RenderSprites:
+		Image: E2
+	Passenger:
+		CustomPipType: green
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 37
+		Type: InfantryRefund
+
+E4:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferBuilding
+	Buildable:
+		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		BuildDuration: 300
+		BuildPaletteOrder: 7
+		Prerequisites: dome, ~techlevel.medium, ~!global-squadenabled
+		Description: Advanced anti-structure unit.\n  Immune to Fire-based weaponry.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Selectable:
+		Class: E4
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Flamethrower
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 45
+	Mobile:
+		Speed: 30
+	Armament@PRIMARY:
+		Weapon: Flamer
+		LocalOffset: 700,0,400
+		FireDelay: 8
+        RequiresCondition: !spain
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Flamer
+        RequiresCondition: !spain
+	Armament@PRIMARY_SPAIN:
+		Weapon: Flamer
+		LocalOffset: 700,0,400
+		FireDelay: 8
+        RequiresCondition: spain
+	Armament@GARRISONED_SPAIN:
+		Name: garrisoned
+		Weapon: Flamer
+        RequiresCondition: spain
+	TakeCover:
+		ProneOffset: 160,0,-288
+	AttackFrontal:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+        RequiresCondition: !parachute && !smolinfantry
+	WithInfantryBody@SMOLINFANTRY:
+		DefaultAttackSequence: shoot-small
+        RequiresCondition: !parachute && smolinfantry
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute && !smolinfantry
+	WithInfantryBody@SMOLPARACHUTE:
+		StandSequences: parachute-small
+		RequiresCondition: parachute && smolinfantry
+	RenderSprites:
+		Image: E4
+	Passenger:
+		CustomPipType: yellow
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 75
+		Type: InfantryRefund
+	Targetable:
+		TargetTypes: Ground, Infantry, DetonateAttack, Disguise, FireImmune
+		RequiresCondition: !parachute
+
+VOLK:
+	Inherits: GNRL
+    Inherits@ROT: ^RottingInfantry
+	Buildable:
+		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		Prerequisites: fcom, ~techlevel.high
+		BuildPaletteOrder: 6
+		BuildLimit: 1
+		Description: Elite commando infantry armed with anti-tank gun and C4.\nMaximum 1 can be trained\n  Special ability: Durability\nCannot be crushed unless its Mammoth Tank\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Volkov
+	Mobile:
+		Speed: 50
+		Voice: Move
+	Health:
+		HP: 125
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 6c0
+	Demolition:
+		DetonationDelay: 45
+		Voice: Demolish
+	Guard:
+		Voice: Move
+	Passenger:
+		CustomPipType: white
+		Voice: Move
+	AttackFrontal:
+	Voiced:
+		VoiceSet: VolkovVoice
+	Armament:
+		Weapon: VolkovGun
+        RequiresCondition: !spain
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: VolkovGun
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: VolkovGun.spain
+        RequiresCondition: spain
+	Armament@GARRISONED_SPAIN:
+		Name: garrisoned
+		Weapon: VolkovGun.spain
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: spain
+    VoiceAnnouncement:
+		Voice: Build
+	AnnounceOnKill:
+	Crushable:
+		CrushClasses: heavywall
+	MapEditorData:
+		Categories: Infantry
+	WithInfantryBody:
+		IdleSequences: idle1
+	WithInfantryBody@SMOLINFANTRY:
+		IdleSequences: idle1-small
+	Selectable:
+		Class: VOLK
+	RenderSprites:
+		Image: GNRL
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 300
+		Type: InfantryRefund
+
+DOG:
+	Inherits: ^Soldier
+    -AttackFrontal:
+	Buildable:
+		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		BuildAtProductionType: Dog
+		BuildDuration: 200
+		BuildPaletteOrder: 9
+		Prerequisites: kenn, ~techlevel.medium
+		Description: Anti-infantry unit.\nGains Health whenever Eating.\nCan detect Spies and Saboteurs.\n  Strong vs Infantry\n  Weak vs everything Else
+	Valued:
+		Cost: 200
+	Tooltip:
+		Name: Attack Dog
+		GenericName: Dog
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Selectable:
+		Class: DOG
+		Bounds: 12,17,-1,-4
+		DecorationBounds: 12,17,-1,-4
+	SelectionDecorations:
+	Health:
+		HP: 25
+	Mobile:
+		Speed: 60
+		Voice: Move
+		PauseOnCondition: attack-cooldown || eating
+	Guard:
+		Voice: Move
+	Passenger:
+        CustomPipType: grey
+		Voice: Move
+	RevealsShroud:
+		Range: 5c0
+	Armament:
+		Weapon: DogJaw
+		ReloadingCondition: attack-cooldown
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: DogJaw.spain
+		ReloadingCondition: attack-cooldown
+        RequiresCondition: spain
+	AttackLeap:
+		Voice: Attack
+		PauseOnCondition: attacking || attack-cooldown
+	AttackMove:
+		Voice: Move
+	GrantConditionOnAttack:
+		Condition: eating
+		RevokeDelay: 45
+	GrantConditionWhileAiming:
+		Condition: run
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 7
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry, Spy
+	WithInfantryBody:
+		MoveSequence: walk
+		StandSequences: stand
+		DefaultAttackSequence: eat
+		RequiresCondition: !run && !smolinfantry
+	WithInfantryBody@RUN:
+		MoveSequence: run
+		RequiresCondition: run && !smolinfantry
+	WithInfantryBody@SMOLINFANTRY:
+		MoveSequence: walk-small
+		StandSequences: stand-small
+		DefaultAttackSequence: eat-small
+		RequiresCondition: !run && smolinfantry
+	WithInfantryBody@SMOLINFANTRYRUN:
+		MoveSequence: run-small
+		RequiresCondition: run && smolinfantry
+	SpeedMultiplier:
+		Modifier: 150
+		RequiresCondition: run
+	Voiced:
+		VoiceSet: DogVoice
+	-TakeCover:
+	ChangesHealth@EATING:
+		Step: 5
+		Delay: 45
+		StartIfBelow: 101
+		DamageCooldown: 0
+		RequiresCondition: eating
+	RenderSprites:
+		Image: DOG
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+        Voice: Move
+		Payload: 50
+		Type: InfantryRefund
+	DetectCloaked:
+		CloakTypes: Cloak
+		Range: 1c826
+        RequiresCondition: !parachute && !minefinder.dog
+    DetectCloaked@UPG:
+        CloakTypes: Cloak, Mine
+        Range: 1c826
+        RequiresCondition: !parachute && minefinder.dog
+	GrantConditionOnPrerequisite@DOGUPG:
+		Condition: minefinder.dog
+		Prerequisites: minefinder.upgrade
+
+SHOK:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+	Buildable:
+		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		BuildDuration: 450
+		BuildPaletteOrder: 8
+		Prerequisites: stek, ~techlevel.high, ~!global-squadenabled
+		Description: Infantry with portable tesla coils.\nCan charge powerless Tesla Coils.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	Selectable:
+		Class: SHOK
+	Valued:
+		Cost: 450
+	Tooltip:
+		Name: Shock Trooper
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 80
+	Mobile:
+		Speed: 30
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: PortaTesla
+		LocalOffset: 427,0,341
+        RequiresCondition: !spain
+	Armament@SECONDARY:
+		Weapon: TeslaCharge
+		LocalOffset: 427,0,341
+		Cursor: powerdown
+		OutsideRangeCursor: powerdown
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: PortaTesla
+        RequiresCondition: !spain
+	Armament@PRIMARY_SPAIN:
+		Weapon: PortaTesla.spain
+		LocalOffset: 427,0,341
+        RequiresCondition: spain
+	Armament@GARRISONED_SPAIN:
+		Name: garrisoned
+		Weapon: PortaTesla.spain
+        RequiresCondition: spain
+	TakeCover:
+		ProneOffset: 227,0,-245
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+        RequiresCondition: !parachute && !smolinfantry
+	WithInfantryBody@SMOLINFANTRY:
+		DefaultAttackSequence: shoot-small
+        RequiresCondition: !parachute && smolinfantry
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute && !smolinfantry
+	WithInfantryBody@SMOLPARACHUTE:
+		StandSequences: parachute-small
+		RequiresCondition: parachute && smolinfantry
+	AttackFrontal:
+		Voice: Attack
+	AttackMove:
+		Voice: Move
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	Guard:
+		Voice: Move
+	Voiced:
+		VoiceSet: ShokVoice
+	RenderSprites:
+		Image: SHOK
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+        Voice: Move
+		Payload: 112
+		Type: InfantryRefund
+
+#   Experimental squad production
+
+E2.squad:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Grenadier
+	Buildable:
+		Queue: Infantry.Soviet
+		BuildPaletteOrder: 3
+        Prerequisites: proc, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
+		Description: Deploys a pair of Infantry armed with grenades.\n  Strong vs Buildings, Infantry\n  Weak vs Vehicles, Aircraft
+        Icon: e2icon
+    Valued:
+		Cost: 250
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Multiqueue:
+		Actors: e2, e2
+		Type: Infantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+        Prerequisites: global-multiqueue
+
+E2.squad.classic:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Grenadier
+	Buildable:
+		Queue: ClassicInfantry.Soviet
+		BuildPaletteOrder: 3
+        Prerequisites: proc, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
+		Description: Deploys a pair of Infantry armed with grenades.\n  Strong vs Buildings, Infantry\n  Weak vs Vehicles, Aircraft
+        Icon: e2icon
+    Valued:
+		Cost: 250
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Classicqueue:
+		Actors: e2, e2
+		Type: ClassicInfantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+        Prerequisites: !global-multiqueue
+
+E4.squad:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Flamethrower
+	Buildable:
+		Queue: Infantry.Soviet
+		BuildPaletteOrder: 7
+        Prerequisites: dome, ~techlevel.medium, ~global-squadenabled, ~global-multiqueue
+		Description: Deploys a pair of Advanced anti-structure units.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+        Icon: e4icon
+    Valued:
+		Cost: 500
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Multiqueue:
+		Actors: e4, e4
+		Type: Infantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+        Prerequisites: global-multiqueue
+
+E4.squad:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Flamethrower
+	Buildable:
+		Queue: ClassicInfantry.Soviet
+		BuildPaletteOrder: 7
+        Prerequisites: dome, ~techlevel.medium, ~global-squadenabled, ~!global-multiqueue
+		Description: Deploys a pair of Advanced anti-structure units.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+        Icon: e4icon
+    Valued:
+		Cost: 500
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Multiqueue:
+		Actors: e4, e4
+		Type: ClassicInfantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+        Prerequisites: global-multiqueue
+
+SHOK.squad:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Shock Trooper
+	Buildable:
+		Queue: Infantry.Soviet
+		BuildPaletteOrder: 8
+        Prerequisites: stek, ~techlevel.high, ~global-squadenabled, ~global-multiqueue
+		Description: Deploys a pair of Infantry with portable tesla coils.\nCan charge powerless Tesla Coils.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+        Icon: shokicon
+    Valued:
+		Cost: 800
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Multiqueue:
+		Actors: shok, shok
+		Type: Infantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+        Prerequisites: global-multiqueue
+
+SHOK.squad.classic:
+	Inherits@AI: ^ProductionAIBoost
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	ProvidesPrerequisite@squadname:
+	Tooltip:
+		Name: Squad: Shock Trooper
+	Buildable:
+		Queue: ClassicInfantry.Soviet
+		BuildPaletteOrder: 8
+        Prerequisites: stek, ~techlevel.high, ~global-squadenabled, ~!global-multiqueue
+		Description: Deploys a pair of Infantry with portable tesla coils.\nCan charge powerless Tesla Coils.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+        Icon: shokicon
+    Valued:
+		Cost: 800
+	RenderSprites:
+		Image: production.infantry
+	Armor:
+		Type: None
+	ProduceActorPower@Classicqueue:
+		Actors: shok, shok
+		Type: ClassicInfantry.Soviet
+		OneShot: true
+		AutoFire: true
+		AllowMultiple: true
+        Prerequisites: !global-multiqueue

@@ -1,0 +1,276 @@
+MCV:
+	Inherits: ^Vehicle
+    Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies, ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 2500
+		BuildPaletteOrder: 11
+		Prerequisites: fix, ~techlevel.high
+		Description: Deploys into another Construction Yard.\n  Unarmed
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Mobile Construction Vehicle
+	Selectable:
+		Class: MCV
+		Priority: 4
+		DecorationBounds: 42,42
+	SelectionDecorations:
+	Health:
+		HP: 1000
+	Armor:
+		Type: Light
+	Mobile:
+		Locomotor: wheeled-crusher
+		Speed: 60
+	RevealsShroud:
+		Range: 4c0
+	Transforms:
+		IntoActor: fact
+		Offset: -1,-1
+		Facing: 384
+		TransformSounds: placbldg.aud, build5.aud
+		NoTransformNotification: BuildingCannotPlaceAudio
+	MustBeDestroyed:
+		RequiredForShortGame: true
+	BaseBuilding:
+	SpawnActorOnDeath:
+		Actor: MCV.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	RenderSprites:
+		Image: MCV
+	Passenger:
+		CustomPipType: white
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+
+MCV.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Mobile Construction Vehicle (Destroyed)
+	TransformOnCapture:
+		IntoActor: mcv
+	RenderSprites:
+		Image: mcvhusk
+
+TRUK:
+	Inherits: ^Vehicle
+	Inherits@Speed: ^AcceptsSpeedCrate
+	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Inherits@EMP: ^AcceptsEMPCrate
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies, ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildPaletteOrder: 12
+        Prerequisites: proc, ~techlevel.low
+		Description: Transports cash to other players.\nMay deliver only to Construction Yards.\n  Unarmed
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Supply Truck
+	Selectable:
+		Priority: 6
+	Health:
+		HP: 110
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 100
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 4c0
+	SpawnActorOnDeath:
+		Actor: TRUK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Passenger:
+		CustomPipType: blue
+	Targetable:
+		TargetTypes: Ground, Vehicle, DemoDisguise
+		RequiresCondition: !parachute
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 1000
+		Type: MoneyTransfer
+		PlayerExperience: 0
+	SpawnActorOnDeath@dropmoney:
+		Actor: moneycrate
+        RequiresCondition: !global-unithusks
+
+TRUK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Supply Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: truk
+	RenderSprites:
+		Image: truk.destroyed
+	SpawnActorOnDeath@dropmoney:
+		Actor: moneycrate
+
+DTRK:
+	Inherits: ^Vehicle
+	Inherits@Speed: ^AcceptsSpeedCrate
+	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Inherits@EMP: ^AcceptsEMPCrate
+	-WithFacingSpriteBody:
+	-ClassicFacingBodyOrientation:
+	BodyOrientation:
+	WithFacingSpriteBody@Default:
+		PauseOnCondition: truk
+		RequiresCondition: !truk
+	WithFacingSpriteBody@Truk:
+		Name: truk
+		Sequence: truk-body
+		RequiresCondition: truk
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies, ClassicVehicle.Soviet, Vehicle.Soviet
+		BuildDuration: 2100
+		BuildPaletteOrder: 13
+        BuildLimit: 1
+		Prerequisites: techcenter, ~techlevel.high
+		Description: Demolition Truck, actively armed with\nnuclear explosives. Has very weak armor.
+	Valued:
+		Cost: 2100
+	Tooltip:
+		Name: Demolition Truck
+        GenericName: Vehicle
+	-Tooltip:
+	DisguiseTooltip@default:
+		Name: Demolition Truck
+		GenericName: Vehicle
+		RequiresCondition: !truk
+	DisguiseTooltip@truk:
+		Name: Supply Truck
+		GenericName: Vehicle
+		RequiresCondition: truk
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 110
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 80
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 3c0
+	Explodes:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+		DamageSource: Killer
+	AttackFrontal:
+		FacingTolerance: 512
+        PauseOnCondition: emp-crate-collected
+	Armament@PRIMARY:
+		Weapon: DemoTruckTargeting
+        PauseOnCondition: emp-crate-collected
+	GrantConditionOnAttack:
+		Condition: triggered
+	GrantConditionOnDeploy:
+		DeployedCondition: triggered
+	-DamageMultiplier@Invulnerability:
+	KillsSelf:
+		RequiresCondition: invulnerability || triggered
+	Chronoshiftable:
+		ExplodeInstead: true
+	Selectable:
+		Class: DTRK
+	RenderSprites:
+		Image: DTRK
+	SpawnActorOnDeath:
+		Actor: DTRK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Passenger:
+		CustomPipType: red
+	Targetable:
+		TargetTypes: Ground, Vehicle
+		RequiresCondition: !parachute
+	Disguise:
+		DisguisedCondition: disguise
+		ValidRelationships: Ally, Neutral, Enemy
+		TargetTypes: DemoDisguise
+		DisguisedAsConditions:
+			truk: truk
+	IgnoresDisguise:
+	WithDecoration@disguise:
+		Image: pips
+		Sequence: pip-disguise
+		Palette: effect
+		Position: Top
+		Margin: 0, 1
+		RequiresCondition: disguise
+
+DTRK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Demolition Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: dtrk
+	RenderSprites:
+		Image: dtrk.destroyed
+
+MNLY:
+	Inherits: ^Vehicle
+	Inherits@Speed: ^AcceptsSpeedCrate
+	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Inherits@EMP: ^AcceptsEMPCrate
+	Buildable:
+        Queue: ClassicVehicle.Allies, ClassicVehicle.Soviet, Vehicle.Soviet, Vehicle.Allies
+		BuildDuration: 700
+		BuildPaletteOrder: 7
+		Prerequisites: fix, ~techlevel.medium
+		Description: Lays land mines to destroy\nunwary enemy units.\nDetects nearby Mines.\n  Unarmed
+	Tooltip:
+		Name: Minelayer
+	Valued:
+		Cost: 700
+	Health:
+		HP: 100
+	Armor:
+		Type: Heavy
+	Mobile:
+		Locomotor: tracked-crusher
+		Speed: 90
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 5c0
+	AmmoPool:
+		Ammo: 5
+		RearmSound: minelay1.aud
+	Explodes:
+		Weapon: UnitExplodeSmall
+	Minelayer:
+		Mine: MINV
+		TileUnknownName: build-valid
+        TerrainTypes: Clear, Road, Beach, Ore, Gems, Rough, Bridge, Scrap
+    MineImmune:
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+	Selectable:
+		Class: MNLY
+	SpawnActorOnDeath:
+		Actor: MNLY.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Rearmable:
+		RearmActors: fix
+	RenderSprites:
+		Image: MNLY
+	Passenger:
+		CustomPipType: blue
+	DetectCloaked:
+		CloakTypes: Mine
+		Range: 1c826
+
+MNLY.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Minelayer (Destroyed)
+	TransformOnCapture:
+		IntoActor: mnly
+	RenderSprites:
+		Image: mnly.destroyed

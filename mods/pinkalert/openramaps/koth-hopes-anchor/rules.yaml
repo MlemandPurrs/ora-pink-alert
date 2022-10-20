@@ -1,0 +1,43 @@
+MISS:
+	StrategicPoint:
+	ProximityCapturable:
+		MustBeClear: true
+		Range: 9c0
+		CaptorTypes: Player, Ship, Vehicle, Infantry
+	WithRangeCircle:
+		UsePlayerColor: True
+		ValidRelationships: Ally, Enemy, Neutral
+		Visible: Always
+		Range: 9c0
+	Tooltip:
+		Name: Strategic Point
+	TooltipDescription@ally:
+		Description: Take and hold Strategic Points to win.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture Strategic Points to win the game.
+		ValidRelationships: Neutral, Enemy
+	RevealsShroud:
+		Range: 10c0
+	DamageMultiplier@INVULNERABLE:
+		Modifier: 0
+	-Selectable:
+	SelectionDecorations:
+	-Targetable:
+	-FrozenUnderFog:
+	-FrozenUnderFogUpdatedByGps:
+	AlwaysVisible:
+    Interactable:
+        Bounds: 72,48
+
+Player:
+	ProximityCaptor:
+		Types: Player
+	-ConquestVictoryConditions:
+	StrategicVictoryConditions:
+		HoldDuration: 15000
+		ResetOnHoldLost: true
+		RatioRequired: 100
+        NotificationDelay: 1500
+        SuppressNotifications: False
+        Objective: Hold all the Strategic Points to win!

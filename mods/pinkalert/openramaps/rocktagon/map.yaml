@@ -1,0 +1,224 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Rocktagon
+Author: moorhuhn19
+Tileset: TEMPERAT
+MapSize: 128,128
+Bounds: 1,52,75,75
+Visibility: Lobby
+Categories: Remastered, 8-player
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3, Multi4, Multi5, Multi6, Multi7
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi4:
+		Name: Multi4
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi5:
+		Name: Multi5
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi6:
+		Name: Multi6
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi7:
+		Name: Multi7
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor12: v05
+		Location: 24,58
+		Owner: Neutral
+		Health: 39
+	Actor13: v05
+		Location: 51,58
+		Owner: Neutral
+		Health: 39
+	Actor14: v05
+		Location: 6,101
+		Owner: Neutral
+		Health: 39
+	Actor15: v05
+		Location: 69,99
+		Owner: Neutral
+		Health: 39
+	Actor16: v11
+		Location: 69,102
+		Owner: Neutral
+		Health: 39
+	Actor17: v11
+		Location: 28,118
+		Owner: Neutral
+		Health: 39
+	Actor18: v11
+		Location: 9,99
+		Owner: Neutral
+		Health: 39
+	Actor19: v11
+		Location: 48,58
+		Owner: Neutral
+		Health: 39
+	Actor20: v02
+		Location: 28,57
+		Owner: Neutral
+		Health: 39
+	Actor21: v02
+		Location: 7,77
+		Owner: Neutral
+		Health: 39
+	Actor22: v02
+		Location: 25,119
+		Owner: Neutral
+		Health: 39
+	Actor23: v02
+		Location: 68,77
+		Owner: Neutral
+		Health: 39
+	Actor24: v11
+		Location: 47,118
+		Owner: Neutral
+		Health: 39
+	Actor25: v11
+		Location: 50,119
+		Owner: Neutral
+		Health: 39
+	mpspawn0: mpspawn
+		Location: 38,116
+		Owner: Neutral
+	mpspawn1: mpspawn
+		Location: 11,89
+		Owner: Neutral
+	mpspawn2: mpspawn
+		Location: 38,62
+		Owner: Neutral
+	mpspawn3: mpspawn
+		Location: 65,89
+		Owner: Neutral
+	mpspawn4: mpspawn
+		Location: 18,108
+		Owner: Neutral
+	mpspawn5: mpspawn
+		Location: 58,108
+		Owner: Neutral
+	mpspawn6: mpspawn
+		Location: 18,68
+		Owner: Neutral
+	mpspawn7: mpspawn
+		Location: 58,69
+		Owner: Neutral
+	Actor32: mine
+		Owner: Neutral
+		Location: 63,111
+	Actor33: mine
+		Owner: Neutral
+		Location: 61,113
+	Actor34: mine
+		Owner: Neutral
+		Location: 39,123
+	Actor35: mine
+		Owner: Neutral
+		Location: 37,123
+	Actor36: mine
+		Owner: Neutral
+		Location: 15,113
+	Actor37: mine
+		Owner: Neutral
+		Location: 13,111
+	Actor38: mine
+		Owner: Neutral
+		Location: 4,88
+	Actor39: mine
+		Owner: Neutral
+		Location: 4,90
+	Actor40: mine
+		Owner: Neutral
+		Location: 14,64
+	Actor41: mine
+		Owner: Neutral
+		Location: 12,66
+	Actor42: mine
+		Owner: Neutral
+		Location: 39,55
+	Actor43: mine
+		Owner: Neutral
+		Location: 37,55
+	Actor44: mine
+		Owner: Neutral
+		Location: 43,84
+	Actor45: mine
+		Owner: Neutral
+		Location: 33,84
+	Actor46: mine
+		Owner: Neutral
+		Location: 38,83
+	Actor47: mine
+		Owner: Neutral
+		Location: 43,94
+	Actor48: mine
+		Owner: Neutral
+		Location: 38,95
+	Actor49: mine
+		Owner: Neutral
+		Location: 33,94
+	Actor50: mine
+		Owner: Neutral
+		Location: 44,89
+	Actor51: mine
+		Owner: Neutral
+		Location: 32,89
+	Actor52: gmine
+		Owner: Neutral
+		Location: 40,90
+	Actor53: gmine
+		Owner: Neutral
+		Location: 38,87
+	Actor54: gmine
+		Owner: Neutral
+		Location: 36,90
+	Actor55: mine
+		Owner: Neutral
+		Location: 64,67
+	Actor56: mine
+		Owner: Neutral
+		Location: 62,65
+	Actor57: mine
+		Owner: Neutral
+		Location: 72,88
+	Actor58: mine
+		Owner: Neutral
+		Location: 72,90

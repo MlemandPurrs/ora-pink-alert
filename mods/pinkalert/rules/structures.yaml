@@ -1,0 +1,2063 @@
+FACT:
+	Inherits: ^Building
+    Inherits@Infiltration: ^InfiltratableProduction
+	Building:
+		Footprint: xxX xxx XxX
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Buildable:
+		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		BuildDuration: 2500
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+		Description: Produces Structures and Defenses.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
+	Health:
+		HP: 1000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 5c0
+	WithBuildingBib:
+	Production@ClassicFACT:
+		Produces: ClassicBuilding.Allies, ClassicBuilding.Soviet, ClassicDefense.Allies, ClassicDefense.Soviet
+		RequiresCondition: !multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@ClassicBuildingAllies:
+		ProductionType: ClassicBuilding.Allies
+	ProductionBar@ClassicBuildingSoviet:
+		ProductionType: ClassicBuilding.Soviet
+	ProductionBar@ClassicDefenseAllies:
+		ProductionType: ClassicDefense.Allies
+	ProductionBar@ClassicDefenseSoviet:
+		ProductionType: ClassicDefense.Soviet
+	Production:
+		Produces: Building.Allies, Building.Soviet, Defense.Allies, Defense.Soviet
+        RequiresCondition: multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionQueue@AlliesBuilding:
+		Type: Building.Allies
+		Group: Building
+        Factions: allies, england, france, germany, spain
+		DisplayOrder: 0
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@AlliesBuilding:
+		ProductionType: Building.Allies
+	ProductionQueue@SovietBuilding:
+		Type: Building.Soviet
+		Group: Building
+        Factions: soviet, russia, ukraine, belarus, kazakh
+		DisplayOrder: 0
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@SovietBuilding:
+		ProductionType: Building.Soviet
+	ProductionQueue@AlliesDefense:
+		Type: Defense.Allies
+		Group: Defense
+        Factions: allies, england, france, germany, spain
+		DisplayOrder: 1
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@AlliesDefense:
+		ProductionType: Defense.Allies
+	ProductionQueue@SovietDefense:
+		Type: Defense.Soviet
+		Group: Defense
+        Factions: soviet, russia, ukraine, belarus, kazakh
+		DisplayOrder: 1
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@SovietDefense:
+		ProductionType: Defense.Soviet
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Construction Yard
+	SpawnActorsOnSell:
+		ActorTypes: e1,e1,e1,e6,tecn,tecn_yellow
+	BaseBuilding:
+	Transforms:
+		IntoActor: mcv
+		Offset: 1,1
+		Facing: 384
+		RequiresCondition: factundeploy && !build-incomplete
+		PauseOnCondition: being-demolished || being-captured || sabotage
+	GrantConditionOnPrerequisite@GLOBALFACTUNDEPLOY:
+		Condition: factundeploy
+		Prerequisites: global-factundeploy
+	WithBuildingPlacedAnimation:
+		RequiresCondition: !build-incomplete
+	BaseProvider:
+		Range: 16c0
+		PauseOnCondition: build-incomplete
+	Power:
+		Amount: 30
+        RequiresCondition: !build-incomplete
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-fact
+		RequiresCondition: stickytech
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: fact
+	HitShape:
+		TargetableOffsets: 1273,939,0, -980,-640,0, -980,640,0
+		Type: Rectangle
+			TopLeft: -1536, -1536
+			BottomRight: 1536, 1536
+	Selectable:
+		Class: FACT
+	RenderSprites:
+		Image: FACT
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+	SpawnActorsOnSell:
+		ActorTypes: e1,e1,e1,tecn,tecn,e6
+	AcceptsDeliveredCash:
+		ValidTypes: MoneyTransfer
+	Exit:
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
+	SpawnActorOnDeath:
+		Actor: FACT.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+FACT.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 72,72
+	Building:
+		Footprint: xxX xxx XxX
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Construction Yard (Destroyed)
+	RenderSprites:
+		Image: fact.destroyed
+	TransformOnCapture:
+		IntoActor: fact
+
+POWR:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+    Inherits@infiltration: ^InfiltratablePower
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		BuildDuration: 300
+		BuildPaletteOrder: 3
+		Prerequisites: ~techlevel.low
+		Description: Provides Power for other structures.\nCan be Infiltrated by a Spy\nresulting in a power blackout.
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Power Plant
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 400
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	Power@1:
+		Amount: 100
+		RequiresCondition: !disabled && !build-incomplete && !powerboost
+	Power@2:
+		Amount: 125
+		RequiresCondition: !disabled && !build-incomplete && powerboost
+	GrantConditionOnPrerequisite@Powerboost:
+		Condition: powerboost
+		Prerequisites: bio
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-powr
+		RequiresCondition: stickytech
+	ScalePowerWithHealth:
+	Selectable:
+		Class: POWR
+	RenderSprites:
+		Image: POWR
+	SpawnActorOnDeath:
+		Actor: POWR.Husk
+        OwnerType: InternalName
+        EffectiveOwnerFromOwner: true
+
+POWR.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 48,48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Power Plant (Destroyed)
+	RenderSprites:
+		Image: powr.destroyed
+	TransformOnCapture:
+		IntoActor: powr
+
+APWR:
+	Inherits: ^Building
+	Inherits@shape: ^3x2Shape
+    Inherits@infiltration: ^InfiltratablePower
+	HitShape:
+		TargetableOffsets: -355,-1024,0
+	Buildable:
+		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		BuildDuration: 500
+		BuildPaletteOrder: 6
+		Prerequisites: dome, ~techlevel.medium
+		Description: Provides double the power of a standard Power Plant.\nCheaper than keep building the standard plant.\nCan be Infiltrated by a Spy\nresulting in a power blackout.
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Advanced Power Plant
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xxx Xxx
+		Dimensions: 3,2
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Class: APWR
+		Bounds: 72,48
+		DecorationBounds: 72,68,0,-10
+	SelectionDecorations:
+	Health:
+		HP: 700
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	Power@1:
+		Amount: 200
+		RequiresCondition: !disabled && !build-incomplete && !powerboost
+	Power@2:
+		Amount: 250
+		RequiresCondition: !disabled && !build-incomplete && powerboost
+	GrantConditionOnPrerequisite@Powerboost:
+		Condition: powerboost
+		Prerequisites: bio
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-apwr
+		RequiresCondition: stickytech
+	ScalePowerWithHealth:
+	RenderSprites:
+		Image: APWR
+	SpawnActorOnDeath:
+		Actor: APWR.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+APWR.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 72,48
+	Building:
+		Footprint: xxx Xxx
+		Dimensions: 3,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Advanced Power Plant (Destroyed)
+    RenderSprites:
+        Image: apwr.destroyed
+	TransformOnCapture:
+		IntoActor: apwr
+
+PROC:
+	Inherits: ^Building
+    Inherits@infiltration: ^InfiltratableRefinery
+	Buildable:
+		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		BuildDuration: 2000
+		BuildPaletteOrder: 1
+		Prerequisites: ~techlevel.low
+		Description: Refines Ore and Gems into credits.\nCan be Infiltrated by a Spy\nresulting in theft of stored Resources.\n  Special: Free Harvester\nEach Refinery comes with one free Ore Truck.
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Ore Refinery
+	Building:
+		Footprint: xxx X== ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-768,0
+	Selectable:
+		Class: PROC
+		Bounds: 72,50,0,12
+		DecorationBounds: 72,70,0,-2
+	SelectionDecorations:
+	Health:
+		HP: 900
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 6c0
+	WithBuildingBib:
+	Refinery:
+		DockAngle: 256
+		DockOffset: 1,1
+		ShowTicks: false
+		DiscardExcessResources: true
+	StoresResources:
+		Capacity: 2000
+	DrawLineToTarget:
+	FreeActor@Allies:
+		Actor: HARV
+		SpawnOffset: 1,2
+		Facing: 256
+        RequiresCondition: !build-incomplete && allies.player && !mineimmune 
+	FreeActor@AlliesMineImmune:
+		Actor: HARV.MineImmune
+		SpawnOffset: 1,2
+		Facing: 256
+        RequiresCondition: !build-incomplete && allies.player && mineimmune 
+	FreeActor@Soviet:
+		Actor: AHRV
+		SpawnOffset: 1,2
+		Facing: 256
+        RequiresCondition: !build-incomplete && soviet.player && !mineimmune 
+	FreeActor@SovietMineImmune:
+		Actor: AHRV.MineImmune
+		SpawnOffset: 1,2
+		Facing: 256
+        RequiresCondition: !build-incomplete && soviet.player && mineimmune 
+	GrantConditionOnFaction@SovietOwned:
+		Condition: soviet.player
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		ResetOnOwnerChange: True
+	GrantConditionOnFaction@AlliesOwned:
+		Condition: allies.player
+		Factions: allies, england, france, germany, spain
+		ResetOnOwnerChange: True
+	GrantConditionOnPrerequisite@MineImmune:
+		Condition: mineimmune
+		Prerequisites: global-mineimmune
+	WithIdleOverlay@TOP:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	Power:
+		Amount: -30
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: proc
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-proc
+		RequiresCondition: stickytech
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1536, -512
+			BottomRight: 1536, 598
+	HitShape@TOP:
+		TargetableOffsets: 1680,0,0
+		Type: Rectangle
+			TopLeft: -512, -1536
+			BottomRight: 512, -512
+	HitShape@BOTTOMLEFT:
+		TargetableOffsets: -1260,-1024,0
+		Type: Rectangle
+			TopLeft: -1536, 598
+			BottomRight: -512, 1280
+	RenderSprites:
+		Image: PROC
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+        Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+	CustomSellValue:
+		Value: 500
+	Sellable:
+		RefundPercent: 100    
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && !dockinprocess
+	ExternalCondition@DOCKED:
+		Condition: dockinprocess
+		SourceCap: 1
+		TotalCap: 1
+	ProximityExternalCondition@DOCKED:
+		Condition: docked
+		Range: 1c0
+		ValidRelationships: Ally
+	SpawnActorOnDeath:
+		Actor: PROC.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+PROC.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 72,50,0,12
+	Building:
+		Footprint: xxx X== ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-768,0
+	Tooltip:
+		Name: Ore Refinery (Destroyed)
+    RenderSprites:
+        Image: proc.destroyed
+	TransformOnCapture:
+		IntoActor: proc
+
+SILO:
+	Inherits: ^Building
+	Buildable:
+		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		BuildDuration: 150
+		BuildPaletteOrder: 4
+		Prerequisites: proc, ~techlevel.low
+		Description: Stores excess refined Ore and Gems.\nThe stored resources are secured against Theft.
+	Valued:
+		Cost: 150
+	Tooltip:
+		Name: Silo
+	Health:
+		HP: 300
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 4c0
+	-WithSpriteBody:
+	WithResourceLevelSpriteBody:
+		Sequence: stages
+	StoresResources:
+		Capacity: 1500
+	-SpawnActorsOnSell:
+	Power:
+		Amount: -10
+        RequiresCondition: !build-incomplete
+	Selectable:
+		Class: SILO
+	RenderSprites:
+		Image: SILO
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 5
+		FullSequence: pip-yellow
+	WithBuildingBib:
+        HasMinibib: true
+    -WithDeathAnimation:
+	SpawnActorOnDeath:
+		Actor: SILO.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+SILO.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 24,24
+	Tooltip:
+		Name: Ore Silo (Destroyed)
+    RenderSprites:
+        Image: silo.destroyed
+	TransformOnCapture:
+		IntoActor: silo
+
+TENT:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+    Inherits@infiltration: ^InfiltratableProduction
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
+	Buildable:
+		Queue: Building.Allies, ClassicBuilding.Allies
+		BuildDuration: 300
+		BuildPaletteOrder: 2
+		Prerequisites: ~techlevel.low
+		Description: Trains and Heals Infantry units.\nInfantry can be decommisioned for 1/4 of cost.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Allies Barracks
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 800
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	WithBuildingBib:
+	RallyPoint:
+	Exit@1:
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+        ProductionTypes: ClassicInfantry.Allies, Infantry.Allies, Soldier
+	Exit@2:
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+        ProductionTypes: ClassicInfantry.Allies, Infantry.Allies, Soldier
+	Production@ClassicAlliesInfantry:
+		Produces: ClassicInfantry.Allies, Soldier
+		RequiresCondition: !multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@ClassicAlliesInfantry:
+		ProductionType: ClassicInfantry.Allies
+	Production:
+		Produces: Infantry.Allies, Soldier
+        RequiresCondition: multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@AlliesInfantry:
+		ProductionType: Infantry.Allies
+	ProductionQueue@AlliesInfantry:
+		Type: Infantry.Allies
+		Group: Infantry
+		DisplayOrder: 2
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	ProvidesPrerequisite:
+		Prerequisite: infantryproduction
+	Power:
+		Amount: -15
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tent
+	ProvidesPrerequisite@STICKY-BUILDING:
+		Prerequisite: building-tent
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-tent
+		RequiresCondition: stickytech
+	Selectable:
+		Class: TENT
+	RenderSprites:
+		Image: TENT
+	AcceptsDeliveredCash:
+		ValidTypes: InfantryRefund
+	ProximityExternalCondition@barracksheal:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 2c512
+	WithRangeCircle:
+		Range: 2c512
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
+	SpawnActorOnDeath:
+		Actor: TENT.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+TENT.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 48,48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Tooltip:
+		Name: Allies Barracks (Destroyed)
+    RenderSprites:
+        Image: tent.destroyed
+	TransformOnCapture:
+		IntoActor: tent
+
+BARR:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+    Inherits@infiltration: ^InfiltratableProduction
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 490,-470,0, 355,512,0, -355,-512,0, -630,512,0
+	Buildable:
+		Queue: Building.Soviet, ClassicBuilding.Soviet
+		BuildDuration: 300
+		BuildPaletteOrder: 2
+		Prerequisites: ~techlevel.low
+		Description: Trains and Heals Infantry units.\nInfantry can be decommisioned for 1/4 of cost.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Soviet Barracks
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 800
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	WithBuildingBib:
+	RallyPoint:
+	Exit@1:
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+        ProductionTypes: ClassicInfantry.Soviet, Infantry.Soviet, Soldier
+	Exit@2:
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+        ProductionTypes: ClassicInfantry.Soviet, Infantry.Soviet, Soldier
+	Exit@3:
+		SpawnOffset: -170,810,0
+		ExitCell: -1,2
+		Priority: 0
+        ProductionTypes: ClassicInfantry.Soviet, Infantry.Soviet, Soldier
+	Exit@4:
+		SpawnOffset: -725,640,0
+		ExitCell: 2,2
+		Priority: 0
+        ProductionTypes: ClassicInfantry.Soviet, Infantry.Soviet, Soldier
+	Production@ClassicSovietInfantry:
+		Produces: ClassicInfantry.Soviet, Soldier
+		RequiresCondition: !multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@ClassicSovietInfantry:
+		ProductionType: ClassicInfantry.Soviet
+	Production:
+		Produces: Infantry.Soviet, Soldier
+        RequiresCondition: multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@SovietInfantry:
+		ProductionType: Infantry.Soviet
+	ProductionQueue@SovietInfantry:
+		Type: Infantry.Soviet
+		Group: Infantry
+		DisplayOrder: 2
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	ProvidesPrerequisite:
+		Prerequisite: infantryproduction
+	Power:
+		Amount: -15
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: barr
+	ProvidesPrerequisite@STICKY-BUILDING:
+		Prerequisite: building-barr
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-barr
+		RequiresCondition: stickytech
+	Selectable:
+		Class: BARR
+	RenderSprites:
+		Image: BARR
+	AcceptsDeliveredCash:
+		ValidTypes: InfantryRefund
+	ProximityExternalCondition@barracksheal:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 2c512
+	WithRangeCircle:
+		Range: 2c512
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
+	SpawnActorOnDeath:
+		Actor: BARR.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+BARR.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 48,48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Tooltip:
+		Name: Soviet Barracks (Destroyed)
+    RenderSprites:
+        Image: barr.destroyed
+	TransformOnCapture:
+		IntoActor: barr
+
+WEAP:
+	Inherits: ^Building
+	Inherits@shape: ^3x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+    Inherits@infiltration: ^InfiltratableProduction
+	Buildable:
+		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		BuildDuration: 2000
+		BuildPaletteOrder: 5
+		Prerequisites: proc, ~techlevel.low
+		Description: Produces Vehicles.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: War Factory
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 1000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	WithProductionDoorOverlay:
+		Sequence: build-top
+		RequiresCondition: !build-incomplete
+	RallyPoint:
+	Exit@1:
+		SpawnOffset: 213,-128,0
+		ExitCell: 1,2
+        ProductionTypes: ClassicVehicle.Allies, ClassicVehicle.Soviet, Vehicle.Allies, Vehicle.Soviet
+	Exit@2:
+		SpawnOffset: 213,-128,0
+		ExitCell: 0,2
+        ProductionTypes: ClassicVehicle.Allies, ClassicVehicle.Soviet, Vehicle.Allies, Vehicle.Soviet
+	Production@ClassicVehicle:
+		Produces: ClassicVehicle.Allies, ClassicVehicle.Soviet
+		RequiresCondition: !multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@ClassicAlliesVehicle:
+		ProductionType: ClassicVehicle.Allies
+	ProductionBar@ClassicSovietVehicle:
+		ProductionType: ClassicVehicle.Soviet
+	Production:
+		Produces: Vehicle.Allies, Vehicle.Soviet
+        RequiresCondition: multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionQueue@AlliesVehicle:
+		Type: Vehicle.Allies
+		Group: Vehicle
+        Factions: allies, england, france, germany, spain
+		DisplayOrder: 3
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@AlliesVehicle:
+		ProductionType: Vehicle.Allies
+	ProductionQueue@SovietVehicle:
+		Type: Vehicle.Soviet
+		Group: Vehicle
+        Factions: soviet, russia, ukraine, belarus, kazakh
+		DisplayOrder: 3
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@SovietVehicle:
+		ProductionType: Vehicle.Soviet
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	Power:
+		Amount: -30
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: weap
+	ProvidesPrerequisite@techpreq:
+		Prerequisite: afldorweap
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-weap
+		RequiresCondition: stickytech
+	Selectable:
+		Class: WEAP
+	RenderSprites:
+		Image: WEAP
+	ProvidesPrerequisite:
+		Prerequisite: vehicleproduction
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
+	SpawnActorOnDeath:
+		Actor: WEAP.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+WEAP.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 72,48
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: War Factory (Destroyed)
+    RenderSprites:
+        Image: weap.destroyed
+	TransformOnCapture:
+		IntoActor: weap
+
+FIX:
+	Inherits: ^Building
+	Buildable:
+		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		BuildDuration: 800
+		BuildPaletteOrder: 8
+		Prerequisites: weap, ~techlevel.medium
+		Description: Repairs Vehicles for credits.\nVehicles can be sold here for half value.\nEnables nearby Helipad/Airfields repair aircraft.
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Service Depot
+	Building:
+		Footprint: =+= +++ =+=
+		Dimensions: 3,3
+	Selectable:
+		Class: FIX
+		Bounds: 68,34,0,3
+		DecorationBounds: 72,48
+	SelectionDecorations:
+	Health:
+		HP: 800
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	Reservable:
+	RallyPoint:
+	RepairsUnits:
+		Interval: 7
+		StartRepairingNotification: Repairing
+		FinishRepairingNotification: UnitRepaired
+		PlayerExperience: 0
+        RepairDamageTypes: Repair
+	ProximityExternalCondition:
+		Condition: unit.sellable
+		Range: 1c0
+	Sellable:
+		RequiresCondition: !unit.docked && !build-incomplete && !being-demolished && !being-captured
+	ExternalCondition@Docked:
+		Condition: unit.docked
+	WithResupplyAnimation:
+		RequiresCondition: !build-incomplete
+	Power:
+		Amount: -30
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: fix
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-fix
+		RequiresCondition: stickytech
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1536, -683
+			BottomRight: 1536, 853
+	HitShape@TOPANDBOTTOM:
+		TargetableOffsets: 840,0,0, -1060,0,0
+		Type: Rectangle
+			TopLeft: -640, -768
+			BottomRight: 640, 1024
+	WithBuildingBib:
+        HasMinibib: true
+	ProximityExternalCondition@AIRCRAFTREPAIR:
+		Condition: aircraft-repair
+		Range: 6c0
+	WithRangeCircle@AIRCRAFTREPAIR:
+		Color: 888899AA
+		Range: 6c0
+	RenderSprites:
+		Image: FIX
+	SpawnActorOnDeath:
+		Actor: FIX.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+FIX.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 68,34,0,3
+	Building:
+		Footprint: =+= +++ =+=
+		Dimensions: 3,3
+	Tooltip:
+		Name: Service Depot (Destroyed)
+    RenderSprites:
+        Image: fix.destroyed
+	TransformOnCapture:
+		IntoActor: fix
+
+SYRD:
+	Inherits: ^Building
+	Inherits@PRIMARY: ^PrimaryBuilding
+    Inherits@infiltration: ^InfiltratableProduction
+	Buildable:
+		Queue: Building.Allies, ClassicBuilding.Allies
+		BuildDuration: 650
+		BuildPaletteOrder: 13
+		Prerequisites: anypower, ~techlevel.low, ~!global-disablenavy
+		Description: Produces and repairs\nShips and Transports.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Ship Yard
+	Building:
+		Footprint: XXX xxx XXX
+		Dimensions: 3,3
+		TerrainTypes: Water
+	-GivesBuildableArea:
+	Health:
+		HP: 1000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Exit@1:
+		SpawnOffset: -1024,1024,0
+		Facing: 640
+		ExitCell: 0,2
+        ProductionTypes: ClassicNavy.Allies, Navy.Allies, Ship
+	Exit@2:
+		SpawnOffset: 1024,1024,0
+		Facing: 896
+		ExitCell: 2,2
+        ProductionTypes: ClassicNavy.Allies, Navy.Allies, Ship
+	Exit@3:
+		SpawnOffset: -1024,-1024,0
+		Facing: 384
+		ExitCell: 0,0
+        ProductionTypes: ClassicNavy.Allies, Navy.Allies, Ship
+	Exit@4:
+		SpawnOffset: 1024,-1024,0
+		Facing: 128
+		ExitCell: 2,0
+        ProductionTypes: ClassicNavy.Allies, Navy.Allies, Ship
+	Production@ClassicAlliesNavy:
+		Produces: ClassicNavy.Allies, Ship
+		RequiresCondition: !multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@ClassicAlliesNavy:
+		ProductionType: ClassicNavy.Allies
+	Production:
+		Produces: Navy.Allies, Ship
+        RequiresCondition: multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@AlliesNavy:
+		ProductionType: Navy.Allies
+	ProductionQueue@AlliesNavy:
+		Type: Navy.Allies
+		Group: Navy
+        Factions: allies, england, france, germany, spain
+		DisplayOrder: 5
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	-SpawnActorsOnSell:
+	RepairsUnits:
+		StartRepairingNotification: Repairing
+		FinishRepairingNotification: UnitRepaired
+		PlayerExperience: 0
+        RepairDamageTypes: Repair
+	RallyPoint:
+	Power:
+		Amount: -30
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: syrd
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-syrd
+		RequiresCondition: stickytech
+	HitShape:
+		TargetableOffsets: 768,0,0, 768,-1024,0, 768,1024,0
+		Type: Rectangle
+			TopLeft: -1536, -1152
+			BottomRight: 1536, 598
+	HitShape@BOTTOM:
+		TargetableOffsets: -768,0,0
+		Type: Rectangle
+			TopLeft: -512, 598
+			BottomRight: 512, 1110
+	RequiresBuildableArea:
+		Adjacent: 8
+	Selectable:
+		Class: SYRD
+	RenderSprites:
+		Image: SYRD
+	ProximityExternalCondition@MINEREPLENISH:
+		Condition: replenishsmine
+		Range: 5c0
+		RequiresCondition: !build-incomplete
+	ProximityExternalCondition@SELLSHIPS:
+		Condition: ship.sellable
+		Range: 5c0
+	Capturable:
+		Types: building, building-naval
+    -WithDeathAnimation:
+	Targetable@sonarhelper:
+		TargetTypes: WaterProduction
+	FreeActor@SonarPulse:
+		Actor: powerproxy.sonarpulse
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
+	-SpawnActorOnDeath:
+    -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
+
+SPEN:
+	Inherits: ^Building
+	Inherits@PRIMARY: ^PrimaryBuilding
+    Inherits@infiltration: ^InfiltratableProduction
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Sub Pen
+	Buildable:
+		Queue: Building.Soviet, ClassicBuilding.Soviet
+		BuildDuration: 650
+		BuildPaletteOrder: 13
+		Prerequisites: anypower, ~techlevel.low, ~!global-disablenavy
+		Description: Produces and repairs\nSubmarines and Transports.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
+	Building:
+		Footprint: XXX xxx XXX
+		Dimensions: 3,3
+		TerrainTypes: Water
+	-GivesBuildableArea:
+	Health:
+		HP: 1000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Exit@1:
+		SpawnOffset: 0,-213,0
+		Facing: 384
+		ExitCell: -1,2
+        ProductionTypes: ClassicNavy.Soviet, Navy.Soviet, Submarine
+	Exit@2:
+		SpawnOffset: 0,-213,0
+		Facing: 640
+		ExitCell: 3,2
+        ProductionTypes: ClassicNavy.Soviet, Navy.Soviet, Submarine
+	Exit@3:
+		SpawnOffset: 0,0,0
+		Facing: 128
+		ExitCell: 0,0
+        ProductionTypes: ClassicNavy.Soviet, Navy.Soviet, Submarine
+	Exit@4:
+		SpawnOffset: 0,0,0
+		Facing: 896
+		ExitCell: 2,0
+        ProductionTypes: ClassicNavy.Soviet, Navy.Soviet, Submarine
+	Production@ClassicSovietNavy:
+		Produces: ClassicNavy.Soviet, Submarine
+		RequiresCondition: !multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@ClassicSovietNavy:
+		ProductionType: ClassicNavy.Soviet
+	Production:
+		Produces: Navy.Soviet, Submarine
+        RequiresCondition: multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@SovietNavy:
+		ProductionType: Navy.Soviet
+	ProductionQueue@SovietNavy:
+		Type: Navy.Soviet
+		Group: Navy
+        Factions: soviet, russia, ukraine, belarus, kazakh
+		DisplayOrder: 5
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	RepairsUnits:
+		StartRepairingNotification: Repairing
+		FinishRepairingNotification: UnitRepaired
+		PlayerExperience: 0
+        RepairDamageTypes: Repair
+	RallyPoint:
+	Power:
+		Amount: -30
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: spen
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-spen
+		RequiresCondition: stickytech
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1536, -598
+			BottomRight: 1536, 598
+	HitShape@TOPANDBOTTOM:
+		TargetableOffsets: 811,0,0, -811,0,0
+		Type: Rectangle
+			TopLeft: -555, -1110
+			BottomRight: 555, 1110
+	RequiresBuildableArea:
+		Adjacent: 8
+	Selectable:
+		Class: SPEN
+	RenderSprites:
+		Image: SPEN
+	ProximityExternalCondition@MINEREPLENISH:
+		Condition: replenishsmine
+		Range: 5c0
+		RequiresCondition: !build-incomplete
+	ProximityExternalCondition@SELLSHIPS:
+		Condition: ship.sellable
+		Range: 5c0
+	Capturable:
+		Types: building, building-naval
+    -WithDeathAnimation:
+	Targetable@sonarhelper:
+		TargetTypes: WaterProduction
+	FreeActor@SonarPulse:
+		Actor: powerproxy.sonarpulse
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
+	-SpawnActorOnDeath:
+    -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
+
+HPAD:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+    Inherits@AIRCRAFTREPAIR: ^RepairsAircraftWithRepairBay
+    Inherits@infiltration: ^InfiltratableProduction
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 768,-512,0, 768,512,0, -281,-512,0, -630,512,0
+	Buildable:
+		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		BuildDuration: 300
+		BuildPaletteOrder: 7
+		Prerequisites: dome, ~techlevel.medium
+		Description: Produces and reloads Helicopters.\nDocked aircraft can be sold for half value.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.\nCan repair docked aircraft\nwhen in range of a Service depot.
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Helipad
+	Building:
+		Footprint: xx ==
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 800
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	WithBuildingBib:
+	Exit@1:
+		SpawnOffset: 0,-256,0
+		ExitCell: 0,0
+		Facing: 896
+        ProductionTypes: ClassicAircraft.Allies, ClassicAircraft.Soviet, Aircraft.Allies, Aircraft.Soviet, Helicopter
+	Production@ClassicAircraft:
+		Produces: ClassicAircraft.Allies, ClassicAircraft.Soviet, Helicopter
+		RequiresCondition: !unit.docked && !multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@ClassicAlliesAircraft:
+		ProductionType: ClassicAircraft.Allies
+	ProductionBar@ClassicSovietAircraft:
+		ProductionType: ClassicAircraft.Soviet
+	Production:
+		Produces: Aircraft.Allies, Aircraft.Soviet, Helicopter
+        RequiresCondition: !unit.docked && multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionQueue@AircraftAllies:
+		Type: Aircraft.Allies
+		Group: Aircraft
+        Factions: allies, england, france, germany, spain
+		DisplayOrder: 4
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@AircraftAllies:
+		ProductionType: Aircraft.Allies
+	ProductionQueue@AircraftSoviet:
+		Type: Aircraft.Soviet
+		Group: Aircraft
+        Factions: soviet, russia, ukraine, belarus, kazakh
+		DisplayOrder: 4
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@AircraftSoviet:
+		ProductionType: Aircraft.Soviet
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	ProductionFromMapEdge@ClassicAircraft:
+		Produces: ClassicAircraft.Allies, ClassicAircraft.Soviet, Helicopter
+		RequiresCondition: !multiqueue && !availablehpads
+	ProductionFromMapEdge:
+		Produces: Aircraft.Allies, Aircraft.Soviet, Helicopter
+		RequiresCondition: multiqueue && !availablehpads
+	Reservable:
+	GrantConditionOnPrerequisite@PFME:
+		Condition: availablehpads
+		Prerequisites: availablehpads
+	ProvidesPrerequisite@PFME:
+		Prerequisite: availablehpads
+		RequiresCondition: !unit.docked
+	ProximityExternalCondition:
+		Condition: unit.sellable
+		Range: 1c0
+	Sellable:
+		RequiresCondition: !unit.docked && !build-incomplete && !being-demolished && !being-captured && !sabotage
+	ExternalCondition@Docked:
+		Condition: unit.docked
+	Power:
+		Amount: -15
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: hpad
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-hpad
+		RequiresCondition: stickytech
+	WithResupplyAnimation:
+		RequiresCondition: !build-incomplete
+	FreeActor@1:
+		Actor: HELI
+		Facing: 896
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete && allies.player && gratisair
+	FreeActor@2:
+		Actor: HIND
+		Facing: 896
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete && soviet.player && gratisair
+	GrantConditionOnFaction@Allies:
+		Condition: allies.player
+		Factions: allies, england, france, germany, spain
+		ResetOnOwnerChange: True
+	GrantConditionOnFaction@Soviet:
+		Condition: soviet.player
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		ResetOnOwnerChange: True
+	GrantConditionOnPrerequisite@FREEAIRCRAFT:
+		Prerequisites: global-freeaircraft
+		Condition: gratisair
+	ProductionCostMultiplier@FREEAIRCRAFT:
+		Multiplier: 500
+		Prerequisites: global-freeaircraft
+	Selectable:
+		Class: HPAD
+	RenderSprites:
+		Image: HPAD
+	SpawnActorOnDeath:
+		Actor: HPAD.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+HPAD.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 48,48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Helipad (Destroyed)
+    RenderSprites:
+        Image: hpad.destroyed
+	TransformOnCapture:
+		IntoActor: hpad
+
+AFLD:
+	Inherits: ^Building
+	Inherits@shape: ^3x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+    Inherits@AIRCRAFTREPAIR: ^RepairsAircraftWithRepairBay
+    Inherits@infiltration: ^InfiltratableProduction
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 420,0,0, 420,-1024,0, 420,1024,0, -777,0,0, -777,-1024,0, -777,1024,0
+	Buildable:
+		Queue: Building.Soviet, ClassicBuilding.Soviet
+		BuildDuration: 600
+		BuildPaletteOrder: 10
+		Prerequisites: dome, ~techlevel.medium
+		Description: Produces and reloads Airplanes.\nDocked aircraft can be sold for half value.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.\nCan repair docked aircraft\nwhen in range of a Service depot.\n  Special Ability: Paratroopers\nA Badger drops a squad of infantry\nanywhere on the map.
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Airfield
+	Building:
+		Footprint: X++ xxx
+		Dimensions: 3,2
+	Health:
+		HP: 1000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 7c0
+	WithBuildingBib:
+	Exit@1:
+		ExitCell: 1,1
+		Facing: 768
+        ProductionTypes: ClassicAircraft.Soviet, Aircraft.Soviet, Airplane
+	Production@ClassicSovietAircraft:
+		Produces: ClassicAircraft.Soviet, Airplane
+		RequiresCondition: !multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionBar@ClassicSovietAircraft:
+		ProductionType: ClassicAircraft.Soviet
+	Production:
+		Produces: Aircraft.Soviet, Airplane
+        RequiresCondition: multiqueue
+        PauseOnCondition: build-incomplete || sabotage
+	ProductionQueue@SovietAircraft:
+		Type: Aircraft.Soviet
+		Group: Aircraft
+        Factions: soviet, russia, ukraine, belarus, kazakh
+		DisplayOrder: 4
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@SovietAircraft:
+		ProductionType: Aircraft.Soviet
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	Reservable:
+	ParatroopersPower@paratroopers:
+        PauseOnCondition: lowpower
+		OrderName: SovietParatroopers
+		Prerequisites: infantryproduction, ~techlevel.medium
+		Icon: paratroopers
+		ChargeInterval: 6750
+		Description: Paratroopers
+		LongDesc: A Badger drops a squad of infantry\nanywhere on the map.
+		DropItems: E1,E3,E1,E3,E1
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		RequiresCondition: !directional-abilities
+        SupportPowerPaletteOrder: 4
+        Cursor: airdrop
+	ParatroopersPower@paratroopers-directional:
+        PauseOnCondition: lowpower
+		OrderName: SovietParatroopersDirectional
+		Prerequisites: infantryproduction, ~techlevel.medium
+		Icon: paratroopers
+		ChargeInterval: 6750
+		Description: Paratroopers
+		LongDesc: A Badger drops a squad of infantry\nanywhere on the map.
+		DropItems: E1,E3,E1,E3,E1
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		RequiresCondition: directional-abilities
+        SupportPowerPaletteOrder: 4
+        Cursor: airdrop
+	GrantConditionOnPrerequisite@GLOBALDIRECTIONALABILITY:
+		Condition: directional-abilities
+		Prerequisites: global-directional-abilities
+	SupportPowerChargeBar:
+	ProximityExternalCondition:
+		Condition: unit.sellable
+		Range: 1c0
+	Sellable:
+		RequiresCondition: !unit.docked && !build-incomplete && !being-demolished && !being-captured && !sabotage
+	ExternalCondition@Docked:
+		Condition: unit.docked
+	Power:
+		Amount: -30
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: afld
+	ProvidesPrerequisite@techpreq:
+		Prerequisite: afldorweap
+	ProvidesPrerequisite@existentialism:
+		Prerequisite: afldexist
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-afld
+		RequiresCondition: stickytech
+	WithResupplyAnimation:
+		RequiresCondition: !build-incomplete
+	Selectable:
+		Class: AFLD
+	RenderSprites:
+		Image: AFLD
+	GrantConditionOnPowerState@LOWPOWER:
+		Condition: lowpower
+		ValidPowerStates: Low, Critical
+	SpawnActorOnDeath:
+		Actor: AFLD.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+AFLD.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 72,48
+	Building:
+		Footprint: x++ xxx
+		Dimensions: 3,2
+	Tooltip:
+		Name: Airfield (Destroyed)
+	RenderSprites:
+		Image: afld.destroyed
+	TransformOnCapture:
+		IntoActor: afld
+
+DOME:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@shape: ^2x2Shape
+    Inherits@infiltration: ^InfiltratableRadarProvider
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-384,0, 630,384,0, -700,-512,0, -700,512,0
+	Buildable:
+		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		BuildDuration: 1000
+		BuildPaletteOrder: 9
+		Prerequisites: proc, ~techlevel.medium
+		Description: Provides an overview of the battlefield.\nCan be Infiltrated by a Spy\nresulting in becoming Jammed temporarily.\nDetects cloaked units.\n  Requires power to operate.\n  Special Ability: Spy Plane\nReveals an area of the map\nand cloaked enemy units.
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Radar Dome
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 1000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 10c0
+	WithBuildingBib:
+	ProvidesPrerequisite@LOCALRADAR:
+		Prerequisite: activedome
+		RequiresCondition: !jammed && !jammed-infiltrate && !lowpower && !build-incomplete
+	ProvidesPrerequisite@GLOBALJAM:
+		Prerequisite: isbeingjammed
+		RequiresCondition: (jammed || jammed-infiltrate)
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	Power:
+		Amount: -45
+        RequiresCondition: !build-incomplete
+	DetectCloaked:
+		Range: 5c0
+        RequiresCondition: !lowpower && !build-incomplete
+	AirstrikePower@spyplane:
+        PauseOnCondition: lowpower
+		OrderName: SovietSpyplane
+		Prerequisites: afld, ~techlevel.medium
+		Icon: spyplane
+		ChargeInterval: 4500
+		Description: Spy Plane
+		LongDesc: Reveals an area of the map\nand cloaked enemy units.
+		SelectTargetSpeechNotification: SelectTarget
+		EndChargeSpeechNotification: SpyPlaneReady
+		CameraActor: camera.spyplane
+		CameraRemoveDelay: 150
+		UnitType: u2
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: camicon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		RequiresCondition: !directional-abilities
+        SupportPowerPaletteOrder: 5
+	AirstrikePower@spyplane-directional:
+        PauseOnCondition: lowpower
+		OrderName: SovietSpyplaneDirectional
+		Prerequisites: afld, ~techlevel.medium
+		Icon: spyplane
+		ChargeInterval: 4500
+		Description: Spy Plane
+		LongDesc: Reveals an area of the map\nand cloaked enemy units.
+		SelectTargetSpeechNotification: SelectTarget
+		EndChargeSpeechNotification: SpyPlaneReady
+		CameraActor: camera.spyplane
+		CameraRemoveDelay: 150
+		UnitType: u2
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: camicon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		RequiresCondition: directional-abilities
+        SupportPowerPaletteOrder: 5
+	GrantConditionOnPrerequisite@GLOBALDIRECTIONALABILITY:
+		Condition: directional-abilities
+		Prerequisites: global-directional-abilities
+	SupportPowerChargeBar:
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: dome
+	FreeActor@STICKY:
+		Actor: building-dome
+		RequiresCondition: stickytech
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	Selectable:
+		Class: DOME
+	RenderSprites:
+		Image: DOME
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !jammed-infiltrate
+	SpawnActorOnDeath:
+		Actor: DOME.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+DOME.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 48,48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Radar Dome (Destroyed)
+    RenderSprites:
+        Image: dome.destroyed
+	TransformOnCapture:
+		IntoActor: dome
+
+ATEK:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@shape: ^2x2Shape
+    Inherits@infiltration: ^InfiltratableTechCenter
+	Buildable:
+		Queue: Building.Allies, ClassicBuilding.Allies
+		BuildDuration: 2000
+		BuildPaletteOrder: 11
+		Prerequisites: weap, dome, !enoughtech, ~techlevel.high
+		Description: Provides Allies advanced technologies.\nUpgrades for Allies arsenal can be developed here.\nCan be Infiltrated by a Spy resulting in loss of map exploration.\n  Special Ability: GPS Satellite\nReveals map terrain and provides tactical information.\nRequires power and active radar.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Allies Tech Center
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 400
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 10c0
+	WithBuildingBib:
+	GpsPower:
+		PauseOnCondition: lowpower
+		Icon: gps
+		OneShot: true
+		ChargeInterval: 12000
+		Description: GPS Satellite
+		LongDesc: Reveals map terrain and provides tactical information.\n Requires power and active radar.
+		RevealDelay: 375
+		LaunchSpeechNotification: SatelliteLaunched
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	SupportPowerChargeBar:
+	Power:
+		Amount: -200
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: atek
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-atek
+		RequiresCondition: stickytech
+	ProvidesPrerequisite@TECHLIMIT:
+		Prerequisite: enoughtech
+		RequiresPrerequisites: global-techlimit
+	Selectable:
+		Class: ATEK
+	RenderSprites:
+		Image: ATEK
+	Production@ClassicAlliesUpgrades:
+		Produces: ClassicUpgrades.Allies
+		RequiresCondition: !multiqueue
+        PauseOnCondition: build-incomplete
+	ProductionBar@ClassicAlliesUpgrades:
+		ProductionType: ClassicUpgrades.Allies
+	Production:
+		Produces: Upgrades.Allies
+        RequiresCondition: multiqueue
+        PauseOnCondition: build-incomplete
+	ProductionQueue@AlliesUpgrades:
+		Type: Upgrades.Allies
+		Group: Upgrades
+        Factions: allies, england, france, germany, spain
+		DisplayOrder: 6
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@AlliesUpgrades:
+		ProductionType: Upgrades.Allies
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	Exit:
+	SpawnActorsOnSell:
+		ActorTypes: e1,chan,chan,e6,tecn,tecn_yellow
+	SpawnActorOnDeath:
+		Actor: ATEK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+ATEK.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 48,48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Allies Tech Center (Destroyed)
+    RenderSprites:
+        Image: atek.destroyed
+	TransformOnCapture:
+		IntoActor: atek
+
+STEK:
+	Inherits: ^Building
+	Inherits@shape: ^3x2Shape
+    Inherits@infiltration: ^InfiltratableTechCenter
+	HitShape:
+		TargetableOffsets: 420,-768,0, 420,768,0, -770,-768,0, -770,768,0
+	Buildable:
+		Queue: Building.Soviet, ClassicBuilding.Soviet
+		BuildDuration: 2000
+		BuildPaletteOrder: 11
+		Prerequisites: afldorweap, dome, !enoughtech, ~techlevel.high
+		Description: Provides Soviet advanced technologies.\nUpgrades for Soviet arsenal can be developed here.\nCan be Infiltrated by a Spy resulting in loss of map exploration.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Soviet Tech Center
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	Building:
+		Footprint: XxX XxX
+		Dimensions: 3,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 600
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: -100
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: stek
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-stek
+		RequiresCondition: stickytech
+	ProvidesPrerequisite@TECHLIMIT:
+		Prerequisite: enoughtech
+		RequiresPrerequisites: global-techlimit
+	Selectable:
+		Class: STEK
+	RenderSprites:
+		Image: STEK
+	Production@ClassicSovietUpgrades:
+		Produces: ClassicUpgrades.Soviet
+		RequiresCondition: !multiqueue
+        PauseOnCondition: build-incomplete
+	ProductionBar@ClassicSovietUpgrades:
+		ProductionType: ClassicUpgrades.Soviet
+	Production:
+		Produces: Upgrades.Soviet
+        RequiresCondition: multiqueue
+        PauseOnCondition: build-incomplete
+	ProductionQueue@SovietUpgrades:
+		Type: Upgrades.Soviet
+		Group: Upgrades
+        Factions: soviet, russia, ukraine, belarus, kazakh
+		DisplayOrder: 6
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@SovietUpgrades:
+		ProductionType: Upgrades.Soviet
+	GrantConditionOnPrerequisite@multiqueue:
+		Condition: multiqueue
+		Prerequisites: global-multiqueue
+	FreeActor@Dummy:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition:
+		Delay: 1
+		Condition: updatequeue
+	Exit:
+	SpawnActorsOnSell:
+		ActorTypes: e1,chan,chan,e6,tecn,tecn_yellow
+	SpawnActorOnDeath:
+		Actor: STEK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+STEK.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 72,48
+	Building:
+		Footprint: XxX XxX
+		Dimensions: 3,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Soviet Tech Center (Destroyed)
+    RenderSprites:
+        Image: stek.destroyed
+	TransformOnCapture:
+		IntoActor: stek
+
+FCOM:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building.Soviet, ClassicBuilding.Soviet
+		BuildDuration: 1000
+		BuildPaletteOrder: 12
+        BuildLimit: 1
+		Prerequisites: dome, stek, ~techlevel.high
+		Description: Enables construction of high-tech units.\nCan be infiltrated by a Spy to\nobtain a single use Parabombs.\nRequires power to operate.\n  Special Ability: Parabombs\nA Badger drops a load of parachuted\nbombs on your target.
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Command Post
+	Health:
+		HP: 400
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	WithBuildingBib:
+	Power:
+		Amount: -50
+	AirstrikePower@parabombs:
+        PauseOnCondition: lowpower
+		OrderName: SovietParabombs
+		Prerequisites: afld, ~techlevel.high
+		Icon: parabombs
+		ChargeInterval: 7500
+		Description: Parabombs
+		LongDesc: A Badger drops a load of parachuted\nbombs on your target.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: badr.bomber
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		SquadSize: 1
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+        RequiresCondition: !directional-abilities
+        SupportPowerPaletteOrder: 3
+	AirstrikePower@parabombs-directional:
+        PauseOnCondition: lowpower
+		OrderName: SovietParabombsDirectional
+		Prerequisites: afld, ~techlevel.high
+		Icon: parabombs
+		ChargeInterval: 7500
+		Description: Parabombs
+		LongDesc: A Badger drops a load of parachuted\nbombs on your target.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: badr.bomber
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		SquadSize: 1
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+        RequiresCondition: directional-abilities
+        SupportPowerPaletteOrder: 3
+	GrantConditionOnPrerequisite@GLOBALDIRECTIONALABILITY:
+		Condition: directional-abilities
+		Prerequisites: global-directional-abilities
+	SupportPowerChargeBar:
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: fcom
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-fcom
+		RequiresCondition: stickytech
+	Selectable:
+		Bounds: 48,48
+		Class: FCOM
+	RenderSprites:
+		Image: FCOM
+	GrantConditionOnPowerState@LOWPOWER:
+		Condition: lowpower
+		ValidPowerStates: Low, Critical
+    Targetable@INFILTRATION:
+        TargetTypes: SpyInfiltrate
+	InfiltrateForSupportPower:
+		Types: SpyInfiltrate
+		Proxy: powerproxy.parabombs.crate
+	SpawnActorOnDeath:
+		Actor: FCOM.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+
+FCOM.Husk:
+	Inherits: ^BuildingHusk
+	Inherits@shape: ^2x2Shape
+	Interactable:
+		Bounds: 48,48
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Command Post (Destroyed)
+	RenderSprites:
+		Image: fcom.destroyed
+	TransformOnCapture:
+		IntoActor: fcom
+
+INFANTRYPRODUCTION:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Infantry Production
+	Buildable:
+		Description: Infantry Production
+
+VEHICLEPRODUCTION:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Vehicle Production
+	Buildable:
+		Description: Vehicle Production
+
+AFLDORWEAP:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: War Factory or Airfield
+	Buildable:
+		Description: War Factory or Airfield
+
+TECHCENTER:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Tech Center
+	Buildable:
+		Description: Tech Center
+
+ANYPOWER:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: any Power Plant
+	Buildable:
+		Description: any Power Plant

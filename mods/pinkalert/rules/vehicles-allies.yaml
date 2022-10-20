@@ -1,0 +1,1009 @@
+HARV:
+	Inherits: ^Vehicle
+	Inherits@Speed: ^AcceptsSpeedCrate
+	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Inherits@EMP: ^AcceptsEMPCrate
+    Inherits@HARVBALANCE: ^HarvesterBalancer
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 1000
+		BuildPaletteOrder: 1
+		Prerequisites: proc, ~!global-mineimmune, ~techlevel.low
+		Description: Collects Valuable Minerals and Scrap Metal for processing.\nSlowly self-repairs when below 50% health.\n  Unarmed
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Ore Truck
+		GenericName: Harvester
+	Selectable:
+		Class: HARV
+		Priority: 7
+		DecorationBounds: 42,42
+	SelectionDecorations:
+	Harvester:
+		Capacity: 28
+		Resources: Ore,Gems,Scrap
+		BaleUnloadDelay: 1
+		SearchFromProcRadius: 16
+		SearchFromHarvesterRadius: 8
+		HarvestFacings: 8
+		EmptyCondition: no-ore
+	Explodes@EJECTORE:
+		RequiresCondition: !no-ore
+		Weapon: OreExplosion
+	Explodes@SCRAPMETAL:
+		RequiresCondition: scrapmetalon && no-ore
+		Weapon: ScrapExplosion
+	Health:
+		HP: 600
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 60
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 4c0
+	WithHarvestAnimation:
+	WithDockingAnimation:
+	SpawnActorOnDeath:
+		Actor: HARV.EmptyHusk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	HarvesterHuskModifier:
+		FullHuskActor: HARV.FullHusk
+		FullnessThreshold: 50
+	ChangesHealth:
+		Step: 1
+		Delay: 25
+		StartIfBelow: 51
+		DamageCooldown: 500
+	WithHarvesterSpriteBody:
+		ImageByFullness: harvempty, harvhalf, harv
+	-WithFacingSpriteBody:
+	RenderSprites:
+		Image: HARV
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 7
+		ResourceSequences:
+			Ore: yellow
+			Gems: red
+            Scrap: gray
+	Passenger:
+		CustomPipType: blue
+	ProximityExternalCondition@DOCKED:
+		Condition: dockinprocess
+		Range: 1c0
+		ValidRelationships: Ally
+	ExternalCondition@DOCKED:
+		Condition: docked
+		SourceCap: 1
+		TotalCap: 1        
+	RejectsOrders:
+		RequiresCondition: docked
+	ChangesHealth:
+		Step: 1
+		Delay: 3
+		StartIfBelow: 51
+		DamageCooldown: 150
+
+HARV.FullHusk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Ore Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: harv
+	RenderSprites:
+		Image: hhusk
+
+HARV.EmptyHusk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Ore Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: harv
+	RenderSprites:
+		Image: hhusk2
+
+HARV.MineImmune
+    Inherits: HARV
+	-SpawnActorOnDeath:
+	-HarvesterHuskModifier:
+	Buildable:
+		Prerequisites: proc, ~global-mineimmune, ~techlevel.low
+		Description: Collects Ore and Gems for processing.\n  Unarmed    
+    MineImmune:
+	SpawnActorOnDeath:
+		Actor: HARV.MineImmune.EmptyHusk
+		OwnerType: InternalName
+        RequiresCondition: global-unithusks
+	HarvesterHuskModifier:
+		FullHuskActor: HARV.MineImmune.FullHusk
+		FullnessThreshold: 50  
+	Selectable:
+		Class: HARV
+    RenderSprites:
+        Image: HARV
+    -MapEditorData:
+
+HARV.MineImmune.FullHusk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Ore Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: harv.mineimmune
+	RenderSprites:
+		Image: hhusk
+    -MapEditorData:
+
+HARV.MineImmune.EmptyHusk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Ore Truck (Destroyed)
+	TransformOnCapture:
+		IntoActor: harv.mineimmune
+	RenderSprites:
+		Image: hhusk2
+    -MapEditorData:
+
+JEEP:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+    Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 500
+		BuildPaletteOrder: 2
+		Prerequisites: ~techlevel.low, ~!jeepcapacity.upgrade
+		Description: Fast scout & anti-infantry vehicle.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Ranger
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 150
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 100
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 6c0
+	Turreted:
+		TurnSpeed: 40
+		Offset: 0,0,128
+	Armament:
+		Weapon: M60mg
+		MuzzleSequence: muzzle
+		LocalOffset: 128,0,43
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: M60mg.spain
+		MuzzleSequence: muzzle
+		LocalOffset: 128,0,43
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	SpawnActorOnDeath:
+		Actor: JEEP.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	AttackTurreted:
+        PauseOnCondition: emp-crate-collected
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	Selectable:
+		Class: JEEP
+	RenderSprites:
+		Image: JEEP
+	Passenger:
+		CustomPipType: green
+	GrantConditionOnPrerequisite@JEEPUPG:
+		Condition: jeep.upgraded
+		Prerequisites: jeepcapacity.upgrade
+	TransformOnCondition@JEEPUPG:
+		IntoActor: JEEP.Upgraded
+		RequiresCondition: jeep.upgraded
+
+JEEP.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Ranger (Destroyed)
+	TransformOnCapture:
+		IntoActor: jeep
+	RenderSprites:
+		Image: jeep.destroyed
+
+JEEP.Upgraded:
+    Inherits: JEEP
+    Inherits@TRANSPORT: ^Transport
+	-GrantConditionOnPrerequisite@JEEPUPG:
+	-TransformOnCondition@JEEPUPG:
+	Buildable:
+		Prerequisites: ~techlevel.low, ~jeepcapacity.upgrade
+		Description: Fast scout & anti-infantry vehicle.\nCan carry one Infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Mobile:
+		PauseOnCondition: notmobile || emp-crate-collected
+	Cargo:
+		LoadedCondition: loaded
+		Types: Infantry
+		MaxWeight: 1
+		LoadingCondition: notmobile
+		#   EjectOnDeath: true
+		PassengerConditions:
+			mech: selfrepair
+    ChangesHealth@SelfRepair:
+		RequiresCondition: selfrepair
+        Step: 20
+		Delay: 80
+		StartIfBelow: 101
+	Sellable:
+		RequiresCondition: unit.sellable && !loaded
+	SpawnActorOnDeath:
+		Actor: JEEP.Upgraded.Husk
+    Selectable:
+        Class: JEEP
+    RenderSprites:
+        Image: JEEP
+    -MapEditorData:
+
+JEEP.Upgraded.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Ranger (Destroyed)
+	TransformOnCapture:
+		IntoActor: jeep.upgraded
+	RenderSprites:
+		Image: jeep.destroyed
+    -MapEditorData:
+
+APC:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+	Inherits@TRANSPORT: ^Transport
+    Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 650
+		BuildPaletteOrder: 3
+		Prerequisites: tent, ~techlevel.medium
+		Description: Tough infantry transport.\nCan carry up to five Infantry.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Armored Personnel Carrier
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 200
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 90
+		PauseOnCondition: notmobile || emp-crate-collected
+	RevealsShroud:
+		Range: 5c0
+	Armament:
+		Weapon: M60mg
+		LocalOffset: 85,0,171
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: M60mg.spain
+		LocalOffset: 85,0,171
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackFrontal:
+        PauseOnCondition: emp-crate-collected
+	WithMuzzleOverlay:
+	Sellable:
+		RequiresCondition: unit.sellable && !loaded
+	Cargo:
+		LoadedCondition: loaded
+		Types: Infantry
+		MaxWeight: 5
+		LoadingCondition: notmobile
+		#   EjectOnDeath: true
+		PassengerConditions:
+			mech: selfrepair
+    ChangesHealth@SelfRepair:
+		RequiresCondition: selfrepair
+        Step: 20
+		Delay: 80
+		StartIfBelow: 101
+	SpawnActorOnDeath:
+		Actor: APC.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Selectable:
+		Class: APC
+	RenderSprites:
+		Image: APC
+	Passenger:
+		CustomPipType: yellow
+
+APC.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Armored Personnel Carrier (Destroyed)
+	TransformOnCapture:
+		IntoActor: apc
+	RenderSprites:
+		Image: apc.destroyed
+
+1TNK:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
+    Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 700
+		BuildPaletteOrder: 4
+		Prerequisites: ~techlevel.low, ~!amphibian.upgrade
+		Description: Light Tank, good for scouting.\n  Strong vs Light armor\n  Weak vs Infantry, Tanks, Aircraft
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Light Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 300
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 90
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 20
+	Armament:
+		Weapon: 75mm
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: 75mm
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackTurreted:
+        PauseOnCondition: emp-crate-collected
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: 1TNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Selectable:
+		Class: 1TNK
+	RenderSprites:
+		Image: 1TNK
+	Passenger:
+		CustomPipType: green
+	GrantConditionOnPrerequisite@LTNKUPG:
+		Condition: ltnk.upgraded
+		Prerequisites: amphibian.upgrade
+	TransformOnCondition@LTNKUPG:
+		IntoActor: 1TNK.Upgraded
+		RequiresCondition: ltnk.upgraded
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+
+1TNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Light Tank (Destroyed)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: 1tnk
+	RenderSprites:
+		Image: 1tnk.destroyed
+
+1TNK.Upgraded:
+    Inherits: 1TNK
+    -GrantConditionOnPrerequisite@LTNKUPG:
+    -TransformOnCondition@LTNKUPG:
+	Buildable:
+		Prerequisites: ~techlevel.low, ~amphibian.upgrade
+		Description: Light Tank, good for scouting.\n  Strong vs Light armor\n  Weak vs Infantry, Tanks, Aircraft\n  Special: Amphibian\nCan cross open Sea and Rivers
+	Mobile:
+		Locomotor: tracked-amphibian
+	GrantConditionOnTerrain@SEA:
+		TerrainTypes: Water, River
+		Condition: floating
+	Targetable:
+		RequiresCondition: !parachute && !floating
+	Targetable@SEA:
+		TargetTypes: Ground, Unit, Water, Ship, Tank
+		RequiresCondition: !parachute && floating
+	WithFacingSpriteBody:
+		RequiresCondition: !floating
+	WithFacingSpriteBody@SEA:
+		Name: floating
+		Sequence: idle-float
+		RequiresCondition: floating
+	SpawnActorOnDeath:
+		RequiresCondition: global-unithusks && !floating
+	DamageMultiplier@SEAMALUS:
+		Modifier: 120
+		RequiresCondition: floating
+	GrantConditionOnTerrain@SEAPENALTY:
+		TerrainTypes: Water
+		Condition: atsea
+    #   GrantTimedCondition@SEAPENALTY:
+    GrantChargingCondition@SEAPENALTY:
+        Condition: sinktimer
+        PauseOnCondition: atsea
+        ChargingColor: 2ECDE2
+        #   last for 15 seconds
+        MaxCharge: 375
+        InitialCharge: 375
+        ShowSelectionBarWhenFull: false
+        ShowSelectionBarWhenEmpty: false
+	KillsSelf:
+		RequiresCondition: !sinktimer && atsea
+    Selectable:
+        Class: 1TNK
+    RenderSprites:
+        Image: 1TNK
+    -MapEditorData:
+
+2TNK:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
+    Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 800
+		BuildPaletteOrder: 5
+		Prerequisites: fix, ~techlevel.medium
+		Description: Allied Main Battle Tank.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Medium Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 400
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 80
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 20
+	Armament:
+		Weapon: 90mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: 90mm.spain
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackTurreted:
+        PauseOnCondition: emp-crate-collected
+    WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: 2TNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	SelectionDecorations:
+	Selectable:
+		Class: 2TNK
+		DecorationBounds: 28,28
+	RenderSprites:
+		Image: 2TNK
+	Passenger:
+		CustomPipType: yellow
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+
+2TNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Medium Tank (Destroyed)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: 2tnk
+	RenderSprites:
+		Image: 2tnk.destroyed
+
+ARTY:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferDefense
+    Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 600
+		BuildPaletteOrder: 6
+		Prerequisites: dome, ~techlevel.medium
+		Description: Long-range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Artillery
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 75
+	Armor:
+		Type: Light
+	Mobile:
+        Locomotor: tracked-non-crusher
+		TurnSpeed: 8
+		Speed: 60
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 5c0
+	Armament:
+		Weapon: 155mm
+		LocalOffset: 624,0,208
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: 155mm.spain
+		LocalOffset: 624,0,208
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+        PauseOnCondition: emp-crate-collected
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: ARTY.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Explodes:
+		Weapon: ArtilleryExplode
+		EmptyWeapon: UnitExplodeSmall
+		LoadedChance: 75
+	Selectable:
+		Class: ARTY
+	RenderSprites:
+		Image: ARTY
+	Passenger:
+		CustomPipType: yellow
+	RenderRangeCircle:
+	RevealOnFire:
+		ArmamentNames: primary
+
+ARTY.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Artillery (Destroyed)
+	TransformOnCapture:
+		IntoActor: arty
+	RenderSprites:
+		Image: arty.destroyed
+
+CTNK:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferTank
+    Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 2100
+		BuildPaletteOrder: 8
+		Prerequisites: atek, ~techlevel.high
+		Description: Chrono Tank, teleports to areas within range.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry, Aircraft\n  Special ability: Can teleport
+	Valued:
+		Cost: 2100
+	Tooltip:
+		Name: Chrono Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	SelectionDecorations:
+	Health:
+		HP: 350
+	Armor:
+		Type: Light
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 50
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: APTusk
+		LocalOffset: -160,-276,232
+		LocalYaw: 60
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@SECONDARY:
+		Weapon: APTusk
+		LocalOffset: -160,276,232
+		LocalYaw: -60
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: !spain
+	Armament@PRIMARYSPAIN:
+		Weapon: APTusk.spain
+		LocalOffset: -160,-276,232
+		LocalYaw: 60
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	Armament@SECONDARYSPAIN:
+		Weapon: APTusk.spain
+		LocalOffset: -160,276,232
+		LocalYaw: -60
+        PauseOnCondition: emp-crate-collected
+        RequiresCondition: spain
+	AttackFrontal:
+        PauseOnCondition: emp-crate-collected
+	PortableChrono:
+		ChargeDelay: 2250
+		HasDistanceLimit: false
+        #   PauseOnCondition: emp-crate-collected
+	SpawnActorOnDeath:
+		Actor: CTNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Selectable:
+		Class: CTNK
+		DecorationBounds: 30,30
+	RenderSprites:
+		Image: CTNK
+	Passenger:
+		CustomPipType: red
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+
+CTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Chrono Tank (Destroyed)
+	TransformOnCapture:
+		IntoActor: ctnk
+	RenderSprites:
+		Image: ctnk.destroyed
+
+STNK:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@TRANSPORT: ^Transport
+    Inherits@Crates: ^AcceptsAllCratesExceptCloak
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 800
+		BuildPaletteOrder: 9
+		Prerequisites: atek, dome, ~techlevel.high
+		Description: Lightly armored Vehicle which can cloak.\nCan carry one Infantry.\nAttacks Aircraft without Infantry inside.\nAttacks Ground units with Infantry inside.\n  Strong vs Aircraft, Light armor\n  Weak vs Infantry, Tanks
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Phase IFV
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 200
+	Armor:
+		Type: Heavy
+	Targetable:
+        TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+		RequiresCondition: !parachute && !cloaked
+	Targetable@CLOAKED:
+		TargetTypes: Ground, Unit, Vehicle, Tank
+		RequiresCondition: !parachute && cloaked
+	Mobile:
+        Locomotor: tracked-crusher
+		Speed: 100
+		PauseOnCondition: notmobile || emp-crate-collected
+	RevealsShroud:
+		Range: 5c0
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	Armament@AA:
+        Name: primary
+		Weapon: StingerAA
+		LocalOffset: 192,-100,176, 192,100,176
+		LocalYaw: 64, -64
+        PauseOnCondition: reload-ag || emp-crate-collected
+        ReloadingCondition: reload-aa
+        RequiresCondition: !loaded && !botowner && !spain
+	Armament@AG:
+        Name: secondary
+		Weapon: Stinger
+		#   LocalOffset: 85,384,176, 85,-384,176
+		LocalOffset: 192,-100,176, 192,100,176
+		LocalYaw: 64, -64
+        PauseOnCondition: reload-aa || emp-crate-collected
+        ReloadingCondition: reload-ag
+        RequiresCondition: loaded && !botowner && !spain
+	Armament@AABOT:
+        Name: primarybot
+		Weapon: StingerAA
+		LocalOffset: 192,-100,176, 192,100,176
+		LocalYaw: 64, -64
+        PauseOnCondition: reload-ag || emp-crate-collected
+        ReloadingCondition: reload-aa
+        RequiresCondition: botowner && !spain
+	Armament@AGBOT:
+        Name: secondarybot
+		Weapon: Stinger
+		#   LocalOffset: 85,384,176, 85,-384,176
+		LocalOffset: 192,-100,176, 192,100,176
+		LocalYaw: 64, -64
+        PauseOnCondition: reload-aa || emp-crate-collected
+        ReloadingCondition: reload-ag
+        RequiresCondition: botowner && !spain
+	Armament@AA_SPAIN:
+        Name: primary
+		Weapon: StingerAA.spain
+		LocalOffset: 192,-100,176, 192,100,176
+		LocalYaw: 64, -64
+        PauseOnCondition: reload-ag || emp-crate-collected
+        ReloadingCondition: reload-aa
+        RequiresCondition: !loaded && !botowner && spain
+	Armament@AG_SPAIN:
+        Name: secondary
+		Weapon: Stinger.spain
+		#   LocalOffset: 85,384,176, 85,-384,176
+		LocalOffset: 192,-100,176, 192,100,176
+		LocalYaw: 64, -64
+        PauseOnCondition: reload-aa || emp-crate-collected
+        ReloadingCondition: reload-ag
+        RequiresCondition: loaded && !botowner && spain
+	Armament@AABOT_SPAIN:
+        Name: primarybot
+		Weapon: StingerAA.spain
+		LocalOffset: 192,-100,176, 192,100,176
+		LocalYaw: 64, -64
+        PauseOnCondition: reload-ag || emp-crate-collected
+        ReloadingCondition: reload-aa
+        RequiresCondition: botowner && spain
+	Armament@AGBOT_SPAIN:
+        Name: secondarybot
+		Weapon: Stinger.spain
+		#   LocalOffset: 85,384,176, 85,-384,176
+		LocalOffset: 192,-100,176, 192,100,176
+		LocalYaw: 64, -64
+        PauseOnCondition: reload-aa || emp-crate-collected
+        ReloadingCondition: reload-ag
+        RequiresCondition: botowner && spain
+	Turreted:
+		TurnSpeed: 20
+	AttackTurreted:
+        Armaments: primary, secondary, primarybot, secondarybot
+        PauseOnCondition: emp-crate-collected
+	WithSpriteTurret:
+        #   RequiresCondition: !cloaked
+	Sellable:
+		RequiresCondition: unit.sellable && !loaded
+	Cargo:
+		LoadedCondition: loaded
+		Types: Infantry
+		MaxWeight: 1
+		LoadingCondition: notmobile
+        #   EjectOnDeath: true
+		PassengerConditions:
+			mech: selfrepair
+    ChangesHealth@SelfRepair:
+		RequiresCondition: selfrepair
+        Step: 20
+		Delay: 80
+		StartIfBelow: 101
+	Cloak:
+		InitialDelay: 25
+		CloakDelay: 250
+		CloakSound: appear1.aud
+        CloakedCondition: cloaked
+		UncloakSound: appear1.aud
+		PauseOnCondition: cloak-force-disabled && emp-crate-collected
+		UncloakOn: Attack, Unload, Dock, Damage, Heal
+        Palette:
+        RequiresCondition: !notmobile
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	-MustBeDestroyed:
+	Selectable:
+		Class: STNK
+	RenderSprites:
+		Image: STNK
+	SpawnActorOnDeath:
+		Actor: STNK.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Passenger:
+		CustomPipType: red
+	GrantConditionOnBotOwner@IAMBOT:
+		Condition: botowner
+		Bots: normal
+	WithDecoration@detected:
+		Position: Top
+		Margin: 0, -6
+		Image: pips
+		Sequence: tag-uncloaked
+		Palette: effect
+		RequiresCondition: !cloaked
+
+STNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Phase IFV (Destroyed)
+	TransformOnCapture:
+		IntoActor: stnk
+	ThrowsParticle@turret:
+		Anim: turret
+	RenderSprites:
+		Image: stnk.destroyed
+
+MRJ:
+	Inherits: ^Vehicle
+	Inherits@Speed: ^AcceptsSpeedCrate
+	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Inherits@EMP: ^AcceptsEMPCrate
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Mobile Radar Jammer
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 600
+		BuildPaletteOrder: 10
+		Prerequisites: dome, fix, ~techlevel.medium
+		Description: Jams nearby enemy radar domes.\nDoes not appear on enemy radar.\n  Unarmed
+	Health:
+		HP: 110
+	Armor:
+		Type: Light
+	Mobile:
+        Locomotor: tracked-non-crusher
+		Speed: 90
+        PauseOnCondition: emp-crate-collected
+	RevealsShroud:
+		Range: 7c0
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -256,0,256
+        PauseOnCondition: emp-crate-collected
+	ProximityExternalCondition@JAMMER:
+		Range: 15c0
+		ValidRelationships: Enemy, Neutral
+		Condition: jammed
+        RequiresCondition: !emp-crate-collected
+	WithRangeCircle@JAMMER:
+		Type: jammer
+		Range: 15c0
+		Color: 0000FF80
+        RequiresCondition: !emp-crate-collected
+	Selectable:
+		Class: MRJ
+	RenderSprites:
+		Image: MRJ
+	SpawnActorOnDeath:
+		Actor: MRJ.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Passenger:
+		CustomPipType: yellow
+	AppearsOnRadar:
+		ValidRelationships: Ally
+
+MRJ.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Mobile Radar Jammer (Destroyed)
+	TransformOnCapture:
+		IntoActor: mrj
+	ThrowsParticle@spinner:
+		Anim: spinner
+	RenderSprites:
+		Image: mrj.destroyed
+
+MGG:
+	Inherits: ^Vehicle
+	Inherits@Speed: ^AcceptsSpeedCrate
+	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
+	Inherits@EMP: ^AcceptsEMPCrate
+	Buildable:
+		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		BuildDuration: 500
+		BuildPaletteOrder: 13
+		Prerequisites: atek, ~techlevel.high
+		Description: Regenerates the shroud nearby, obscuring the area.\n  Can be toggled on/off via deploy command.\n  Unarmed
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Mobile Gap Generator
+	Health:
+		HP: 110
+	Armor:
+		Type: Light
+	Mobile:
+        Locomotor: wheeled-non-crusher
+		Speed: 90
+        PauseOnCondition: emp-crate-collected
+	WithIdleOverlay@SPINNER:
+		Offset: -299,0,171
+		Sequence: spinner
+        PauseOnCondition: emp-crate-collected || deployed
+	RevealsShroud:
+		Range: 4c0
+	CreatesShroud:
+		Range: 5c0
+        RequiresCondition: !emp-crate-collected && !deployed
+	WithRangeCircle@Normal:
+		Color: 008B8B
+		Width: 1
+		BorderColor: 000000
+		BorderWidth: 3
+		Range: 5c0
+		RequiresCondition: !deployed
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		SkipMakeAnimation: true
+	WithDecoration@offline:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-hold
+		Position: Top
+		Margin: 0, -6
+		RequiresCondition: deployed
+	SpawnActorOnDeath:
+		Actor: MGG.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	Selectable:
+		Class: MGG
+	RenderSprites:
+		Image: MGG
+	Passenger:
+		CustomPipType: red
+
+MGG.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Mobile Gap Generator (Destroyed)
+	ThrowsParticle@spinner:
+		Anim: spinner-idle
+		Offset: -299,0,171
+	TransformOnCapture:
+		IntoActor: mgg
+	RenderSprites:
+		Image: mgg.destroyed

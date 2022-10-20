@@ -1,0 +1,304 @@
+Player:
+	ModularBot@NormalAI:
+		Name: Normal AI
+		Type: normal
+	GrantConditionOnBotOwner@normal:
+		Condition: enable-normal-ai
+		Bots: normal
+	ProvidesPrerequisite@AIRESTRICTOR:
+		Prerequisite: aitoodumb
+		RequiresCondition: enable-normal-ai
+	SupportPowerBotModule@common:
+		RequiresCondition: enable-normal-ai
+		Decisions:
+			spyplane:
+				OrderName: SovietSpyPlane
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			spyplane-directional:
+				OrderName: SovietSpyPlaneDirectional
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			paratroopers:
+				OrderName: SovietParatroopers
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			paratroopers-directional:
+				OrderName: SovietParatroopersDirectional
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			parabombs:
+				OrderName: SovietParabombs
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			parabombs-directional:
+				OrderName: SovietParabombsDirectional
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			parabombs-crate:
+				OrderName: ParabombsCrate
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			parabombs-crate-directional:
+				OrderName: ParabombsCrateDirectional
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			nukepower:
+				OrderName: NukePower
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			nukepowercrate:
+				OrderName: NukePowerCrate
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			sonarpulse:
+				OrderName: SonarPulse
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: SonarTarget
+					Attractiveness: 2
+					TargetMetric: None
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Enemy
+					Types: WaterProduction
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 10c0
+			sonarpulsecrate:
+				OrderName: SonarPulseCrate
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: SonarTarget
+					Attractiveness: 2
+					TargetMetric: None
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Enemy
+					Types: WaterProduction
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 10c0
+	HarvesterBotModule@common:
+		RequiresCondition: enable-normal-ai
+		HarvesterTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune
+		RefineryTypes: proc
+	BuildingRepairBotModule@common:
+		RequiresCondition: enable-normal-ai
+	McvManagerBotModule@common:
+		RequiresCondition: enable-normal-ai
+		McvTypes: mcv
+		ConstructionYardTypes: fact
+		McvFactoryTypes: weap
+	BaseBuilderBotModule@normal:
+		RequiresCondition: enable-normal-ai
+		BuildingQueues: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		DefenseQueues: Defense.Allies, Defense.Soviet, ClassicDefense.Allies, ClassicDefense.Soviet
+		MinimumExcessPower: 60
+        MaximumExcessPower: 120
+		ExcessPowerIncrement: 30
+		ExcessPowerIncreaseThreshold: 2
+		ConstructionYardTypes: fact
+		RefineryTypes: proc
+		PowerTypes: powr, apwr
+		BarracksTypes: barr, tent
+		VehiclesFactoryTypes: weap
+		ProductionTypes: barr, tent, weap
+		NavalProductionTypes: spen, syrd
+		SiloTypes: silo
+        PlaceDefenseTowardsEnemyChance: 75
+        MaximumDefenseRadius: 10
+        MaximumFailedPlacementAttempts: 2
+		BuildingLimits:
+			proc: 4
+			barr: 3
+			tent: 3
+			kenn: 1
+			dome: 1
+			weap: 4
+			spen: 2
+			syrd: 2
+			hpad: 5
+			afld: 5
+			atek: 1
+			stek: 1
+            fcom: 1
+			fix: 1
+		BuildingFractions:
+			proc: 10
+			powr: 1
+			apwr: 30
+			tent: 1
+			barr: 1
+			kenn: 1
+			dome: 1
+			weap: 6
+			hpad: 4
+			spen: 1
+			syrd: 1
+			afld: 4
+			pbox: 7
+            sbox: 7
+			gun: 7
+			ftur: 10
+			tsla: 5
+			gap: 2
+			fix: 1
+			agun: 5
+			sam: 1
+			atek: 1
+			stek: 1
+            fcom: 1
+			mslo: 1
+	SquadManagerBotModule@normal:
+		RequiresCondition: enable-normal-ai
+		SquadSize: 16
+        SquadSizeRandomBonus: 8
+        RushInterval: 400
+        AttackScanRadius: 16
+		ExcludeFromSquadsTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune, mcv, mnly
+		NavalUnitsTypes: ss, ssfk, msub, nsub, dd, ca, lst, pt, dred
+		ConstructionYardTypes: fact
+		NavalProductionTypes: spen, syrd
+        IgnoredEnemyTargetTypes: IgnoreThis
+	UnitBuilderBotModule@normal:
+		RequiresCondition: enable-normal-ai
+        IdleBaseUnitsMaximum: 16
+        UnitQueues: Vehicle.Allies, Vehicle.Soviet, ClassicVehicle.Allies, ClassicVehicle.Soviet, Infantry.Allies, Infantry.Soviet, ClassicInfantry.Allies, ClassicInfantry.Soviet, Aircraft.Allies, Aircraft.Soviet, ClassicAircraft.Allies, ClassicAircraft.Soviet, Navy.Allies, Navy.Soviet, ClassicNavy.Allies, ClassicNavy.Soviet, Upgrades.Allies, Upgrades.Soviet, ClassicUpgrades.Allies, ClassicUpgrades.Soviet
+		UnitsToBuild:
+			e1: 65
+			e2: 25
+			e3: 40
+			e4: 15
+            e7: 1
+            volk: 1
+			dog: 15
+			shok: 15
+			harv: 10
+            ahrv: 10
+			jeep: 40
+            brdm: 30
+			apc: 30
+            hapc: 20
+			arty: 15
+			v2rl: 40
+			1tnk: 70
+			2tnk: 25
+			3tnk: 50
+			4tnk: 15
+            5tnk: 1
+			ttnk: 15
+            ctnk: 10
+			stnk: 10
+            gtnk: 10
+			heli.ai: 30
+			hind.ai: 30
+			mig.ai: 30
+			yak.ai: 30
+			ss: 10
+            ssfk: 5
+			msub: 10
+            nsub: 1
+			dd: 10
+			ca: 10
+			pt: 10
+            dred: 1
+            heavytank.upgrade: 1
+		UnitLimits:
+			dog: 4
+			harv: 8
+            ahrv: 8
+            harv.mineimmune: 8
+            ahrv.mineimmune: 8
+            e7: 1
+            volk: 1
+            heli: 8
+            hind: 8
+            mig: 8
+            yak: 8
+            pt: 5
+            dd: 4
+            ca: 3
+            dred: 1
+            ss: 6
+            ssfk: 2
+            msub: 4
+            nsub: 1
+            5tnk: 1
+            helidepth.upgrade: 1

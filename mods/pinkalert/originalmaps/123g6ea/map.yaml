@@ -1,0 +1,117 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: The Boyne
+Author: Westwood Studios
+Tileset: TEMPERAT
+MapSize: 128,128
+Bounds: 1,32,126,64
+Visibility: Lobby
+Categories: Aftermath, 4-player, Naval
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+Actors:
+	Actor0: tc04
+		Location: 69,51
+		Owner: Neutral
+	Actor1: tc05
+		Location: 74,53
+		Owner: Neutral
+	Actor2: t03
+		Location: 60,51
+		Owner: Neutral
+	Actor3: tc04
+		Location: 77,66
+		Owner: Neutral
+	Actor4: tc05
+		Location: 93,60
+		Owner: Neutral
+	Actor5: tc05
+		Location: 90,46
+		Owner: Neutral
+	Actor6: t01
+		Location: 95,49
+		Owner: Neutral
+	Actor7: t01
+		Location: 105,64
+		Owner: Neutral
+	Actor8: t01
+		Location: 98,67
+		Owner: Neutral
+	Actor9: tc05
+		Location: 117,70
+		Owner: Neutral
+	Actor10: tc05
+		Location: 87,71
+		Owner: Neutral
+	Actor11: tc05
+		Location: 58,62
+		Owner: Neutral
+	Actor12: tc05
+		Location: 26,70
+		Owner: Neutral
+	Actor13: t01
+		Location: 29,72
+		Owner: Neutral
+	Actor14: t01
+		Location: 30,74
+		Owner: Neutral
+	Actor15: tc05
+		Location: 15,53
+		Owner: Neutral
+	Actor16: mine
+		Location: 48,81
+		Owner: Neutral
+	Actor17: mine
+		Location: 56,46
+		Owner: Neutral
+	Actor18: mine
+		Location: 82,47
+		Owner: Neutral
+	Actor19: mine
+		Location: 81,84
+		Owner: Neutral
+	Actor20: mpspawn
+		Location: 22,81
+		Owner: Neutral
+	Actor21: mpspawn
+		Location: 109,78
+		Owner: Neutral
+	Actor22: mpspawn
+		Location: 105,50
+		Owner: Neutral
+	Actor23: mpspawn
+		Location: 30,51
+		Owner: Neutral
+	DefaultCameraPosition: waypoint
+		Location: 28,70
+		Owner: Neutral
+Rules:

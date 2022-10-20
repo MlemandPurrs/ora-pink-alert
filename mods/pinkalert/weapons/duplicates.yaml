@@ -1,0 +1,255 @@
+ZSU-23.spain:
+    Inherits: ZSU-23
+    Range: 7c0
+    
+Vulcan.spain:
+    Inherits: Vulcan
+    Range: 6c0
+
+ChainGun.spain:
+    Inherits: ChainGun
+    Range: 6c0
+    
+ChainGun.Yak.Right.spain:
+    Inherits: ChainGun.spain
+
+ChainGun.Yak.Left.spain:
+    Inherits: ChainGun.Yak.Right.spain
+
+Pistol.spain:
+    Inherits: Pistol
+    Range: 2c768
+
+M1Carbine.spain:
+    Inherits: M1Carbine
+    Range: 4c0
+
+M60mg.spain:
+    Inherits: M1Carbine.spain
+    Range: 5c0
+    
+Colt45.spain:
+    Inherits: Colt45
+    Range: 6c768
+
+FLAK-23-AG.spain:
+    Inherits: FLAK-23-AG
+    Range: 9c0
+    
+FLAK-23-AA.spain:
+    Inherits: FLAK-23-AG.spain
+
+Silenced.spain:
+    Inherits: Silenced
+    Range: 6c0
+
+VolkovGun.spain:
+    Inherits: VolkovGun
+    Range: 6c768
+
+75mm.spain:
+    Inherits: 75mm
+    Range: 5c0
+
+90mm.spain:
+    Inherits: 90mm 
+    Range: 5c768
+
+105mm.half.spain:
+    Inherits: 105mm.half
+    Range: 5c768
+
+105mm.spain:
+    Inherits: 105mm.half
+    Range: 5c768
+
+120mm.spain:
+    Inherits: 120mm
+    Range: 5c768
+
+TurretGun.spain:
+    Inherits: TurretGun
+    Range: 6c0
+
+155mm.spain:
+    Inherits: 155mm
+    Range: 7c0
+
+8Inch.spain:
+    Inherits: 8Inch
+    Range: 13c0
+
+2Inch.spain:
+    Inherits: 2Inch
+    Range: 6c512
+    
+Grenade.spain:
+    Inherits: Grenade
+	Range: 5c0
+
+GrenadeLauncher.spain:
+    Inherits: GrenadeLauncher
+    Range: 6c512
+
+DepthCharge.spain:
+    Inherits: DepthCharge
+    Range: 6c0
+    
+HeliDepthCharge.spain:
+    Inherits: DepthCharge.spain
+    Range: 1c128
+
+8Inch.triple.spain:
+    Inherits: 8Inch.spain
+    ReloadDelay: 210
+    Burst: 3
+
+ScatterBomb.spain:
+    Inherits: ScatterBomb
+    Range: 5c0
+
+Maverick.spain:
+    Inherits: Maverick
+    Range: 7c0
+	Projectile: Missile
+		Speed: 450
+		Inaccuracy: 512
+		CruiseAltitude: 2c0
+		RangeLimit: 10c410
+
+MaverickHind.spain:
+    Inherits: Maverick.spain
+	ReloadDelay: 3
+	Range: 6c0
+    MinRange: 0c768
+	InvalidTargets: Infantry
+
+Dragon.spain:
+    Inherits: Dragon
+    Range: 6c0
+	Projectile: Missile
+		Speed: 375
+		Arm: 2
+		Blockable: false
+		Inaccuracy: 128
+		TrailImage: smokey
+		TrailInterval: 1
+		Image: DRAGON
+		Shadow: True
+		HorizontalRateOfTurn: 20
+		RangeLimit: 7c0
+
+Hellfire.spain:
+    Inherits: Hellfire
+    Range: 5c0
+	Projectile: Missile
+		Speed: 450
+		HorizontalRateOfTurn: 40
+		RangeLimit: 6c512
+
+MammothTusk.spain:
+    Inherits: MammothTusk
+    Range: 6c0
+	Projectile: Missile
+		Speed: 450
+		HorizontalRateOfTurn: 60
+		RangeLimit: 10c614
+
+Nike.spain:
+    Inherits: Nike
+    Range: 8c512
+	Projectile: Missile
+		Arm: 3
+		Inaccuracy: 0
+		Image: MISSILE
+		HorizontalRateOfTurn: 100
+		RangeLimit: 10c0
+		Speed: 750
+
+RedEye.spain:
+    Inherits: Nike.spain
+	ReloadDelay: 50
+
+Stinger.spain:
+    Inherits: Stinger
+    Range: 9c0
+	Projectile: Missile
+		Arm: 3
+		Inaccuracy: 0
+		HorizontalRateOfTurn: 80
+		RangeLimit: 9c512
+		Speed: 300
+		CloseEnough: 149
+
+StingerAA.spain:
+    Inherits: Stinger.spain
+    
+APTusk.spain:
+    Inherits: APTusk
+    Range: 6c0
+	Projectile: Missile
+		Speed: 450
+		HorizontalRateOfTurn: 40
+		RangeLimit: 8c204
+
+TorpTube.spain:
+    Inherits: TorpTube
+    Range: 10c0
+	Projectile: Missile
+		Image: torpedo
+		Arm: 3
+		Speed: 225
+		TrailImage: bubbles
+		HorizontalRateOfTurn: 4
+		RangeLimit: 11c819
+		BoundToTerrainType: Water
+		Palette: shadow
+		MaximumLaunchAngle: 0
+		CruiseAltitude: 0
+
+SubSCUD.spain:
+    Inherits: SubSCUD
+    Range: 15c0
+	Projectile: Missile
+		Speed: 300
+		Inaccuracy: 0c614
+		HorizontalRateOfTurn: 20
+		RangeLimit: 16c0
+		Image: MISSILE
+		TrailImage: smokey
+		TrailInterval: 1
+
+SCUD.spain:
+    Inherits: SCUD
+    Range: 11c0
+
+FireballLauncher.spain:
+    Inherits: FireballLauncher
+    Range: 5c0
+
+Flamer.spain:
+    Inherits: Flamer
+    Range: 4c512
+
+TeslaZap.spain:
+    Inherits: TeslaZap
+    Range: 9c512
+
+PortaTesla.spain:
+    Inherits: PortaTesla
+    Range: 4c512
+
+TTankZap.spain:
+    Inherits: TTankZap
+    Range: 8c0
+
+DogJaw.spain:
+    Inherits: DogJaw
+    Range: 3c205
+
+Heal.spain:
+    Inherits: Heal
+    Range: 2c849
+    
+Repair.spain:
+    Inherits: Heal.spain

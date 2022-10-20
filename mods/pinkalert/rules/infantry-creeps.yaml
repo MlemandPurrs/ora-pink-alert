@@ -1,0 +1,88 @@
+ANT:
+	Inherits: ^GiantAnt
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Giant Ant
+	Buildable:
+		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 1954
+		Prerequisites: ~disabled
+		Description: Irradiated insect that grew oversize.
+	Selectable:
+        Class: ANT
+		Bounds: 24,24,0,-5
+		DecorationBounds: 30,30,0,-2
+	SelectionDecorations:
+	Health:
+		HP: 750
+	Mobile:
+		Speed: 99
+		TurnSpeed: 48
+		Locomotor: wheeled-non-crusher
+	AutoTarget:
+		ScanRadius: 5
+	Armament:
+		Weapon: mandible
+	Voiced:
+		VoiceSet: AntVoice
+	AttackWander:
+		WanderMoveRadius: 30
+
+ScoutAnt:
+	Inherits: ANT
+	Tooltip:
+		Name: Scout Ant
+		GenericVisibility: none
+	Health:
+		HP: 85
+	Armor:
+		Type: Light
+	AutoTarget:
+		ScanRadius: 7
+	Buildable:
+		Prerequisites: ~disabled
+	RenderSprites:
+		Image: scoutant
+
+FireAnt:
+	Inherits: ANT
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: Fire Ant
+		GenericVisibility: none
+	Mobile:
+		Speed: 68
+	Armament:
+		Weapon: AntFireball
+	Health:
+		HP: 75
+	Armor:
+		Type: Heavy
+	Buildable:
+		Prerequisites: ~disabled
+	RenderSprites:
+		Image: fireant
+
+WarriorAnt:
+	Inherits: ANT
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Warrior Ant
+		GenericVisibility: none
+	Mobile:
+		Speed: 56
+	Health:
+		HP: 125
+	Armor:
+		Type: Heavy
+	Armament:
+		Weapon: MandibleHeavy
+	Buildable:
+		Prerequisites: ~disabled
+	RenderSprites:
+		Image: warriorant

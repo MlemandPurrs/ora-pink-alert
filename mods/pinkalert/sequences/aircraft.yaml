@@ -1,0 +1,83 @@
+badr:
+	idle:
+		Facings: 16
+    icon: badricon
+    alticon: nebricon
+    
+u2:
+	idle:
+		Facings: 16
+
+mig:
+	idle:
+		Facings: 16
+	icon: migicon
+
+yak:
+	idle:
+		Facings: 16
+	muzzle: minigun
+		Length: 6
+		Facings: 8
+	icon: yakicon
+
+tran:
+    Inherits: emp-overlay
+	idle: tran2
+		Facings: 32
+		UseClassicFacings: True
+	rotor: lrotor3blade
+		Length: 4
+	rotor2: rrotor3blade
+		Length: 4
+	slow-rotor: lrotor3blade
+		Start: 4
+		Length: *
+	slow-rotor2: rrotor3blade
+		Start: 4
+		Length: *
+	open: tran2
+		Start: 32
+		Length: 4
+	unload: tran2
+		Start: 35
+	icon: tranicon
+
+heli:
+    Inherits: emp-overlay
+	idle:
+		Facings: 32
+		UseClassicFacings: True
+	rotor: lrotor
+		Length: 4
+	slow-rotor: lrotor
+		Start: 4
+		Length: 8
+	icon: heliicon
+
+hind:
+    Inherits: emp-overlay
+	idle: hind2
+		Facings: 32
+		UseClassicFacings: True
+	rotor: lrotorlg
+		Length: 4
+	slow-rotor: lrotorlg
+		Start: 4
+		Length: 8
+	muzzle: minigun
+		Length: 6
+		Facings: 8
+	icon: hindicon
+
+hip:
+    Inherits: emp-overlay
+	idle:
+		Facings: 32
+		UseClassicFacings: True
+	rotor: lrotorlg5blade
+		Length: 4
+	slow-rotor: lrotorlg5blade
+		Start: 4
+		Length: 8
+	icon: hipicon2

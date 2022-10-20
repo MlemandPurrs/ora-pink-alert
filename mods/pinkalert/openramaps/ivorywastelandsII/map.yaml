@@ -1,0 +1,154 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Ivory Wastelands II
+Author: Baghira
+Tileset: SNOW
+MapSize: 128,128
+Bounds: 30,32,70,70
+Visibility: Lobby
+Categories: Remastered, Remake, 4-player
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor0: tc02
+		Location: 62,64
+		Owner: Neutral
+	Actor1: tc01
+		Location: 62,62
+		Owner: Neutral
+	Actor2: t16
+		Location: 62,63
+		Owner: Neutral
+	Actor3: mine
+		Location: 95,98
+		Owner: Neutral
+	Actor4: mine
+		Location: 36,35
+		Owner: Neutral
+	Actor5: mine
+		Location: 34,97
+		Owner: Neutral
+	Actor6: t02
+		Location: 50,59
+		Owner: Neutral
+	Actor7: mine
+		Location: 87,40
+		Owner: Neutral
+	Actor9: mine
+		Location: 41,88
+		Owner: Neutral
+	Actor10: mine
+		Location: 88,90
+		Owner: Neutral
+	Actor11: mine
+		Location: 94,35
+		Owner: Neutral
+	Actor12: tc05
+		Location: 62,53
+		Owner: Neutral
+	Actor13: tc02
+		Location: 67,55
+		Owner: Neutral
+	Actor14: tc05
+		Location: 64,71
+		Owner: Neutral
+	Actor15: t02
+		Location: 76,59
+		Owner: Neutral
+	Actor16: tc05
+		Location: 60,74
+		Owner: Neutral
+	Actor17: t10
+		Location: 75,67
+		Owner: Neutral
+	Actor18: tc02
+		Location: 92,49
+		Owner: Neutral
+	Actor19: tc02
+		Location: 35,88
+		Owner: Neutral
+	Actor20: t10
+		Location: 50,69
+		Owner: Neutral
+	Actor21: mpspawn
+		Location: 80,84
+		Owner: Neutral
+	Actor22: mpspawn
+		Location: 46,45
+		Owner: Neutral
+	Actor23: mpspawn
+		Location: 81,46
+		Owner: Neutral
+	Actor24: mpspawn
+		Location: 46,84
+		Owner: Neutral
+	Actor8: mine
+		Location: 42,41
+		Owner: Neutral
+	Actor25: mine
+		Owner: Neutral
+		Location: 65,66
+	Actor26: mine
+		Owner: Neutral
+		Location: 60,66
+	Actor27: mine
+		Owner: Neutral
+		Location: 60,62
+	Actor28: mine
+		Owner: Neutral
+		Location: 65,62
+	Actor29: mine
+		Owner: Neutral
+		Location: 78,34
+	Actor30: mine
+		Owner: Neutral
+		Location: 95,51
+	Actor31: mine
+		Owner: Neutral
+		Location: 79,99
+	Actor32: mine
+		Owner: Neutral
+		Location: 96,82
+	Actor33: mine
+		Owner: Neutral
+		Location: 50,98
+	Actor34: mine
+		Owner: Neutral
+		Location: 33,81
+	Actor35: mine
+		Owner: Neutral
+		Location: 35,51
+	Actor36: mine
+		Owner: Neutral
+		Location: 52,34

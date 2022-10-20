@@ -1,0 +1,267 @@
+MEDI:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Buildable:
+		Queue: ClassicInfantry.Allies, Infantry.Allies
+		BuildAtProductionType: Soldier
+		BuildDuration: 400
+		BuildPaletteOrder: 4
+		Prerequisites: dome, ~techlevel.medium
+		Description: Heals nearby infantry.\nSelf-heals slowly out of combat\n  Unarmed
+	Selectable:
+		Class: MEDI
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: Medic
+	Health:
+		HP: 80
+	RevealsShroud:
+		Range: 3c0
+	Armament:
+		Weapon: Heal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+        RequiresCondition: !spain
+	Armament@SPAIN:
+		Weapon: Heal.spain
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+        RequiresCondition: spain
+	AttackFrontal:
+	WithInfantryBody:
+		StandSequences: stand
+		DefaultAttackSequence: heal
+    WithInfantryBody@SMOLINFANTRY:
+		StandSequences: stand-small
+		DefaultAttackSequence: heal-small
+	Voiced:
+		VoiceSet: MedicVoice
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	RenderSprites:
+		Image: MEDI
+	Passenger:
+		CustomPipType: blue
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 100
+		Type: InfantryRefund
+	ChangesHealth@SELFHEAL:
+		Step: 3
+		Delay: 100
+		StartIfBelow: 101
+		DamageCooldown: 125
+		-RequiresCondition:
+
+SPY:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Buildable:
+		Queue: ClassicInfantry.Allies, Infantry.Allies
+		BuildAtProductionType: Soldier
+		BuildDuration: 500
+		BuildPaletteOrder: 7
+		Prerequisites: dome, ~techlevel.medium
+		Description: Infiltrates enemy structures.\nExact effect depends on the building infiltrated:\n  - Power Plants: Cuts base power for 30 seconds.\n  - Production facilities: Disables production for 30 seconds.\n  - Refinery: Steals 50% of stored resources.\n  - Radar Dome: Shuts down enemy radar for 30 seconds.\n  - Tech Center: Steals exploration and resets shroud.\n  - Super Weapons: Resets preparation timer.\n  Unarmed\n  Can be upgraded to Attack\n  Special Ability: Disguise\nCan appear like enemy Infantry to fool opponents
+	Selectable:
+		Class: SPY
+	Valued:
+		Cost: 500
+	-Tooltip:
+	DisguiseTooltip:
+		Name: Spy
+		GenericName: Soldier
+	Disguise:
+		DisguisedCondition: disguise
+    -WithInfantryBody:
+    -WithInfantryBody@SMOLINFANTRY:
+	WithDisguisingInfantryBody:
+		DefaultAttackSequence: shoot
+        MoveSequence: run
+		IdleSequences: idle1,idle2
+		StandSequences: stand,stand2
+        RequiresCondition: !smolinfantry
+    #   has issue of displaying large size animations for small body
+	WithDisguisingInfantryBody@SMOLINFANTRY:
+		DefaultAttackSequence: shoot-small
+        MoveSequence: run-small
+		IdleSequences: idle1-small,idle2-small
+		StandSequences: stand-small,stand2-small
+        RequiresCondition: smolinfantry
+	WithDecoration@disguise:
+		Position: Top
+		Margin: 0, -6
+		Image: pips
+		Sequence: tag-spy
+		Palette: effect
+		RequiresCondition: disguise
+	IgnoresDisguise:
+	RevealsShroud:
+		Range: 5c0
+	Mobile:
+		Voice: Move
+	Passenger:
+		CustomPipType: yellow
+		Voice: Move
+	Infiltrates:
+		Types: SpyInfiltrate
+		PlayerExperience: 0
+		Notification: BuildingInfiltrated
+	Targetable:
+		TargetTypes: Ground, Infantry, Spy
+	Voiced:
+		VoiceSet: SpyVoice
+	RenderSprites:
+		Image: SPY
+	Armament:
+		Weapon: Silenced
+        RequiresCondition: licensetokill && !spain
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Silenced
+        RequiresCondition: licensetokill && !spain
+	Armament@SPAIN:
+		Weapon: Silenced.spain
+        RequiresCondition: licensetokill && spain
+	Armament@GARRISONED_SPAIN:
+		Name: garrisoned
+		Weapon: Silenced.spain
+        RequiresCondition: licensetokill && spain
+	GrantConditionOnPrerequisite@ARMEDSPYUPG:
+		Condition: licensetokill
+		Prerequisites: armedspy.upgrade
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 125
+		Type: InfantryRefund
+
+#   entirely obsolete given the rework above
+THF:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Thief
+	Buildable:
+		Queue: ClassicInfantry.Allies, Infantry.Allies
+		BuildAtProductionType: Soldier
+		BuildDuration: 500
+		BuildPaletteOrder: 8
+		Prerequisites: atek, ~techlevel.high, ~disabled
+		Description: Steals enemy credits.\n  Unarmed
+	Selectable:
+		Class: THF
+	RevealsShroud:
+		Range: 5c0
+	Passenger:
+		CustomPipType: blue
+	Infiltrates:
+		Types: ThiefInfiltrate
+		PlayerExperience: 0
+		Notification: BuildingInfiltrated
+	Voiced:
+		VoiceSet: ThiefVoice
+	WithInfantryBody:
+		IdleSequences: idle
+		StandSequences: stand
+	WithInfantryBody@SMOLINFANTRY:
+		IdleSequences: idle-small
+		StandSequences: stand-small
+	RenderSprites:
+		Image: THF
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 125
+		Type: InfantryRefund
+
+E7:
+	Inherits: ^Soldier
+    Inherits@ROT: ^RottingInfantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: ClassicInfantry.Allies, Infantry.Allies
+		BuildAtProductionType: Soldier
+		BuildDuration: 1200
+		BuildPaletteOrder: 6
+        BuildLimit: 1
+		Prerequisites: atek, ~techlevel.high
+		Description: Elite commando infantry. Armed with\ndual pistols and C4.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft\n  Special Ability: Destroy Building with C4
+	Selectable:
+		Class: E7
+	AutoTarget:
+		InitialStance: ReturnFire
+		InitialStanceAI: ReturnFire
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Tanya
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 100
+	Mobile:
+		Speed: 50
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		Range: 6c0
+	Demolition:
+		DetonationDelay: 45
+		Voice: Demolish
+	Passenger:
+		CustomPipType: white
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: Colt45
+        LocalOffset: 0,0,0, 0,0,0
+        RequiresCondition: !spain
+	Armament@SECONDARY:
+		Weapon: Colt45
+        LocalOffset: 0,0,0, 0,0,0
+        RequiresCondition: !spain
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Colt45
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: !spain
+	Armament@PRIMARY_SPAIN:
+		Weapon: Colt45.spain
+        LocalOffset: 0,0,0, 0,0,0
+        RequiresCondition: spain
+	Armament@SECONDARY_SPAIN:
+		Weapon: Colt45.spain
+        LocalOffset: 0,0,0, 0,0,0
+        RequiresCondition: spain
+	Armament@GARRISONED_SPAIN:
+		Name: garrisoned
+		Weapon: Colt45.spain
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: spain
+	AttackFrontal:
+	WithInfantryBody:
+		AttackSequences:
+			primary: shoot-left, shoot-right
+		StandSequences: stand
+	WithInfantryBody@SMOLINFANTRY:
+		AttackSequences:
+			primary: shoot-left-small, shoot-right-small
+		StandSequences: stand-small
+	VoiceAnnouncement:
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: TanyaVoice
+	RenderSprites:
+		Image: E7
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 300
+		Type: InfantryRefund

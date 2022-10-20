@@ -1,0 +1,139 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Island Hoppers
+Author: Westwood Studios
+Tileset: SNOW
+MapSize: 128,128
+Bounds: 11,19,96,96
+Visibility: Lobby
+Categories: Red Alert, 4-player, Naval
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor0: t01
+		Location: 62,77
+		Owner: Neutral
+	Actor1: tc01
+		Location: 61,80
+		Owner: Neutral
+	Actor2: t08
+		Location: 59,76
+		Owner: Neutral
+	Actor3: tc05
+		Location: 53,99
+		Owner: Neutral
+	Actor4: tc05
+		Location: 18,68
+		Owner: Neutral
+	Actor5: tc05
+		Location: 59,34
+		Owner: Neutral
+	Actor6: tc04
+		Location: 98,68
+		Owner: Neutral
+	Actor7: tc04
+		Location: 39,24
+		Owner: Neutral
+	Actor8: tc04
+		Location: 80,105
+		Owner: Neutral
+	Actor9: tc03
+		Location: 41,105
+		Owner: Neutral
+	Actor10: tc02
+		Location: 18,80
+		Owner: Neutral
+	Actor11: tc02
+		Location: 57,23
+		Owner: Neutral
+	Actor12: tc01
+		Location: 98,81
+		Owner: Neutral
+	Actor13: t17
+		Location: 97,50
+		Owner: Neutral
+	Actor14: t16
+		Location: 67,101
+		Owner: Neutral
+	Actor15: t15
+		Location: 31,103
+		Owner: Neutral
+	Actor16: t14
+		Location: 21,48
+		Owner: Neutral
+	Actor17: t11
+		Location: 62,26
+		Owner: Neutral
+	Actor18: t10
+		Location: 93,66
+		Owner: Neutral
+	Actor19: mine
+		Location: 44,59
+		Owner: Neutral
+	Actor20: mine
+		Location: 87,48
+		Owner: Neutral
+	Actor21: mine
+		Location: 84,89
+		Owner: Neutral
+	Actor22: mine
+		Location: 45,86
+		Owner: Neutral
+	Actor23: mine
+		Location: 70,26
+		Owner: Neutral
+	Actor24: mine
+		Location: 66,103
+		Owner: Neutral
+	Actor25: mine
+		Location: 46,102
+		Owner: Neutral
+	Actor26: mine
+		Location: 50,31
+		Owner: Neutral
+	DefaultCameraPosition: waypoint
+		Location: 62,63
+		Owner: Neutral
+	Actor32: mpspawn
+		Owner: Neutral
+		Location: 41,53
+	Actor33: mpspawn
+		Owner: Neutral
+		Location: 81,50
+	Actor34: mpspawn
+		Owner: Neutral
+		Location: 40,84
+	Actor35: mpspawn
+		Owner: Neutral
+		Location: 79,84

@@ -1,0 +1,152 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Leipzip
+Author: Westwood Studios
+Tileset: TEMPERAT
+MapSize: 128,128
+Bounds: 32,32,64,64
+Visibility: Lobby
+Categories: Aftermath, 4-player
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+Actors:
+	Actor0: tc05
+		Location: 33,86
+		Owner: Neutral
+	Actor1: tc01
+		Location: 32,85
+		Owner: Neutral
+	Actor2: tc02
+		Location: 33,84
+		Owner: Neutral
+	Actor3: tc01
+		Location: 32,47
+		Owner: Neutral
+	Actor4: tc03
+		Location: 32,83
+		Owner: Neutral
+	Actor5: t17
+		Location: 32,84
+		Owner: Neutral
+	Actor6: t13
+		Location: 33,48
+		Owner: Neutral
+	Actor7: mine
+		Location: 80,68
+		Owner: Neutral
+	Actor8: mine
+		Location: 85,71
+		Owner: Neutral
+	Actor9: mine
+		Location: 93,76
+		Owner: Neutral
+	Actor10: mine
+		Location: 61,33
+		Owner: Neutral
+	Actor11: mine
+		Location: 45,93
+		Owner: Neutral
+	Actor12: mine
+		Location: 70,32
+		Owner: Neutral
+	Actor13: mine
+		Location: 56,94
+		Owner: Neutral
+	Actor14: mine
+		Location: 60,63
+		Owner: Neutral
+	Actor15: mine
+		Location: 62,51
+		Owner: Neutral
+	Actor16: t13
+		Location: 40,36
+		Owner: Neutral
+	Actor17: t14
+		Location: 33,32
+		Owner: Neutral
+	Actor18: t15
+		Location: 89,32
+		Owner: Neutral
+	Actor19: t15
+		Location: 94,38
+		Owner: Neutral
+	Actor20: t16
+		Location: 73,74
+		Owner: Neutral
+	Actor21: t17
+		Location: 92,85
+		Owner: Neutral
+	Actor22: tc01
+		Location: 94,94
+		Owner: Neutral
+	Actor23: tc02
+		Location: 65,88
+		Owner: Neutral
+	Actor24: tc03
+		Location: 55,43
+		Owner: Neutral
+	Actor25: tc04
+		Location: 74,50
+		Owner: Neutral
+	Actor26: tc05
+		Location: 75,57
+		Owner: Neutral
+	Actor27: tc05
+		Location: 70,66
+		Owner: Neutral
+	waypoint0: waypoint
+		Location: 80,90
+		Owner: Neutral
+	waypoint1: waypoint
+		Location: 41,51
+		Owner: Neutral
+	waypoint2: waypoint
+		Location: 86,50
+		Owner: Neutral
+	waypoint3: waypoint
+		Location: 42,78
+		Owner: Neutral
+	DefaultCameraPosition: waypoint
+		Location: 32,43
+		Owner: Neutral
+	Actor33: mpspawn
+		Owner: Neutral
+		Location: 41,51
+	Actor34: mpspawn
+		Owner: Neutral
+		Location: 86,50
+	Actor35: mpspawn
+		Owner: Neutral
+		Location: 42,78
+	Actor36: mpspawn
+		Owner: Neutral
+		Location: 80,90

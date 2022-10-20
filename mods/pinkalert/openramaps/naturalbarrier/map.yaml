@@ -1,0 +1,171 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Natural Barrier
+Author: Baghira
+Tileset: TEMPERAT
+MapSize: 128,128
+Bounds: 1,1,96,96
+Visibility: Lobby
+Categories: Remastered, 2-player
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+
+Actors:
+	Actor0: t14
+		Location: 63,27
+		Owner: Neutral
+	Actor1: tc04
+		Location: 63,28
+		Owner: Neutral
+	Actor2: tc05
+		Location: 31,67
+		Owner: Neutral
+	Actor3: t03
+		Location: 15,36
+		Owner: Neutral
+	Actor4: t03
+		Location: 81,57
+		Owner: Neutral
+	Actor5: mine
+		Location: 21,23
+		Owner: Neutral
+	Actor6: mine
+		Location: 72,72
+		Owner: Neutral
+	Actor7: mine
+		Location: 89,55
+		Owner: Neutral
+	Actor8: mine
+		Location: 9,40
+		Owner: Neutral
+	Actor9: mine
+		Location: 13,81
+		Owner: Neutral
+	Actor10: mine
+		Location: 27,78
+		Owner: Neutral
+	Actor11: mine
+		Location: 76,74
+		Owner: Neutral
+	Actor12: mine
+		Location: 25,25
+		Owner: Neutral
+	Actor13: mine
+		Location: 12,73
+		Owner: Neutral
+	Actor14: mine
+		Location: 83,17
+		Owner: Neutral
+	Actor15: mine
+		Location: 84,25
+		Owner: Neutral
+	Actor16: mine
+		Location: 56,33
+		Owner: Neutral
+	Actor17: mine
+		Location: 50,28
+		Owner: Neutral
+	Actor18: mine
+		Location: 41,64
+		Owner: Neutral
+	Actor19: mine
+		Location: 47,69
+		Owner: Neutral
+	Actor20: t15
+		Location: 26,58
+		Owner: Neutral
+	Actor21: t15
+		Location: 70,36
+		Owner: Neutral
+	Actor22: t16
+		Location: 26,57
+		Owner: Neutral
+	Actor23: t11
+		Location: 33,52
+		Owner: Neutral
+	Actor24: t12
+		Location: 33,55
+		Owner: Neutral
+	Actor25: t12
+		Location: 64,40
+		Owner: Neutral
+	Actor26: t15
+		Location: 63,42
+		Owner: Neutral
+	Actor27: tc02
+		Location: 95,94
+		Owner: Neutral
+	Actor28: tc02
+		Location: 1,1
+		Owner: Neutral
+	Actor29: t08
+		Location: 10,36
+		Owner: Neutral
+	Actor30: t11
+		Location: 1,39
+		Owner: Neutral
+	Actor31: t11
+		Location: 95,53
+		Owner: Neutral
+	Actor32: t13
+		Location: 86,57
+		Owner: Neutral
+	Actor33: t13
+		Location: 96,48
+		Owner: Neutral
+	Actor34: t13
+		Location: 2,46
+		Owner: Neutral
+	Actor35: t11
+		Location: 49,45
+		Owner: Neutral
+	Actor36: t11
+		Location: 47,55
+		Owner: Neutral
+	Actor37: t12
+		Location: 43,46
+		Owner: Neutral
+	Actor38: t17
+		Location: 60,62
+		Owner: Neutral
+	Actor39: t03
+		Location: 5,31
+		Owner: Neutral
+	Actor40: t17
+		Location: 36,33
+		Owner: Neutral
+	Actor41: t03
+		Location: 92,63
+		Owner: Neutral
+	Actor42: t16
+		Location: 71,38
+		Owner: Neutral
+	Actor43: mine
+		Location: 68,17
+		Owner: Neutral
+	Actor44: mpspawn
+		Location: 69,39
+		Owner: Neutral
+	Actor45: mpspawn
+		Location: 28,56
+		Owner: Neutral

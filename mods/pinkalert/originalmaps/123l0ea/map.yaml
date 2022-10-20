@@ -1,0 +1,109 @@
+MapFormat: 11
+RequiresMod: pinkalert
+Title: Diamonds Aren't Forever
+Author: Westwood Studios
+Tileset: TEMPERAT
+MapSize: 128,128
+Bounds: 1,1,126,126
+Visibility: Lobby
+Categories: Aftermath, 8-player, Naval
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3, Multi4, Multi5, Multi6, Multi7
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi4:
+		Name: Multi4
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi5:
+		Name: Multi5
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi6:
+		Name: Multi6
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+	PlayerReference@Multi7:
+		Name: Multi7
+		Playable: True
+		Faction: Random
+		Enemies: Creeps
+Actors:
+	waypoint0: waypoint
+		Location: 35,34
+		Owner: Neutral
+	waypoint1: waypoint
+		Location: 94,94
+		Owner: Neutral
+	waypoint2: waypoint
+		Location: 35,94
+		Owner: Neutral
+	waypoint3: waypoint
+		Location: 94,34
+		Owner: Neutral
+	waypoint4: waypoint
+		Location: 64,34
+		Owner: Neutral
+	waypoint5: waypoint
+		Location: 64,92
+		Owner: Neutral
+	waypoint6: waypoint
+		Location: 36,63
+		Owner: Neutral
+	waypoint7: waypoint
+		Location: 92,65
+		Owner: Neutral
+	Actor9: mpspawn
+		Owner: Neutral
+		Location: 35,34
+	Actor10: mpspawn
+		Owner: Neutral
+		Location: 64,34
+	Actor11: mpspawn
+		Owner: Neutral
+		Location: 94,34
+	Actor12: mpspawn
+		Owner: Neutral
+		Location: 92,65
+	Actor13: mpspawn
+		Owner: Neutral
+		Location: 94,94
+	Actor14: mpspawn
+		Owner: Neutral
+		Location: 64,92
+	Actor15: mpspawn
+		Owner: Neutral
+		Location: 35,94
+	Actor16: mpspawn
+		Owner: Neutral
+		Location: 36,63
