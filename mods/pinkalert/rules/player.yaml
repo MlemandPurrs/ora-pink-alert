@@ -427,6 +427,9 @@ Player:
 	ResourceStorageWarning:
 	PlayerExperience:
 	PlayerRadarTerrain:
+	ProvidesPrerequisite@Allies:
+		Factions: allies, england, germany, france, spain
+		Prerequisite: player.allies
 	ProvidesPrerequisite@England:
 		Factions: england
 		Prerequisite: player.england
@@ -439,6 +442,9 @@ Player:
 	ProvidesPrerequisite@Spain:
 		Factions: spain
 		Prerequisite: player.spain
+	ProvidesPrerequisite@Soviet:
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		Prerequisite: player.soviet
 	ProvidesPrerequisite@Russia:
 		Factions: russia
 		Prerequisite: player.russia

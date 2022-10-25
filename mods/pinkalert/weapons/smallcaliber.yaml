@@ -6,6 +6,7 @@ ZSU-23:
 	Report: aacanon3.aud
 	ValidTargets: Air
 	Projectile: InstantHit
+		Inaccuracy: 1c938
 	Warhead@1Dam: SpreadDamage
 		Spread: 213
 		Damage: 25
@@ -104,6 +105,8 @@ M60mg:
 	Inherits: M1Carbine
 	Range: 4c0
 	Report: pillbox1.aud
+    Warhead@1Dam: SpreadDamage
+        Damage: 20
 
 Colt45:
 	ReloadDelay: 5
@@ -188,8 +191,9 @@ Silenced:
 
 VolkovGun:
 	Inherits: Silenced
-	ReloadDelay: 25
+	ReloadDelay: 50
 	Range: 5c768
+    Report: 120mmf.aud
 	ValidTargets: Ground, Water
 	InvalidTargets: Bridge, Structure, Wall
 	Warhead@1Dam: SpreadDamage

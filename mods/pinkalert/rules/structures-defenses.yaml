@@ -34,7 +34,7 @@ KENN:
 	Tooltip:
 		Name: Kennel
 	Health:
-		HP: 400
+		HP: 300
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -106,6 +106,7 @@ KENN:
 		Delay: 1
 		Condition: updatequeue
 	-SpawnActorsOnSell:
+    -SpawnRandomActorOnDeath:
 	Power:
 		Amount: -10
         RequiresCondition: !build-incomplete
@@ -179,7 +180,7 @@ PDOX:
 		Footprint: xx xx
 		Dimensions: 2,2
 	Health:
-		HP: 400
+		HP: 600
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -187,6 +188,7 @@ PDOX:
 	ChronoshiftPower@chronoshift:
 		OrderName: AlliesChronoshift
 		PauseOnCondition: lowpower
+        Prerequisites: !aitoodumb
 		Icon: chrono
 		AllowMultiple: true
 		ChargeInterval: 10500
@@ -202,6 +204,29 @@ PDOX:
 		Dimensions: 3, 3
 		Footprint: xxx xxx xxx
         SupportPowerPaletteOrder: 2
+	DetonateWeaponPower@ChronoShiftAI:
+		OrderName: ChronoShiftAI
+		PauseOnCondition: lowpower
+		Prerequisites: aitoodumb
+		Icon: chrono
+		Cursor: ability
+		ChargeInterval: 10500
+		Description: Chronoshift
+		ActivationDelay: 25
+		LongDesc: Summons a Chrono Tank anywhere on the map.
+		Weapon: ChronoAI
+		AirburstAltitude: 0c0
+		AllowMultiple: false
+		CameraActor: camera
+		CameraRemoveDelay: 375
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: ChronosphereCharging
+		EndChargeSpeechNotification: ChronosphereReady
+		#   DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayRadarPing: True
+		LaunchSound: chrono2.aud
+		IncomingSound: chrono2.aud
 	SupportPowerChargeBar:
 	Power:
 		Amount: -150
@@ -261,7 +286,7 @@ IRON:
 		DecorationBounds: 50,50,0,-12
 	SelectionDecorations:
 	Health:
-		HP: 400
+		HP: 600
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -337,7 +362,7 @@ MSLO:
 		Footprint: xx
 		Dimensions: 2,1
 	Health:
-		HP: 400
+		HP: 800
 	Armor:
 		Type: Heavy
 	RevealsShroud:
@@ -502,7 +527,7 @@ HBOX:
 	Valued:
 		Cost: 600
 	Health:
-		HP: 600
+		HP: 400
 	Armor:
 		Type: Heavy
 	RevealsShroud:
@@ -743,24 +768,61 @@ FTUR:
 		Type: Heavy
 	RevealsShroud:
 		Range: 6c0
-	Turreted:
-		TurnSpeed: 1023
+	#   Turreted:
+	#	TurnSpeed: 1023
+	#	Offset: 0,0,112
+	#   Armament:
+	#	Weapon: FireballLauncher
+	#	LocalOffset: 512,0,0
+    #  RequiresCondition: !spain
+	#   Armament@SPAIN:
+	#	Weapon: FireballLauncher.spain
+	#	LocalOffset: 512,0,0
+    #  RequiresCondition: spain
+	#   AttackTurreted:
+	#	RequiresCondition: !build-incomplete
+	Turreted@RANGE:
+		Turret: ranged-turret
+		TurnSpeed: 255
 		Offset: 0,0,112
-	Armament:
+	Turreted@MELEE:
+		Turret: melee-turret
+		TurnSpeed: 255
+		Offset: 0,0,112
+	Armament@RANGE:
+		Name: primary
 		Weapon: FireballLauncher
 		LocalOffset: 512,0,0
+		Turret: ranged-turret
+        ReloadingCondition: sharedattackcd
         RequiresCondition: !spain
-	Armament@SPAIN:
+        PauseOnCondition: sharedattackcd
+	Armament@RANGE_SPAIN:
+		Name: primary
 		Weapon: FireballLauncher.spain
 		LocalOffset: 512,0,0
+		Turret: ranged-turret
+        ReloadingCondition: sharedattackcd
         RequiresCondition: spain
+        PauseOnCondition: sharedattackcd
+	Armament@MELEE:
+		Name: secondary
+		Weapon: DualFlamerTD
+		LocalOffset: 512,128,42, 512,-128,42
+		MuzzleSequence: muzzle
+		Turret: melee-turret
+        ReloadingCondition: sharedattackcd
+        PauseOnCondition: sharedattackcd
 	AttackTurreted:
+		Armaments: primary, secondary
+		Turrets: ranged-turret, melee-turret
 		RequiresCondition: !build-incomplete
+    WithMuzzleOverlay:
 	-QuantizeFacingsFromSequence:
 	BodyOrientation:
 		QuantizedFacings: 8
 	Power:
-		Amount: -20
+		Amount: -30
         RequiresCondition: !build-incomplete
 	DetectCloaked:
 		Range: 3c768
@@ -778,6 +840,8 @@ FTUR:
 		Actor: FTUR.Husk
 		OwnerType: InternalName
 		EffectiveOwnerFromOwner: true
+	RenderRangeCircle:
+		FallbackRange: 5c0
 
 FTUR.Husk:
 	Inherits: ^DefenseHusk
@@ -799,7 +863,7 @@ TSLA:
 		BuildDuration: 1200
 		BuildPaletteOrder: 5
 		Prerequisites: dome, ~techlevel.medium
-		Description: Advanced base defense.\nRequires power to operate.\nCan be charged by Tesla Troopers when unpowered.\nDetects cloaked units when powered.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+		Description: Advanced base defense.\nRequires power to operate.\nCan be charged by Shock Troopers when unpowered.\nDetects cloaked units when powered.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
 	Valued:
 		Cost: 1200
 	Tooltip:
@@ -842,24 +906,43 @@ TSLA:
 		Image: TSLA
 	Targetable@ChargeTargeting:
 		TargetTypes: Charge
-		RequiresCondition: !TeslaHasCharge && lowpower
-	GrantCondition@Overcharge:
-		Condition: TeslaHasCharge
-		RequiresCondition: TeslaChargeApplied
+		RequiresCondition: TeslaChargeable && !haspower
+        #   if it granted a condition when full
+        #   would able to prevent stacking it
+        #   'beyond the bar length'
+    GrantChargingCondition@OverCharge:
+        Condition: TeslaHasCharge
+        PauseOnCondition: ( !TeslaChargeApplied2 || haspower )
+        ChargingColor: f4f442
+        DischargingColor: f4f442
+        #   one charging zap is 150
+        MaxCharge: 300
+        InitialCharge: 0
+        ShowSelectionBarWhenFull: true
+        ShowSelectionBarWhenEmpty: false
+	GrantCondition@ChargeTargeting:
+		Condition: TeslaChargeable
+		RequiresCondition: ( lowpower || TeslaHasCharge )
 	ExternalCondition@Overcharge:
 		Condition: TeslaChargeApplied
+    GrantCondition@Overcharge2:
+        Condition: TeslaChargeApplied2
+        RequiresCondition: TeslaChargeApplied
 	WithDecoration@Overcharge:
 		Image: poweroff
 		Sequence: offline
 		Position: BottomRight
 		RequiresCondition: TeslaChargeApplied
-	TimedConditionBar@Charged:
-		Condition: TeslaChargeApplied
-		Color: f4f442
+	#   TimedConditionBar@Charged:
+	#	Condition: TeslaChargeApplied
+	#	Color: f4f442
 	GrantConditionOnPowerState@LOWPOWER:
 		Condition: lowpower
 		ValidPowerStates: Low, Critical
-		RequiresCondition: !TeslaChargeApplied
+		RequiresCondition: !TeslaHasCharge
+	GrantConditionOnPowerState@HASPOWER:
+		Condition: haspower
+		ValidPowerStates: Normal
 	SpawnActorOnDeath:
 		Actor: TSLA.Husk
 		OwnerType: InternalName
@@ -897,7 +980,7 @@ GAP:
 	WithSpriteBody:
 		PauseOnCondition: lowpower || deployed
 	Health:
-		HP: 700
+		HP: 600
 	Armor:
 		Type: Heavy
 	RevealsShroud:
@@ -1139,7 +1222,7 @@ SBAG:
 	Tooltip:
 		Name: Sandbag Wall
 	Health:
-		HP: 150
+		HP: 50
 	Armor:
 		Type: Wood
 	LineBuild:

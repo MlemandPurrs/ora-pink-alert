@@ -223,7 +223,7 @@ HAPC.Husk:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 400
+		HP: 600
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -336,7 +336,7 @@ HAPC.Husk:
 		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
 		BuildDuration: 1800
 		BuildPaletteOrder: 5
-		Prerequisites: stek, ~techlevel.high
+		Prerequisites: fix, stek, ~techlevel.high
 		Description: Big and slow tank, with anti-air capability.\nSlowly self-repairs when below 50% health.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
 	Valued:
 		Cost: 1800
@@ -345,7 +345,7 @@ HAPC.Husk:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 600
+		HP: 800
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -353,7 +353,7 @@ HAPC.Husk:
 		Speed: 40
         PauseOnCondition: emp-crate-collected
 	RevealsShroud:
-		Range: 6c0
+		Range: 5c0
 	Turreted:
 		TurnSpeed: 20
 	Armament@PRIMARY:
@@ -452,7 +452,7 @@ V2RL:
 		Speed: 70
         PauseOnCondition: emp-crate-collected
 	RevealsShroud:
-		Range: 5c0
+		Range: 6c0
 	Armament:
 		Weapon: SCUD
 		PauseOnCondition: !ammo || emp-crate-collected
@@ -525,7 +525,7 @@ TTNK:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 110
+		HP: 250
 	Armor:
 		Type: Light
 	Mobile:
@@ -533,7 +533,7 @@ TTNK:
 		Speed: 80
         PauseOnCondition: emp-crate-collected
 	RevealsShroud:
-		Range: 7c0
+		Range: 6c0
 	Armament:
 		Weapon: TTankZap
 		LocalOffset: 0,0,213
@@ -587,13 +587,13 @@ QTNK:
 		Prerequisites: fcom, ~techlevel.high
 		Description: Deals seismic damage to nearby vehicles and structures.\nVehicles get slowed down, Infantry is forced to ground.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry, Aircraft
 	Valued:
-		Cost: 2300
+		Cost: 2100
 	Tooltip:
 		Name: M.A.D. Tank
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 300
+		HP: 350
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -602,7 +602,7 @@ QTNK:
         PauseOnCondition: emp-crate-collected
         RequiresCondition: !madweakness
 	RevealsShroud:
-		Range: 6c0
+		Range: 4c0
 	SelectionDecorations:
 	MadTank:
         ThumpInterval: 12
@@ -660,7 +660,7 @@ GTNK:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 250
+		HP: 200
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -668,7 +668,7 @@ GTNK:
 		Speed: 72
         PauseOnCondition: emp-crate-collected
 	RevealsShroud:
-		Range: 6c0
+		Range: 7c0
 	Turreted:
 		TurnSpeed: 20
 	Armament@AG:
@@ -772,7 +772,7 @@ GTNK.Husk:
 		Speed: 30
         PauseOnCondition: emp-crate-collected || !wireless
 	RevealsShroud:
-		Range: 6c0
+		Range: 5c0
 	Health:
 		HP: 1200
 	Armor:

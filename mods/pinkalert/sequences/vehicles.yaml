@@ -368,7 +368,7 @@ ttnk:
 	idle:
 		Facings: 32
 		UseClassicFacings: True
-	spinner:
+	spinner: bttnk
 		Start: 32
 		Length: 32
 	icon: ttnkicon

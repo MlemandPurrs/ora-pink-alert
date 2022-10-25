@@ -60,7 +60,7 @@ VolkovGun.spain:
     Range: 5c768
 
 105mm.spain:
-    Inherits: 105mm.half
+    Inherits: 105mm
     Range: 5c768
 
 120mm.spain:
@@ -106,7 +106,7 @@ HeliDepthCharge.spain:
 
 ScatterBomb.spain:
     Inherits: ScatterBomb
-    Range: 5c0
+    Range: 4c0
 
 Maverick.spain:
     Inherits: Maverick
@@ -149,6 +149,14 @@ Hellfire.spain:
 
 MammothTusk.spain:
     Inherits: MammothTusk
+    Range: 6c0
+	Projectile: Missile
+		Speed: 450
+		HorizontalRateOfTurn: 60
+		RangeLimit: 10c614
+
+MammothTuskAT.spain:
+    Inherits: MammothTuskAT
     Range: 6c0
 	Projectile: Missile
 		Speed: 450
@@ -225,10 +233,14 @@ SCUD.spain:
 
 FireballLauncher.spain:
     Inherits: FireballLauncher
-    Range: 5c0
+    Range: 6c0
+
+DualFireballLauncher.spain:
+    Inherits: DualFireballLauncher
+    Range: 6c0
 
 Flamer.spain:
-    Inherits: Flamer
+    Inherits: FlamerRA
     Range: 4c512
 
 TeslaZap.spain:

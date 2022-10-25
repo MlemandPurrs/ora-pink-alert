@@ -34,12 +34,33 @@ LST:
 		PassengerFacing: 0
 		LoadingCondition: notmobile
 		PassengerConditions:
+            medi: healaura
 			mech: selfrepair
+            e7: commando
+            volk: commando
     ChangesHealth@SelfRepair:
 		RequiresCondition: selfrepair
         Step: 20
 		Delay: 80
 		StartIfBelow: 101
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: commando
+	ProximityExternalCondition@healingaura:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	WithRangeCircle@healingaura:
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	GrantConditionOnPrerequisite@healingaura:
+		Condition: medicauraheal-upgraded
+		Prerequisites: medicauraheal.upgrade
 	Sellable:
 		RequiresCondition: ship.sellable && !loaded
 	-Chronoshiftable:
@@ -389,7 +410,7 @@ DRED:
         Class: DRED
 		DecorationBounds: 44,44
 	Health:
-		HP: 1200
+		HP: 900
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -496,7 +517,7 @@ SS:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 120
+		HP: 150
 	Armor:
 		Type: Light
 	Mobile:
@@ -611,12 +632,33 @@ SS.Upgraded:
 		MaxWeight: 1
 		LoadingCondition: notmobile
 		PassengerConditions:
+            medi: healaura
 			mech: selfrepair
+            e7: commando
+            volk: commando
     ChangesHealth@SelfRepair:
 		RequiresCondition: selfrepair
         Step: 20
 		Delay: 80
 		StartIfBelow: 101
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: commando
+	ProximityExternalCondition@healingaura:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 1c826
+		RequiresCondition: !underwater && healaura && medicauraheal-upgraded && !emp-crate-collected
+	WithRangeCircle@healingaura:
+		Range: 1c826
+		RequiresCondition: !underwater && healaura && medicauraheal-upgraded && !emp-crate-collected
+	GrantConditionOnPrerequisite@healingaura:
+		Condition: medicauraheal-upgraded
+		Prerequisites: medicauraheal.upgrade
     Sellable:
         RequiresCondition: ship.sellable && !underwater && !loaded
 	Cloak:
@@ -670,7 +712,7 @@ MSUB:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 150
+		HP: 180
 	Armor:
 		Type: Light
 	Mobile:
@@ -725,7 +767,7 @@ SSFK:
 	Health:
 		HP: 180
 	Valued:
-		Cost: 950
+		Cost: 850
 	Armor:
 		Type: Light
 	Mobile:
@@ -798,13 +840,13 @@ NSUB:
 	Buildable:
 		Queue: ClassicNavy.Soviet, Navy.Soviet
 		BuildAtProductionType: Submarine
-        BuildDuration: 2400
+        BuildDuration: 2100
 		BuildPaletteOrder: 6
 		BuildLimit: 1
 		Prerequisites: fcom, ~techlevel.high, ~!global-disablenavy
 		Description: Submerged tactical unit.\nArmed with Nuclear torpedo below sea level.\nUses Nuclear missile on surface.\nDetects other Submarines nearby.\n  Maximum 1 can be built.\n  Strong vs Buildings, Submarines\n  Weak vs Defenses, Aircraft\n  Special Ability: Submerge\nDives underwater to move unseen.\nCan be surfaced to move faster.
 	Valued:
-		Cost: 2400
+		Cost: 2100
 	Tooltip:
 		Name: Nuclear Submarine
 	Health:

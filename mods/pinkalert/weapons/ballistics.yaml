@@ -53,15 +53,29 @@
 90mm:
 	Inherits: ^Cannon
 
+90mm.german:
+    Inherits: 90mm
+    Range: 5c768
+	Projectile: Bullet
+		Speed: 900
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			Light: 100
+			Heavy: 125
+
 105mm.half:
 	Inherits: ^Cannon
 	ReloadDelay: 60
+	Warhead@1Dam: SpreadDamage
+		Damage: 35
 
 105mm:
 	Inherits: ^Cannon
 	ReloadDelay: 70
 	Burst: 2
 	BurstDelays: 5
+	Warhead@1Dam: SpreadDamage
+		Damage: 35
 
 120mm:
 	Inherits: ^Cannon
@@ -217,7 +231,7 @@ ScatterBomb:
 	Inherits: ^Artillery
 	Report: bombdrop.aud
 	ReloadDelay: 1
-	Range: 4c0
+	Range: 3c0
 	ValidTargets: Underwater, Structure, Infantry, Ground, Water
 	InvalidTargets: Vehicle, Defense, Ship
 	Projectile: Bullet

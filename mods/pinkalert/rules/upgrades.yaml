@@ -57,6 +57,39 @@ helidepth.upgrade:
 	RenderSprites:
 		Image: alliesupgrades.combined
 
+#   Carryall trait cannot be conditioned ! ! !
+trancarry.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Carry-all Chinooks
+	Buildable:
+		BuildPaletteOrder: 4
+		Queue: Upgrades.Allies, ClassicUpgrades.Allies
+		Prerequisites: ~hpad, ~techlevel.high, ~disabled
+		BuildDuration: 1500
+		Description: Allows Chinooks to carry a Vehicle when not loaded.\n   + Chinooks may airlift a Vehicle when empty.\n   - Gets slowed down while carrying the Vehicle
+        Icon: trancarry
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: alliesupgrades.combined
+
+medicauraheal.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Medic Passenger Healing
+	Buildable:
+		BuildPaletteOrder: 6
+		Queue: Upgrades.Allies, ClassicUpgrades.Allies
+		Prerequisites: ~dome, ~techlevel.high
+		BuildDuration: 1500
+		Description: Allows Transport units to project a healing aura with Medic inside.\n   + Medics will provide aura of healing when in a transport\n   - The rate of healing is rather slow
+        Icon: medicauraheal
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: alliesupgrades.combined
+
 armedspy.upgrade:
 	Inherits: ^Upgrade
 	Tooltip:
@@ -72,6 +105,23 @@ armedspy.upgrade:
 		Cost: 1000
 	RenderSprites:
 		Image: alliesupgrades.combined
+
+#   obsolete when you have got GPS Sattelite
+#   mrjairdetect.upgrade:
+#	Inherits: ^Upgrade
+#	Tooltip:
+#	Name: Upgrade: MRJ Aerial Detection
+#	Buildable:
+#	BuildPaletteOrder: 8
+#	Queue: Upgrades.Allies, ClassicUpgrades.Allies
+#	Prerequisites: ~dome, ~techlevel.high
+#	BuildDuration: 1500
+#	Description: Enables Mobile Radar Jammers to spot and ping incoming Airplanes.\n   + MRJ will able to early warn against incoming Planes\n   - Doesnt function while the unit is moving
+#  Icon: mrjupgrade
+#  Valued:
+#  Cost: 1000
+#  RenderSprites:
+#  Image: alliesupgrades.combined
 
 #   Soviet upgrades
 heavytank.upgrade:
@@ -129,7 +179,7 @@ subcapacity.upgrade:
 	Buildable:
 		BuildPaletteOrder: 4
 		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
-		Prerequisites: spen, ~techlevel.high
+		Prerequisites: spen, ~techlevel.high, ~!global-disablenavy
 		BuildDuration: 1500
 		Description: Allows Submarines to carry one Infantry.\n   + Submarines can carry one Infantry\n  ! Breaks capacity to Surface on order(Engine limitation)\n  ! Submarine will use Grenadelauncher by itself to compensate
         Icon: subcapacity

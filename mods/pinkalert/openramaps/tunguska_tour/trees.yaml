@@ -3349,7 +3349,7 @@
 	Actor2198: t07
 		Owner: Neutral
 		Location: 74,72
-	Actor2202: oilb
+	Actor2202: v19
 		Owner: Neutral
 		Location: 74,71
 	Actor2211: tc01
@@ -3428,7 +3428,7 @@
 		Owner: Neutral
 		Location: 76,73
 		TurretFacing: 92
-	Actor2238: oilb
+	Actor2238: v19
 		Owner: Neutral
 		Location: 54,12
 	Actor2239: hbox
@@ -3474,7 +3474,7 @@
 	Actor2262: ice02
 		Owner: Neutral
 		Location: 48,49
-	Actor2136: oilb
+	Actor2136: v19
 		Owner: Neutral
 		Location: 13,58
 	Actor2140: tc04
@@ -3806,10 +3806,10 @@
 	Actor2368: t06
 		Owner: Neutral
 		Location: 69,81
-	Actor1713: oilb
+	Actor1713: v19
 		Owner: Neutral
 		Location: 78,15
-	Actor1754: oilb
+	Actor1754: v19
 		Owner: Neutral
 		Location: 74,13
 	Actor1759: v19

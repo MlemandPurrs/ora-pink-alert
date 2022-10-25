@@ -71,6 +71,43 @@ MaverickHind:
     MinRange: 0c768
 	InvalidTargets: Infantry
 
+MaverickAA:
+	ReloadDelay: 30
+    Range: 11c0
+	MinRange: 3c0
+	Report: missile7.aud
+	Burst: 2
+	BurstDelays: 7
+	ValidTargets: Air
+	Projectile: Missile
+		Speed: 450
+		Arm: 2
+		Blockable: false
+		Inaccuracy: 512
+		Image: DRAGON
+		HorizontalRateOfTurn: 20
+		RangeLimit: 14c410
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 80
+		ValidTargets: Air
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath, DefaultDeath, DefaultDeath, DefaultDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion_air
+		ImpactSounds: kaboom25.aud
+		InvalidTargets: Water
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water
+
 Dragon:
 	Inherits: ^AntiGroundMissile
 
@@ -123,6 +160,15 @@ MammothTusk:
 		ImpactSounds: kaboom25.aud
 		ValidTargets: Air
 
+#   cannot vs Air, faster reload, less damage
+MammothTuskAT:
+    Inherits: MammothTusk
+    ReloadDelay: 60
+    ValidTargets: Tank, Vehicle
+    Warhead@1Dam: SpreadDamage
+        Damage: 50
+        ValidTargets: Tank, Vehicle
+
 Nike:
 	Inherits: ^AntiAirMissile
 	ReloadDelay: 20
@@ -134,7 +180,7 @@ Nike:
 		Image: MISSILE
 		HorizontalRateOfTurn: 100
 		RangeLimit: 9c0
-		Speed: 750
+		Speed: 375
         Blockable: false
         CloseEnough: 149
 	Warhead@1Dam: SpreadDamage

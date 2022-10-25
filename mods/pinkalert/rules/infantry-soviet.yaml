@@ -93,23 +93,28 @@ E4:
 		HP: 45
 	Mobile:
 		Speed: 30
+        PauseOnCondition: dont-move
 	Armament@PRIMARY:
-		Weapon: Flamer
+		Weapon: FlamerTD
 		LocalOffset: 700,0,400
 		FireDelay: 8
+        MuzzleSequence: muzzle
         RequiresCondition: !spain
 	Armament@GARRISONED:
 		Name: garrisoned
-		Weapon: Flamer
+		Weapon: FlamerTD
+        MuzzleSequence: muzzle
         RequiresCondition: !spain
 	Armament@PRIMARY_SPAIN:
-		Weapon: Flamer
+		Weapon: FlamerTD
 		LocalOffset: 700,0,400
 		FireDelay: 8
+        MuzzleSequence: muzzle
         RequiresCondition: spain
 	Armament@GARRISONED_SPAIN:
 		Name: garrisoned
-		Weapon: Flamer
+		Weapon: FlamerTD
+        MuzzleSequence: muzzle
         RequiresCondition: spain
 	TakeCover:
 		ProneOffset: 160,0,-288
@@ -137,10 +142,17 @@ E4:
 	Targetable:
 		TargetTypes: Ground, Infantry, DetonateAttack, Disguise, FireImmune
 		RequiresCondition: !parachute
+    WithMuzzleOverlay:
+	GrantConditionOnAttack:
+		Condition: dont-move
+		RevokeDelay: 16
+		RevokeOnNewTarget: False
+		RevokeAll: True
 
 VOLK:
 	Inherits: GNRL
     Inherits@ROT: ^RottingInfantry
+	Inherits@COMMANDOSKULL: ^CommandoSkull
 	Buildable:
 		Queue: ClassicInfantry.Soviet, Infantry.Soviet
 		BuildAtProductionType: Soldier
@@ -160,7 +172,7 @@ VOLK:
 	Armor:
 		Type: Heavy
 	RevealsShroud:
-		Range: 6c0
+		Range: 5c0
 	Demolition:
 		DetonationDelay: 45
 		Voice: Demolish
@@ -207,6 +219,9 @@ VOLK:
         Cursor: enter-yellow-flipped
 		Payload: 300
 		Type: InfantryRefund
+    -Crushable:
+    -GrantExternalConditionToCrusher@CRUSHATTEMPTSLOW:
+    -GrantExternalConditionToCrusher@CRUSHSLOW:
 
 DOG:
 	Inherits: ^Soldier
@@ -242,7 +257,7 @@ DOG:
         CustomPipType: grey
 		Voice: Move
 	RevealsShroud:
-		Range: 5c0
+		Range: 4c0
 	Armament:
 		Weapon: DogJaw
 		ReloadingCondition: attack-cooldown
@@ -393,6 +408,8 @@ SHOK:
         Voice: Move
 		Payload: 112
 		Type: InfantryRefund
+	RevealsShroud:
+		Range: 4c0
 
 #   Experimental squad production
 

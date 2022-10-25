@@ -145,6 +145,8 @@ T08.Husk:
 	Building:
 		Footprint: x_
 		Dimensions: 2,1
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
 	RequiresBuildableArea:
 		AreaTypes: building
 

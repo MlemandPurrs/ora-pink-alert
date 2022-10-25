@@ -4,7 +4,7 @@ BADR:
 		DropRange: 4c0
 		ChuteSound: chute1.aud
 	Health:
-		HP: 60
+		HP: 90
 	Armor:
 		Type: Light
 	Aircraft:
@@ -36,7 +36,7 @@ BADR:
 BADR.Husk:
 	Inherits: ^PlaneHusk
 	Tooltip:
-		Name: Badger
+		Name: Badger (Destroyed)
 	Aircraft:
 		TurnSpeed: 20
 		Speed: 160
@@ -96,7 +96,7 @@ YAK:
 	Inherits: ^Plane
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
-    #   Inherits@AUTODAMAGE: ^KilledWithoutAirfield
+    Inherits@AUTODAMAGE: ^KilledWithoutAirfield
 	Buildable:
 		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
 		BuildAtProductionType: Airplane
@@ -154,7 +154,7 @@ YAK:
 		RepulsionSpeed: 40
 		MaximumPitch: 56
 		MoveIntoShroud: false
-		IdleBehavior: ReturnToBase
+		#   IdleBehavior: ReturnToBase
 	#   AutoTarget:
 	#	InitialStance: HoldFire
 	#	InitialStanceAI: HoldFire
@@ -183,7 +183,7 @@ YAK:
 YAK.Husk:
 	Inherits: ^PlaneHusk
 	Tooltip:
-		Name: Yak
+		Name: Yak (Destroyed)
 	Aircraft:
 		TurnSpeed: 20
 		Speed: 149
@@ -198,7 +198,7 @@ MIG:
 	Inherits: ^Plane
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
-    #   Inherits@AUTODAMAGE: ^KilledWithoutAirfield
+    Inherits@AUTODAMAGE: ^KilledWithoutAirfield
 	Buildable:
 		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
 		BuildAtProductionType: Airplane
@@ -255,7 +255,7 @@ MIG:
 		RepulsionSpeed: 40
 		MaximumPitch: 56
 		MoveIntoShroud: false
-		IdleBehavior: ReturnToBase
+	#	IdleBehavior: ReturnToBase
 	#   AutoTarget:
 	#	InitialStance: HoldFire
 	#	InitialStanceAI: HoldFire
@@ -307,7 +307,7 @@ MIG:
 MIG.Husk:
 	Inherits: ^PlaneHusk
 	Tooltip:
-		Name: Mig Attack Plane
+		Name: MiG (Destroyed)
 	Aircraft:
 		TurnSpeed: 20
 		Speed: 186
@@ -321,7 +321,7 @@ MIG.Husk:
 U2:
 	Inherits: ^Plane
 	Health:
-		HP: 2000
+		HP: 30
 	Tooltip:
 		Name: Spy Plane
 	Armor:
@@ -354,12 +354,14 @@ U2:
 		Interval: 2
 	RejectsOrders:
 	Interactable:
+	AppearsOnRadar:
+		ValidRelationships: Ally    
 	-MapEditorData:
 
 U2.Husk:
 	Inherits: ^PlaneHusk
 	Tooltip:
-		Name: Husk (Spy Plane)
+		Name: Spy Plane (Destroyed)
 	Aircraft:
 		TurnSpeed: 28
 		Speed: 373
@@ -424,12 +426,33 @@ TRAN:
 		Types: Infantry
 		MaxWeight: 5
 		PassengerConditions:
+            medi: healaura
 			mech: selfrepair
+            e7: commando
+            volk: commando
     ChangesHealth@SelfRepair:
 		RequiresCondition: selfrepair
         Step: 20
 		Delay: 80
 		StartIfBelow: 101
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: commando
+	ProximityExternalCondition@healingaura:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 1c826
+		RequiresCondition: !airborne && healaura && medicauraheal-upgraded && !emp-crate-collected
+	WithRangeCircle@healingaura:
+		Range: 1c826
+		RequiresCondition: !airborne && healaura && medicauraheal-upgraded && !emp-crate-collected
+	GrantConditionOnPrerequisite@healingaura:
+		Condition: medicauraheal-upgraded
+		Prerequisites: medicauraheal.upgrade
 	SpawnActorOnDeath:
 		Actor: TRAN.Husk
 	SelectionDecorations:
@@ -442,7 +465,7 @@ TRAN:
 TRAN.Husk:
 	Inherits: ^HelicopterHusk
 	Tooltip:
-		Name: Transport Helicopter
+		Name: Chinook (Destroyed)
 	Aircraft:
 		TurnSpeed: 16
 		Speed: 149
@@ -466,6 +489,10 @@ TRAN.delivery:
     -Cargo:
     -WithCargoPipsDecoration:
     -ChangesHealth@SelfRepair:
+    -WithDecoration@COMMANDOSKULL:
+	-ProximityExternalCondition@healingaura:
+	-WithRangeCircle@healingaura:
+	-GrantConditionOnPrerequisite@healingaura:
 	RejectsOrders:
 	Interactable:
 	Aircraft:
@@ -480,6 +507,18 @@ TRAN.delivery:
     RenderSprites:
         Image: TRAN
 	-MapEditorData:
+
+TRAN.paradrop:
+    Inherits: TRAN.delivery
+    -Carryall:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 5
+    ParaDrop:
+        DropRange: 2c0
+		ChuteSound: chute1.aud
+    RenderSprites:
+        Image: TRAN
 
 HELI:
 	Inherits: ^Helicopter
@@ -591,7 +630,7 @@ HELI:
 HELI.Husk:
 	Inherits: ^HelicopterHusk
 	Tooltip:
-		Name: Longbow
+		Name: Apache (Destroyed)
 	Aircraft:
 		TurnSpeed: 16
 		Speed: 149
@@ -735,7 +774,7 @@ HIND:
 HIND.Husk:
 	Inherits: ^HelicopterHusk
 	Tooltip:
-		Name: Hind
+		Name: Hind (Destroyed)
 	Aircraft:
 		TurnSpeed: 16
 		Speed: 112
@@ -790,12 +829,33 @@ HIP:
 		Types: Infantry
 		MaxWeight: 5
 		PassengerConditions:
+            medi: healaura
 			mech: selfrepair
+            e7: commando
+            volk: commando
     ChangesHealth@SelfRepair:
 		RequiresCondition: selfrepair
         Step: 20
 		Delay: 80
 		StartIfBelow: 101
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: commando
+	ProximityExternalCondition@healingaura:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 1c826
+		RequiresCondition: !airborne && healaura && medicauraheal-upgraded && !emp-crate-collected
+	WithRangeCircle@healingaura:
+		Range: 1c826
+		RequiresCondition: !airborne && healaura && medicauraheal-upgraded && !emp-crate-collected
+	GrantConditionOnPrerequisite@healingaura:
+		Condition: medicauraheal-upgraded
+		Prerequisites: medicauraheal.upgrade
 	SpawnActorOnDeath:
 		Actor: HIP.Husk
 	Selectable:
@@ -807,7 +867,7 @@ HIP:
 HIP.Husk:
 	Inherits: ^HelicopterHusk
 	Tooltip:
-		Name: Hip Transport
+		Name: Hip Transport (Destroyed)
 	Aircraft:
 		TurnSpeed: 16
 		Speed: 112
@@ -828,6 +888,10 @@ HIP.delivery:
     -Cargo:
     -WithCargoPipsDecoration:
     -ChangesHealth@SelfRepair:
+    -WithDecoration@COMMANDOSKULL:
+	-ProximityExternalCondition@healingaura:
+	-WithRangeCircle@healingaura:
+	-GrantConditionOnPrerequisite@healingaura:
 	RejectsOrders:
 	Interactable:
 	Aircraft:
@@ -847,11 +911,11 @@ NEBR:
 	Inherits: ^Plane
     Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferBuilding
-    #   Inherits@AUTODAMAGE: ^KilledWithoutAirfield
+    Inherits@AUTODAMAGE: ^KilledWithoutAirfield
 	Buildable:
 		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
 		BuildAtProductionType: Airplane
-        BuildDuration: 2400
+        BuildDuration: 2100
 		BuildPaletteOrder: 6
 		BuildLimit: 1
 		Prerequisites: afld, fcom, ~techlevel.high
@@ -862,9 +926,9 @@ NEBR:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Valued:
-		Cost: 2400
+		Cost: 2100
 	Health:
-		HP: 60
+		HP: 90
 	Armor:
 		Type: Light
 	Armament:
@@ -885,7 +949,7 @@ NEBR:
 		MaximumPitch: 56
         InitialFacing: 768
 		MoveIntoShroud: false
-		IdleBehavior: ReturnToBase
+		#   IdleBehavior: ReturnToBase
 	AutoTarget:
 		InitialStance: HoldFire
 		InitialStanceAI: HoldFire
@@ -919,7 +983,7 @@ NEBR:
 NEBR.Husk:
 	Inherits: ^PlaneHusk
 	Tooltip:
-		Name: Nuclear Bomber
+		Name: Nuclear Bomber (Destroyed)
 	Aircraft:
 		TurnSpeed: 20
 		Speed: 160

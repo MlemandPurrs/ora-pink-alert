@@ -154,7 +154,7 @@ WEAF:
 		Queue: Defense.Allies, ClassicDefense.Allies
 		BuildDuration: 500
 		BuildPaletteOrder: 25
-		Prerequisites: proc, ~techlevel.low
+		Prerequisites: anypower, ~techlevel.low
 		Description: Looks like a War Factory.
 		Icon: fake-icon
 	Tooltip:
@@ -510,14 +510,14 @@ MSLF:
 		Dimensions: 2,1
 	RenderSprites:
 		Image: MSLO
-	Cloak:
-		InitialDelay: 150
-		CloakDelay: 75
-		UncloakOn: Attack, Damage
-		PauseOnCondition: cloak-force-disabled
-	GrantConditionOnDamageState@UNCLOAK:
-		Condition: cloak-force-disabled
-		ValidDamageStates: Critical
+	#  Cloak:
+	#	InitialDelay: 150
+	#	CloakDelay: 75
+	#	UncloakOn: Attack, Damage
+	#	PauseOnCondition: cloak-force-disabled
+	#   GrantConditionOnDamageState@UNCLOAK:
+	#	Condition: cloak-force-disabled
+	#	ValidDamageStates: Critical
 	NukePower@Fake:
 		OrderName: NukeMissileFake
 		PauseOnCondition: lowpower

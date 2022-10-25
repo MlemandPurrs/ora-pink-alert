@@ -24,6 +24,8 @@
 
 FireballLauncher:
 	Inherits: ^FireWeapon
+	Range: 5c0
+    MinRange: 1c768
 	Projectile: Bullet
 		Speed: 188
 		TrailImage: fb2
@@ -31,7 +33,12 @@ FireballLauncher:
 		Image: FB1
         Blockable: false
 
-Flamer:
+DualFireballLauncher:
+    Inherits: FireballLauncher
+    Burst: 2
+    BurstDelays: 25
+
+FlamerRA:
 	Inherits: ^FireWeapon
 	Range: 3c512
 	Projectile: Bullet
@@ -40,11 +47,31 @@ Flamer:
 		TrailInterval: 1
 		Image: FB1
 	Warhead@1Dam: SpreadDamage
-		Damage: 70
+		Damage: 75
 	Warhead@3Eff: CreateEffect
 		Explosions: napalm
 		ImpactSounds: firebl3.aud
 		ImpactActors: false
+
+FlamerTD:
+    Inherits: ^FireWeapon
+	Range: 2c256
+    Report: flamer2.aud
+	Projectile: Bullet
+		Speed: 168
+	Warhead@1Dam: SpreadDamage
+		Damage: 50
+	Warhead@3Eff: CreateEffect
+		Explosions: small_napalm
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
+
+DualFlamerTD:
+    Inherits: FlamerTD
+	ReloadDelay: 50
+    Range: 1c768
+	Burst: 2
+	BurstDelays: 10
 
 Napalm:
 	Inherits: ^FireWeapon
@@ -76,7 +103,7 @@ PortaTesla:
 	ReloadDelay: 70
 	Range: 3c512
 	Warhead@1Dam: SpreadDamage
-		Damage: 45
+		Damage: 50
 
 TTankZap:
 	Inherits: TeslaZap
@@ -97,7 +124,7 @@ DogJaw:
 	TargetActorCenter: true
 	Projectile: InstantHit
 	Warhead@1Dam: TargetDamage
-		Damage: 100
+		Damage: 125
 		ValidTargets: Infantry
 		InvalidTargets: Ant
 		DamageTypes: DefaultDeath
@@ -120,7 +147,7 @@ Repair:
 	Report: fixit1.aud
 	ValidTargets: Repair
 	Warhead@1Dam: SpreadDamage
-		Damage: -80
+		Damage: -50
         DamageTypes: Repair
 		ValidTargets: Repair
 
@@ -246,3 +273,30 @@ AntFireball:
 	Warhead@1Dam: SpreadDamage
 		Spread: 341
 		Damage: 62
+
+ChronoAI:
+	ReloadDelay: 1
+	Projectile: InstantExplode
+	Warhead@2Eff: CreateEffect
+		Explosions: invisblank
+		ExplosionPalette: effect
+		ValidTargets: Ground, Air, Water
+		ImpactSounds: chrono2.aud
+	Warhead@teleport: SpawnActor
+		Actors: ctnk.chrono
+		Range: 1
+		Image:
+		Sequence:
+		ValidTargets: Air, Ground, Water
+	Warhead@3Flash: ChronoFlashEffect
+
+DropDummy:
+	ValidTargets: Ground
+	InvalidTargets: Infantry, Ship, Tank, Vehicle, Structure, Water Structure, Air
+	ReloadDelay: 50
+	Range: 4c0
+	Projectile: Bullet
+		Speed: 200
+	Warhead: SpreadDamage
+		Spread: 56
+		Damage: 1

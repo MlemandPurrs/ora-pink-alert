@@ -14,6 +14,11 @@ Players:
 		OwnsWorld: True
 		NonCombatant: True
 		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3
 	PlayerReference@Multi0:
 		Name: Multi0
 		Playable: True
@@ -24,11 +29,6 @@ Players:
 		Playable: True
 		Faction: Random
 		Enemies: Creeps
-	PlayerReference@Creeps:
-		Name: Creeps
-		NonCombatant: True
-		Faction: Random
-		Enemies: Multi0, Multi1, Multi2, Multi3
 	PlayerReference@Multi2:
 		Name: Multi2
 		Playable: True

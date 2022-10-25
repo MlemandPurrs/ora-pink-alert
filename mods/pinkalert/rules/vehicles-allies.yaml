@@ -108,7 +108,7 @@ HARV.EmptyHusk:
 	RenderSprites:
 		Image: hhusk2
 
-HARV.MineImmune
+HARV.MineImmune:
     Inherits: HARV
 	-SpawnActorOnDeath:
 	-HarvesterHuskModifier:
@@ -238,7 +238,10 @@ JEEP.Upgraded:
 		LoadingCondition: notmobile
 		#   EjectOnDeath: true
 		PassengerConditions:
+            medi: healaura
 			mech: selfrepair
+            e7: commando
+            volk: commando
     ChangesHealth@SelfRepair:
 		RequiresCondition: selfrepair
         Step: 20
@@ -248,6 +251,24 @@ JEEP.Upgraded:
 		RequiresCondition: unit.sellable && !loaded
 	SpawnActorOnDeath:
 		Actor: JEEP.Upgraded.Husk
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: commando
+	ProximityExternalCondition@healingaura:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	WithRangeCircle@healingaura:
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	GrantConditionOnPrerequisite@healingaura:
+		Condition: medicauraheal-upgraded
+		Prerequisites: medicauraheal.upgrade
     Selectable:
         Class: JEEP
     RenderSprites:
@@ -316,12 +337,33 @@ APC:
 		LoadingCondition: notmobile
 		#   EjectOnDeath: true
 		PassengerConditions:
+            medi: healaura
 			mech: selfrepair
+            e7: commando
+            volk: commando
     ChangesHealth@SelfRepair:
 		RequiresCondition: selfrepair
         Step: 20
 		Delay: 80
 		StartIfBelow: 101
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: commando
+	ProximityExternalCondition@healingaura:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	WithRangeCircle@healingaura:
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	GrantConditionOnPrerequisite@healingaura:
+		Condition: medicauraheal-upgraded
+		Prerequisites: medicauraheal.upgrade
 	SpawnActorOnDeath:
 		Actor: APC.Husk
 		OwnerType: InternalName
@@ -368,7 +410,7 @@ APC.Husk:
 		Speed: 90
         PauseOnCondition: emp-crate-collected
 	RevealsShroud:
-		Range: 4c0
+		Range: 5c0
 	Turreted:
 		TurnSpeed: 20
 	Armament:
@@ -559,13 +601,13 @@ ARTY:
 		Prerequisites: dome, ~techlevel.medium
 		Description: Long-range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
 	Valued:
-		Cost: 600
+		Cost: 700
 	Tooltip:
 		Name: Artillery
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 75
+		HP: 100
 	Armor:
 		Type: Light
 	Mobile:
@@ -574,7 +616,7 @@ ARTY:
 		Speed: 60
         PauseOnCondition: emp-crate-collected
 	RevealsShroud:
-		Range: 5c0
+		Range: 6c0
 	Armament:
 		Weapon: 155mm
 		LocalOffset: 624,0,208
@@ -733,7 +775,7 @@ STNK:
 		Speed: 100
 		PauseOnCondition: notmobile || emp-crate-collected
 	RevealsShroud:
-		Range: 5c0
+		Range: 7c0
 	AutoTarget:
 		InitialStance: HoldFire
 		InitialStanceAI: ReturnFire
@@ -821,19 +863,43 @@ STNK:
 		LoadingCondition: notmobile
         #   EjectOnDeath: true
 		PassengerConditions:
+            medi: healaura
 			mech: selfrepair
+            e7: commando
+            volk: commando
     ChangesHealth@SelfRepair:
 		RequiresCondition: selfrepair
         Step: 20
 		Delay: 80
 		StartIfBelow: 101
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: commando
+	ProximityExternalCondition@healingaura:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	WithRangeCircle@healingaura:
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	GrantConditionOnPrerequisite@healingaura:
+		Condition: medicauraheal-upgraded
+		Prerequisites: medicauraheal.upgrade
+    GrantCondition@noinvisheal:
+        Condition: no-invis-heal
+        RequiresCondition: healaura && medicauraheal-upgraded
 	Cloak:
 		InitialDelay: 25
 		CloakDelay: 250
 		CloakSound: appear1.aud
         CloakedCondition: cloaked
 		UncloakSound: appear1.aud
-		PauseOnCondition: cloak-force-disabled && emp-crate-collected
+		PauseOnCondition: cloak-force-disabled && emp-crate-collected && no-invis-heal
 		UncloakOn: Attack, Unload, Dock, Damage, Heal
         Palette:
         RequiresCondition: !notmobile
@@ -889,7 +955,7 @@ MRJ:
 		Prerequisites: dome, fix, ~techlevel.medium
 		Description: Jams nearby enemy radar domes.\nDoes not appear on enemy radar.\n  Unarmed
 	Health:
-		HP: 110
+		HP: 120
 	Armor:
 		Type: Light
 	Mobile:
@@ -924,7 +990,19 @@ MRJ:
 		CustomPipType: yellow
 	AppearsOnRadar:
 		ValidRelationships: Ally
-
+    #   Nice idea but obsoletified by the map hack
+	#   ProximityExternalCondition@AirRadar:
+	#	Range: 15c0
+	#	ValidRelationships: Enemy
+	#	Condition: in-airwarning-radius
+	#	RequiresCondition: airradar-upgraded
+    #   GrantConditionOnPrerequisite@AirRadar:
+	#	Condition: airradar-upgraded
+	#	Prerequisites: mrjairdetect.upgrade
+	#   WithRangeCircle@AirRadar:
+	#	RequiresCondition: airradar-upgraded
+	#	Range: 15c0
+ 
 MRJ.Husk:
 	Inherits: ^Husk
 	Tooltip:
@@ -952,7 +1030,7 @@ MGG:
 	Tooltip:
 		Name: Mobile Gap Generator
 	Health:
-		HP: 110
+		HP: 100
 	Armor:
 		Type: Light
 	Mobile:
@@ -1007,3 +1085,16 @@ MGG.Husk:
 		IntoActor: mgg
 	RenderSprites:
 		Image: mgg.destroyed
+
+CTNK.Chrono:
+	Inherits: CTNK
+	-Buildable:
+	-ActorLostNotification:
+	RenderSprites:
+		Image: ctnk
+	-MapEditorData:
+	GrantTimedCondition@warpin:
+		Condition: warpin
+		Duration: 2250
+	KillsSelf@warpout:
+		RequiresCondition: !warpin

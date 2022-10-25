@@ -307,6 +307,7 @@
 	Inherits@5: ^GenericSpeedModifier
 	Inherits@husks: ^GlobalUnitHusks
     Inherits@scrapmetal: ^GlobalScraps
+    Inherits@AICurtain: ^AICurtainHelper
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -400,7 +401,7 @@
 	ExternalCondition@THUMPSNARE:
 		Condition: thumpsnare
 	Carryable:
-		LocalOffset: 0,0,200
+		LocalOffset: 0,0,550
 
 ^SlowedByCrushing:
 	ExternalCondition@CRUSHATTEMPTSLOW:
@@ -848,7 +849,8 @@
 	Selectable:
 		Bounds: 24,24
 	Aircraft:
-		TakeOffOnCreation: false
+		TakeOffOnCreation: true
+        TakeOffOnResupply: true
 		AirborneCondition: airborne
 	Targetable@GROUND:
 		TargetTypes: Ground, Vehicle, DetonateAttack
@@ -916,7 +918,7 @@
 		Weapon: UnitExplodeAir
 		RequiresCondition: airborne && !global-unithusks
 	Repairable:
-		RepairActors: fix
+		RepairActors: fix, afld
 	Rearmable:
 		RearmActors: afld
 
@@ -949,8 +951,10 @@
 		AltitudeVelocity: 0c58
 		VTOL: true
 		CanSlide: True
-		TakeOffOnCreation: false
+		TakeOffOnCreation: true
+        TakeOffOnResupply: true
 		AirborneCondition: airborne
+        Crushes: crate, mine
 	Hovers@CRUISING:
 		RequiresCondition: cruising
 	Targetable@GROUND:
@@ -1015,7 +1019,7 @@
 		Weapon: UnitExplodeAir
 		RequiresCondition: airborne && !global-unithusks
 	Repairable:
-		RepairActors: fix
+		RepairActors: fix, hpad
 	Rearmable:
 		RearmActors: hpad
 
@@ -1093,6 +1097,8 @@
 	Inherits@2: ^InvulnerabilityApplicableBuilding
 	Inherits@3: ^BuildingAutoRepairs
     Inherits@husks: ^GlobalBuildingHusks
+    Inherits@aiboost: ^ProductionAIBoost
+    #   Inherits@AICurtain: ^AICurtainHelper
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -1110,10 +1116,12 @@
 		Types: building
 	SpawnActorsOnSell:
 		ActorTypes: e1,e1,e1,e1,e1,tecn,tecn_yellow
-    #   SpawnActorOnDeath:
-    #   Actor: e1
-    #   Probability: 33
-    #   SpawnAfterDefeat: false
+    SpawnRandomActorOnDeath:
+        Actors: e1, tecn, tecn_yellow
+        Probability: 33
+        SpawnAfterDefeat: false
+        EffectiveOwnerFromOwner: true
+        RequiresCondition: !global-buildinghusks
 	MustBeDestroyed:
 		RequiredForShortGame: true
 	Demolishable:
@@ -1181,9 +1189,19 @@
     CapturableProgressBlink:
 	TransformOnCapture:
 		ForceHealthPercentage: 30
+    SpawnRandomActorOnDeath:
+        Actors: e1, tecn, tecn_yellow
+        Probability: 33
+        SpawnAfterDefeat: false
+        EffectiveOwnerFromOwner: true
+        RequiresCondition: global-buildinghusks
+	GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
+		Condition: global-buildinghusks
+		Prerequisites: global-buildinghusks
 
 ^Defense:
 	Inherits: ^Building
+    -SpawnRandomActorOnDeath:
 	Targetable:
 		TargetTypes: Ground, C4, DetonateAttack, Structure, Defense
 	MustBeDestroyed:
@@ -1196,6 +1214,8 @@
 
 ^DefenseHusk:
 	Inherits@1: ^BuildingHusk
+    -SpawnRandomActorOnDeath:
+    -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
 	Health:
 		HP: 200
 	Explodes:
@@ -1253,6 +1273,7 @@
     Inherits@infiltration: ^InfiltratableFake
 	-GivesBuildableArea:
     -SpawnActorOnDeath:
+    -SpawnRandomActorOnDeath:
     -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
 	Health:
 		HP: 30
@@ -1348,6 +1369,7 @@
 		ShowOwnerRow: True
 	MapEditorData:
 		Categories: Tech building
+        -ExcludeTilesets:
 	AppearsOnMapPreview:
     -RenderSprites:
 	RenderSprites:
@@ -1949,7 +1971,7 @@
 ^KilledWithoutAirfield:
 	ChangesHealth@PLANE:
 		Step: 0
-		PercentageStep: -5
+		PercentageStep: -10
 		Delay: 25
 		StartIfBelow: 101
 		DamageCooldown: 0
@@ -2064,3 +2086,35 @@
 		Categories: Decoration
 	RequiresSpecificOwners:
 		ValidOwnerNames: Neutral
+
+^AICurtainHelper:
+	GrantConditionOnBotOwner@ichelper:
+		Condition: curtain-targeting
+		Bots: normal
+	GrantConditionOnDamageState@ichelper:
+		Condition: curtain-eligible
+		ValidDamageStates: Medium, Heavy, Critical
+	Targetable@ichelper:
+		TargetTypes: ICTarget
+		RequiresCondition: curtain-targeting && curtain-eligible
+
+^CommandoSkull:
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally, Enemy, Neutral
+
+^AirRadarWarnable:
+	RevealsShroud@AirRadar:
+		ValidRelationships: Enemy
+		Range: 3c512
+		Type: CenterPosition
+		RevealGeneratedShroud: false
+		RequiresCondition: in-airwarning-radius
+	AnnounceOnSeen@AirRadar:
+		PingRadar: true
+		Notification: EnemyDetected
+	ExternalCondition@AirRadar:
+		Condition: in-airwarning-radius

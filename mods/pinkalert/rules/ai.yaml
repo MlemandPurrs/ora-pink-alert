@@ -155,36 +155,84 @@ Player:
 					Attractiveness: 1
 					TargetMetric: None
 					CheckRadius: 10c0
-	HarvesterBotModule@common:
+			UseFakeNuke:
+				OrderName: NukeMissileFake
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			UseChronoShiftAI:
+				OrderName: ChronoShiftAI
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			UseInvulnerability:
+				OrderName: IronCurtainPower
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Ally
+					Types: ICTarget
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 1c0
+	HarvesterBotModule@normal:
 		RequiresCondition: enable-normal-ai
 		HarvesterTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune
 		RefineryTypes: proc
-	BuildingRepairBotModule@common:
+	BuildingRepairBotModule@normal:
 		RequiresCondition: enable-normal-ai
-	McvManagerBotModule@common:
+	McvManagerBotModule@normal:
 		RequiresCondition: enable-normal-ai
 		McvTypes: mcv
 		ConstructionYardTypes: fact
 		McvFactoryTypes: weap
+        MaxBaseRadius: 40
+	CaptureManagerBotModule@engineer:
+		RequiresCondition: enable-normal-ai
+		CapturingActorTypes: e6
+		CapturableActorTypes: v19,bio,hosp,expb,rpad,miss
+		CheckCaptureTargetsForVisibility: false
+		MaximumCaptureTargetOptions: 15
 	BaseBuilderBotModule@normal:
 		RequiresCondition: enable-normal-ai
 		BuildingQueues: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
 		DefenseQueues: Defense.Allies, Defense.Soviet, ClassicDefense.Allies, ClassicDefense.Soviet
 		MinimumExcessPower: 60
         MaximumExcessPower: 120
-		ExcessPowerIncrement: 30
-		ExcessPowerIncreaseThreshold: 2
+		ExcessPowerIncrement: 40
+		ExcessPowerIncreaseThreshold: 4
+        CheckForWaterRadius: 8
 		ConstructionYardTypes: fact
 		RefineryTypes: proc
 		PowerTypes: powr, apwr
 		BarracksTypes: barr, tent
 		VehiclesFactoryTypes: weap
-		ProductionTypes: barr, tent, weap
+		ProductionTypes: barr, tent, weap, hpad, afld
 		NavalProductionTypes: spen, syrd
 		SiloTypes: silo
         PlaceDefenseTowardsEnemyChance: 75
         MaximumDefenseRadius: 10
         MaximumFailedPlacementAttempts: 2
+        MaxBaseRadius: 26
 		BuildingLimits:
 			proc: 4
 			barr: 3
@@ -200,6 +248,9 @@ Player:
 			stek: 1
             fcom: 1
 			fix: 1
+            mslf: 1
+            pdox: 1
+            iron: 1
 		BuildingFractions:
 			proc: 10
 			powr: 1
@@ -226,17 +277,29 @@ Player:
 			stek: 1
             fcom: 1
 			mslo: 1
-	SquadManagerBotModule@normal:
+            mslf: 1
+            pdox: 1
+            iron: 1
+	SquadManagerBotModule@land:
 		RequiresCondition: enable-normal-ai
 		SquadSize: 16
         SquadSizeRandomBonus: 8
         RushInterval: 400
         AttackScanRadius: 16
-		ExcludeFromSquadsTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune, mcv, mnly
+		ExcludeFromSquadsTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune, mcv, mnly, tran, hip, yak, mig, heli, hind, nebr, lst, e6
 		NavalUnitsTypes: ss, ssfk, msub, nsub, dd, ca, lst, pt, dred
 		ConstructionYardTypes: fact
 		NavalProductionTypes: spen, syrd
         IgnoredEnemyTargetTypes: IgnoreThis
+	SquadManagerBotModule@air:
+		RequiresCondition: enable-normal-ai
+		SquadSize: 1
+		SquadSizeRandomBonus: 2
+		RushInterval: 400
+		AttackScanRadius: 48
+		ExcludeFromSquadsTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune, mcv, mnly, jeep, brdm, apc, hapc, 1tnk, 1tnk.upgraded, 2tnk, 3tnk, 3tnk.upgraded, 4tnk, 5tnk, arty, v2rl, mrj, mgg, truk, dtrk, stnk, ttnk, ctnk, qtnk, e1, e2, e3, e4, e7, volk, spy, dog, medi, mech, shok, tecn, tecn_yellow, chan, pt, dd, ca, dred, lst, ss, ssfk, msub, nsub
+		ConstructionYardTypes: fact
+		IgnoredEnemyTargetTypes: Submarine, IgnoreThis
 	UnitBuilderBotModule@normal:
 		RequiresCondition: enable-normal-ai
         IdleBaseUnitsMaximum: 16
@@ -246,10 +309,13 @@ Player:
 			e2: 25
 			e3: 40
 			e4: 15
+            e6: 1
             e7: 1
             volk: 1
 			dog: 15
 			shok: 15
+            medi: 5
+            mech: 5
 			harv: 10
             ahrv: 10
 			jeep: 40
@@ -267,10 +333,10 @@ Player:
             ctnk: 10
 			stnk: 10
             gtnk: 10
-			heli.ai: 30
-			hind.ai: 30
-			mig.ai: 30
-			yak.ai: 30
+			heli: 30
+			hind: 30
+			mig: 30
+			yak: 30
 			ss: 10
             ssfk: 5
 			msub: 10
@@ -286,8 +352,11 @@ Player:
             ahrv: 8
             harv.mineimmune: 8
             ahrv.mineimmune: 8
+            e6: 2
             e7: 1
             volk: 1
+            medi: 3
+            mech: 3
             heli: 8
             hind: 8
             mig: 8
@@ -301,4 +370,4 @@ Player:
             msub: 4
             nsub: 1
             5tnk: 1
-            helidepth.upgrade: 1
+            heavytank.upgrade: 1

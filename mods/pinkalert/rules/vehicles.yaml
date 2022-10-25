@@ -17,7 +17,7 @@ MCV:
 		DecorationBounds: 42,42
 	SelectionDecorations:
 	Health:
-		HP: 1000
+		HP: 1500
 	Armor:
 		Type: Light
 	Mobile:
@@ -154,7 +154,7 @@ DTRK:
 		Speed: 80
         PauseOnCondition: emp-crate-collected
 	RevealsShroud:
-		Range: 3c0
+		Range: 4c0
 	Explodes:
 		Weapon: MiniNuke
 		EmptyWeapon: MiniNuke

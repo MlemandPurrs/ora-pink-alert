@@ -15,9 +15,7 @@ MEDI:
 	Tooltip:
 		Name: Medic
 	Health:
-		HP: 80
-	RevealsShroud:
-		Range: 3c0
+		HP: 60
 	Armament:
 		Weapon: Heal
 		Cursor: heal
@@ -62,6 +60,13 @@ MEDI:
 SPY:
 	Inherits: ^Soldier
     Inherits@ROT: ^RottingInfantry
+    Inherits@COMMANDOSKULL: ^CommandoSkull
+	WithDecoration@COMMANDOSKULL:
+		RequiresCondition: commandodisguise
+	Disguise:
+		DisguisedAsConditions:
+			e7: commandodisguise
+            volk: commandodisguise
 	Buildable:
 		Queue: ClassicInfantry.Allies, Infantry.Allies
 		BuildAtProductionType: Soldier
@@ -103,7 +108,7 @@ SPY:
 		RequiresCondition: disguise
 	IgnoresDisguise:
 	RevealsShroud:
-		Range: 5c0
+		Range: 4c0
 	Mobile:
 		Voice: Move
 	Passenger:
@@ -159,7 +164,7 @@ THF:
 	Selectable:
 		Class: THF
 	RevealsShroud:
-		Range: 5c0
+		Range: 4c0
 	Passenger:
 		CustomPipType: blue
 	Infiltrates:
@@ -185,6 +190,7 @@ E7:
 	Inherits: ^Soldier
     Inherits@ROT: ^RottingInfantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@COMMANDOSKULL: ^CommandoSkull
 	Buildable:
 		Queue: ClassicInfantry.Allies, Infantry.Allies
 		BuildAtProductionType: Soldier
@@ -212,7 +218,7 @@ E7:
 	Guard:
 		Voice: Move
 	RevealsShroud:
-		Range: 6c0
+		Range: 5c0
 	Demolition:
 		DetonationDelay: 45
 		Voice: Demolish
@@ -265,3 +271,6 @@ E7:
         Cursor: enter-yellow-flipped
 		Payload: 300
 		Type: InfantryRefund
+    -Crushable:
+    -GrantExternalConditionToCrusher@CRUSHATTEMPTSLOW:
+    -GrantExternalConditionToCrusher@CRUSHSLOW:

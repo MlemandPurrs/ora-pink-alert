@@ -12,7 +12,7 @@ MISS:
 		Dimensions: 3,2
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 400
+		HP: 800
 	RevealsShroud:
 		Range: 10c0
 	Armor:
@@ -59,7 +59,7 @@ HOSP:
 		Dimensions: 2,2
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 400
+		HP: 600
 	Tooltip:
 		Name: Hospital
 	TooltipDescription@ally:
@@ -167,7 +167,7 @@ EXPB:
 		Dimensions: 2,2
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 250
+		HP: 600
 	Tooltip:
 		Name: Expansion Post
 	RevealsShroud:
@@ -222,7 +222,7 @@ RPAD:
 		Footprint: ++ ++
 		Dimensions: 2,2
 	Health:
-		HP: 250
+		HP: 600
 	Tooltip:
 		Name: Reinforcements Pad
 	TooltipDescription@ally:

@@ -51,6 +51,7 @@ explosion:
 		UseTilesetExtension: true
 		TilesetOverrides:
 			INTERIOR: TEMPERAT
+    invisblank: empty
 
 burn-l:
 	idle:
@@ -141,6 +142,8 @@ pips:
 		Length: *
 		Offset: 0, -6
 		Tick: 300
+	pip-skull: pip-skull
+		Offset: -2, 0
 	tag-hold:
 		Start: 4
         Offset: 0, 2
@@ -185,6 +188,9 @@ beacon:
 		Length: *
 		Offset: 0,-42
 	clock: beaconclock
+		Length: *
+		Offset: 0,-42
+    spybcon: spybcon
 		Length: *
 		Offset: 0,-42
 
@@ -510,6 +516,7 @@ icon:
 	gps: gpssicon
 	parabombs: pbmbicon
 	sonar: sonricon
+    paraspy: spydropicon
 
 quee:
 	idle:
@@ -685,6 +692,9 @@ alliesupgrades.combined:
     armedspy: spyicon
     helidepth: heliicon
     amphibian: 1tnkicon
+    mrjupgrade: mrjupgicon
+    medicauraheal: mediicon
+    trancarry: tranicon
 
 sovietupgrades.combined:
     heavytank: 3tnkicon

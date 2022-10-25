@@ -12,7 +12,7 @@ FACT:
 		Prerequisites: ~disabled
 		Description: Produces Structures and Defenses.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
 	Health:
-		HP: 1000
+		HP: 1500
 	Armor:
 		Type: Heavy
 	RevealsShroud:
@@ -267,7 +267,7 @@ APWR:
 		DecorationBounds: 72,68,0,-10
 	SelectionDecorations:
 	Health:
-		HP: 700
+		HP: 600
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -334,7 +334,7 @@ PROC:
 		DecorationBounds: 72,70,0,-2
 	SelectionDecorations:
 	Health:
-		HP: 900
+		HP: 800
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -526,7 +526,7 @@ TENT:
 		Dimensions: 2,3
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 800
+		HP: 600
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -600,6 +600,7 @@ TENT:
 		Range: 2c512
 	WithRangeCircle:
 		Range: 2c512
+        RequiresCondition: !build-incomplete
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
 	SpawnActorOnDeath:
@@ -644,7 +645,7 @@ BARR:
 		Dimensions: 2,3
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 800
+		HP: 600
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -728,6 +729,7 @@ BARR:
 		Range: 2c512
 	WithRangeCircle:
 		Range: 2c512
+        RequiresCondition: !build-incomplete
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
 	SpawnActorOnDeath:
@@ -758,7 +760,7 @@ WEAP:
 		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
 		BuildDuration: 2000
 		BuildPaletteOrder: 5
-		Prerequisites: proc, ~techlevel.low
+		Prerequisites: anypower, ~techlevel.low
 		Description: Produces Vehicles.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
 	Valued:
 		Cost: 2000
@@ -989,7 +991,7 @@ SYRD:
 		TerrainTypes: Water
 	-GivesBuildableArea:
 	Health:
-		HP: 1000
+		HP: 900
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1098,7 +1100,12 @@ SYRD:
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
 	-SpawnActorOnDeath:
+    -SpawnRandomActorOnDeath:
     -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
+	DetectCloaked:
+		CloakTypes: Underwater
+		Range: 7c512
+	RenderDetectionCircle:
 
 SPEN:
 	Inherits: ^Building
@@ -1120,7 +1127,7 @@ SPEN:
 		TerrainTypes: Water
 	-GivesBuildableArea:
 	Health:
-		HP: 1000
+		HP: 900
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1227,7 +1234,12 @@ SPEN:
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
 	-SpawnActorOnDeath:
+    -SpawnRandomActorOnDeath:
     -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
+	DetectCloaked:
+		CloakTypes: Underwater
+		Range: 7c512
+	RenderDetectionCircle:
 
 HPAD:
 	Inherits: ^Building
@@ -1253,7 +1265,7 @@ HPAD:
 		Dimensions: 2,2
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 800
+		HP: 600
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1313,19 +1325,7 @@ HPAD:
 	GrantDelayedCondition:
 		Delay: 1
 		Condition: updatequeue
-	ProductionFromMapEdge@ClassicAircraft:
-		Produces: ClassicAircraft.Allies, ClassicAircraft.Soviet, Helicopter
-		RequiresCondition: !multiqueue && !availablehpads
-	ProductionFromMapEdge:
-		Produces: Aircraft.Allies, Aircraft.Soviet, Helicopter
-		RequiresCondition: multiqueue && !availablehpads
 	Reservable:
-	GrantConditionOnPrerequisite@PFME:
-		Condition: availablehpads
-		Prerequisites: availablehpads
-	ProvidesPrerequisite@PFME:
-		Prerequisite: availablehpads
-		RequiresCondition: !unit.docked
 	ProximityExternalCondition:
 		Condition: unit.sellable
 		Range: 1c0
@@ -1417,7 +1417,7 @@ AFLD:
 		Footprint: X++ xxx
 		Dimensions: 3,2
 	Health:
-		HP: 1000
+		HP: 800
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1426,6 +1426,10 @@ AFLD:
 	Exit@1:
 		ExitCell: 1,1
 		Facing: 768
+        ProductionTypes: ClassicAircraft.Soviet, Aircraft.Soviet, Airplane
+	Exit@2:
+		ExitCell: 0,0
+		Facing: 256
         ProductionTypes: ClassicAircraft.Soviet, Aircraft.Soviet, Airplane
 	Production@ClassicSovietAircraft:
 		Produces: ClassicAircraft.Soviet, Airplane
@@ -1464,7 +1468,7 @@ AFLD:
 	ParatroopersPower@paratroopers:
         PauseOnCondition: lowpower
 		OrderName: SovietParatroopers
-		Prerequisites: infantryproduction, ~techlevel.medium
+		Prerequisites: infantryproduction, ~techlevel.medium, ~player.soviet
 		Icon: paratroopers
 		ChargeInterval: 6750
 		Description: Paratroopers
@@ -1485,7 +1489,7 @@ AFLD:
 	ParatroopersPower@paratroopers-directional:
         PauseOnCondition: lowpower
 		OrderName: SovietParatroopersDirectional
-		Prerequisites: infantryproduction, ~techlevel.medium
+		Prerequisites: infantryproduction, ~techlevel.medium, ~player.soviet
 		Icon: paratroopers
 		ChargeInterval: 6750
 		Description: Paratroopers
@@ -1582,7 +1586,7 @@ DOME:
 		Dimensions: 2,2
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 1000
+		HP: 1200
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1600,12 +1604,13 @@ DOME:
 		Amount: -45
         RequiresCondition: !build-incomplete
 	DetectCloaked:
-		Range: 5c0
+		Range: 7c512
         RequiresCondition: !lowpower && !build-incomplete
+    RenderDetectionCircle:
 	AirstrikePower@spyplane:
         PauseOnCondition: lowpower
 		OrderName: SovietSpyplane
-		Prerequisites: afld, ~techlevel.medium
+		Prerequisites: afld, ~techlevel.medium, ~player.soviet
 		Icon: spyplane
 		ChargeInterval: 4500
 		Description: Spy Plane
@@ -1626,7 +1631,7 @@ DOME:
 	AirstrikePower@spyplane-directional:
         PauseOnCondition: lowpower
 		OrderName: SovietSpyplaneDirectional
-		Prerequisites: afld, ~techlevel.medium
+		Prerequisites: afld, ~techlevel.medium, ~player.soviet
 		Icon: spyplane
 		ChargeInterval: 4500
 		Description: Spy Plane
@@ -1646,6 +1651,51 @@ DOME:
 		DirectionArrowAnimation: paradirection
 		RequiresCondition: directional-abilities
         SupportPowerPaletteOrder: 5
+	ParatroopersPower@paradropspy:
+        PauseOnCondition: lowpower
+		OrderName: ParadropSpy
+		Prerequisites: dome, atek, ~techlevel.high, ~player.allies, ~!aitoodumb
+		Icon: paraspy
+		ChargeInterval: 9000
+		Description: Spy Drop
+		LongDesc: A Chinook drops a Spy\nanywhere on the map.
+		UnitType: tran.paradrop
+        DropItems: SPY
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: spybcon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		RequiresCondition: !directional-abilities
+        SupportPowerPaletteOrder: 5
+        Cursor: airdrop
+	ParatroopersPower@paradropspy-directional:
+        PauseOnCondition: lowpower
+		OrderName: ParadropSpyDirectional
+		Prerequisites: dome, atek, ~techlevel.high, ~player.allies, ~!aitoodumb
+		Icon: paraspy
+		ChargeInterval: 9000
+		Description: Spy Drop
+		LongDesc: A Chinook drops a Spy\nanywhere on the map.
+        UnitType: tran.paradrop
+		DropItems: SPY
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: spybcon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+        DirectionArrowAnimation: paradirection
+		RequiresCondition: directional-abilities
+        SupportPowerPaletteOrder: 5
+        Cursor: airdrop
 	GrantConditionOnPrerequisite@GLOBALDIRECTIONALABILITY:
 		Condition: directional-abilities
 		Prerequisites: global-directional-abilities
@@ -1706,7 +1756,7 @@ ATEK:
 		Dimensions: 2,2
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 400
+		HP: 600
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1820,7 +1870,7 @@ STEK:
 		Dimensions: 3,2
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 600
+		HP: 800
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1922,7 +1972,7 @@ FCOM:
 	Tooltip:
 		Name: Command Post
 	Health:
-		HP: 400
+		HP: 600
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1933,7 +1983,7 @@ FCOM:
 	AirstrikePower@parabombs:
         PauseOnCondition: lowpower
 		OrderName: SovietParabombs
-		Prerequisites: afld, ~techlevel.high
+		Prerequisites: afld, ~techlevel.high, ~player.soviet
 		Icon: parabombs
 		ChargeInterval: 7500
 		Description: Parabombs
@@ -1955,7 +2005,7 @@ FCOM:
 	AirstrikePower@parabombs-directional:
         PauseOnCondition: lowpower
 		OrderName: SovietParabombsDirectional
-		Prerequisites: afld, ~techlevel.high
+		Prerequisites: afld, ~techlevel.high, ~player.soviet
 		Icon: parabombs
 		ChargeInterval: 7500
 		Description: Parabombs

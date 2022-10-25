@@ -12,7 +12,7 @@ ProducedUnitTypes =
 	{ factory = ABarracks1, types = { "e1", "e1", "e1", "e3", "e3" } },
 	{ factory = SBarracks1, types = { "e1", "e1", "e2", "e3", "e3" } },
 	{ factory = SKennel1, types = { "dog" } },
-	{ factory = ANavalYard1, types = { "pt" } },
+	{ factory = ANavalYard1, types = { "pt", "dd", "dd", "pt" } },
 	{ factory = SSubPen1, types = { "ss" } }
 }
 

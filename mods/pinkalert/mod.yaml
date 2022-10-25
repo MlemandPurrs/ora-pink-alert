@@ -61,6 +61,9 @@ Packages:
 
 MapFolders:
 	pinkalert|originalmaps: System
+    #   ! Warning ! 
+    #   Loading may take long on weaker machines
+    #   Uncomment line below to make it read all maps
     pinkalert|openramaps: System
 	~^SupportDir|maps/pinkalert: User
 
@@ -89,7 +92,7 @@ Rules:
 	pinkalert|rules/navy.yaml
     pinkalert|rules/upgrades.yaml
     pinkalert|rules/civilian.yaml
-    pinkalert|rules/ai-duplicates.yaml
+    #   pinkalert|rules/ai-duplicates.yaml
 
 Sequences:
 	pinkalert|sequences/ships.yaml
