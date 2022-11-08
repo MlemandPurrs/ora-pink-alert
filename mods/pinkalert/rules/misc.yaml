@@ -38,6 +38,7 @@ CRATE:
 	HideMapCrateAction:
 		SelectionShares: 1
 		Sequence: hide-map
+        RequiresCondition: !noharmful
 	RevealMapCrateAction:
 		SelectionShares: 1
 		Sequence: reveal-map
@@ -45,14 +46,17 @@ CRATE:
 		SelectionShares: 3
 		Proxy: powerproxy.parabombs.crate
 		Sequence: parabombs
+        RequiresCondition: !noaircraft
 	SupportPowerCrateAction@sonar:
 		SelectionShares: 3
 		Proxy: powerproxy.sonarpulse.crate
 		Sequence: sonar
+        RequiresCondition: !nonaval
 	SupportPowerCrateAction@abomb:
 		SelectionShares: 1
 		Proxy: powerproxy.abomb.crate
 		Sequence: nuke
+        RequiresCondition: !nosuperweapons
 	GiveMcvCrateAction:
 		SelectionShares: 0
 		NoBaseSelectionShares: 100
@@ -190,7 +194,7 @@ CRATE:
 		Sound: madexplo.aud
 		Condition: death-crate-collected
         RequiresCondition: !noharmful
-	ExplodeCrateAction@nuke:
+	ExplodeCrateAction@nukexplosion:
 		Weapon: CrateNuke
 		SelectionShares: 1
         RequiresCondition: !noharmful
@@ -200,16 +204,27 @@ CRATE:
 	GrantConditionOnPrerequisite@Noharmful:
 		Condition: noharmful
 		Prerequisites: global-noharmful
+	GrantConditionOnPrerequisite@Noaircraft:
+		Condition: noaircraft
+		Prerequisites: global-noaircraft
+	GrantConditionOnPrerequisite@Nonaval:
+		Condition: nonaval
+		Prerequisites: global-disablenavy
+	GrantConditionOnPrerequisite@Nosuperweapons:
+		Condition: nosuperweapons
+		Prerequisites: global-superweapons
 	GiveUnitCrateAction@pt:
 		SelectionShares: 3
 		Units: pt
 		ValidFactions: allies, england, germany, france, spain
         Prerequisites: techlevel.low
+        RequiresCondition: !nonaval
 	GiveUnitCrateAction@ss:
 		SelectionShares: 3
 		Units: ss
 		ValidFactions: soviet, russia, ukraine, belarus, kazakh
         Prerequisites: techlevel.low
+        RequiresCondition: !nonaval
 	GiveUnitCrateAction@horde:
 		SelectionShares: 3
 		Units: tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn
@@ -838,6 +853,7 @@ building-fcom:
     ProvidesPrerequisite:
         Prerequisite: fcom
 
+# For MQ, ensures production tabs are updated properly
 QueueUpdaterDummy:
 	AlwaysVisible:
 	ProvidesPrerequisite:
@@ -870,3 +886,50 @@ dummy.qtnk:
 	WithSpriteBody:
 	RenderSpritesEditorOnly:
 		Image: camera
+
+techlevel.2:
+	AlwaysVisible:
+	Interactable:
+	ProvidesPrerequisite@name:
+
+techlevel.3:
+	AlwaysVisible:
+	Interactable:
+	ProvidesPrerequisite@name:
+
+techlevel.4:
+	AlwaysVisible:
+	Interactable:
+	ProvidesPrerequisite@name:
+
+techlevel.5:
+	AlwaysVisible:
+	Interactable:
+	ProvidesPrerequisite@name:
+
+techlevel.6:
+	AlwaysVisible:
+	Interactable:
+	ProvidesPrerequisite@name:
+
+techlevel.7:
+	AlwaysVisible:
+	Interactable:
+	ProvidesPrerequisite@name:
+
+techlevel.all:
+	AlwaysVisible:
+	Interactable:
+    ProvidesPrerequisite@name:
+	ProvidesPrerequisite@TECHII:
+        Prerequisite: techlevel.2
+	ProvidesPrerequisite@TECHIII:
+        Prerequisite: techlevel.3
+	ProvidesPrerequisite@TECHIV:
+        Prerequisite: techlevel.4
+	ProvidesPrerequisite@TECHV:
+        Prerequisite: techlevel.5
+	ProvidesPrerequisite@TECHVI:
+        Prerequisite: techlevel.6
+	ProvidesPrerequisite@TECHVII:
+        Prerequisite: techlevel.7

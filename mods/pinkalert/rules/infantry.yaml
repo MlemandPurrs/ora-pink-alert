@@ -4,7 +4,7 @@ E1:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
 	Buildable:
-		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 100
 		BuildPaletteOrder: 1
@@ -57,6 +57,18 @@ E1:
         Cursor: enter-yellow-flipped
 		Payload: 25
 		Type: InfantryRefund
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 E3:
 	Inherits: ^Soldier
@@ -64,11 +76,11 @@ E3:
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
 	Buildable:
-		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 300
 		BuildPaletteOrder: 2
-		Prerequisites: vehicleproduction, ~techlevel.low, ~!global-squadenabled
+		Prerequisites: vehicleproduction, ~techlevel.low, ~!global-squadenabled, ~techlevel.2
 		Description: Anti-tank/Anti-aircraft infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
 	Selectable:
 		Class: E3
@@ -139,16 +151,28 @@ E3:
         Cursor: enter-yellow-flipped
 		Payload: 75
 		Type: InfantryRefund
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 MECH:
 	Inherits: ^Soldier
     Inherits@ROT: ^RottingInfantry
 	Buildable:
-		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 450
 		BuildPaletteOrder: 4
-		Prerequisites: fix, ~techlevel.medium
+		Prerequisites: fix, ~techlevel.medium, ~techlevel.4
 		Description: Repairs nearby vehicles.\nRepairs the Transport when inside.\n  Unarmed
 	Selectable:
 		Class: MECH
@@ -200,16 +224,28 @@ MECH:
         Cursor: enter-yellow-flipped
 		Payload: 112
 		Type: InfantryRefund
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 E6:
 	Inherits: ^Soldier
     Inherits@ROT: ^RottingInfantry
 	Buildable:
-		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 500
 		BuildPaletteOrder: 5
-		Prerequisites: proc, ~techlevel.low
+		Prerequisites: proc, ~techlevel.low, ~techlevel.3
 		Description: Captures enemy structures.\n  Unarmed
 	Selectable:
 		Priority: 5
@@ -254,6 +290,18 @@ E6:
 	CaptureManager:
 	Passenger:
 		CustomPipType: blue
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 EINSTEIN:
 	Inherits: ^CivInfantry
@@ -324,7 +372,7 @@ ANT:
 		Name: Giant Ant
 		GenericName: Ant
 	Buildable:
-		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 1954
 		Prerequisites: ~bio, ~disabled
@@ -349,7 +397,7 @@ ANT:
 
 #   Experimental squad production
 
-E1.squad.allies:
+E1.squad.sq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
@@ -358,34 +406,7 @@ E1.squad.allies:
 	Tooltip:
 		Name: Squad: Soldier
 	Buildable:
-		Queue: Infantry.Allies
-		BuildPaletteOrder: 1
-        Prerequisites: infantryproduction, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
-		Description: Deploys a squad of four\ngeneral-purpose infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
-        Icon: e1icon
-    Valued:
-		Cost: 225
-	RenderSprites:
-		Image: production.infantry
-	Armor:
-		Type: None
-	ProduceActorPower@Multiqueue:
-		Actors: e1, e1, e1, e1
-		Type: Infantry.Soviet
-		OneShot: true
-		AutoFire: true
-		AllowMultiple: true
-
-E1.squad.allies.classic:
-	Inherits@AI: ^ProductionAIBoost
-	AlwaysVisible:
-	Interactable:
-	ScriptTriggers:
-	ProvidesPrerequisite@squadname:
-	Tooltip:
-		Name: Squad: Soldier
-	Buildable:
-		Queue: ClassicInfantry.Allies
+		Queue: InfantrySQ
 		BuildPaletteOrder: 1
         Prerequisites: infantryproduction, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
 		Description: Deploys a squad of four\ngeneral-purpose infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
@@ -396,14 +417,22 @@ E1.squad.allies.classic:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Classicqueue:
+	ProduceActorPower@INFSQ:
 		Actors: e1, e1, e1, e1
-		Type: ClassicInfantry.Allies
+		Type: InfantrySQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
 
-E1.squad.soviet:
+E1.squad.mq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
@@ -412,7 +441,7 @@ E1.squad.soviet:
 	Tooltip:
 		Name: Squad: Soldier
 	Buildable:
-		Queue: Infantry.Soviet
+		Queue: InfantryMQ
 		BuildPaletteOrder: 1
         Prerequisites: infantryproduction, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
 		Description: Deploys a squad of four\ngeneral-purpose infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
@@ -423,41 +452,53 @@ E1.squad.soviet:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Multiqueue:
+	ProduceActorPower@INFMQ:
 		Actors: e1, e1, e1, e1
-		Type: Infantry.Soviet
+		Type: InfantryMQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
-E1.squad.soviet.classic:
+E3.squad.sq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
 	ScriptTriggers:
 	ProvidesPrerequisite@squadname:
 	Tooltip:
-		Name: Squad: Soldier
+		Name: Squad: Rocket Soldier
 	Buildable:
-		Queue: ClassicInfantry.Soviet
-		BuildPaletteOrder: 1
-        Prerequisites: infantryproduction, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
-		Description: Deploys a squad of four\ngeneral-purpose infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
-        Icon: e1icon
+		Queue: InfantrySQ
+		BuildPaletteOrder: 2
+        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue, ~techlevel.2
+		Description: Deploys a pair of\nAnti-tank infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+        Icon: e3icon
     Valued:
-		Cost: 225
+		Cost: 450
 	RenderSprites:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Classicqueue:
-		Actors: e1, e1, e1, e1
-		Type: ClassicInfantry.Soviet
+	ProduceActorPower@INFSQ:
+		Actors: e3, e3
+		Type: InfantrySQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
 
-E3.squad.allies:
+E3.squad.mq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
@@ -466,9 +507,9 @@ E3.squad.allies:
 	Tooltip:
 		Name: Squad: Rocket Soldier
 	Buildable:
-		Queue: Infantry.Allies
+		Queue: InfantryMQ
 		BuildPaletteOrder: 2
-        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
+        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~global-multiqueue, ~techlevel.2
 		Description: Deploys a pair of\nAnti-tank infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
         Icon: e3icon
     Valued:
@@ -477,90 +518,13 @@ E3.squad.allies:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Multiqueue:
+	ProduceActorPower@INFMQ:
 		Actors: e3, e3
-		Type: Infantry.Allies
+		Type: InfantryMQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
- 
-E3.squad.allies.classic:
-	Inherits@AI: ^ProductionAIBoost
-	AlwaysVisible:
-	Interactable:
-	ScriptTriggers:
-	ProvidesPrerequisite@squadname:
-	Tooltip:
-		Name: Squad: Rocket Soldier
-	Buildable:
-		Queue: ClassicInfantry.Allies
-		BuildPaletteOrder: 2
-        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
-		Description: Deploys a pair of\nAnti-tank infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
-        Icon: e3icon
-    Valued:
-		Cost: 450
-	RenderSprites:
-		Image: production.infantry
-	Armor:
-		Type: None
-	ProduceActorPower@Classicqueue:
-		Actors: e3, e3
-		Type: ClassicInfantry.Allies
-		OneShot: true
-		AutoFire: true
-		AllowMultiple: true
-
-E3.squad.soviet:
-	Inherits@AI: ^ProductionAIBoost
-	AlwaysVisible:
-	Interactable:
-	ScriptTriggers:
-	ProvidesPrerequisite@squadname:
-	Tooltip:
-		Name: Squad: Rocket Soldier
-	Buildable:
-		Queue: Infantry.Soviet
-		BuildPaletteOrder: 2
-        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
-		Description: Deploys a pair of\nAnti-tank infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
-        Icon: e3icon
-    Valued:
-		Cost: 450
-	RenderSprites:
-		Image: production.infantry
-	Armor:
-		Type: None
-	ProduceActorPower@Multiqueue:
-		Actors: e3, e3
-		Type: Infantry.Soviet
-		OneShot: true
-		AutoFire: true
-		AllowMultiple: true
- 
-E3.squad.soviet.classic:
-	Inherits@AI: ^ProductionAIBoost
-	AlwaysVisible:
-	Interactable:
-	ScriptTriggers:
-	ProvidesPrerequisite@squadname:
-	Tooltip:
-		Name: Squad: Rocket Soldier
-	Buildable:
-		Queue: ClassicInfantry.Soviet
-		BuildPaletteOrder: 2
-        Prerequisites: vehicleproduction, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
-		Description: Deploys a pair of\nAnti-tank infantry.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
-        Icon: e3icon
-    Valued:
-		Cost: 450
-	RenderSprites:
-		Image: production.infantry
-	Armor:
-		Type: None
-	ProduceActorPower@Classicqueue:
-		Actors: e3, e3
-		Type: ClassicInfantry.Soviet
-		OneShot: true
-		AutoFire: true
-		AllowMultiple: true
+     ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ

@@ -137,7 +137,7 @@ Heal:
 	TargetActorCenter: true
 	Projectile: InstantHit
 	Warhead@1Dam: TargetDamage
-		Damage: -50
+		Damage: -60
 		ValidRelationships: Ally
 		ValidTargets: Heal
 		DebugOverlayColor: 00FF00
@@ -147,7 +147,7 @@ Repair:
 	Report: fixit1.aud
 	ValidTargets: Repair
 	Warhead@1Dam: SpreadDamage
-		Damage: -50
+		Damage: -60
         DamageTypes: Repair
 		ValidTargets: Repair
 

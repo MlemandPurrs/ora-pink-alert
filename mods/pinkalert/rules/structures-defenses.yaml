@@ -2,7 +2,7 @@ PROC.Clone:
     Inherits: PROC
 	Buildable:
 		BuildPaletteOrder: 1
-		Queue: ClassicDefense.Allies, ClassicDefense.Soviet, Defense.Allies, Defense.Soviet
+		Queue: DefenseSQ, DefenseMQ
 	ProvidesPrerequisite@ISACOPY:
         Prerequisite: proc
 	RenderSprites:
@@ -13,21 +13,57 @@ SILO.Clone:
     Inherits: SILO
 	Buildable:
 		BuildPaletteOrder: 4
-		Queue: ClassicDefense.Allies, ClassicDefense.Soviet, Defense.Allies, Defense.Soviet
+		Queue: DefenseSQ, DefenseMQ
 	ProvidesPrerequisite@ISACOPY:
         Prerequisite: silo
 	RenderSprites:
 		Image: silo
     -MapEditorData:
 
+EREF.Clone:
+    Inherits: EREF
+	Buildable:
+		BuildPaletteOrder: 1
+		Queue: DefenseSQ, DefenseMQ
+	ProvidesPrerequisite@ISACOPY:
+        Prerequisite: proc
+	RenderSprites:
+		Image: eref
+    -MapEditorData:
+
+XREF.Clone:
+    Inherits: XREF
+	Buildable:
+		BuildPaletteOrder: 1
+		Queue: DefenseSQ, DefenseMQ
+	ProvidesPrerequisite@ISACOPY:
+        Prerequisite: proc
+	RenderSprites:
+		Image: xref
+    -MapEditorData:
+
+ERCC.Clone:
+    Inherits: ERCC
+	Buildable:
+		BuildPaletteOrder: 1
+		Queue: DefenseSQ, DefenseMQ
+	ProvidesPrerequisite@ISACOPY:
+        Prerequisite: proc
+	RenderSprites:
+		Image: ercc
+    -MapEditorData:
+
 KENN:
 	Inherits: ^Building
-	Inherits@PRIMARY: ^PrimaryBuilding
+    Inherits@production: ^ProducesInfantry
+	-SpawnActorsOnSell:
+    -SpawnRandomActorOnDeath:
+    -WithDeathAnimation:
 	Buildable:
-		Queue: ClassicDefense.Soviet, Defense.Soviet
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 200
 		BuildPaletteOrder: 12
-		Prerequisites: barr, ~techlevel.medium, ~!global-smallinfantry
+		Prerequisites: barr, ~techlevel.medium, ~player.soviet, ~!global-smallinfantry, ~techlevel.5
 		Description: Trains Attack Dogs.
 	Valued:
 		Cost: 200
@@ -40,73 +76,47 @@ KENN:
 	RevealsShroud:
 		Range: 4c0
 	RallyPoint:
+	Production@SQ:
+		Produces: InfantrySQ, Dog
+		RequiresCondition: !global-multiqueue
+	Production@MQ:
+		Produces: InfantryMQ, Dog
+		RequiresCondition: global-multiqueue
 	Exit@0:
 		SpawnOffset: -280,400,0
 		ExitCell: -1,1
-		ProductionTypes: Infantry.Soviet, ClassicInfantry.Soviet, Dog
 		Priority: 3
+        ProductionTypes: InfantrySQ, InfantryMQ, Dog
 	Exit@1:
 		SpawnOffset: -280,400,0
 		ExitCell: 0,1
-		ProductionTypes: Infantry.Soviet, ClassicInfantry.Soviet, Dog
 		Priority: 2
+        ProductionTypes: InfantrySQ, InfantryMQ, Dog
 	Exit@2:
 		SpawnOffset: -280,400,0
 		ExitCell: -1,0
-		ProductionTypes: Infantry.Soviet, ClassicInfantry.Soviet, Dog
 		Priority: 2
+        ProductionTypes: InfantrySQ, InfantryMQ, Dog
 	Exit@fallback1:
 		SpawnOffset: -280,400,0
 		ExitCell: -1,-1
-		ProductionTypes: Infantry.Soviet, ClassicInfantry.Soviet, Dog
+        ProductionTypes: InfantrySQ, InfantryMQ, Dog
 	Exit@fallback2:
 		SpawnOffset: -280,400,0
 		ExitCell: 0,-1
-		ProductionTypes: Infantry.Soviet, ClassicInfantry.Soviet, Dog
+        ProductionTypes: InfantrySQ, InfantryMQ, Dog
 	Exit@fallback3:
 		SpawnOffset: -280,400,0
 		ExitCell: 1,-1
-		ProductionTypes: Infantry.Soviet, ClassicInfantry.Soviet, Dog
+        ProductionTypes: InfantrySQ, InfantryMQ, Dog
 	Exit@fallback4:
 		SpawnOffset: -280,400,0
 		ExitCell: 1,0
-		ProductionTypes: Infantry.Soviet, ClassicInfantry.Soviet, Dog
+        ProductionTypes: InfantrySQ, InfantryMQ, Dog
 	Exit@fallback5:
 		SpawnOffset: -280,400,0
 		ExitCell: 1,1
-		ProductionTypes: Infantry.Soviet, ClassicInfantry.Soviet, Dog
-	Production@ClassicSovietInfantry:
-		Produces: ClassicInfantry.Soviet, Dog
-		RequiresCondition: !multiqueue
-	ProductionBar@ClassicSovietInfantry:
-		ProductionType: ClassicInfantry.Soviet
-	Production:
-		Produces: Infantry.Soviet, Dog
-        RequiresCondition: multiqueue
-	ProductionQueue@SovietInfantry:
-		Type: Infantry.Soviet
-		Group: Infantry
-		DisplayOrder: 2
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@SovietInfantry:
-		ProductionType: Infantry.Soviet
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
-	-SpawnActorsOnSell:
-    -SpawnRandomActorOnDeath:
+        ProductionTypes: InfantrySQ, InfantryMQ, Dog
 	Power:
 		Amount: -10
         RequiresCondition: !build-incomplete
@@ -118,11 +128,16 @@ KENN:
 		Class: KENN
 	RenderSprites:
 		Image: KENN
-    -WithDeathAnimation:
 	SpawnActorOnDeath:
 		Actor: KENN.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 KENN.Husk:
 	Inherits: ^BuildingHusk
@@ -138,8 +153,8 @@ KENN.Husk:
 KENN.Tiny:
     Inherits: KENN
 	Buildable:
-		Queue: ClassicDefense.Soviet, Defense.Soviet
-		Prerequisites: barr, ~techlevel.medium, ~global-smallinfantry    
+		Queue: DefenseSQ, DefenseMQ
+		Prerequisites: barr, ~techlevel.medium, ~player.soviet, ~global-smallinfantry    
 	Selectable:
 		Class: KENN
     RenderSprites:
@@ -164,13 +179,11 @@ PDOX:
 	Inherits@shape: ^2x2Shape
     Inherits@infiltration: ^InfiltratableSuperWeapon
 	Buildable:
-		#   Queue: ClassicDefense.Allies, Defense.Allies
-        Queue: ClassicBuilding.Allies, Building.Allies
+        Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 1400
-		#   BuildPaletteOrder: 10
         BuildPaletteOrder: 14
         BuildLimit: 1
-		Prerequisites: atek, ~!nosuperweapons, ~techlevel.high
+		Prerequisites: atek, ~!nosuperweapons, ~techlevel.high, ~player.allies, ~techlevel.7
 		Description: Time-travel Device that stores and recharges the 'Chronoshift' support power.\nCan be Infiltrated by a Spy\nresulting in Timer reset.\nRequires power to operate.\n  Maximum one can be built\n  Special Ability: Chronoshift\nTeleports a group of units\nacross the map for 1.5 minutes.
 	Valued:
 		Cost: 1400
@@ -242,8 +255,14 @@ PDOX:
     -WithDeathAnimation:
 	SpawnActorOnDeath:
 		Actor: PDOX.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-building
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 PDOX.Husk:
 	Inherits: ^BuildingHusk
@@ -265,13 +284,11 @@ IRON:
 	Inherits@shape: ^2x1Shape
     Inherits@infiltration: ^InfiltratableSuperWeapon
 	Buildable:
-		#   Queue: ClassicDefense.Soviet, Defense.Soviet
-        Queue: ClassicBuilding.Soviet, Building.Soviet
+        Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 1400
-		#   BuildPaletteOrder: 10
         BuildPaletteOrder: 14
         BuildLimit: 1
-		Prerequisites: stek, ~!nosuperweapons, ~techlevel.high
+		Prerequisites: stek, ~!nosuperweapons, ~techlevel.high, ~player.soviet, ~techlevel.7
 		Description: Device that stores and recharges the 'Iron Curtain' support power.\nCan be Infiltrated by a Spy\nresulting in Timer reset.\nRequires power to operate.\n  Maximum one can be built\n  Special Ability: Invulnerability\nMakes a group of units\Invulnerable for 45 seconds.
 	Valued:
 		Cost: 1400
@@ -323,8 +340,14 @@ IRON:
     -WithDeathAnimation:
 	SpawnActorOnDeath:
 		Actor: IRON.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-building
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 IRON.Husk:
 	Inherits: ^BuildingHusk
@@ -350,13 +373,11 @@ MSLO:
 	Tooltip:
 		Name: Missile Silo
 	Buildable:
-		#   Queue: ClassicDefense.Allies, ClassicDefense.Soviet, Defense.Allies, Defense.Soviet
-		Queue: ClassicBuilding.Allies, ClassicBuilding.Soviet, Building.Allies, Building.Soviet
+		Queue: BuildingSQ, BuildingMQ
         BuildDuration: 2500
-		#   BuildPaletteOrder: 11
         BuildPaletteOrder: 15
         BuildLimit: 1
-		Prerequisites: techcenter, ~!nosuperweapons, ~techlevel.high
+		Prerequisites: techcenter, ~!nosuperweapons, ~techlevel.high, ~techlevel.7
 		Description: Cloaked silo which Provides an atomic bomb.\nRequires power to operate.\nCan be Infiltrated by a Spy\nresulting in Timer reset.\n  Maximum one can be built.\n  Special Ability: Atom Bomb\n  Launches a devastating atomic bomb\nat a target location.
 	Building:
 		Footprint: xx
@@ -391,6 +412,7 @@ MSLO:
 		DisplayRadarPing: True
 		BeaconPoster: atomicon
 		CameraRange: 10c0
+        CameraRemoveDelay: 50
 		ArrowSequence: arrow
 		ClockSequence: clock
 		CircleSequence: circles
@@ -424,8 +446,14 @@ MSLO:
 		ValidRelationships: Ally
 	SpawnActorOnDeath:
 		Actor: MSLO.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-building
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 MSLO.Husk:
 	Inherits: ^BuildingHusk
@@ -448,10 +476,10 @@ PBOX:
 		Name: Pillbox
 	Building:
 	Buildable:
-		Queue: ClassicDefense.Allies, Defense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 400
 		BuildPaletteOrder: 2
-		Prerequisites: tent, ~techlevel.low
+		Prerequisites: tent, ~techlevel.low, ~player.allies, ~techlevel.2
 		Description: Static defense with a heavy machine gun.\nDetects cloaked units when powered.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 400
@@ -498,8 +526,14 @@ PBOX:
 		ValidPowerStates: Low, Critical
 	SpawnActorOnDeath:
 		Actor: PBOX.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 PBOX.Husk:
 	Inherits: ^DefenseHusk
@@ -519,10 +553,10 @@ HBOX:
 		Name: Camo Pillbox
 	Building:
 	Buildable:
-		Queue: ClassicDefense.Allies, Defense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 600
 		BuildPaletteOrder: 5
-		Prerequisites: tent, dome, ~techlevel.medium
+		Prerequisites: tent, dome, ~techlevel.medium, ~player.allies, ~techlevel.4
 		Description: Camouflaged static defense with a silenced sniper.\nDetects cloaked units when powered.\n  Strong vs Infantry\n  Weak vs everything Else
 	Valued:
 		Cost: 600
@@ -581,8 +615,6 @@ HBOX:
 		ValidRelationships: Ally
 	SpawnActorOnDeath:
 		Actor: HBOX.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
 	WithDecoration@detected:
 		Position: Top
 		Margin: 0, -6
@@ -590,6 +622,14 @@ HBOX:
 		Sequence: tag-uncloaked
 		Palette: effect
 		RequiresCondition: !cloaked
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 HBOX.Husk:
 	Inherits: ^DefenseHusk
@@ -606,10 +646,10 @@ GUN:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetGround
 	Buildable:
-		Queue: ClassicDefense.Allies, Defense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 500
 		BuildPaletteOrder: 3
-		Prerequisites: weap, ~techlevel.low
+		Prerequisites: weap, ~techlevel.low, ~player.allies, ~techlevel.3
 		Description: Anti-Armor base defense.\nDetects cloaked units when powered.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
 	Valued:
 		Cost: 500
@@ -625,8 +665,6 @@ GUN:
 	Turreted:
 		TurnSpeed: 48
 		InitialFacing: 192
-	#   -WithSpriteBody:
-	#   WithEmbeddedTurretSpriteBody:
     -BodyOrientation:
     ClassicFacingBodyOrientation:
 	WithSpriteTurret:
@@ -676,8 +714,14 @@ GUN:
 		ValidPowerStates: Low, Critical
 	SpawnActorOnDeath:
 		Actor: GUN.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 GUN.Husk:
 	Inherits: ^DefenseHusk
@@ -702,10 +746,10 @@ SBOX:
     -GrantConditionOnPowerState@LOWPOWER:
     -SpawnActorsOnSell:
 	Buildable:
-		Queue: ClassicDefense.Soviet, Defense.Soviet
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 500
         BuildPaletteOrder: 2
-		Prerequisites: barr, ~techlevel.low
+		Prerequisites: barr, ~techlevel.low, ~player.soviet, ~techlevel.2
 		Description: Static defense with a fireport for\na garrisoned soldier.\nCan detect cloaked units with Infantry inside.\n  Strength and Weakness varies with Infantry inside\n  Initially strong vs Infantry\n  Initially weak vs Armor, Vehicles
 	Tooltip:
 		Name: Soviet Pillbox
@@ -752,10 +796,10 @@ FTUR:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetGround
 	Buildable:
-		Queue: ClassicDefense.Soviet, Defense.Soviet
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 600
 		BuildPaletteOrder: 3
-		Prerequisites: weap, ~techlevel.medium
+		Prerequisites: weap, ~techlevel.medium, ~player.soviet, ~techlevel.3
 		Description: Anti-Infantry base defense.\nDetects cloaked units when powered.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 600
@@ -768,19 +812,6 @@ FTUR:
 		Type: Heavy
 	RevealsShroud:
 		Range: 6c0
-	#   Turreted:
-	#	TurnSpeed: 1023
-	#	Offset: 0,0,112
-	#   Armament:
-	#	Weapon: FireballLauncher
-	#	LocalOffset: 512,0,0
-    #  RequiresCondition: !spain
-	#   Armament@SPAIN:
-	#	Weapon: FireballLauncher.spain
-	#	LocalOffset: 512,0,0
-    #  RequiresCondition: spain
-	#   AttackTurreted:
-	#	RequiresCondition: !build-incomplete
 	Turreted@RANGE:
 		Turret: ranged-turret
 		TurnSpeed: 255
@@ -838,10 +869,16 @@ FTUR:
 		ValidPowerStates: Low, Critical
 	SpawnActorOnDeath:
 		Actor: FTUR.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
 	RenderRangeCircle:
 		FallbackRange: 5c0
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 FTUR.Husk:
 	Inherits: ^DefenseHusk
@@ -859,10 +896,10 @@ TSLA:
 	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@AUTOTARGET: ^AutoTargetGround
 	Buildable:
-		Queue: ClassicDefense.Soviet, Defense.Soviet
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 1200
 		BuildPaletteOrder: 5
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.soviet, ~techlevel.5
 		Description: Advanced base defense.\nRequires power to operate.\nCan be charged by Shock Troopers when unpowered.\nDetects cloaked units when powered.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
 	Valued:
 		Cost: 1200
@@ -933,9 +970,6 @@ TSLA:
 		Sequence: offline
 		Position: BottomRight
 		RequiresCondition: TeslaChargeApplied
-	#   TimedConditionBar@Charged:
-	#	Condition: TeslaChargeApplied
-	#	Color: f4f442
 	GrantConditionOnPowerState@LOWPOWER:
 		Condition: lowpower
 		ValidPowerStates: Low, Critical
@@ -945,8 +979,14 @@ TSLA:
 		ValidPowerStates: Normal
 	SpawnActorOnDeath:
 		Actor: TSLA.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 TSLA.Husk:
 	Inherits: ^DefenseHusk
@@ -967,10 +1007,10 @@ GAP:
 	Tooltip:
 		Name: Gap Generator
 	Buildable:
-		Queue: ClassicDefense.Allies, Defense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 900
 		BuildPaletteOrder: 12
-		Prerequisites: atek, ~techlevel.high
+		Prerequisites: atek, ~techlevel.high, ~player.allies, ~techlevel.7
 		Description: Obscures the enemy's view with shroud.\nRequires power to operate.\n  Can be toggled on/off via deploy command.
 	Selectable:
 		Class: GAP
@@ -1020,8 +1060,14 @@ GAP:
 		Image: GAP
 	SpawnActorOnDeath:
 		Actor: GAP.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 GAP.Husk:
 	Inherits: ^BuildingHusk
@@ -1039,10 +1085,10 @@ AGUN:
 	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@AUTOTARGET: ^AutoTargetAir
 	Buildable:
-		Queue: ClassicDefense.Allies, Defense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 600
 		BuildPaletteOrder: 6
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.allies, ~techlevel.5
 		Description: Anti-Air base defense.\nRequires power to operate.\n  Strong vs Aircraft\n  Weak vs Ground units
 	Valued:
 		Cost: 600
@@ -1107,8 +1153,14 @@ AGUN:
 		ArmamentNames: primary
 	SpawnActorOnDeath:
 		Actor: AGUN.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 AGUN.Husk:
 	Inherits: ^DefenseHusk
@@ -1136,10 +1188,10 @@ SAM:
 			TopLeft: -768,-512
 			BottomRight: 768,512
 	Buildable:
-		Queue: ClassicDefense.Soviet, Defense.Soviet
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 750
 		BuildPaletteOrder: 6
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.soviet, ~techlevel.5
 		Description: Anti-Air base defense.\n  Strong vs Aircraft\n  Weak vs Ground units
 	Valued:
 		Cost: 750
@@ -1190,8 +1242,14 @@ SAM:
 		ArmamentNames: primary
 	SpawnActorOnDeath:
 		Actor: SAM.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 SAM.Husk:
 	Inherits: ^DefenseHusk
@@ -1210,10 +1268,10 @@ SAM.Husk:
 SBAG:
 	Inherits: ^Wall
 	Buildable:
-		Queue: ClassicDefense.Allies, Defense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 25
 		BuildPaletteOrder: 7
-		Prerequisites: infantryproduction, ~techlevel.low
+		Prerequisites: infantryproduction, ~techlevel.low, ~player.allies, ~techlevel.2
 		Description: Stops Infantry and Light vehicles.\nCan be crushed by Tanks.
 	Valued:
 		Cost: 25
@@ -1234,14 +1292,22 @@ SBAG:
 		Type: sandbag
 	RenderSprites:
 		Image: SBAG
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 FENC:
 	Inherits: ^Wall
 	Buildable:
-		Queue: ClassicDefense.Soviet, Defense.Soviet
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 25
 		BuildPaletteOrder: 7
-		Prerequisites: infantryproduction, ~techlevel.low
+		Prerequisites: infantryproduction, ~techlevel.low, ~player.soviet, ~techlevel.2
 		Description: Stops Infantry and Light vehicles.\nCan be crushed by Tanks.
 	Valued:
 		Cost: 25
@@ -1262,14 +1328,22 @@ FENC:
 		Type: fence
 	RenderSprites:
 		Image: FENC
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 BRIK:
 	Inherits: ^Wall
 	Buildable:
-		Queue: ClassicDefense.Allies, ClassicDefense.Soviet, Defense.Allies, Defense.Soviet
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 50
 		BuildPaletteOrder: 8
-		Prerequisites: vehicleproduction, ~techlevel.medium
+		Prerequisites: vehicleproduction, ~techlevel.medium, ~techlevel.4
 		Description: Stops Units and blocks all direct enemy fire.
 	Valued:
 		Cost: 100
@@ -1296,6 +1370,14 @@ BRIK:
 		Type: concrete
 	RenderSprites:
 		Image: BRIK
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 CYCL:
 	Inherits: ^Wall
@@ -1335,3 +1417,41 @@ WOOD:
 		Types: woodfence
 	WithWallSpriteBody:
 		Type: woodfence
+
+#   Custom additions
+
+DSDY:
+	Inherits: ^Wall
+	Tooltip:
+		Name: Drystone Wall
+	SoundOnDamageTransition:
+		DestroyedSounds: crmble2.aud
+	Health:
+		HP: 75
+	Armor:
+		Type: Concrete
+	LineBuild:
+		NodeTypes: dsdy
+	LineBuildNode:
+		Types: dsdy
+	WithWallSpriteBody:
+		Type: dsdy
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+HDG:
+	Inherits: ^Wall
+	Tooltip:
+		Name: Hedge
+	SoundOnDamageTransition:
+		DestroyedSounds: hdgcrsh.aud
+	Health:
+		HP: 75
+	Armor:
+		Type: Wood
+	LineBuild:
+		NodeTypes: hdg
+	LineBuildNode:
+		Types: hdg
+	WithWallSpriteBody:
+		Type: hdg

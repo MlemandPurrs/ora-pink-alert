@@ -1,0 +1,66 @@
+C1:
+	Inherits@1: ^ArmedCivilian
+
+C2:
+	Inherits: ^CivInfantry
+
+C3:
+	Inherits: ^CivInfantry
+	Voiced:
+		VoiceSet: CivilianFemaleVoice
+
+C4:
+	Inherits: ^CivInfantry
+	Voiced:
+		VoiceSet: CivilianFemaleVoice
+
+C5:
+	Inherits: ^CivInfantry
+	Voiced:
+		VoiceSet: CivilianFemaleVoice
+
+C6:
+	Inherits: ^CivInfantry
+
+C7:
+	Inherits@1: ^ArmedCivilian
+
+C8:
+	Inherits: ^CivInfantry
+
+C9:
+	Inherits: ^CivInfantry
+
+C10:
+	Inherits: ^CivInfantry
+	Tooltip:
+		Name: Scientist
+
+C11:
+	Inherits: ^CivInfantry
+
+TECN:
+	Inherits@1: ^ArmedCivilian
+	Tooltip:
+		Name: Technician
+	Selectable:
+		Class: C1
+	RenderSprites:
+		Image: C1
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 10
+		Type: InfantryRefund
+
+TECN_YELLOW:
+	Inherits@1: ^ArmedCivilian
+	Tooltip:
+		Name: Technician
+	Selectable:
+		Class: C7
+	RenderSprites:
+		Image: C7
+	DeliversCash:
+        Cursor: enter-yellow-flipped
+		Payload: 10
+		Type: InfantryRefund

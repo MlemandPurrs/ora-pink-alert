@@ -5,10 +5,10 @@ HARV:
 	Inherits@EMP: ^AcceptsEMPCrate
     Inherits@HARVBALANCE: ^HarvesterBalancer
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 1000
 		BuildPaletteOrder: 1
-		Prerequisites: proc, ~!global-mineimmune, ~techlevel.low
+		Prerequisites: proc, ~!global-mineimmune, ~techlevel.low, ~player.allies, ~techlevel.2
 		Description: Collects Valuable Minerals and Scrap Metal for processing.\nSlowly self-repairs when below 50% health.\n  Unarmed
 	Valued:
 		Cost: 1000
@@ -71,7 +71,7 @@ HARV:
 		ResourceSequences:
 			Ore: yellow
 			Gems: red
-            Scrap: gray
+            Scrap: green
 	Passenger:
 		CustomPipType: blue
 	ProximityExternalCondition@DOCKED:
@@ -89,6 +89,14 @@ HARV:
 		Delay: 3
 		StartIfBelow: 51
 		DamageCooldown: 150
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 HARV.FullHusk:
 	Inherits: ^Husk
@@ -113,7 +121,7 @@ HARV.MineImmune:
 	-SpawnActorOnDeath:
 	-HarvesterHuskModifier:
 	Buildable:
-		Prerequisites: proc, ~global-mineimmune, ~techlevel.low
+		Prerequisites: proc, ~global-mineimmune, ~techlevel.low, ~player.allies, ~techlevel.2
 		Description: Collects Ore and Gems for processing.\n  Unarmed    
     MineImmune:
 	SpawnActorOnDeath:
@@ -155,10 +163,10 @@ JEEP:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
     Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 500
 		BuildPaletteOrder: 2
-		Prerequisites: ~techlevel.low, ~!jeepcapacity.upgrade
+		Prerequisites: ~techlevel.low, ~!jeepcapacity.upgrade, ~player.allies, ~techlevel.2
 		Description: Fast scout & anti-infantry vehicle.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Valued:
 		Cost: 500
@@ -211,6 +219,14 @@ JEEP:
 	TransformOnCondition@JEEPUPG:
 		IntoActor: JEEP.Upgraded
 		RequiresCondition: jeep.upgraded
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 JEEP.Husk:
 	Inherits: ^Husk
@@ -227,7 +243,7 @@ JEEP.Upgraded:
 	-GrantConditionOnPrerequisite@JEEPUPG:
 	-TransformOnCondition@JEEPUPG:
 	Buildable:
-		Prerequisites: ~techlevel.low, ~jeepcapacity.upgrade
+		Prerequisites: ~techlevel.low, ~jeepcapacity.upgrade, ~player.allies, ~techlevel.2
 		Description: Fast scout & anti-infantry vehicle.\nCan carry one Infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Mobile:
 		PauseOnCondition: notmobile || emp-crate-collected
@@ -269,6 +285,10 @@ JEEP.Upgraded:
 	GrantConditionOnPrerequisite@healingaura:
 		Condition: medicauraheal-upgraded
 		Prerequisites: medicauraheal.upgrade
+    #   would be same speed as APC when loaded
+    SpeedMultiplier@Loaded:
+        Modifier: 90
+        RequiresCondition: loaded
     Selectable:
         Class: JEEP
     RenderSprites:
@@ -292,10 +312,10 @@ APC:
 	Inherits@TRANSPORT: ^Transport
     Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 650
 		BuildPaletteOrder: 3
-		Prerequisites: tent, ~techlevel.medium
+		Prerequisites: tent, ~techlevel.medium, ~player.allies, ~techlevel.4
 		Description: Tough infantry transport.\nCan carry up to five Infantry.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 650
@@ -374,6 +394,14 @@ APC:
 		Image: APC
 	Passenger:
 		CustomPipType: yellow
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 APC.Husk:
 	Inherits: ^Husk
@@ -390,10 +418,10 @@ APC.Husk:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
     Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 700
 		BuildPaletteOrder: 4
-		Prerequisites: ~techlevel.low, ~!amphibian.upgrade
+		Prerequisites: ~techlevel.low, ~!amphibian.upgrade, ~player.allies, ~techlevel.2
 		Description: Light Tank, good for scouting.\n  Strong vs Light armor\n  Weak vs Infantry, Tanks, Aircraft
 	Valued:
 		Cost: 700
@@ -452,6 +480,14 @@ APC.Husk:
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 1TNK.Husk:
 	Inherits: ^Husk
@@ -469,7 +505,7 @@ APC.Husk:
     -GrantConditionOnPrerequisite@LTNKUPG:
     -TransformOnCondition@LTNKUPG:
 	Buildable:
-		Prerequisites: ~techlevel.low, ~amphibian.upgrade
+		Prerequisites: ~techlevel.low, ~amphibian.upgrade, ~player.allies, ~techlevel.2
 		Description: Light Tank, good for scouting.\n  Strong vs Light armor\n  Weak vs Infantry, Tanks, Aircraft\n  Special: Amphibian\nCan cross open Sea and Rivers
 	Mobile:
 		Locomotor: tracked-amphibian
@@ -519,10 +555,10 @@ APC.Husk:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
     Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 800
 		BuildPaletteOrder: 5
-		Prerequisites: fix, ~techlevel.medium
+		Prerequisites: fix, ~techlevel.medium, ~player.allies, ~techlevel.3
 		Description: Allied Main Battle Tank.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
 	Valued:
 		Cost: 800
@@ -577,6 +613,14 @@ APC.Husk:
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 2TNK.Husk:
 	Inherits: ^Husk
@@ -595,10 +639,10 @@ ARTY:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferDefense
     Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 600
 		BuildPaletteOrder: 6
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.allies, ~techlevel.5
 		Description: Long-range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
 	Valued:
 		Cost: 700
@@ -607,7 +651,7 @@ ARTY:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 100
+		HP: 125
 	Armor:
 		Type: Light
 	Mobile:
@@ -651,6 +695,14 @@ ARTY:
 	RenderRangeCircle:
 	RevealOnFire:
 		ArmamentNames: primary
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 ARTY.Husk:
 	Inherits: ^Husk
@@ -667,10 +719,10 @@ CTNK:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferTank
     Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 2100
 		BuildPaletteOrder: 8
-		Prerequisites: atek, ~techlevel.high
+		Prerequisites: atek, ~techlevel.high, ~player.allies, ~techlevel.7
 		Description: Chrono Tank, teleports to areas within range.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry, Aircraft\n  Special ability: Can teleport
 	Valued:
 		Cost: 2100
@@ -733,6 +785,14 @@ CTNK:
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 CTNK.Husk:
 	Inherits: ^Husk
@@ -749,10 +809,10 @@ STNK:
 	Inherits@TRANSPORT: ^Transport
     Inherits@Crates: ^AcceptsAllCratesExceptCloak
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 800
 		BuildPaletteOrder: 9
-		Prerequisites: atek, dome, ~techlevel.high
+		Prerequisites: atek, dome, ~techlevel.high, ~player.allies, ~techlevel.6
 		Description: Lightly armored Vehicle which can cloak.\nCan carry one Infantry.\nAttacks Aircraft without Infantry inside.\nAttacks Ground units with Infantry inside.\n  Strong vs Aircraft, Light armor\n  Weak vs Infantry, Tanks
 	Valued:
 		Cost: 800
@@ -772,7 +832,7 @@ STNK:
 		RequiresCondition: !parachute && cloaked
 	Mobile:
         Locomotor: tracked-crusher
-		Speed: 100
+		Speed: 90
 		PauseOnCondition: notmobile || emp-crate-collected
 	RevealsShroud:
 		Range: 7c0
@@ -927,6 +987,14 @@ STNK:
 		Sequence: tag-uncloaked
 		Palette: effect
 		RequiresCondition: !cloaked
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 STNK.Husk:
 	Inherits: ^Husk
@@ -949,10 +1017,10 @@ MRJ:
 	Tooltip:
 		Name: Mobile Radar Jammer
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 600
 		BuildPaletteOrder: 10
-		Prerequisites: dome, fix, ~techlevel.medium
+		Prerequisites: dome, fix, ~techlevel.medium, ~player.allies, ~techlevel.5
 		Description: Jams nearby enemy radar domes.\nDoes not appear on enemy radar.\n  Unarmed
 	Health:
 		HP: 120
@@ -1002,7 +1070,15 @@ MRJ:
 	#   WithRangeCircle@AirRadar:
 	#	RequiresCondition: airradar-upgraded
 	#	Range: 15c0
- 
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
+
 MRJ.Husk:
 	Inherits: ^Husk
 	Tooltip:
@@ -1020,10 +1096,10 @@ MGG:
 	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
 	Inherits@EMP: ^AcceptsEMPCrate
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 500
 		BuildPaletteOrder: 13
-		Prerequisites: atek, ~techlevel.high
+		Prerequisites: atek, ~techlevel.high, ~player.allies, ~techlevel.7
 		Description: Regenerates the shroud nearby, obscuring the area.\n  Can be toggled on/off via deploy command.\n  Unarmed
 	Valued:
 		Cost: 500
@@ -1073,6 +1149,14 @@ MGG:
 		Image: MGG
 	Passenger:
 		CustomPipType: red
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 MGG.Husk:
 	Inherits: ^Husk

@@ -3,7 +3,7 @@
 	Interactable:
 	ScriptTriggers:
 	Buildable:
-		Queue: Upgrades.Allies, Upgrades.Soviet, ClassicUpgrades.Allies, ClassicUpgrades.Soviet
+		Queue: UpgradeSQ, UpgradeMQ
 		BuildLimit: 1
 		BuildDurationModifier: 100
 	ProvidesPrerequisite@upgradename:
@@ -15,10 +15,9 @@ jeepcapacity.upgrade:
 		Name: Upgrade: Jeep Carrying hold
 	Buildable:
 		BuildPaletteOrder: 1
-		Queue: Upgrades.Allies, ClassicUpgrades.Allies
-		Prerequisites: ~vehicleproduction, ~techlevel.high
+		Prerequisites: ~vehicleproduction, ~techlevel.high, ~player.allies
 		BuildDuration: 1500
-		Description: Allows Jeeps to carry one Infantry.\n   + Jeep can carry one Infantry
+		Description: Allows Jeeps to carry one Infantry.\n   + Jeep can carry one Infantry\n   - Gets slowed down while carrying
         Icon: jeepcapacity
 	Valued:
 		Cost: 1000
@@ -31,8 +30,7 @@ amphibian.upgrade:
 		Name: Upgrade: Amphibian Light Tank
 	Buildable:
 		BuildPaletteOrder: 2
-		Queue: Upgrades.Allies, ClassicUpgrades.Allies
-		Prerequisites: ~vehicleproduction, ~techlevel.high
+		Prerequisites: ~vehicleproduction, ~techlevel.high, ~player.allies
 		BuildDuration: 1500
 		Description: Refits all Light Tanks with amphibian chassis.\n   + Light Tanks gain capacity to cross River and Sea\n  - In crossing gets slowed down and takes more damage\n  - May sink if left out in open water for long
         Icon: amphibian
@@ -47,10 +45,9 @@ helidepth.upgrade:
 		Name: Upgrade: Depthcharges for Apache
 	Buildable:
 		BuildPaletteOrder: 3
-		Queue: Upgrades.Allies, ClassicUpgrades.Allies
-		Prerequisites: ~hpad, ~techlevel.high
+		Prerequisites: ~hpad, ~techlevel.high, ~player.allies
 		BuildDuration: 1500
-		Description: Adds an extra Anti-submarine weapon to Apaches\n   + Apache may throw a pair of depthcharges to Submarines.\n   - Needs to hover over the Submarine to throw em
+		Description: Adds an extra Anti-submarine weapon to Apaches\n   + Apache may throw depthcharges vs Submarines\n   - Needs to hover above Submarine to use
         Icon: helidepth
 	Valued:
 		Cost: 1000
@@ -61,10 +58,9 @@ helidepth.upgrade:
 trancarry.upgrade:
 	Inherits: ^Upgrade
 	Tooltip:
-		Name: Upgrade: Carry-all Chinooks
+		Name: Upgrade: Carryall Chinooks
 	Buildable:
 		BuildPaletteOrder: 4
-		Queue: Upgrades.Allies, ClassicUpgrades.Allies
 		Prerequisites: ~hpad, ~techlevel.high, ~disabled
 		BuildDuration: 1500
 		Description: Allows Chinooks to carry a Vehicle when not loaded.\n   + Chinooks may airlift a Vehicle when empty.\n   - Gets slowed down while carrying the Vehicle
@@ -80,8 +76,7 @@ medicauraheal.upgrade:
 		Name: Upgrade: Medic Passenger Healing
 	Buildable:
 		BuildPaletteOrder: 6
-		Queue: Upgrades.Allies, ClassicUpgrades.Allies
-		Prerequisites: ~dome, ~techlevel.high
+		Prerequisites: ~dome, ~techlevel.high, ~player.allies
 		BuildDuration: 1500
 		Description: Allows Transport units to project a healing aura with Medic inside.\n   + Medics will provide aura of healing when in a transport\n   - The rate of healing is rather slow
         Icon: medicauraheal
@@ -96,8 +91,7 @@ armedspy.upgrade:
 		Name: Upgrade: License to Kill
 	Buildable:
 		BuildPaletteOrder: 7
-		Queue: Upgrades.Allies, ClassicUpgrades.Allies
-		Prerequisites: ~dome, ~techlevel.high
+		Prerequisites: ~dome, ~techlevel.high, ~player.allies
 		BuildDuration: 1500
 		Description: Allows Spies to engage in lethal combat.\n   + Spy can attack using a silenced gun\n   - Will break disguise when attacking\n   - Never acquires targets on its own
         Icon: armedspy
@@ -130,8 +124,7 @@ heavytank.upgrade:
 		Name: Upgrade: Double-Barreled Heavy Tank
 	Buildable:
 		BuildPaletteOrder: 1
-		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
-		Prerequisites: vehicleproduction, ~techlevel.high
+		Prerequisites: vehicleproduction, ~techlevel.high, ~player.soviet
 		BuildDuration: 1500
 		Description: Doubles the firepower of Heavy Tanks\n   + Heavy Tank gains an extra barrel\n   - Heavy Tank prerequisites Service Depot
         Icon: heavytank
@@ -146,8 +139,7 @@ migbombs.upgrade:
 		Name: Upgrade: Bombs for MiG
 	Buildable:
 		BuildPaletteOrder: 2
-		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
-		Prerequisites: afld, ~techlevel.high
+		Prerequisites: afld, ~techlevel.high, ~player.soviet
 		BuildDuration: 1500
 		Description: Adds an extra Bomb weapon to MiGs\n   + MiG uses Bombs versus Buildings and Infantry.\n   - Only one Bomb per plane
         Icon: migbombs
@@ -162,8 +154,7 @@ hindrockets.upgrade:
 		Name: Upgrade: Rockets for Hind
 	Buildable:
 		BuildPaletteOrder: 3
-		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
-		Prerequisites: hpad, ~techlevel.high
+		Prerequisites: hpad, ~techlevel.high, ~player.soviet
 		BuildDuration: 1500
 		Description: Adds an extra Rocket weapon to Hinds\n   + Hind gains powerful anti-armor rockets
         Icon: hindrockets
@@ -178,8 +169,7 @@ subcapacity.upgrade:
 		Name: Upgrade: Submarine Carrying hold
 	Buildable:
 		BuildPaletteOrder: 4
-		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
-		Prerequisites: spen, ~techlevel.high, ~!global-disablenavy
+		Prerequisites: spen, ~techlevel.high, ~!global-disablenavy, ~player.soviet
 		BuildDuration: 1500
 		Description: Allows Submarines to carry one Infantry.\n   + Submarines can carry one Infantry\n  ! Breaks capacity to Surface on order(Engine limitation)\n  ! Submarine will use Grenadelauncher by itself to compensate
         Icon: subcapacity
@@ -194,8 +184,7 @@ minefinder.upgrade:
 		Name: Upgrade: Mine-detector Dogs
 	Buildable:
 		BuildPaletteOrder: 5
-		Queue: Upgrades.Soviet, ClassicUpgrades.Soviet
-		Prerequisites: kenn, ~techlevel.high
+		Prerequisites: kenn, ~techlevel.high, ~player.soviet
 		BuildDuration: 1500
 		Description: Allows Attack Dogs to sniff out Mines.\n   + Detects Land Mines nearby.
         Icon: minefinder

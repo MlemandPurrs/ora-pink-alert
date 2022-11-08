@@ -122,7 +122,7 @@
 		Name: Allies
 		Side: Allies
 		InternalName: allies
-		Description: Allies\nGeneric Allied faction doesn't have any bonuses.
+		Description: Allies\nGeneric Allies faction doesn't have any bonuses.
 	Faction@england:
 		Name: Britain
 		Side: Allies
@@ -232,7 +232,7 @@ World:
 	ScreenShaker:
 	BuildingInfluence:
 	ProductionQueueFromSelection:
-		ProductionPaletteWidget: PRODUCTION_PALETTE
+		ProductionTabsWidget: PRODUCTION_TABS
 	LegacyBridgeLayer:
 		Bridges: bridge1, bridge2, br1, br2, br3, sbridge1, sbridge2, sbridge3, sbridge4, brg1, brg2, brg3, brv1, brv2, brv3, brh1, brh2, brh3
 	CustomTerrainDebugOverlay:
@@ -373,6 +373,15 @@ World:
 			3: WarningThreeMinutesRemaining
 			2: WarningTwoMinutesRemaining
 			1: WarningOneMinuteRemaining
+	ScriptLobbyDropdown@DynamicTechlevel:
+		ID: dynamictechlevel
+		Label: Dynamic Techlvl
+		Values:
+			enabled: Enabled
+			disabled: Disabled
+		Default: disabled
+        Description: Tech level will dynamically progress ingame
+        DisplayOrder: 5
 	ScriptLobbyDropdown@EcoSpeed:
 		ID: growthrate
 		Label: Ore Growth
@@ -382,9 +391,20 @@ World:
 			fasteco: Fast
 		Default: fasteco
 		Description: The speed with which Resources grow
-		DisplayOrder: 5
+		DisplayOrder: 6
+	ScriptLobbyDropdown@EcoRefinery:
+		ID: refineryoptions
+		Label: Refinery Type
+		Description: Select the Type of Refinery you would like to use
+		Values:
+			vanilla: Standard
+			evolved: Evolved
+            xperimental: Xperimental
+            ercc: ERCC
+		Default: vanilla
+		DisplayOrder: 7
 	LuaScript:
-		Scripts: ecosetting.lua
+		Scripts: ecosetting.lua, main.lua, dynamic_tech.lua
 	MapCreeps:
 		CheckboxVisible: True
 		CheckboxLabel: Antfestation
@@ -404,18 +424,6 @@ World:
 		# not before 3 minutes
 		Duration: 4500
     
-    #   need to finally get IDE for this
-    #   ScriptLobbyDropdown@HusksControl:
-    #   ID: huskscontrol
-    #   Label: Husks
-    #   Values:
-    #   techonly: Tech Buildings
-    #   structures: All Buildings
-    #   vehicles: Buildings + Vehicles
-    #   Default: structures
-    #   Description: Types of Husks that may appear ingame
-    #   DisplayOrder: 9
-
 EditorWorld:
 	Inherits: ^BaseWorld
 	EditorActorLayer:

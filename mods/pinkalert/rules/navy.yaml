@@ -5,10 +5,10 @@ LST:
 	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
 	Inherits@EMP: ^AcceptsEMPCrate
 	Buildable:
-		Queue: ClassicNavy.Allies, ClassicNavy.Soviet, Navy.Allies, Navy.Soviet
+		Queue: NavySQ, NavyMQ
 		BuildDuration: 700
 		BuildPaletteOrder: 4
-		Prerequisites: ~techlevel.low, ~!global-disablenavy
+		Prerequisites: ~techlevel.low, ~!global-disablenavy, ~techlevel.2
 		Description: General-purpose naval transport.\nCan carry up to 10 Infantry or 2 Vehicles.\n  Unarmed
 	Valued:
 		Cost: 700
@@ -69,6 +69,14 @@ LST:
 		DecorationBounds: 36,36
 	RenderSprites:
 		Image: LST
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 PT:
 	Inherits: ^Ship
@@ -76,11 +84,11 @@ PT:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferNaval
     Inherits@Crates: ^AcceptsAllCratesExceptCloak
 	Buildable:
-		Queue: ClassicNavy.Allies, Navy.Allies
+		Queue: NavySQ, NavyMQ
 		BuildDuration: 500
 		BuildAtProductionType: Ship
 		BuildPaletteOrder: 1
-		Prerequisites: ~techlevel.low, ~!global-disablenavy
+		Prerequisites: ~techlevel.low, ~!global-disablenavy, ~player.allies, ~techlevel.3
 		Description: Light scout & support ship.\nDetect nearby Submarines.\n  Strong vs Naval units\n  Weak vs Ground units
 	Valued:
 		Cost: 500
@@ -179,17 +187,25 @@ PT:
 			Radius: 288
 			PointA: 0, -341
 			PointB: 0, 341
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 DD:
 	Inherits: ^Ship
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
     Inherits@Crates: ^AcceptsAllCratesExceptCloak
 	Buildable:
-		Queue: ClassicNavy.Allies, Navy.Allies
+		Queue: NavySQ, NavyMQ
 		BuildAtProductionType: Ship
 		BuildDuration: 1000
 		BuildPaletteOrder: 2
-		Prerequisites: dome, ~techlevel.medium, ~!global-disablenavy
+		Prerequisites: dome, ~techlevel.medium, ~!global-disablenavy, ~player.allies, ~techlevel.4
 		Description: Fast multi-role ship.\nDetects Submarines.\n  Can attack Aircraft\n  Strong vs Naval units, Light armor, Aircraft\n  Weak vs Infantry, Tanks
 	Valued:
 		Cost: 1000
@@ -286,6 +302,14 @@ DD:
 			Radius: 320
 			PointA: 0, -448
 			PointB: 0, 448
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 CA:
 	Inherits: ^Ship
@@ -293,11 +317,11 @@ CA:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferBuilding
     Inherits@Crates: ^AcceptsAllCratesExceptCloak
 	Buildable:
-		Queue: ClassicNavy.Allies, Navy.Allies
+		Queue: NavySQ, NavyMQ
 		BuildAtProductionType: Ship
 		BuildDuration: 2000
 		BuildPaletteOrder: 3
-		Prerequisites: atek, ~techlevel.high, ~!global-disablenavy
+		Prerequisites: atek, ~techlevel.high, ~!global-disablenavy, ~player.allies, ~techlevel.6
 		Description: Very slow long-range artillery ship.\n  Strong vs Buildings, Ground units\n  Weak vs Naval units, Aircraft
 	Valued:
 		Cost: 2000
@@ -384,6 +408,14 @@ CA:
 		ArmamentNames: primary, secondary
 	ReloadArmamentsBar:
 		Color: FFFF00
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 DRED:
 	Inherits: ^Ship
@@ -393,12 +425,12 @@ DRED:
     AttackMove:
         Voice: Attack
 	Buildable:
-		Queue: ClassicNavy.Allies, Navy.Allies
+		Queue: NavySQ, NavyMQ
 		BuildAtProductionType: Ship
         BuildDuration: 3000
 		BuildPaletteOrder: 6
 		BuildLimit: 1
-		Prerequisites: atek, ~techlevel.high, ~!global-disablenavy
+		Prerequisites: atek, ~techlevel.high, ~!global-disablenavy, ~player.allies, ~techlevel.7
 		Description: Capital ship, sporting two triple-barreled gun batteries.\n  Maximum 1 can be built.\n  Strong vs anything on Ground\n  Weak vs Submarines, Aircraft
 	Valued:
 		Cost: 3000
@@ -497,6 +529,14 @@ DRED:
         Voice: Move
     RenderSprites:
         Image: DRED
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 SS:
 	Inherits: ^Submarine
@@ -504,11 +544,11 @@ SS:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferNaval
     Inherits@Crates: ^AcceptsAllCratesExceptCloak
 	Buildable:
-		Queue: ClassicNavy.Soviet, Navy.Soviet
+		Queue: NavySQ, NavyMQ
 		BuildAtProductionType: Submarine
 		BuildDuration: 775
 		BuildPaletteOrder: 1
-		Prerequisites: ~techlevel.low, ~!global-disablenavy, ~!subcapacity.upgrade
+		Prerequisites: ~techlevel.low, ~!global-disablenavy, ~!subcapacity.upgrade, ~player.soviet, ~techlevel.4
 		Description: Submerged anti-ship unit.\nArmed with torpedoes below sea level.\nUses Grenadelauncher on surface.\nDetects other Submarines nearby.\n  Strong vs Naval units\n  Weak vs Ground units, Aircraft\n  Special Ability: Submerge\nDives underwater to move unseen.\nCan be surfaced to move faster.
 	Valued:
 		Cost: 775
@@ -615,6 +655,14 @@ SS:
 		DecorationBounds: 38,38
 	RenderSprites:
 		Image: SS
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 SS.Upgraded:
     Inherits: SS
@@ -622,7 +670,7 @@ SS.Upgraded:
 	-GrantConditionOnPrerequisite@SSUPG:
 	-TransformOnCondition@SSUPG:
 	Buildable:
-		Prerequisites: ~techlevel.low, ~!global-disablenavy, ~subcapacity.upgrade
+		Prerequisites: ~techlevel.low, ~!global-disablenavy, ~subcapacity.upgrade, ~player.soviet, ~techlevel.4
         Description: Submerged anti-ship unit.\nCan carry one Infantry.\nArmed with torpedoes below sea level.\nUses Grenadelauncher on surface.\nDetects other Submarines nearby.\n  Strong vs Naval units\n  Weak vs Ground units, Aircraft\n  Special Ability: Submerge\nDives underwater to move unseen.
 	Mobile:
 		PauseOnCondition: notmobile || emp-crate-collected
@@ -699,11 +747,11 @@ MSUB:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferBuilding
     Inherits@Crates: ^AcceptsAllCratesExceptCloak
 	Buildable:
-		Queue: ClassicNavy.Soviet, Navy.Soviet
+		Queue: NavySQ, NavyMQ
 		BuildAtProductionType: Submarine
 		BuildDuration: 1650
 		BuildPaletteOrder: 3
-		Prerequisites: stek, ~techlevel.high, ~!global-disablenavy
+		Prerequisites: stek, ~techlevel.high, ~!global-disablenavy, ~player.soviet, ~techlevel.6
 		Description: Submerged anti-ground siege unit.\nDetects other Submarines nearby.\n  Strong vs Buildings, Ground units\n  Weak vs Naval units, Aircraft\n  Special Ability: Submerge\nDives underwater to move unseen.\nCan be surfaced to move faster.
 	Valued:
 		Cost: 1650
@@ -750,6 +798,14 @@ MSUB:
 	ReloadArmamentsBar:
 		Armaments: primary
 		Color: FFFF00
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 SSFK:
 	Inherits: ^Submarine
@@ -758,11 +814,11 @@ SSFK:
 	Tooltip:
 		Name: Flak Submarine
 	Buildable:
-		Queue: ClassicNavy.Soviet, Navy.Soviet
+		Queue: NavySQ, NavyMQ
 		BuildAtProductionType: Submarine
 		BuildDuration: 950
 		BuildPaletteOrder: 2
-		Prerequisites: dome, ~techlevel.medium, ~!global-disablenavy
+		Prerequisites: dome, ~techlevel.medium, ~!global-disablenavy, ~player.soviet, ~techlevel.5
 		Description: Submerged anti-air platform\narmed with a flak gun.\nDetects other Submarines nearby.\n  Can attack Aircraft\n  Strong vs Infantry, Aircraft\n  Weak vs everything Else.\n  Special Ability: Submerge\nDives underwater to move unseen.\nCan be surfaced to move faster.
 	Health:
 		HP: 180
@@ -832,18 +888,26 @@ SSFK:
 		DecorationBounds: 38,38
 	RenderSprites:
 		Image: SSFK
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 NSUB:
 	Inherits: ^Submarine
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
     Inherits@Crates: ^AcceptsAllCratesExceptCloak
 	Buildable:
-		Queue: ClassicNavy.Soviet, Navy.Soviet
+		Queue: NavySQ, NavyMQ
 		BuildAtProductionType: Submarine
         BuildDuration: 2100
 		BuildPaletteOrder: 6
 		BuildLimit: 1
-		Prerequisites: fcom, ~techlevel.high, ~!global-disablenavy
+		Prerequisites: fcom, ~techlevel.high, ~!global-disablenavy, ~player.soviet, ~techlevel.7
 		Description: Submerged tactical unit.\nArmed with Nuclear torpedo below sea level.\nUses Nuclear missile on surface.\nDetects other Submarines nearby.\n  Maximum 1 can be built.\n  Strong vs Buildings, Submarines\n  Weak vs Defenses, Aircraft\n  Special Ability: Submerge\nDives underwater to move unseen.\nCan be surfaced to move faster.
 	Valued:
 		Cost: 2100
@@ -920,6 +984,14 @@ NSUB:
 	AutoTarget:
 		InitialStance: HoldFire
 		InitialStanceAI: ReturnFire
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 ENGB:
 	Inherits: ^Ship
@@ -927,9 +999,9 @@ ENGB:
 	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
 	Inherits@EMP: ^AcceptsEMPCrate    
 	Buildable:
-		Queue: ClassicNavy.Allies, ClassicNavy.Soviet, Navy.Allies, Navy.Soviet
+		Queue: NavySQ, NavyMQ
 		BuildPaletteOrder: 5
-		Prerequisites: proc, ~techlevel.low, ~!global-disablenavy
+		Prerequisites: proc, ~techlevel.low, ~!global-disablenavy, ~techlevel.5
 		Description: Nautical support vessel.\nCaptures Naval structures\nCarries and lays one Sea Mine\n  Unarmed
 	Valued:
 		Cost: 500
@@ -986,6 +1058,14 @@ ENGB:
         Class: ENGB
     RenderSprites:
         Image: ENGB
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
 
 MINS:
 	Inherits: ^Mine

@@ -4,11 +4,11 @@ E2:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferDefense
 	Buildable:
-		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 160
 		BuildPaletteOrder: 3
-		Prerequisites: proc, ~techlevel.low, ~!global-squadenabled
+		Prerequisites: proc, ~techlevel.low, ~!global-squadenabled, ~player.soviet
 		Description: Infantry armed with grenades.\n  Strong vs Buildings, Infantry\n  Weak vs Vehicles, Aircraft
 	Selectable:
 		Class: E2
@@ -68,6 +68,18 @@ E2:
         Cursor: enter-yellow-flipped
 		Payload: 37
 		Type: InfantryRefund
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 E4:
 	Inherits: ^Soldier
@@ -75,11 +87,11 @@ E4:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferBuilding
 	Buildable:
-		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 300
 		BuildPaletteOrder: 7
-		Prerequisites: dome, ~techlevel.medium, ~!global-squadenabled
+		Prerequisites: dome, ~techlevel.medium, ~!global-squadenabled, ~player.soviet, ~techlevel.4
 		Description: Advanced anti-structure unit.\n  Immune to Fire-based weaponry.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
 	Selectable:
 		Class: E4
@@ -148,15 +160,28 @@ E4:
 		RevokeDelay: 16
 		RevokeOnNewTarget: False
 		RevokeAll: True
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 VOLK:
 	Inherits: GNRL
     Inherits@ROT: ^RottingInfantry
 	Inherits@COMMANDOSKULL: ^CommandoSkull
+    -Cloneable:
 	Buildable:
-		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
-		Prerequisites: fcom, ~techlevel.high
+		Prerequisites: fcom, ~techlevel.high, ~player.soviet, ~techlevel.7
 		BuildPaletteOrder: 6
 		BuildLimit: 1
 		Description: Elite commando infantry armed with anti-tank gun and C4.\nMaximum 1 can be trained\n  Special ability: Durability\nCannot be crushed unless its Mammoth Tank\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
@@ -222,16 +247,28 @@ VOLK:
     -Crushable:
     -GrantExternalConditionToCrusher@CRUSHATTEMPTSLOW:
     -GrantExternalConditionToCrusher@CRUSHSLOW:
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 DOG:
 	Inherits: ^Soldier
     -AttackFrontal:
 	Buildable:
-		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Dog
 		BuildDuration: 200
 		BuildPaletteOrder: 9
-		Prerequisites: kenn, ~techlevel.medium
+		Prerequisites: kenn, ~techlevel.medium, ~player.soviet, ~techlevel.5
 		Description: Anti-infantry unit.\nGains Health whenever Eating.\nCan detect Spies and Saboteurs.\n  Strong vs Infantry\n  Weak vs everything Else
 	Valued:
 		Cost: 200
@@ -327,6 +364,18 @@ DOG:
 	GrantConditionOnPrerequisite@DOGUPG:
 		Condition: minefinder.dog
 		Prerequisites: minefinder.upgrade
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 SHOK:
 	Inherits: ^Soldier
@@ -334,11 +383,11 @@ SHOK:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
 	Buildable:
-		Queue: ClassicInfantry.Soviet, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 450
 		BuildPaletteOrder: 8
-		Prerequisites: stek, ~techlevel.high, ~!global-squadenabled
+		Prerequisites: stek, ~techlevel.high, ~!global-squadenabled, ~player.soviet, ~techlevel.6
 		Description: Infantry with portable tesla coils.\nCan charge powerless Tesla Coils.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
 	Selectable:
 		Class: SHOK
@@ -410,10 +459,22 @@ SHOK:
 		Type: InfantryRefund
 	RevealsShroud:
 		Range: 4c0
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 #   Experimental squad production
 
-E2.squad:
+E2.squad.sq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
@@ -422,9 +483,9 @@ E2.squad:
 	Tooltip:
 		Name: Squad: Grenadier
 	Buildable:
-		Queue: Infantry.Soviet
+		Queue: InfantrySQ
 		BuildPaletteOrder: 3
-        Prerequisites: proc, ~techlevel.low, ~global-squadenabled, ~global-multiqueue
+        Prerequisites: proc, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue, ~player.soviet
 		Description: Deploys a pair of Infantry armed with grenades.\n  Strong vs Buildings, Infantry\n  Weak vs Vehicles, Aircraft
         Icon: e2icon
     Valued:
@@ -433,15 +494,22 @@ E2.squad:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Multiqueue:
+	ProduceActorPower@INFSQ:
 		Actors: e2, e2
-		Type: Infantry.Soviet
+		Type: InfantrySQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
-        Prerequisites: global-multiqueue
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
 
-E2.squad.classic:
+E2.squad.mq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
@@ -450,9 +518,9 @@ E2.squad.classic:
 	Tooltip:
 		Name: Squad: Grenadier
 	Buildable:
-		Queue: ClassicInfantry.Soviet
+		Queue: InfantryMQ
 		BuildPaletteOrder: 3
-        Prerequisites: proc, ~techlevel.low, ~global-squadenabled, ~!global-multiqueue
+        Prerequisites: proc, ~techlevel.low, ~global-squadenabled, ~global-multiqueue, ~player.soviet
 		Description: Deploys a pair of Infantry armed with grenades.\n  Strong vs Buildings, Infantry\n  Weak vs Vehicles, Aircraft
         Icon: e2icon
     Valued:
@@ -461,15 +529,18 @@ E2.squad.classic:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Classicqueue:
+	ProduceActorPower@INFMQ:
 		Actors: e2, e2
-		Type: ClassicInfantry.Soviet
+		Type: InfantryMQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
-        Prerequisites: !global-multiqueue
-
-E4.squad:
+     ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
+ 
+E4.squad.sq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
@@ -478,9 +549,9 @@ E4.squad:
 	Tooltip:
 		Name: Squad: Flamethrower
 	Buildable:
-		Queue: Infantry.Soviet
+		Queue: InfantrySQ
 		BuildPaletteOrder: 7
-        Prerequisites: dome, ~techlevel.medium, ~global-squadenabled, ~global-multiqueue
+        Prerequisites: dome, ~techlevel.medium, ~global-squadenabled, ~!global-multiqueue, ~player.soviet, ~techlevel.4
 		Description: Deploys a pair of Advanced anti-structure units.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
         Icon: e4icon
     Valued:
@@ -489,15 +560,22 @@ E4.squad:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Multiqueue:
+	ProduceActorPower@INFSQ:
 		Actors: e4, e4
-		Type: Infantry.Soviet
+		Type: InfantrySQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
-        Prerequisites: global-multiqueue
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
 
-E4.squad:
+E4.squad.mq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
@@ -506,9 +584,9 @@ E4.squad:
 	Tooltip:
 		Name: Squad: Flamethrower
 	Buildable:
-		Queue: ClassicInfantry.Soviet
+		Queue: InfantryMQ
 		BuildPaletteOrder: 7
-        Prerequisites: dome, ~techlevel.medium, ~global-squadenabled, ~!global-multiqueue
+        Prerequisites: dome, ~techlevel.medium, ~global-squadenabled, ~!global-multiqueue, ~player.soviet, ~techlevel.4
 		Description: Deploys a pair of Advanced anti-structure units.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
         Icon: e4icon
     Valued:
@@ -517,15 +595,18 @@ E4.squad:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Multiqueue:
+	ProduceActorPower@INFMQ:
 		Actors: e4, e4
-		Type: ClassicInfantry.Soviet
+		Type: InfantryMQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
-        Prerequisites: global-multiqueue
-
-SHOK.squad:
+     ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
+ 
+SHOK.squad.sq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
@@ -534,9 +615,9 @@ SHOK.squad:
 	Tooltip:
 		Name: Squad: Shock Trooper
 	Buildable:
-		Queue: Infantry.Soviet
+		Queue: InfantrySQ
 		BuildPaletteOrder: 8
-        Prerequisites: stek, ~techlevel.high, ~global-squadenabled, ~global-multiqueue
+        Prerequisites: stek, ~techlevel.high, ~global-squadenabled, ~!global-multiqueue, ~player.soviet, ~techlevel.6
 		Description: Deploys a pair of Infantry with portable tesla coils.\nCan charge powerless Tesla Coils.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
         Icon: shokicon
     Valued:
@@ -545,15 +626,22 @@ SHOK.squad:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Multiqueue:
+	ProduceActorPower@INFSQ:
 		Actors: shok, shok
-		Type: Infantry.Soviet
+		Type: InfantrySQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
-        Prerequisites: global-multiqueue
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
 
-SHOK.squad.classic:
+SHOK.squad.mq:
 	Inherits@AI: ^ProductionAIBoost
 	AlwaysVisible:
 	Interactable:
@@ -562,9 +650,9 @@ SHOK.squad.classic:
 	Tooltip:
 		Name: Squad: Shock Trooper
 	Buildable:
-		Queue: ClassicInfantry.Soviet
+		Queue: InfantryMQ
 		BuildPaletteOrder: 8
-        Prerequisites: stek, ~techlevel.high, ~global-squadenabled, ~!global-multiqueue
+        Prerequisites: stek, ~techlevel.high, ~global-squadenabled, ~global-multiqueue, ~player.soviet, ~techlevel.6
 		Description: Deploys a pair of Infantry with portable tesla coils.\nCan charge powerless Tesla Coils.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
         Icon: shokicon
     Valued:
@@ -573,10 +661,13 @@ SHOK.squad.classic:
 		Image: production.infantry
 	Armor:
 		Type: None
-	ProduceActorPower@Classicqueue:
+	ProduceActorPower@INFMQ:
 		Actors: shok, shok
-		Type: ClassicInfantry.Soviet
+		Type: InfantryMQ
 		OneShot: true
 		AutoFire: true
 		AllowMultiple: true
-        Prerequisites: !global-multiqueue
+     ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ

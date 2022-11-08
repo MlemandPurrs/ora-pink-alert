@@ -114,6 +114,7 @@ proc.destroyed:
 	bib: bib2
 		Length: *
 		UseTilesetExtension: true
+        ZOffset: -1c510
 
 silo:
 	idle: silo2
@@ -144,6 +145,135 @@ silo.destroyed:
 	bib: mbSILO
 		Length: *
 		UseTilesetExtension: true
+
+eref:
+	idle:
+        Offset: 1, -11
+		ZOffset: -1c511
+	damaged-idle:
+        Start: 1
+        Offset: 1, -11
+		ZOffset: -1c511
+	idle-top: ereftop
+        Offset: 0, -11
+		ZOffset: 1c0
+	damaged-idle-top: ereftop
+		Offset: 0, -11
+        Start: 1
+		ZOffset: 1c0
+	make: erefmake
+        Offset: 1, -11
+		Length: *
+        Tick: 80
+	bib: bib2
+        Offset: 0, 14
+		Length: *
+		UseTilesetExtension: true
+        ZOffset: -1c510
+    dead:
+        Offset: 1, -11
+        Start: 2
+        ZOffset: -1c511
+        Tick: 800
+	icon: procicon
+
+eref.destroyed:
+	idle: eref
+        Offset: 1, -11
+		Start: 2
+        Length: 1
+		ZOffset: -1c511
+	bib: bib2
+        Offset: 0, 14
+		Length: *
+		UseTilesetExtension: true
+        ZOffset: -1c510
+
+xref:
+	idle:
+		Offset: 0, 0
+		ZOffset: -1c511
+	damaged-idle:
+        Start: 1
+        Offset: 0, 0
+		ZOffset: -1c511
+	idle-top: xreftop
+        Offset: 0, 0
+		ZOffset: 1c0
+	damaged-idle-top: xreftop
+		Offset: 0, 0
+        Start: 1
+		ZOffset: 1c0
+	make: xrefmake
+        Offset: 0, 0
+		Length: *
+        Tick: 80
+	bib: bib2
+        Offset: 0, 14
+		Length: *
+		UseTilesetExtension: true
+        ZOffset: -1c510
+    dead:
+        Offset: 0, 0
+        Start: 1
+        ZOffset: -1c511
+        Tick: 800
+	icon: procicon
+
+xref.destroyed:
+	idle: xref
+        Offset: 0, 0
+		Start: 1
+        Length: 1
+		ZOffset: -1c511
+	bib: bib2
+        Offset: 0, 0
+		Length: *
+		UseTilesetExtension: true
+        ZOffset: -1c510
+
+ercc:
+	idle:
+        Offset: 2, -9
+		ZOffset: -1c511
+	damaged-idle:
+        Start: 1
+        Offset: 2, -9
+		ZOffset: -1c511
+	idle-top: ercctop
+        Offset: 2, -9
+		ZOffset: 0c312
+	damaged-idle-top: ercctop
+		Offset: 2, -9
+        Start: 1
+		ZOffset: 0c312
+	make: erccmake
+        Offset: 5, -13
+		Length: *
+        Tick: 80
+	bib: bib2
+        Offset: 2, 8
+		Length: *
+		UseTilesetExtension: true
+        ZOffset: -1c510
+    dead:
+        Offset: 2, -9
+        Start: 1
+        ZOffset: -1c511
+        Tick: 800
+	icon: procicon
+
+ercc.destroyed:
+	idle: ercc
+        Offset: 2, -9
+		Start: 1
+        Length: 1
+		ZOffset: -1c511
+	bib: bib2
+        Offset: 2, 8
+		Length: *
+		UseTilesetExtension: true
+        ZOffset: -1c510
 
 tent:
 	Defaults:
@@ -312,6 +442,7 @@ fix:
 		UseTilesetExtension: true
     dead:
         Start: 14
+        Offset: 0,1
         Tick: 800
 	icon: fixicon
 	fake-icon: fixficon
@@ -1006,10 +1137,16 @@ miss.destroyed:
 sbag:
 	idle:
 		Length: 16
+    damaged-idle: sbag
+		Start: 32
+		Length: 16
 	icon: sbagicon
 
 fenc:
 	idle:
+		Length: 16
+    damaged-idle: fenc
+		Start: 16
 		Length: 16
 	icon: fencicon
 
@@ -1083,3 +1220,90 @@ rpad.destroyed:
 		Start: 14
 		Length: 1
 		ZOffset: -1023
+
+orep:
+	idle: orep
+	damaged-idle: orep
+		Start: 1
+	make: orepmake
+		Length: *
+		Tick: 80
+	dead: orep
+		Start: 1
+		Tick: 800
+	bib: bib2
+		Length: *
+		UseTilesetExtension: true
+	icon: orepicon
+
+orep.destroyed:
+	idle: orep
+		Start: 1
+		Length: 1
+
+aprt:
+	idle: 
+		Length: 8
+		Tick: 160
+		ZOffset: -1023
+		Offset: 0,-4
+	damaged-idle: 
+		Start: 8
+		Length: 1
+		Tick: 160
+		ZOffset: -1023
+		Offset: 0,-4
+	active:
+		Length: 8
+		Tick: 160
+		ZOffset: -1023
+		Offset: 0,-4
+	damaged-active:
+		Start: 8
+		Length: 1
+		Tick: 160
+		ZOffset: -1023
+		Offset: 0,-4
+	bib: bib2
+		Length: *
+		UseTilesetExtension: true
+        ZOffset: -1022
+    dead: aprt
+        Tick: 800
+        Start: 8
+        ZOffset: -1023
+        Offset: 0,-4
+
+aprt.destroyed:
+	idle: aprt
+		Start: 8
+		Length: 1
+		ZOffset: -1023
+		Offset: 0,-4
+
+clon:
+	idle:
+		Offset: 0, -5
+	damaged-idle:
+		Start: 1
+		Offset: 0, -5
+	dead: clon
+		Start: 2
+		Length: 1
+		Tick: 800
+		Offset: 0, -5
+	make: clonmake
+		Length: *
+		Offset: 0, -5
+		Tick: 80
+	bib: bib3
+		Length: *
+		UseTilesetExtension: true
+    icon: clonicon
+
+clon.destroyed:
+	idle: clon
+		Start: 2
+		Length: 1
+		Tick: 800
+		Offset: 0, -5

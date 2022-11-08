@@ -404,6 +404,17 @@ Container@PLAYER_WIDGETS:
 			Width: 238
 			Height: 250
 			Children:
+				Image@TABS_BACKGROUND:
+					Logic: AddFactionSuffixLogic
+					#   Y: 0 - 20
+					#   Width: 235
+					#   Height: 20
+                    Y: 0 - 23
+                    Width: 238
+                    Height: 10
+					ClickThrough: false
+					ImageCollection: sidebar
+					ImageName: background-tabs
 				Container@PALETTE_BACKGROUND:
 					Children:
 						Image@ROW_TEMPLATE:
@@ -540,7 +551,7 @@ Container@PLAYER_WIDGETS:
 							TooltipText: Naval
 							TooltipContainer: TOOLTIP_CONTAINER
 							ProductionGroup: Navy
-							Key: ProductionTypeNaval
+							Key: ProductionTypeNavy
 							Children:
 								Image@ICON:
 									X: 6
@@ -555,8 +566,8 @@ Container@PLAYER_WIDGETS:
 							Background: sidebar-button
 							TooltipText: Upgrades
 							TooltipContainer: TOOLTIP_CONTAINER
-							ProductionGroup: Upgrades
-							Key: ProductionTypeUpgrades
+							ProductionGroup: Upgrade
+							Key: ProductionTypeUpgrade
 							Children:
 								Image@ICON:
 									X: 6
@@ -592,7 +603,18 @@ Container@PLAYER_WIDGETS:
 									Y: 3
 									ImageCollection: scrollpanel-decorations
 									ImageName: down
-		Image@SIDEBAR_MONEYBIN:
+		ProductionTabs@PRODUCTION_TABS:
+			Logic: ProductionTabsLogic
+			PaletteWidget: PRODUCTION_PALETTE
+			TypesContainer: PRODUCTION_TYPES
+			BackgroundContainer: PRODUCTION_BACKGROUND
+			PreviousProductionTabKey: PreviousProductionTab
+			NextProductionTabKey: NextProductionTab
+			X: WINDOW_RIGHT - 5 - 18 - 209
+			Y: 299
+			Width: 214
+			Height: 20
+        Image@SIDEBAR_MONEYBIN:
 			Logic: AddFactionSuffixLogic
 			X: WINDOW_RIGHT - 250
 			Y: 272
@@ -653,23 +675,12 @@ Container@PLAYER_WIDGETS:
 					Height: 21
 					Background: sidebar-button
 					ClickThrough: false
-		Image@TOP_CAP:
-			Logic: AddFactionSuffixLogic
-			X: WINDOW_RIGHT - 250
-			Y: 299
-			Width: 238
-			Height: 8
-			ClickThrough: false
-			ImageCollection: sidebar
-			ImageName: background-prodscroller
-		ProductionTabs@PRODUCTION_TABS:
-			Logic: ProductionTabsLogic
-			PaletteWidget: PRODUCTION_PALETTE
-			TypesContainer: PRODUCTION_TYPES
-			BackgroundContainer: PRODUCTION_BACKGROUND
-			PreviousProductionTabKey: PreviousProductionTab
-			NextProductionTabKey: NextProductionTab
-			X: WINDOW_RIGHT - 5 - 18 - 209
-			Y: 299
-			Width: 214
-			Height: 20
+		#   Image@TOP_CAP:
+		#	Logic: AddFactionSuffixLogic
+		#	X: WINDOW_RIGHT - 250
+		#	Y: 299
+		#	Width: 238
+		#	Height: 8
+		#	ClickThrough: false
+		#	ImageCollection: sidebar
+		#	ImageName: background-prodscroller

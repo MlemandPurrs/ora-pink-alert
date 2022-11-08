@@ -55,6 +55,9 @@ Packages:
     pinkalert|bits/temperate/longcliffs
     pinkalert|bits/temperate/shortcliffs
     pinkalert|bits/temperate/shortwatercliffs
+    pinkalert|bits/temperate/coastalfords
+    pinkalert|bits/temperate/extrariver
+    pinkalert|bits/temperate/pinkthothxtra
     pinkalert|bits/vehicles
     pinkalert|bits/winter
 	pinkalert|uibits
@@ -78,20 +81,21 @@ Rules:
 	pinkalert|rules/vehicles-allies.yaml
 	pinkalert|rules/vehicles-soviet.yaml
 	pinkalert|rules/structures.yaml
+    pinkalert|rules/structures-civilian.yaml
     pinkalert|rules/structures-defenses.yaml
     pinkalert|rules/structures-tech.yaml
-    pinkalert|rules/fake-structures.yaml
+    pinkalert|rules/structures-fake.yaml
 	pinkalert|rules/infantry.yaml
     pinkalert|rules/infantry-allies.yaml
     pinkalert|rules/infantry-soviet.yaml
+    pinkalert|rules/infantry-civilian.yaml
     pinkalert|rules/infantry-creeps.yaml
-	pinkalert|rules/civilian.yaml
     pinkalert|rules/bridges.yaml
 	pinkalert|rules/decoration.yaml
+    pinkalert|rules/decoration-trees.yaml
 	pinkalert|rules/aircraft.yaml
 	pinkalert|rules/navy.yaml
     pinkalert|rules/upgrades.yaml
-    pinkalert|rules/civilian.yaml
     #   pinkalert|rules/ai-duplicates.yaml
 
 Sequences:
@@ -303,7 +307,7 @@ ColorValidator:
     HsvSaturationRange: 0.0, 1.0
     HsvValueRange: 0.0, 1.0
 	TeamColorPresets: C4B060, 4494E4, EC0000, 00C400, FC8800, 707070, 44907C, 702C24, D1987C, A4A4BC, F40000, 54FC54, D47810, 007070, A0F08C, FCFC54, FFDF5E, 273CB3, DE0000, 0C960C, FF9100, 14B1FF, B914FF, FF5EC7, B8DE0E, 145DD4, FF1710, 2DD12E, E79F18, 24D7E6, 6F28BD, CD9AEB
-
+ 
 ModContent:
 	InstallPromptMessage: Red Alert requires artwork and audio from the original game.\n\nQuick Install will automatically download this content (without music\nor videos) from a mirror of the 2008 Red Alert freeware release.\n\nAdvanced Install includes options for copying the music, videos, and\nother content from an original game disc or digital installation.
 	QuickDownload: quickinstall

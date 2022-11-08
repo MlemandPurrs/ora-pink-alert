@@ -1,12 +1,13 @@
 FACT:
 	Inherits: ^Building
     Inherits@Infiltration: ^InfiltratableProduction
+    Inherits@Production: ^ProducesBuildings
 	Building:
 		Footprint: xxX xxx XxX
 		Dimensions: 3,3
 		LocalCenterOffset: 0,-512,0
 	Buildable:
-		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 2500
 		BuildPaletteOrder: 0
 		Prerequisites: ~disabled
@@ -18,87 +19,10 @@ FACT:
 	RevealsShroud:
 		Range: 5c0
 	WithBuildingBib:
-	Production@ClassicFACT:
-		Produces: ClassicBuilding.Allies, ClassicBuilding.Soviet, ClassicDefense.Allies, ClassicDefense.Soviet
-		RequiresCondition: !multiqueue
+    Production@SQBLDDEF:
+        PauseOnCondition: build-incomplete
+    Production@MQBLDDEF:
         PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@ClassicBuildingAllies:
-		ProductionType: ClassicBuilding.Allies
-	ProductionBar@ClassicBuildingSoviet:
-		ProductionType: ClassicBuilding.Soviet
-	ProductionBar@ClassicDefenseAllies:
-		ProductionType: ClassicDefense.Allies
-	ProductionBar@ClassicDefenseSoviet:
-		ProductionType: ClassicDefense.Soviet
-	Production:
-		Produces: Building.Allies, Building.Soviet, Defense.Allies, Defense.Soviet
-        RequiresCondition: multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionQueue@AlliesBuilding:
-		Type: Building.Allies
-		Group: Building
-        Factions: allies, england, france, germany, spain
-		DisplayOrder: 0
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@AlliesBuilding:
-		ProductionType: Building.Allies
-	ProductionQueue@SovietBuilding:
-		Type: Building.Soviet
-		Group: Building
-        Factions: soviet, russia, ukraine, belarus, kazakh
-		DisplayOrder: 0
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@SovietBuilding:
-		ProductionType: Building.Soviet
-	ProductionQueue@AlliesDefense:
-		Type: Defense.Allies
-		Group: Defense
-        Factions: allies, england, france, germany, spain
-		DisplayOrder: 1
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@AlliesDefense:
-		ProductionType: Defense.Allies
-	ProductionQueue@SovietDefense:
-		Type: Defense.Soviet
-		Group: Defense
-        Factions: soviet, russia, ukraine, belarus, kazakh
-		DisplayOrder: 1
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@SovietDefense:
-		ProductionType: Defense.Soviet
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
 	Valued:
 		Cost: 2500
 	Tooltip:
@@ -151,8 +75,18 @@ FACT:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
 	SpawnActorOnDeath:
 		Actor: FACT.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProvidesPrerequisite@SQSlowdown:
+        Prerequisite: sqslowdown-structure
+    ProvidesPrerequisite@SQSlowdownLowpower:
+        Prerequisite: sqslowdown-lowpower-structure
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-structure-lowpower
+        Queue: BuildingSQ
 
 FACT.Husk:
 	Inherits: ^BuildingHusk
@@ -177,7 +111,7 @@ POWR:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
 	Buildable:
-		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 300
 		BuildPaletteOrder: 3
 		Prerequisites: ~techlevel.low
@@ -221,8 +155,14 @@ POWR:
 		Image: POWR
 	SpawnActorOnDeath:
 		Actor: POWR.Husk
-        OwnerType: InternalName
-        EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-structure-lowpower
+        Queue: BuildingSQ
 
 POWR.Husk:
 	Inherits: ^BuildingHusk
@@ -246,10 +186,10 @@ APWR:
 	HitShape:
 		TargetableOffsets: -355,-1024,0
 	Buildable:
-		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 500
 		BuildPaletteOrder: 6
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~techlevel.5
 		Description: Provides double the power of a standard Power Plant.\nCheaper than keep building the standard plant.\nCan be Infiltrated by a Spy\nresulting in a power blackout.
 	Valued:
 		Cost: 500
@@ -293,8 +233,14 @@ APWR:
 		Image: APWR
 	SpawnActorOnDeath:
 		Actor: APWR.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-structure-lowpower
+        Queue: BuildingSQ
 
 APWR.Husk:
 	Inherits: ^BuildingHusk
@@ -315,10 +261,10 @@ PROC:
 	Inherits: ^Building
     Inherits@infiltration: ^InfiltratableRefinery
 	Buildable:
-		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 2000
 		BuildPaletteOrder: 1
-		Prerequisites: ~techlevel.low
+		Prerequisites: ~techlevel.low, ~vanillarefinery
 		Description: Refines Ore and Gems into credits.\nCan be Infiltrated by a Spy\nresulting in theft of stored Resources.\n  Special: Free Harvester\nEach Refinery comes with one free Ore Truck.
 	Valued:
 		Cost: 1500
@@ -430,8 +376,20 @@ PROC:
 		ValidRelationships: Ally
 	SpawnActorOnDeath:
 		Actor: PROC.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+	#   GrantConditionOnPrerequisite@IncomeBoost:
+	#	Condition: resf
+	#	Prerequisites: resf
+    #   RefineryResourceMultiplier@IncomeBoost:
+    #   Modifier: 110
+    #   RequiresCondition: resf
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-structure-lowpower
+        Queue: BuildingSQ
 
 PROC.Husk:
 	Inherits: ^BuildingHusk
@@ -451,15 +409,15 @@ PROC.Husk:
 SILO:
 	Inherits: ^Building
 	Buildable:
-		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 150
 		BuildPaletteOrder: 4
-		Prerequisites: proc, ~techlevel.low
+		Prerequisites: proc, ~techlevel.low, ~techlevel.2
 		Description: Stores excess refined Ore and Gems.\nThe stored resources are secured against Theft.
 	Valued:
 		Cost: 150
 	Tooltip:
-		Name: Silo
+		Name: Ore Silo
 	Health:
 		HP: 300
 	Armor:
@@ -489,8 +447,14 @@ SILO:
     -WithDeathAnimation:
 	SpawnActorOnDeath:
 		Actor: SILO.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-structure-lowpower
+        Queue: BuildingSQ
 
 SILO.Husk:
 	Inherits: ^BuildingHusk
@@ -503,19 +467,454 @@ SILO.Husk:
 	TransformOnCapture:
 		IntoActor: silo
 
+#   Evolved Refinery by Widow and FRenzy, with help from MustaphaTR
+EREF:
+	Inherits: ^Building
+    Inherits@infiltration: ^InfiltratableRefinery
+	Buildable:
+		Queue: BuildingSQ, BuildingMQ
+		BuildDuration: 2000
+		BuildPaletteOrder: 1
+		Prerequisites: ~techlevel.low, ~evolvedrefinery
+		Description: Refines Ore and Gems into credits.\nCan be Infiltrated by a Spy\nresulting in theft of stored Resources.\n  Special: Free Harvester\nEach Refinery comes with one free Ore Truck.
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Ore Refinery
+	Building:
+		Footprint: x=X =+= x=x
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Selectable:
+		Class: PROC
+		Bounds: 72,80,0,-14
+		DecorationBounds: 72,102,0,-2
+	SelectionDecorations:
+	Health:
+		HP: 800
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 6c0
+	WithBuildingBib:
+	Refinery:
+		DockAngle: 256
+		DockOffset: 1,1
+		ShowTicks: false
+		DiscardExcessResources: true
+	StoresResources:
+		Capacity: 2000
+	DrawLineToTarget:
+	FreeActor@Allies:
+		Actor: HARV
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && allies.player && !mineimmune 
+	FreeActor@AlliesMineImmune:
+		Actor: HARV.MineImmune
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && allies.player && mineimmune 
+	FreeActor@Soviet:
+		Actor: AHRV
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && soviet.player && !mineimmune 
+	FreeActor@SovietMineImmune:
+		Actor: AHRV.MineImmune
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && soviet.player && mineimmune 
+	GrantConditionOnFaction@SovietOwned:
+		Condition: soviet.player
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		ResetOnOwnerChange: True
+	GrantConditionOnFaction@AlliesOwned:
+		Condition: allies.player
+		Factions: allies, england, france, germany, spain
+		ResetOnOwnerChange: True
+	GrantConditionOnPrerequisite@MineImmune:
+		Condition: mineimmune
+		Prerequisites: global-mineimmune
+	WithIdleOverlay@TOP:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	Power:
+		Amount: -30
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: proc
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-proc
+		RequiresCondition: stickytech
+	HitShape:
+		TargetableOffsets: 896,1024,896
+		Type: Rectangle
+			TopLeft: -1536, -1536
+			BottomRight: 1536, 1536
+	RenderSprites:
+		Image: EREF
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+        Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+	CustomSellValue:
+		Value: 500
+	Sellable:
+		RefundPercent: 100    
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && !dockinprocess
+	ExternalCondition@DOCKED:
+		Condition: dockinprocess
+		SourceCap: 1
+		TotalCap: 1
+	ProximityExternalCondition@DOCKED:
+		Condition: docked
+		Range: 1c0
+		ValidRelationships: Ally
+	SpawnActorOnDeath:
+		Actor: EREF.Husk
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-structure-lowpower
+        Queue: BuildingSQ
+
+EREF.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 72,80,0,-14
+	Building:
+		Footprint: x=X =+= x=x
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Tooltip:
+		Name: Ore Refinery (Destroyed)
+    RenderSprites:
+        Image: eref.destroyed
+	TransformOnCapture:
+		IntoActor: eref
+
+#   Xperimental Refinery by FRenzy
+XREF:
+	Inherits: ^Building
+    Inherits@infiltration: ^InfiltratableRefinery
+	Buildable:
+		Queue: BuildingSQ, BuildingMQ
+		BuildDuration: 2000
+		BuildPaletteOrder: 1
+		Prerequisites: ~techlevel.low, ~xperimentalrefinery
+		Description: Refines Ore and Gems into credits.\nCan be Infiltrated by a Spy\nresulting in theft of stored Resources.\n  Special: Free Harvester\nEach Refinery comes with one free Ore Truck.
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Ore Refinery
+	Building:
+		Footprint: x=X =+= x=x
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Selectable:
+		Class: PROC
+		Bounds: 72,70,0,-14
+		DecorationBounds: 72,102,0,-2
+	SelectionDecorations:
+	Health:
+		HP: 800
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 6c0
+	WithBuildingBib:
+	Refinery:
+		DockAngle: 256
+		DockOffset: 1,1
+		ShowTicks: false
+		DiscardExcessResources: true
+	StoresResources:
+		Capacity: 2000
+	DrawLineToTarget:
+	FreeActor@Allies:
+		Actor: HARV
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && allies.player && !mineimmune 
+	FreeActor@AlliesMineImmune:
+		Actor: HARV.MineImmune
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && allies.player && mineimmune 
+	FreeActor@Soviet:
+		Actor: AHRV
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && soviet.player && !mineimmune 
+	FreeActor@SovietMineImmune:
+		Actor: AHRV.MineImmune
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && soviet.player && mineimmune 
+	GrantConditionOnFaction@SovietOwned:
+		Condition: soviet.player
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		ResetOnOwnerChange: True
+	GrantConditionOnFaction@AlliesOwned:
+		Condition: allies.player
+		Factions: allies, england, france, germany, spain
+		ResetOnOwnerChange: True
+	GrantConditionOnPrerequisite@MineImmune:
+		Condition: mineimmune
+		Prerequisites: global-mineimmune
+	WithIdleOverlay@TOP:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	Power:
+		Amount: -30
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: proc
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-proc
+		RequiresCondition: stickytech
+	HitShape@TOPLEFT:
+		TargetableOffsets: 1200,-768,0
+		Type: Rectangle
+			TopLeft: -1280, -1280
+			BottomRight: -256,-256
+	HitShape@TOPRIGHT:
+		TargetableOffsets: 1200,768,512
+		Type: Rectangle
+			TopLeft: 256, -1280
+			BottomRight: 1280, -256
+	HitShape@BOTLEFT:
+		TargetableOffsets: -1200,-768,768
+		Type: Rectangle
+			TopLeft: -1280, 256
+			BottomRight: -256, 1280
+	HitShape@BOTRIGHT:
+		TargetableOffsets: -1200,768,768
+		Type: Rectangle
+			TopLeft: 256, 256
+			BottomRight: 1280, 1280
+	RenderSprites:
+		Image: XREF
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+        Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+	CustomSellValue:
+		Value: 500
+	Sellable:
+		RefundPercent: 100    
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && !dockinprocess
+	ExternalCondition@DOCKED:
+		Condition: dockinprocess
+		SourceCap: 1
+		TotalCap: 1
+	ProximityExternalCondition@DOCKED:
+		Condition: docked
+		Range: 1c0
+		ValidRelationships: Ally
+	SpawnActorOnDeath:
+		Actor: XREF.Husk
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-structure-lowpower
+        Queue: BuildingSQ
+
+XREF.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 72,80,0,-14
+	Building:
+		Footprint: x=X =+= x=x
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Tooltip:
+		Name: Ore Refinery (Destroyed)
+    RenderSprites:
+        Image: xref.destroyed
+	TransformOnCapture:
+		IntoActor: xref
+
+#   Evolved Refinery Creative Commons by FRenzy and Widow
+ERCC:
+	Inherits: ^Building
+    Inherits@infiltration: ^InfiltratableRefinery
+	Buildable:
+		Queue: BuildingSQ, BuildingMQ
+		BuildDuration: 2000
+		BuildPaletteOrder: 1
+		Prerequisites: ~techlevel.low, ~erccrefinery
+		Description: Refines Ore and Gems into credits.\nCan be Infiltrated by a Spy\nresulting in theft of stored Resources.\n  Special: Free Harvester\nEach Refinery comes with one free Ore Truck.
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Ore Refinery
+	Building:
+		Footprint: =+x +=+ x==
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Selectable:
+		Class: PROC
+		Bounds: 72,45,0,-14
+		DecorationBounds: 72,75,1,-15
+	SelectionDecorations:
+	Health:
+		HP: 800
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 6c0
+	WithBuildingBib:
+	Refinery:
+		DockAngle: 256
+		DockOffset: 1,1
+		ShowTicks: false
+		DiscardExcessResources: true
+	StoresResources:
+		Capacity: 2000
+	DrawLineToTarget:
+	FreeActor@Allies:
+		Actor: HARV
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && allies.player && !mineimmune 
+	FreeActor@AlliesMineImmune:
+		Actor: HARV.MineImmune
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && allies.player && mineimmune 
+	FreeActor@Soviet:
+		Actor: AHRV
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && soviet.player && !mineimmune 
+	FreeActor@SovietMineImmune:
+		Actor: AHRV.MineImmune
+		SpawnOffset: 1,1
+		Facing: 256
+        RequiresCondition: !build-incomplete && soviet.player && mineimmune 
+	GrantConditionOnFaction@SovietOwned:
+		Condition: soviet.player
+		Factions: soviet, russia, ukraine, belarus, kazakh
+		ResetOnOwnerChange: True
+	GrantConditionOnFaction@AlliesOwned:
+		Condition: allies.player
+		Factions: allies, england, france, germany, spain
+		ResetOnOwnerChange: True
+	GrantConditionOnPrerequisite@MineImmune:
+		Condition: mineimmune
+		Prerequisites: global-mineimmune
+	WithIdleOverlay@TOP:
+		Sequence: idle-top
+		RequiresCondition: !build-incomplete
+	Power:
+		Amount: -30
+        RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: proc
+	GrantConditionOnPrerequisite@STICKY:
+		Condition: stickytech
+		Prerequisites: global-stickytech
+	FreeActor@STICKY:
+		Actor: building-proc
+		RequiresCondition: stickytech
+	HitShape@TOPLEFT:
+		TargetableOffsets: 0,-1052,0 
+		Type: Rectangle
+			TopLeft: -1536, -256
+			BottomRight: -256,256
+	HitShape@TOPRIGHT:
+		TargetableOffsets: 1050,1152,0, 620,830,0
+		Type: Rectangle
+			TopLeft: 256, -1024
+			BottomRight: 1536, 256
+	HitShape@BOTRIGHT:
+		TargetableOffsets: -1600,1052,0 
+		Type: Rectangle
+			TopLeft: 256, 718
+			BottomRight: 1536, 1280
+	HitShape@BOTLEFT:
+		TargetableOffsets: -1600,-1252,0, -1700,-730,0
+		Type: Rectangle
+			TopLeft: -1536, 768
+			BottomRight: -256, 2048
+	RenderSprites:
+		Image: ERCC
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+        Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+	CustomSellValue:
+		Value: 500
+	Sellable:
+		RefundPercent: 100    
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && !dockinprocess
+	ExternalCondition@DOCKED:
+		Condition: dockinprocess
+		SourceCap: 1
+		TotalCap: 1
+	ProximityExternalCondition@DOCKED:
+		Condition: docked
+		Range: 1c0
+		ValidRelationships: Ally
+	SpawnActorOnDeath:
+		Actor: ERCC.Husk
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-structure-lowpower
+        Queue: BuildingSQ
+
+ERCC.Husk:
+	Inherits: ^BuildingHusk
+	Interactable:
+		Bounds: 72,45,0,-4
+	Building:
+		Footprint: =+x +=+ x==
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Tooltip:
+		Name: Ore Refinery (Destroyed)
+    RenderSprites:
+        Image: ercc.destroyed
+	TransformOnCapture:
+		IntoActor: ercc
+
 TENT:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
-	Inherits@PRIMARY: ^PrimaryBuilding
     Inherits@infiltration: ^InfiltratableProduction
+    Inherits@production: ^ProducesInfantry
 	HitShape:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
 	Buildable:
-		Queue: Building.Allies, ClassicBuilding.Allies
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 300
 		BuildPaletteOrder: 2
-		Prerequisites: ~techlevel.low
+		Prerequisites: ~techlevel.low, ~player.allies
 		Description: Trains and Heals Infantry units.\nInfantry can be decommisioned for 1/4 of cost.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
 	Valued:
 		Cost: 300
@@ -533,51 +932,23 @@ TENT:
 		Range: 5c0
 	WithBuildingBib:
 	RallyPoint:
-	Exit@1:
+    Production@SQINF:
+        PauseOnCondition: build-incomplete
+    Production@MQINF:
+        PauseOnCondition: build-incomplete || sabotage
+    Exit@1:
 		SpawnOffset: -42,810,0
 		ExitCell: 1,2
-        ProductionTypes: ClassicInfantry.Allies, Infantry.Allies, Soldier
+        ProductionTypes: InfantrySQ, InfantryMQ, Soldier
 	Exit@2:
 		SpawnOffset: -725,640,0
 		ExitCell: 0,2
-        ProductionTypes: ClassicInfantry.Allies, Infantry.Allies, Soldier
-	Production@ClassicAlliesInfantry:
-		Produces: ClassicInfantry.Allies, Soldier
-		RequiresCondition: !multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@ClassicAlliesInfantry:
-		ProductionType: ClassicInfantry.Allies
-	Production:
-		Produces: Infantry.Allies, Soldier
-        RequiresCondition: multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@AlliesInfantry:
-		ProductionType: Infantry.Allies
-	ProductionQueue@AlliesInfantry:
-		Type: Infantry.Allies
-		Group: Infantry
-		DisplayOrder: 2
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
-	ProvidesPrerequisite:
-		Prerequisite: infantryproduction
+        ProductionTypes: InfantrySQ, InfantryMQ, Soldier
 	Power:
 		Amount: -15
         RequiresCondition: !build-incomplete
+	ProvidesPrerequisite:
+		Prerequisite: infantryproduction
 	ProvidesPrerequisite@buildingname:
 		Prerequisite: tent
 	ProvidesPrerequisite@STICKY-BUILDING:
@@ -605,8 +976,18 @@ TENT:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
 	SpawnActorOnDeath:
 		Actor: TENT.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProvidesPrerequisite@SQSlowdown:
+        Prerequisite: sqslowdown-infantry
+    ProvidesPrerequisite@SQSlowdownLowpower:
+        Prerequisite: sqslowdown-lowpower-infantry
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 TENT.Husk:
 	Inherits: ^BuildingHusk
@@ -625,16 +1006,16 @@ TENT.Husk:
 BARR:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
-	Inherits@PRIMARY: ^PrimaryBuilding
     Inherits@infiltration: ^InfiltratableProduction
+    Inherits@production: ^ProducesInfantry
 	HitShape:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 490,-470,0, 355,512,0, -355,-512,0, -630,512,0
 	Buildable:
-		Queue: Building.Soviet, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 300
 		BuildPaletteOrder: 2
-		Prerequisites: ~techlevel.low
+		Prerequisites: ~techlevel.low, ~player.soviet
 		Description: Trains and Heals Infantry units.\nInfantry can be decommisioned for 1/4 of cost.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
 	Valued:
 		Cost: 300
@@ -652,61 +1033,33 @@ BARR:
 		Range: 5c0
 	WithBuildingBib:
 	RallyPoint:
+    Production@SQINF:
+        PauseOnCondition: build-incomplete
+    Production@MQINF:
+        PauseOnCondition: build-incomplete || sabotage
 	Exit@1:
 		SpawnOffset: -170,810,0
 		ExitCell: 1,2
-        ProductionTypes: ClassicInfantry.Soviet, Infantry.Soviet, Soldier
+        ProductionTypes: InfantrySQ, InfantryMQ, Soldier
 	Exit@2:
 		SpawnOffset: -725,640,0
 		ExitCell: 0,2
-        ProductionTypes: ClassicInfantry.Soviet, Infantry.Soviet, Soldier
+        ProductionTypes: InfantrySQ, InfantryMQ, Soldier
 	Exit@3:
 		SpawnOffset: -170,810,0
 		ExitCell: -1,2
 		Priority: 0
-        ProductionTypes: ClassicInfantry.Soviet, Infantry.Soviet, Soldier
+        ProductionTypes: InfantrySQ, InfantryMQ, Soldier
 	Exit@4:
 		SpawnOffset: -725,640,0
 		ExitCell: 2,2
 		Priority: 0
-        ProductionTypes: ClassicInfantry.Soviet, Infantry.Soviet, Soldier
-	Production@ClassicSovietInfantry:
-		Produces: ClassicInfantry.Soviet, Soldier
-		RequiresCondition: !multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@ClassicSovietInfantry:
-		ProductionType: ClassicInfantry.Soviet
-	Production:
-		Produces: Infantry.Soviet, Soldier
-        RequiresCondition: multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@SovietInfantry:
-		ProductionType: Infantry.Soviet
-	ProductionQueue@SovietInfantry:
-		Type: Infantry.Soviet
-		Group: Infantry
-		DisplayOrder: 2
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
-	ProvidesPrerequisite:
-		Prerequisite: infantryproduction
+        ProductionTypes: InfantrySQ, InfantryMQ, Soldier
 	Power:
 		Amount: -15
         RequiresCondition: !build-incomplete
+	ProvidesPrerequisite:
+		Prerequisite: infantryproduction
 	ProvidesPrerequisite@buildingname:
 		Prerequisite: barr
 	ProvidesPrerequisite@STICKY-BUILDING:
@@ -734,8 +1087,18 @@ BARR:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
 	SpawnActorOnDeath:
 		Actor: BARR.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProvidesPrerequisite@SQSlowdown:
+        Prerequisite: sqslowdown-infantry
+    ProvidesPrerequisite@SQSlowdownLowpower:
+        Prerequisite: sqslowdown-lowpower-infantry
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 BARR.Husk:
 	Inherits: ^BuildingHusk
@@ -754,13 +1117,13 @@ BARR.Husk:
 WEAP:
 	Inherits: ^Building
 	Inherits@shape: ^3x2Shape
-	Inherits@PRIMARY: ^PrimaryBuilding
     Inherits@infiltration: ^InfiltratableProduction
+    Inherits@production: ^ProducesVehicles
 	Buildable:
-		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 2000
 		BuildPaletteOrder: 5
-		Prerequisites: anypower, ~techlevel.low
+		Prerequisites: anypower, ~techlevel.low, ~techlevel.2
 		Description: Produces Vehicles.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
 	Valued:
 		Cost: 2000
@@ -781,66 +1144,23 @@ WEAP:
 		Sequence: build-top
 		RequiresCondition: !build-incomplete
 	RallyPoint:
-	Exit@1:
+    Production@SQVEH:
+        PauseOnCondition: build-incomplete
+    Production@MQVEH:
+        PauseOnCondition: build-incomplete || sabotage
+    Exit@1:
 		SpawnOffset: 213,-128,0
 		ExitCell: 1,2
-        ProductionTypes: ClassicVehicle.Allies, ClassicVehicle.Soviet, Vehicle.Allies, Vehicle.Soviet
+        ProductionTypes: VehicleSQ, VehicleMQ
 	Exit@2:
 		SpawnOffset: 213,-128,0
 		ExitCell: 0,2
-        ProductionTypes: ClassicVehicle.Allies, ClassicVehicle.Soviet, Vehicle.Allies, Vehicle.Soviet
-	Production@ClassicVehicle:
-		Produces: ClassicVehicle.Allies, ClassicVehicle.Soviet
-		RequiresCondition: !multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@ClassicAlliesVehicle:
-		ProductionType: ClassicVehicle.Allies
-	ProductionBar@ClassicSovietVehicle:
-		ProductionType: ClassicVehicle.Soviet
-	Production:
-		Produces: Vehicle.Allies, Vehicle.Soviet
-        RequiresCondition: multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionQueue@AlliesVehicle:
-		Type: Vehicle.Allies
-		Group: Vehicle
-        Factions: allies, england, france, germany, spain
-		DisplayOrder: 3
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@AlliesVehicle:
-		ProductionType: Vehicle.Allies
-	ProductionQueue@SovietVehicle:
-		Type: Vehicle.Soviet
-		Group: Vehicle
-        Factions: soviet, russia, ukraine, belarus, kazakh
-		DisplayOrder: 3
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@SovietVehicle:
-		ProductionType: Vehicle.Soviet
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
+        ProductionTypes: VehicleSQ, VehicleMQ
 	Power:
 		Amount: -30
         RequiresCondition: !build-incomplete
+	ProvidesPrerequisite:
+		Prerequisite: vehicleproduction
 	ProvidesPrerequisite@buildingname:
 		Prerequisite: weap
 	ProvidesPrerequisite@techpreq:
@@ -855,14 +1175,22 @@ WEAP:
 		Class: WEAP
 	RenderSprites:
 		Image: WEAP
-	ProvidesPrerequisite:
-		Prerequisite: vehicleproduction
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
 	SpawnActorOnDeath:
 		Actor: WEAP.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProvidesPrerequisite@SQSlowdown:
+        Prerequisite: sqslowdown-vehicle
+    ProvidesPrerequisite@SQSlowdownLowpower:
+        Prerequisite: sqslowdown-lowpower-vehicle
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 WEAP.Husk:
 	Inherits: ^BuildingHusk
@@ -882,10 +1210,10 @@ WEAP.Husk:
 FIX:
 	Inherits: ^Building
 	Buildable:
-		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 800
 		BuildPaletteOrder: 8
-		Prerequisites: weap, ~techlevel.medium
+		Prerequisites: weap, ~techlevel.medium, ~techlevel.3
 		Description: Repairs Vehicles for credits.\nVehicles can be sold here for half value.\nEnables nearby Helipad/Airfields repair aircraft.
 	Valued:
 		Cost: 800
@@ -900,7 +1228,7 @@ FIX:
 		DecorationBounds: 72,48
 	SelectionDecorations:
 	Health:
-		HP: 800
+		HP: 700
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -954,8 +1282,14 @@ FIX:
 		Image: FIX
 	SpawnActorOnDeath:
 		Actor: FIX.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 FIX.Husk:
 	Inherits: ^BuildingHusk
@@ -973,13 +1307,19 @@ FIX.Husk:
 
 SYRD:
 	Inherits: ^Building
-	Inherits@PRIMARY: ^PrimaryBuilding
     Inherits@infiltration: ^InfiltratableProduction
+    Inherits@production: ^ProducesNaval
+    -GivesBuildableArea:
+    -SpawnActorsOnSell:
+    -WithDeathAnimation:
+	-SpawnActorOnDeath:
+    -SpawnRandomActorOnDeath:
+    -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
 	Buildable:
-		Queue: Building.Allies, ClassicBuilding.Allies
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 650
 		BuildPaletteOrder: 13
-		Prerequisites: anypower, ~techlevel.low, ~!global-disablenavy
+		Prerequisites: anypower, ~techlevel.low, ~player.allies, ~!global-disablenavy, ~techlevel.2
 		Description: Produces and repairs\nShips and Transports.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
 	Valued:
 		Cost: 650
@@ -989,67 +1329,38 @@ SYRD:
 		Footprint: XXX xxx XXX
 		Dimensions: 3,3
 		TerrainTypes: Water
-	-GivesBuildableArea:
 	Health:
 		HP: 900
 	Armor:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
+    Production@SQNAV:
+        Produces: NavySQ, Ship
+        PauseOnCondition: build-incomplete
+    Production@MQNAV:
+        Produces: NavyMQ, Ship
+        PauseOnCondition: build-incomplete || sabotage
 	Exit@1:
 		SpawnOffset: -1024,1024,0
 		Facing: 640
 		ExitCell: 0,2
-        ProductionTypes: ClassicNavy.Allies, Navy.Allies, Ship
+        ProductionTypes: NavySQ, NavyMQ, Ship
 	Exit@2:
 		SpawnOffset: 1024,1024,0
 		Facing: 896
 		ExitCell: 2,2
-        ProductionTypes: ClassicNavy.Allies, Navy.Allies, Ship
+        ProductionTypes: NavySQ, NavyMQ, Ship
 	Exit@3:
 		SpawnOffset: -1024,-1024,0
 		Facing: 384
 		ExitCell: 0,0
-        ProductionTypes: ClassicNavy.Allies, Navy.Allies, Ship
+        ProductionTypes: NavySQ, NavyMQ, Ship
 	Exit@4:
 		SpawnOffset: 1024,-1024,0
 		Facing: 128
 		ExitCell: 2,0
-        ProductionTypes: ClassicNavy.Allies, Navy.Allies, Ship
-	Production@ClassicAlliesNavy:
-		Produces: ClassicNavy.Allies, Ship
-		RequiresCondition: !multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@ClassicAlliesNavy:
-		ProductionType: ClassicNavy.Allies
-	Production:
-		Produces: Navy.Allies, Ship
-        RequiresCondition: multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@AlliesNavy:
-		ProductionType: Navy.Allies
-	ProductionQueue@AlliesNavy:
-		Type: Navy.Allies
-		Group: Navy
-        Factions: allies, england, france, germany, spain
-		DisplayOrder: 5
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
-	-SpawnActorsOnSell:
+        ProductionTypes: NavySQ, NavyMQ, Ship
 	RepairsUnits:
 		StartRepairingNotification: Repairing
 		FinishRepairingNotification: UnitRepaired
@@ -1092,99 +1403,84 @@ SYRD:
 		Range: 5c0
 	Capturable:
 		Types: building, building-naval
-    -WithDeathAnimation:
 	Targetable@sonarhelper:
 		TargetTypes: WaterProduction
 	FreeActor@SonarPulse:
 		Actor: powerproxy.sonarpulse
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
-	-SpawnActorOnDeath:
-    -SpawnRandomActorOnDeath:
-    -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
 	DetectCloaked:
 		CloakTypes: Underwater
 		Range: 7c512
 	RenderDetectionCircle:
+    ProvidesPrerequisite@SQSlowdown:
+        Prerequisite: sqslowdown-naval
+    ProvidesPrerequisite@SQSlowdownLowpower:
+        Prerequisite: sqslowdown-lowpower-naval
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 SPEN:
 	Inherits: ^Building
-	Inherits@PRIMARY: ^PrimaryBuilding
     Inherits@infiltration: ^InfiltratableProduction
+    Inherits@production: ^ProducesNaval
+	-GivesBuildableArea:
+    -WithDeathAnimation:
+	-SpawnActorOnDeath:
+    -SpawnRandomActorOnDeath:
+    -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
 	Valued:
 		Cost: 650
 	Tooltip:
 		Name: Sub Pen
 	Buildable:
-		Queue: Building.Soviet, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 650
 		BuildPaletteOrder: 13
-		Prerequisites: anypower, ~techlevel.low, ~!global-disablenavy
+		Prerequisites: anypower, ~techlevel.low, ~player.soviet, ~!global-disablenavy, ~techlevel.2
 		Description: Produces and repairs\nSubmarines and Transports.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.
 	Building:
 		Footprint: XXX xxx XXX
 		Dimensions: 3,3
 		TerrainTypes: Water
-	-GivesBuildableArea:
 	Health:
 		HP: 900
 	Armor:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
+	Production@SQNAV:
+		Produces: NavySQ, Submarine
+        PauseOnCondition: build-incomplete
+	Production@MQNAV:
+		Produces: NavyMQ, Submarine
+        PauseOnCondition: build-incomplete || sabotage
 	Exit@1:
 		SpawnOffset: 0,-213,0
 		Facing: 384
 		ExitCell: -1,2
-        ProductionTypes: ClassicNavy.Soviet, Navy.Soviet, Submarine
+        ProductionTypes: NavySQ, NavyMQ, Submarine
 	Exit@2:
 		SpawnOffset: 0,-213,0
 		Facing: 640
 		ExitCell: 3,2
-        ProductionTypes: ClassicNavy.Soviet, Navy.Soviet, Submarine
+        ProductionTypes: NavySQ, NavyMQ, Submarine
 	Exit@3:
 		SpawnOffset: 0,0,0
 		Facing: 128
 		ExitCell: 0,0
-        ProductionTypes: ClassicNavy.Soviet, Navy.Soviet, Submarine
+        ProductionTypes: NavySQ, NavyMQ, Submarine
 	Exit@4:
 		SpawnOffset: 0,0,0
 		Facing: 896
 		ExitCell: 2,0
-        ProductionTypes: ClassicNavy.Soviet, Navy.Soviet, Submarine
-	Production@ClassicSovietNavy:
-		Produces: ClassicNavy.Soviet, Submarine
-		RequiresCondition: !multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@ClassicSovietNavy:
-		ProductionType: ClassicNavy.Soviet
-	Production:
-		Produces: Navy.Soviet, Submarine
-        RequiresCondition: multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@SovietNavy:
-		ProductionType: Navy.Soviet
-	ProductionQueue@SovietNavy:
-		Type: Navy.Soviet
-		Group: Navy
-        Factions: soviet, russia, ukraine, belarus, kazakh
-		DisplayOrder: 5
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
+        ProductionTypes: NavySQ, NavyMQ, Submarine
 	RepairsUnits:
 		StartRepairingNotification: Repairing
 		FinishRepairingNotification: UnitRepaired
@@ -1226,35 +1522,43 @@ SPEN:
 		Range: 5c0
 	Capturable:
 		Types: building, building-naval
-    -WithDeathAnimation:
 	Targetable@sonarhelper:
 		TargetTypes: WaterProduction
 	FreeActor@SonarPulse:
 		Actor: powerproxy.sonarpulse
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !sabotage
-	-SpawnActorOnDeath:
-    -SpawnRandomActorOnDeath:
-    -GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
 	DetectCloaked:
 		CloakTypes: Underwater
 		Range: 7c512
 	RenderDetectionCircle:
+    ProvidesPrerequisite@SQSlowdown:
+        Prerequisite: sqslowdown-naval
+    ProvidesPrerequisite@SQSlowdownLowpower:
+        Prerequisite: sqslowdown-lowpower-naval
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 HPAD:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
-	Inherits@PRIMARY: ^PrimaryBuilding
     Inherits@AIRCRAFTREPAIR: ^RepairsAircraftWithRepairBay
     Inherits@infiltration: ^InfiltratableProduction
+    Inherits@production: ^ProducesAircraft
 	HitShape:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 768,-512,0, 768,512,0, -281,-512,0, -630,512,0
 	Buildable:
-		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 300
 		BuildPaletteOrder: 7
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~!global-noaircraft, ~techlevel.4
 		Description: Produces and reloads Helicopters.\nDocked aircraft can be sold for half value.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.\nCan repair docked aircraft\nwhen in range of a Service depot.
 	Valued:
 		Cost: 300
@@ -1271,60 +1575,17 @@ HPAD:
 	RevealsShroud:
 		Range: 5c0
 	WithBuildingBib:
-	Exit@1:
+    Production@SQAIR:
+        Produces: AircraftSQ, Helicopter
+        PauseOnCondition: build-incomplete
+	Production@MQAIR:
+        Produces: AircraftMQ, Helicopter
+        PauseOnCondition: build-incomplete || sabotage
+    Exit@1:
 		SpawnOffset: 0,-256,0
 		ExitCell: 0,0
 		Facing: 896
-        ProductionTypes: ClassicAircraft.Allies, ClassicAircraft.Soviet, Aircraft.Allies, Aircraft.Soviet, Helicopter
-	Production@ClassicAircraft:
-		Produces: ClassicAircraft.Allies, ClassicAircraft.Soviet, Helicopter
-		RequiresCondition: !unit.docked && !multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@ClassicAlliesAircraft:
-		ProductionType: ClassicAircraft.Allies
-	ProductionBar@ClassicSovietAircraft:
-		ProductionType: ClassicAircraft.Soviet
-	Production:
-		Produces: Aircraft.Allies, Aircraft.Soviet, Helicopter
-        RequiresCondition: !unit.docked && multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionQueue@AircraftAllies:
-		Type: Aircraft.Allies
-		Group: Aircraft
-        Factions: allies, england, france, germany, spain
-		DisplayOrder: 4
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@AircraftAllies:
-		ProductionType: Aircraft.Allies
-	ProductionQueue@AircraftSoviet:
-		Type: Aircraft.Soviet
-		Group: Aircraft
-        Factions: soviet, russia, ukraine, belarus, kazakh
-		DisplayOrder: 4
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@AircraftSoviet:
-		ProductionType: Aircraft.Soviet
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
+        ProductionTypes: AircraftSQ, AircraftMQ, Helicopter
 	Reservable:
 	ProximityExternalCondition:
 		Condition: unit.sellable
@@ -1376,8 +1637,18 @@ HPAD:
 		Image: HPAD
 	SpawnActorOnDeath:
 		Actor: HPAD.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProvidesPrerequisite@SQSlowdown:
+        Prerequisite: sqslowdown-aircraft
+    ProvidesPrerequisite@SQSlowdownLowpower:
+        Prerequisite: sqslowdown-lowpower-aircraft
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 HPAD.Husk:
 	Inherits: ^BuildingHusk
@@ -1397,17 +1668,17 @@ HPAD.Husk:
 AFLD:
 	Inherits: ^Building
 	Inherits@shape: ^3x2Shape
-	Inherits@PRIMARY: ^PrimaryBuilding
     Inherits@AIRCRAFTREPAIR: ^RepairsAircraftWithRepairBay
     Inherits@infiltration: ^InfiltratableProduction
+    Inherits@production: ^ProducesAircraft
 	HitShape:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 420,0,0, 420,-1024,0, 420,1024,0, -777,0,0, -777,-1024,0, -777,1024,0
 	Buildable:
-		Queue: Building.Soviet, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 600
 		BuildPaletteOrder: 10
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.soviet, ~!global-noaircraft, ~techlevel.4
 		Description: Produces and reloads Airplanes.\nDocked aircraft can be sold for half value.\nCan be Infiltrated by a Spy\nresulting in Production disabled temporarily.\nCan repair docked aircraft\nwhen in range of a Service depot.\n  Special Ability: Paratroopers\nA Badger drops a squad of infantry\nanywhere on the map.
 	Valued:
 		Cost: 600
@@ -1421,54 +1692,27 @@ AFLD:
 	Armor:
 		Type: Wood
 	RevealsShroud:
-		Range: 7c0
+		Range: 6c0
 	WithBuildingBib:
+    Production@SQAIR:
+        Produces: AircraftSQ, Airplane
+        PauseOnCondition: build-incomplete
+	Production@MQAIR:
+        Produces: AircraftMQ, Airplane
+        PauseOnCondition: build-incomplete || sabotage
 	Exit@1:
 		ExitCell: 1,1
 		Facing: 768
-        ProductionTypes: ClassicAircraft.Soviet, Aircraft.Soviet, Airplane
+        ProductionTypes: AircraftSQ, AircraftMQ, Airplane
 	Exit@2:
 		ExitCell: 0,0
 		Facing: 256
-        ProductionTypes: ClassicAircraft.Soviet, Aircraft.Soviet, Airplane
-	Production@ClassicSovietAircraft:
-		Produces: ClassicAircraft.Soviet, Airplane
-		RequiresCondition: !multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionBar@ClassicSovietAircraft:
-		ProductionType: ClassicAircraft.Soviet
-	Production:
-		Produces: Aircraft.Soviet, Airplane
-        RequiresCondition: multiqueue
-        PauseOnCondition: build-incomplete || sabotage
-	ProductionQueue@SovietAircraft:
-		Type: Aircraft.Soviet
-		Group: Aircraft
-        Factions: soviet, russia, ukraine, belarus, kazakh
-		DisplayOrder: 4
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@SovietAircraft:
-		ProductionType: Aircraft.Soviet
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
+        ProductionTypes: AircraftSQ, AircraftMQ, Airplane
 	Reservable:
 	ParatroopersPower@paratroopers:
         PauseOnCondition: lowpower
 		OrderName: SovietParatroopers
-		Prerequisites: infantryproduction, ~techlevel.medium, ~player.soviet
+		Prerequisites: infantryproduction, ~techlevel.medium
 		Icon: paratroopers
 		ChargeInterval: 6750
 		Description: Paratroopers
@@ -1489,7 +1733,7 @@ AFLD:
 	ParatroopersPower@paratroopers-directional:
         PauseOnCondition: lowpower
 		OrderName: SovietParatroopersDirectional
-		Prerequisites: infantryproduction, ~techlevel.medium, ~player.soviet
+		Prerequisites: infantryproduction, ~techlevel.medium
 		Icon: paratroopers
 		ChargeInterval: 6750
 		Description: Paratroopers
@@ -1546,8 +1790,18 @@ AFLD:
 		ValidPowerStates: Low, Critical
 	SpawnActorOnDeath:
 		Actor: AFLD.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProvidesPrerequisite@SQSlowdown:
+        Prerequisite: sqslowdown-aircraft
+    ProvidesPrerequisite@SQSlowdownLowpower:
+        Prerequisite: sqslowdown-lowpower-aircraft
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 AFLD.Husk:
 	Inherits: ^BuildingHusk
@@ -1572,11 +1826,11 @@ DOME:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 630,-384,0, 630,384,0, -700,-512,0, -700,512,0
 	Buildable:
-		Queue: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 1000
 		BuildPaletteOrder: 9
-		Prerequisites: proc, ~techlevel.medium
-		Description: Provides an overview of the battlefield.\nCan be Infiltrated by a Spy\nresulting in becoming Jammed temporarily.\nDetects cloaked units.\n  Requires power to operate.\n  Special Ability: Spy Plane\nReveals an area of the map\nand cloaked enemy units.
+		Prerequisites: proc, ~techlevel.medium, ~techlevel.3
+		Description: Provides an overview of the battlefield.\nCan be Infiltrated by a Spy\nresulting in becoming Jammed temporarily.\nDetects cloaked units.\n  Requires power to operate.
 	Valued:
 		Cost: 1000
 	Tooltip:
@@ -1654,7 +1908,7 @@ DOME:
 	ParatroopersPower@paradropspy:
         PauseOnCondition: lowpower
 		OrderName: ParadropSpy
-		Prerequisites: dome, atek, ~techlevel.high, ~player.allies, ~!aitoodumb
+		Prerequisites: hpad, atek, ~techlevel.high, ~player.allies, ~!aitoodumb
 		Icon: paraspy
 		ChargeInterval: 9000
 		Description: Spy Drop
@@ -1676,7 +1930,7 @@ DOME:
 	ParatroopersPower@paradropspy-directional:
         PauseOnCondition: lowpower
 		OrderName: ParadropSpyDirectional
-		Prerequisites: dome, atek, ~techlevel.high, ~player.allies, ~!aitoodumb
+		Prerequisites: hpad, atek, ~techlevel.high, ~player.allies, ~!aitoodumb
 		Icon: paraspy
 		ChargeInterval: 9000
 		Description: Spy Drop
@@ -1716,8 +1970,14 @@ DOME:
 		RequiresCondition: !build-incomplete && !being-demolished && !being-captured && !jammed-infiltrate
 	SpawnActorOnDeath:
 		Actor: DOME.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 DOME.Husk:
 	Inherits: ^BuildingHusk
@@ -1739,11 +1999,12 @@ ATEK:
 	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@shape: ^2x2Shape
     Inherits@infiltration: ^InfiltratableTechCenter
+    Inherits@production: ^ProducesUpgrades
 	Buildable:
-		Queue: Building.Allies, ClassicBuilding.Allies
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 2000
 		BuildPaletteOrder: 11
-		Prerequisites: weap, dome, !enoughtech, ~techlevel.high
+		Prerequisites: weap, dome, !enoughtech, ~techlevel.high, ~player.allies, ~techlevel.6
 		Description: Provides Allies advanced technologies.\nUpgrades for Allies arsenal can be developed here.\nCan be Infiltrated by a Spy resulting in loss of map exploration.\n  Special Ability: GPS Satellite\nReveals map terrain and provides tactical information.\nRequires power and active radar.
 	Valued:
 		Cost: 2000
@@ -1762,16 +2023,16 @@ ATEK:
 	RevealsShroud:
 		Range: 10c0
 	WithBuildingBib:
+    #  the Sattelite should reset upon infiltration in order to work
 	GpsPower:
-		PauseOnCondition: lowpower
-		Icon: gps
-		OneShot: true
-		ChargeInterval: 12000
-		Description: GPS Satellite
-		LongDesc: Reveals map terrain and provides tactical information.\n Requires power and active radar.
-		RevealDelay: 375
-		LaunchSpeechNotification: SatelliteLaunched
-		DisplayTimerRelationships: Ally, Neutral, Enemy
+        PauseOnCondition: lowpower
+        Icon: gps
+        OneShot: true
+        ChargeInterval: 12000
+        Description: GPS Satellite
+        LongDesc: Reveals map terrain and provides tactical information.\n Requires power and active radar.
+        RevealDelay: 375
+        LaunchSpeechNotification: SatelliteLaunched
 	SupportPowerChargeBar:
 	Power:
 		Amount: -200
@@ -1791,46 +2052,18 @@ ATEK:
 		Class: ATEK
 	RenderSprites:
 		Image: ATEK
-	Production@ClassicAlliesUpgrades:
-		Produces: ClassicUpgrades.Allies
-		RequiresCondition: !multiqueue
-        PauseOnCondition: build-incomplete
-	ProductionBar@ClassicAlliesUpgrades:
-		ProductionType: ClassicUpgrades.Allies
-	Production:
-		Produces: Upgrades.Allies
-        RequiresCondition: multiqueue
-        PauseOnCondition: build-incomplete
-	ProductionQueue@AlliesUpgrades:
-		Type: Upgrades.Allies
-		Group: Upgrades
-        Factions: allies, england, france, germany, spain
-		DisplayOrder: 6
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@AlliesUpgrades:
-		ProductionType: Upgrades.Allies
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
-	Exit:
 	SpawnActorsOnSell:
 		ActorTypes: e1,chan,chan,e6,tecn,tecn_yellow
 	SpawnActorOnDeath:
 		Actor: ATEK.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 ATEK.Husk:
 	Inherits: ^BuildingHusk
@@ -1851,13 +2084,14 @@ STEK:
 	Inherits: ^Building
 	Inherits@shape: ^3x2Shape
     Inherits@infiltration: ^InfiltratableTechCenter
+    Inherits@production: ^ProducesUpgrades
 	HitShape:
 		TargetableOffsets: 420,-768,0, 420,768,0, -770,-768,0, -770,768,0
 	Buildable:
-		Queue: Building.Soviet, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 2000
 		BuildPaletteOrder: 11
-		Prerequisites: afldorweap, dome, !enoughtech, ~techlevel.high
+		Prerequisites: afldorweap, dome, !enoughtech, ~techlevel.high, ~player.soviet, ~techlevel.6
 		Description: Provides Soviet advanced technologies.\nUpgrades for Soviet arsenal can be developed here.\nCan be Infiltrated by a Spy resulting in loss of map exploration.
 	Valued:
 		Cost: 2000
@@ -1894,46 +2128,18 @@ STEK:
 		Class: STEK
 	RenderSprites:
 		Image: STEK
-	Production@ClassicSovietUpgrades:
-		Produces: ClassicUpgrades.Soviet
-		RequiresCondition: !multiqueue
-        PauseOnCondition: build-incomplete
-	ProductionBar@ClassicSovietUpgrades:
-		ProductionType: ClassicUpgrades.Soviet
-	Production:
-		Produces: Upgrades.Soviet
-        RequiresCondition: multiqueue
-        PauseOnCondition: build-incomplete
-	ProductionQueue@SovietUpgrades:
-		Type: Upgrades.Soviet
-		Group: Upgrades
-        Factions: soviet, russia, ukraine, belarus, kazakh
-		DisplayOrder: 6
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@SovietUpgrades:
-		ProductionType: Upgrades.Soviet
-	GrantConditionOnPrerequisite@multiqueue:
-		Condition: multiqueue
-		Prerequisites: global-multiqueue
-	FreeActor@Dummy:
-		Actor: QueueUpdaterDummy
-		RequiresCondition: updatequeue
-	GrantDelayedCondition:
-		Delay: 1
-		Condition: updatequeue
-	Exit:
 	SpawnActorsOnSell:
 		ActorTypes: e1,chan,chan,e6,tecn,tecn_yellow
 	SpawnActorOnDeath:
 		Actor: STEK.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 STEK.Husk:
 	Inherits: ^BuildingHusk
@@ -1957,11 +2163,11 @@ FCOM:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
 	Buildable:
-		Queue: Building.Soviet, ClassicBuilding.Soviet
+		Queue: BuildingSQ, BuildingMQ
 		BuildDuration: 1000
 		BuildPaletteOrder: 12
         BuildLimit: 1
-		Prerequisites: dome, stek, ~techlevel.high
+		Prerequisites: dome, stek, ~techlevel.high, ~player.soviet, ~techlevel.7
 		Description: Enables construction of high-tech units.\nCan be infiltrated by a Spy to\nobtain a single use Parabombs.\nRequires power to operate.\n  Special Ability: Parabombs\nA Badger drops a load of parachuted\nbombs on your target.
 	Building:
 		Footprint: xx xx
@@ -2053,8 +2259,14 @@ FCOM:
 		Proxy: powerproxy.parabombs.crate
 	SpawnActorOnDeath:
 		Actor: FCOM.Husk
-		OwnerType: InternalName
-		EffectiveOwnerFromOwner: true
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: BuildingSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: BuildingSQ
 
 FCOM.Husk:
 	Inherits: ^BuildingHusk

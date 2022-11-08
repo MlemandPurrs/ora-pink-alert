@@ -707,3 +707,13 @@ colorpicker.mammy:
 	idle: 4tnk-decor2
 		Start: 0
         Length: 1
+
+mttop:
+	idle: mttop
+		ZOffset: -10000
+
+tnkr:
+	idle: tnkr
+		Start: 0
+	damaged-idle:
+		Start: 1

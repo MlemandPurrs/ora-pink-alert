@@ -6,7 +6,7 @@ ANT:
 	Tooltip:
 		Name: Giant Ant
 	Buildable:
-		Queue: ClassicInfantry.Allies, ClassicInfantry.Soviet, Infantry.Allies, Infantry.Soviet
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 1954
 		Prerequisites: ~disabled

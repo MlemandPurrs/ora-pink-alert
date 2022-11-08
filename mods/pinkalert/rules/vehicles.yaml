@@ -2,10 +2,10 @@ MCV:
 	Inherits: ^Vehicle
     Inherits@Invuln: ^AcceptsInvulnerabilityCrate
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies, ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 2500
 		BuildPaletteOrder: 11
-		Prerequisites: fix, ~techlevel.high
+		Prerequisites: fix, ~techlevel.medium, ~techlevel.5
 		Description: Deploys into another Construction Yard.\n  Unarmed
 	Valued:
 		Cost: 2500
@@ -44,6 +44,20 @@ MCV:
 		CustomPipType: white
 	TransferTimedExternalConditionOnTransform:
 		Condition: invulnerability
+	ProductionCostMultiplier@EXPENSIVEMCV:
+		Multiplier: 200
+		Prerequisites: global-expensivemcv
+	ProductionTimeMultiplier@EXPENSIVEMCV:
+		Multiplier: 200
+		Prerequisites: global-expensivemcv
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 MCV.Husk:
 	Inherits: ^Husk
@@ -60,9 +74,9 @@ TRUK:
 	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
 	Inherits@EMP: ^AcceptsEMPCrate
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies, ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildPaletteOrder: 12
-        Prerequisites: proc, ~techlevel.low
+        Prerequisites: proc, ~techlevel.low, ~techlevel.3
 		Description: Transports cash to other players.\nMay deliver only to Construction Yards.\n  Unarmed
 	Valued:
 		Cost: 1000
@@ -96,6 +110,14 @@ TRUK:
 	SpawnActorOnDeath@dropmoney:
 		Actor: moneycrate
         RequiresCondition: !global-unithusks
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 TRUK.Husk:
 	Inherits: ^Husk
@@ -124,11 +146,11 @@ DTRK:
 		Sequence: truk-body
 		RequiresCondition: truk
 	Buildable:
-		Queue: ClassicVehicle.Allies, Vehicle.Allies, ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 2100
 		BuildPaletteOrder: 13
         BuildLimit: 1
-		Prerequisites: techcenter, ~techlevel.high
+		Prerequisites: techcenter, ~techlevel.high, ~techlevel.7
 		Description: Demolition Truck, actively armed with\nnuclear explosives. Has very weak armor.
 	Valued:
 		Cost: 2100
@@ -201,6 +223,14 @@ DTRK:
 		Position: Top
 		Margin: 0, 1
 		RequiresCondition: disguise
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 DTRK.Husk:
 	Inherits: ^Husk
@@ -217,10 +247,10 @@ MNLY:
 	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
 	Inherits@EMP: ^AcceptsEMPCrate
 	Buildable:
-        Queue: ClassicVehicle.Allies, ClassicVehicle.Soviet, Vehicle.Soviet, Vehicle.Allies
+        Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 700
 		BuildPaletteOrder: 7
-		Prerequisites: fix, ~techlevel.medium
+		Prerequisites: fix, ~techlevel.medium, ~techlevel.4
 		Description: Lays land mines to destroy\nunwary enemy units.\nDetects nearby Mines.\n  Unarmed
 	Tooltip:
 		Name: Minelayer
@@ -265,6 +295,14 @@ MNLY:
 	DetectCloaked:
 		CloakTypes: Mine
 		Range: 1c826
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 MNLY.Husk:
 	Inherits: ^Husk

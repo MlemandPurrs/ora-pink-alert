@@ -679,6 +679,17 @@ wood:
 		Start: 16
 		Length: 16
 
+dsdy:
+	idle: dsdy
+		Length: 16
+	scratched-idle:
+		Start: 32
+		Length: 16
+        
+hdg:
+	idle: hdg
+		Length: 16
+
 # Barrels
 barl:
 	idle:
@@ -751,6 +762,18 @@ rushouse:
 	damaged-idle:
 		Start: 1
 
+ctg1:
+	idle: ctg
+		Start: 0
+	damaged-idle: ctg
+		Start: 1
+        
+ctg2:
+	idle: ctg
+		Start: 2
+	damaged-idle: ctg
+		Start: 3
+        
 # OpenRA added miscellanous
 tran2husk:
 	idle:
@@ -783,3 +806,359 @@ ctflag:
 	bib: mbGAP
 		Length: *
 		UseTilesetExtension: true
+
+# no damage frame for this
+tilled1:
+	Defaults:
+		AddExtension: false
+	idle: tilled1.tem
+		ZOffset: -512
+	damaged-idle: tilled1.tem
+		Start: 0
+		ZOffset: -512
+
+# no damage frame for this
+tilled2:
+	Defaults:
+		AddExtension: false
+	idle: tilled2.tem
+		ZOffset: -512
+	damaged-idle: tilled2.tem
+		Start: 0
+		ZOffset: -512
+
+# no damage frame for this
+tilled3:
+	Defaults:
+		AddExtension: false
+	idle: tilled3.tem
+		ZOffset: -512
+	damaged-idle: tilled3.tem
+		Start: 0
+		ZOffset: -512
+
+# no damage frame for this
+tilled5:
+	Defaults:
+		AddExtension: false
+	idle: tilled5.tem
+		ZOffset: -512
+	damaged-idle: tilled5.tem
+		Start: 0
+		ZOffset: -512
+
+# no damage frame for this
+tilled6:
+	Defaults:
+		AddExtension: false
+	idle: tilled6.tem
+		ZOffset: -512
+	damaged-idle: tilled6.tem
+		Start: 0
+		ZOffset: -512
+
+# no damage frame for this
+heystack1:
+	Defaults:
+		AddExtension: false
+	idle: heystack1.tem
+		ZOffset: -512
+	damaged-idle: heystack1.tem
+		Start: 0
+		ZOffset: -512
+
+# no damage frame for this
+heystack2:
+	Defaults:
+		AddExtension: false
+	idle: heystack2.tem
+		ZOffset: -512
+	damaged-idle: heystack2.tem
+		Start: 0
+		ZOffset: -512
+
+monastery:
+	idle:
+	damaged-idle:
+		Start: 1
+    dead:
+        Start: 2
+
+engh01:
+	Defaults:
+		AddExtension: false
+	idle: engh01.tem
+	damaged-idle: engh01.tem
+		Start: 1
+
+engh02:
+	Defaults:
+		AddExtension: false
+	idle: engh02.tem
+	damaged-idle: engh02.tem
+		Start: 1
+
+engh03:
+	Defaults:
+		AddExtension: false
+	idle: engh03.tem
+	damaged-idle: engh03.tem
+		Start: 1
+
+engch:
+	Defaults:
+		AddExtension: false
+	idle: engch.tem
+	damaged-idle: engch.tem
+		Start: 1
+
+stmp1:
+	idle: stmp
+		Start: 0
+        
+stmp2:
+	idle: stmp
+		Start: 1
+        
+stmp3:
+	idle: stmp
+		Start: 2
+
+#   historical ruins
+ruins1:
+	Defaults:
+		AddExtension: false
+	idle: ruins1.tem
+
+ruins2:
+	Defaults:
+		AddExtension: false
+	idle: ruins2.tem
+
+ruins3:
+	Defaults:
+		AddExtension: false
+	idle: ruins3.tem
+
+ruins4:
+	Defaults:
+		AddExtension: false
+	idle: ruins4.tem
+
+ruinssm1:
+	Defaults:
+		AddExtension: false
+	idle: ruinssm1.tem
+
+ruinssm2:
+	Defaults:
+		AddExtension: false
+	idle: ruinssm2.tem
+
+castle:
+	Defaults:
+		AddExtension: false
+    idle: castle.tem
+
+#   custom trees
+cypr1:
+	idle: cypr1.tem
+		AddExtension: false
+
+cypr1.husk:
+	idle: cypr1.tem
+        Start: 1
+		AddExtension: false
+
+cypr2:
+	idle: cypr2.tem
+		AddExtension: false
+
+cypr2.husk:
+	idle: cypr2.tem
+        AddExtension: false
+        Start: 1
+
+tg1:
+	idle: tg1.tem
+		Offset: 13, -13
+		AddExtension: false
+
+tg1.husk:
+	idle: tg1.tem
+        Start: 1
+		Offset: 13, -13
+		AddExtension: false
+
+tg2:
+	idle: tg2.tem
+		Offset: 13, -13
+		AddExtension: false
+
+tg2.husk:
+	idle: tg2.tem
+        Start: 1
+		Offset: 13, -13
+		AddExtension: false
+
+tg3:
+	idle: tg3.tem
+		AddExtension: false
+
+tg3.husk:
+	idle: tg3.tem
+        Start: 1
+		AddExtension: false
+
+tg4:
+	idle: tg4.tem
+		AddExtension: false
+
+tg4.husk:
+	idle: tg4.tem
+        Start: 1
+		AddExtension: false
+
+tg5:
+	idle: tg5.tem
+		AddExtension: false
+
+tg5.husk:
+	idle: tg5.tem
+        Start: 1
+		AddExtension: false
+
+tg6:
+	idle: tg6.tem
+		AddExtension: false
+
+tg6.husk:
+	idle: tg6.tem
+        Start: 1
+		AddExtension: false
+
+tg7:
+	idle: tg7.tem
+		AddExtension: false
+
+tg7.husk:
+	idle: tg7.tem
+        Start: 1
+		AddExtension: false
+
+tg8:
+	idle: tg8.tem
+		AddExtension: false
+
+tg8.husk:
+	idle: tg8.tem
+        Start: 1
+		AddExtension: false
+
+tree1:
+	idle: trees1.tem
+		AddExtension: false
+		Start: 0
+
+tree1.husk:
+	idle: trees1.tem
+		AddExtension: false
+		Start: 1
+		
+tree2:
+	idle: trees2.tem
+		AddExtension: false
+
+tree2.husk:
+	idle: trees2.tem
+		AddExtension: false
+		Start: 1
+		
+tree3:
+	idle: trees3.tem
+		AddExtension: false
+
+tree3.husk:
+	idle: trees3.tem
+		AddExtension: false
+		Start: 1
+		
+tree4:
+	idle: trees4.tem
+		AddExtension: false
+
+tree4.husk:
+	idle: trees4.tem
+		AddExtension: false
+		Start: 1
+		
+tree5:
+	idle: trees5.tem
+		AddExtension: false
+
+tree5.husk:
+	idle: trees5.tem
+		AddExtension: false
+		Start: 1
+		
+tree6:
+	idle: trees6.tem
+		AddExtension: false
+
+tree6.husk:
+	idle: trees6.tem
+		AddExtension: false
+		Start: 1
+
+#   Custom bushes for Temperat
+sbush1:
+	idle: sbush
+		Start: 0
+		ZOffset: -5000
+
+sbush2:
+	idle: sbush
+		Start: 1
+		ZOffset: -5000
+
+sbush3:
+	idle: sbush
+		Start: 2
+		ZOffset: -5000
+
+bush1:
+	idle: bush
+		Start: 0
+		ZOffset: -5000
+
+bush2:
+	idle: bush
+		Start: 1
+		ZOffset: -5000
+
+bush3:
+	idle: bush
+		Start: 2
+		ZOffset: -5000
+
+bush4:
+	Defaults:
+		Offset: 0,-4
+	idle: bush
+		Start: 3
+		ZOffset: -5000
+
+bush5:
+	idle: bush
+		Start: 4
+		ZOffset: -5000
+
+lbush1:
+	idle: lbush
+		Start: 0
+		ZOffset: -5000
+
+lbush2:
+	idle: lbush
+		Start: 1
+		ZOffset: -5000

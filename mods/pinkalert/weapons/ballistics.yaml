@@ -170,7 +170,7 @@ Grenade:
 		Image: BOMB
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 50
+		Damage: 40
 		Versus:
 			None: 90
 			Wood: 75

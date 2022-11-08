@@ -197,7 +197,7 @@ Player:
 	HarvesterBotModule@normal:
 		RequiresCondition: enable-normal-ai
 		HarvesterTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune
-		RefineryTypes: proc
+		RefineryTypes: proc, proc.clone, eref, eref.clone, xref, xref.clone, ercc, ercc.clone
 	BuildingRepairBotModule@normal:
 		RequiresCondition: enable-normal-ai
 	McvManagerBotModule@normal:
@@ -209,32 +209,39 @@ Player:
 	CaptureManagerBotModule@engineer:
 		RequiresCondition: enable-normal-ai
 		CapturingActorTypes: e6
-		CapturableActorTypes: v19,bio,hosp,expb,rpad,miss
+		CapturableActorTypes: v19,bio,hosp,expb,rpad,miss,orep
 		CheckCaptureTargetsForVisibility: false
 		MaximumCaptureTargetOptions: 15
 	BaseBuilderBotModule@normal:
 		RequiresCondition: enable-normal-ai
-		BuildingQueues: Building.Allies, Building.Soviet, ClassicBuilding.Allies, ClassicBuilding.Soviet
-		DefenseQueues: Defense.Allies, Defense.Soviet, ClassicDefense.Allies, ClassicDefense.Soviet
+		BuildingQueues: BuildingSQ, BuildingMQ, DefenseSQ, DefenseMQ
+		DefenseQueues: BuildingSQ, BuildingMQ, DefenseSQ, DefenseMQ
 		MinimumExcessPower: 60
         MaximumExcessPower: 120
 		ExcessPowerIncrement: 40
 		ExcessPowerIncreaseThreshold: 4
         CheckForWaterRadius: 8
 		ConstructionYardTypes: fact
-		RefineryTypes: proc
+		RefineryTypes: proc, proc.clone, eref, eref.clone, xref, xref.clone, ercc, ercc.clone
 		PowerTypes: powr, apwr
 		BarracksTypes: barr, tent
 		VehiclesFactoryTypes: weap
 		ProductionTypes: barr, tent, weap, hpad, afld
 		NavalProductionTypes: spen, syrd
-		SiloTypes: silo
+		SiloTypes: silo, silo.clone
         PlaceDefenseTowardsEnemyChance: 75
         MaximumDefenseRadius: 10
         MaximumFailedPlacementAttempts: 2
         MaxBaseRadius: 26
 		BuildingLimits:
 			proc: 4
+            proc.clone: 4
+            eref: 4
+            eref.clone: 4
+            xref: 4
+            xref.clone: 4
+            ercc: 4
+            ercc.clone: 4
 			barr: 3
 			tent: 3
 			kenn: 1
@@ -253,6 +260,13 @@ Player:
             iron: 1
 		BuildingFractions:
 			proc: 10
+            proc.clone: 10
+            eref: 10
+            eref.clone: 10
+            xref: 10
+            xref.clone: 10
+            ercc: 10
+            ercc.clone: 10
 			powr: 1
 			apwr: 30
 			tent: 1
@@ -261,8 +275,8 @@ Player:
 			dome: 1
 			weap: 6
 			hpad: 4
-			spen: 1
-			syrd: 1
+			spen: 2
+			syrd: 2
 			afld: 4
 			pbox: 7
             sbox: 7
@@ -303,7 +317,7 @@ Player:
 	UnitBuilderBotModule@normal:
 		RequiresCondition: enable-normal-ai
         IdleBaseUnitsMaximum: 16
-        UnitQueues: Vehicle.Allies, Vehicle.Soviet, ClassicVehicle.Allies, ClassicVehicle.Soviet, Infantry.Allies, Infantry.Soviet, ClassicInfantry.Allies, ClassicInfantry.Soviet, Aircraft.Allies, Aircraft.Soviet, ClassicAircraft.Allies, ClassicAircraft.Soviet, Navy.Allies, Navy.Soviet, ClassicNavy.Allies, ClassicNavy.Soviet, Upgrades.Allies, Upgrades.Soviet, ClassicUpgrades.Allies, ClassicUpgrades.Soviet
+        UnitQueues: InfantrySQ, InfantryMQ, VehicleSQ, VehicleMQ, NavySQ, NavyMQ, AircraftSQ, AircraftMQ, UpgradeSQ, UpgradeMQ
 		UnitsToBuild:
 			e1: 65
 			e2: 25
@@ -327,6 +341,7 @@ Player:
 			1tnk: 70
 			2tnk: 25
 			3tnk: 50
+            3tnk.upgraded: 50
 			4tnk: 15
             5tnk: 1
 			ttnk: 15
@@ -346,6 +361,8 @@ Player:
 			pt: 10
             dred: 1
             heavytank.upgrade: 1
+            migbombs.upgrade: 1
+            hindrockets.upgrade: 1
 		UnitLimits:
 			dog: 4
 			harv: 8
@@ -371,3 +388,5 @@ Player:
             nsub: 1
             5tnk: 1
             heavytank.upgrade: 1
+            migbombs.upgrade: 1
+            hindrockets.upgrade: 1

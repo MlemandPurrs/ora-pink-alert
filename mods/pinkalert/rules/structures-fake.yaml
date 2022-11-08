@@ -1,10 +1,10 @@
 FACF:
 	Inherits: ^FakeBuilding
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 625
 		BuildPaletteOrder: 20
-		Prerequisites: fix, ~techlevel.high
+		Prerequisites: fix, ~techlevel.medium, ~player.allies, ~techlevel.5
 		Description: Looks like a Construction Yard.
 		Icon: fake-icon
 	Tooltip:
@@ -26,6 +26,22 @@ FACF:
 			BottomRight: 1536, 1536
 	Valued:
 		Cost: 625
+	Health:
+		HP: 1500
+	ProductionCostMultiplier@EXPENSIVEMCV:
+		Multiplier: 200
+		Prerequisites: global-expensivemcv
+	ProductionTimeMultiplier@EXPENSIVEMCV:
+		Multiplier: 200
+		Prerequisites: global-expensivemcv
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 FPWR:
 	Inherits: ^FakeBuilding
@@ -36,10 +52,10 @@ FPWR:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 75
 		BuildPaletteOrder: 21
-		Prerequisites: ~techlevel.low
+		Prerequisites: ~techlevel.low, ~player.allies
 		Description: Looks like a Power Plant.
 		Icon: fake-icon
 	Tooltip:
@@ -56,6 +72,16 @@ FPWR:
 		Image: POWR
 	Valued:
 		Cost: 75
+	Health:
+		HP: 400
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 FAPW:
 	Inherits: ^FakeBuilding
@@ -63,10 +89,10 @@ FAPW:
 	HitShape:
 		TargetableOffsets: -355,-1024,0
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 125
 		BuildPaletteOrder: 26
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.allies, ~techlevel.5
 		Description: Looks like an Advanced Power Plant.
 		Icon: fake-icon
 	Tooltip:
@@ -86,6 +112,16 @@ FAPW:
 		DecorationBounds: 72,68,0,-10
 	Valued:
 		Cost: 125
+	Health:
+		HP: 600
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 TENF:
 	Inherits: ^FakeBuilding
@@ -93,10 +129,10 @@ TENF:
 	Selectable:
 		Bounds: 48,48
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 75
 		BuildPaletteOrder: 22
-		Prerequisites: ~techlevel.low
+		Prerequisites: ~techlevel.low, ~player.allies
 		Description: Looks like an Allies Barracks.
 		Icon: fake-icon
 	Tooltip:
@@ -116,6 +152,16 @@ TENF:
 		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
 	Valued:
 		Cost: 75
+	Health:
+		HP: 600
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 BARF:
 	Inherits: ^FakeBuilding
@@ -123,7 +169,7 @@ BARF:
 	Selectable:
 		Bounds: 48,48
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 75
 		BuildPaletteOrder: 22
 		Prerequisites: ~techlevel.low, ~disabled
@@ -146,15 +192,25 @@ BARF:
 		TargetableOffsets: 0,0,0, 490,-470,0, 355,512,0, -355,-512,0, -630,512,0
 	Valued:
 		Cost: 75
+	Health:
+		HP: 600
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 WEAF:
 	Inherits: ^FakeBuilding
 	Inherits@shape: ^3x2Shape
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 500
 		BuildPaletteOrder: 25
-		Prerequisites: anypower, ~techlevel.low
+		Prerequisites: anypower, ~techlevel.low, ~player.allies, ~techlevel.2
 		Description: Looks like a War Factory.
 		Icon: fake-icon
 	Tooltip:
@@ -174,6 +230,16 @@ WEAF:
 		Sequence: build-top
 	Valued:
 		Cost: 500
+	Health:
+		HP: 1000
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 FIXF:
 	Inherits: ^FakeBuilding
@@ -181,10 +247,10 @@ FIXF:
 		Bounds: 68,34,0,3
 		DecorationBounds: 72,48
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 200
 		BuildPaletteOrder: 28
-		Prerequisites: weap, ~techlevel.medium
+		Prerequisites: weap, ~techlevel.medium, ~player.allies, ~techlevel.3
 		Description: Looks like a Service Depot.
 		Icon: fake-icon
 	Tooltip:
@@ -207,14 +273,24 @@ FIXF:
 		Cost: 200
     -Targetable@INFILTRATION:
     -InfiltrateForDecoration:
-    
+	Health:
+		HP: 700
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
+
 SYRF:
 	Inherits: ^FakeBuilding
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 162
 		BuildPaletteOrder: 33
-		Prerequisites: anypower, ~techlevel.low, ~!global-disablenavy
+		Prerequisites: anypower, ~techlevel.low, ~!global-disablenavy, ~player.allies, ~techlevel.2
 		Description: Looks like a Naval Yard.
 		Icon: fake-icon
 	Tooltip:
@@ -245,14 +321,24 @@ SYRF:
     -WithDeathAnimation:
 	Valued:
 		Cost: 162
+	Health:
+		HP: 900
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 SPEF:
 	Inherits: ^FakeBuilding
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 162
 		BuildPaletteOrder: 33
-		Prerequisites: anypower, ~techlevel.low, ~!global-disablenavy, ~disabled
+		Prerequisites: anypower, ~techlevel.low, ~!global-disablenavy, ~techlevel.2, ~disabled
 		Description: Looks like a Sub Pen.
 		Icon: fake-icon
 	Tooltip:
@@ -282,6 +368,16 @@ SPEF:
     -WithDeathAnimation:
 	Valued:
 		Cost: 162
+	Health:
+		HP: 900
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 HPAF:
 	Inherits: ^FakeBuilding
@@ -295,10 +391,10 @@ HPAF:
 		GenericVisibility: Enemy
 		GenericStancePrefix: False
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 75
 		BuildPaletteOrder: 27
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.allies, ~techlevel.4
 		Description: Looks like a Helipad
 		Icon: fake-icon
 	Building:
@@ -310,6 +406,16 @@ HPAF:
 		Image: HPAD
 	Valued:
 		Cost: 75
+	Health:
+		HP: 600
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 AFLF:
 	Inherits: ^FakeBuilding
@@ -325,10 +431,10 @@ AFLF:
 		GenericVisibility: Enemy
 		GenericStancePrefix: False
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 150
 		BuildPaletteOrder: 30
-		Prerequisites: dome, ~techlevel.medium, ~disabled
+		Prerequisites: dome, ~techlevel.medium, ~techlevel.4, ~disabled
 		Description: Looks like an Airfield.
 		Icon: fake-icon
 	Building:
@@ -340,6 +446,16 @@ AFLF:
 		Image: AFLD
 	Valued:
 		Cost: 150
+	Health:
+		HP: 800
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 DOMF:
 	Inherits: ^FakeBuilding
@@ -353,10 +469,10 @@ DOMF:
 		GenericVisibility: Enemy
 		GenericStancePrefix: False
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 250
 		BuildPaletteOrder: 29
-		Prerequisites: proc, ~techlevel.medium
+		Prerequisites: proc, ~techlevel.medium, ~player.allies, ~techlevel.3
 		Description: Looks like a Radar Dome.
 		Icon: fake-icon
 	Building:
@@ -368,10 +484,21 @@ DOMF:
 		Image: DOME
 	Valued:
 		Cost: 250
+	Health:
+		HP: 1200
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 ATEF:
 	Inherits: ^FakeBuilding
 	Inherits@shape: ^2x2Shape
+    Inherits@IDISABLE: ^DisableOnLowPower
 	Selectable:
 		Bounds: 48,48
 	Tooltip:
@@ -380,12 +507,12 @@ ATEF:
 		GenericVisibility: Enemy
 		GenericStancePrefix: False
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 500
 		BuildPaletteOrder: 31
         BuildLimit: 1
-		Prerequisites: weap, dome, ~techlevel.high
-		Description: Looks like an Allies Tech Center.\nMaximum one can be built.
+		Prerequisites: weap, dome, ~techlevel.high, ~player.allies, ~techlevel.6
+		Description: Looks like an Allies Tech Center.\nMaximum one can be built.\n  Special Ability: Fake GPS\nConfuses the opponent by launching a space rocket that does nothing.
 		Icon: fake-icon
 	Building:
 		Footprint: xx xx
@@ -396,6 +523,28 @@ ATEF:
 		Image: ATEK
 	Valued:
 		Cost: 500
+	DummyGpsPower:
+		PauseOnCondition: lowpower
+		Icon: gps
+		OneShot: true		
+        ChargeInterval: 12000
+		Description: GPS Satellite
+		LongDesc: Launches a fake space missile that looks like real.\n Requires power to charge up.
+		RevealDelay: 375
+		LaunchSpeechNotification:
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+        Condition:
+    SupportPowerChargeBar:
+	Health:
+		HP: 600
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 STEF:
 	Inherits: ^FakeBuilding
@@ -410,11 +559,11 @@ STEF:
 		GenericVisibility: Enemy
 		GenericStancePrefix: False
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 500
 		BuildPaletteOrder: 31
         BuildLimit: 1
-		Prerequisites: weap, dome, ~techlevel.high, ~disabled
+		Prerequisites: weap, dome, ~techlevel.high, ~techlevel.6, ~disabled
 		Description: Looks like an Soviet Tech Center.\nMaximum one can be built.
 		Icon: fake-icon
 	Building:
@@ -426,6 +575,16 @@ STEF:
 		Image: STEK
 	Valued:
 		Cost: 500
+	Health:
+		HP: 800
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 PDOF:
 	Inherits: ^FakeBuilding
@@ -438,11 +597,11 @@ PDOF:
 		GenericVisibility: Enemy
 		GenericStancePrefix: False
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 350
 		BuildPaletteOrder: 34
         BuildLimit: 1
-		Prerequisites: atek, ~!nosuperweapons, ~techlevel.high
+		Prerequisites: atek, ~!nosuperweapons, ~techlevel.high, ~player.allies, ~techlevel.7
 		Description: Looks like a Chronosphere.\nMaximum one can be built.
 		Icon: fake-icon
 	Building:
@@ -455,6 +614,16 @@ PDOF:
     -WithDeathAnimation:
 	Valued:
 		Cost: 350
+	Health:
+		HP: 600
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 IROF:
 	Inherits: ^FakeBuilding
@@ -468,11 +637,11 @@ IROF:
 		GenericVisibility: Enemy
 		GenericStancePrefix: False
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 350
 		BuildPaletteOrder: 34
         BuildLimit: 1
-		Prerequisites: stek, ~!nosuperweapons, ~techlevel.high, ~disabled
+		Prerequisites: stek, ~!nosuperweapons, ~techlevel.high, ~techlevel.7, ~disabled
 		Description: Looks like the Iron Curtain.\nMaximum one can be built.
 		Icon: fake-icon
 	Building:
@@ -485,6 +654,16 @@ IROF:
     -WithDeathAnimation:
 	Valued:
 		Cost: 350
+	Health:
+		HP: 600
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ
 
 MSLF:
 	Inherits: ^FakeBuilding
@@ -498,11 +677,11 @@ MSLF:
 		GenericVisibility: Enemy
 		GenericStancePrefix: False
 	Buildable:
-		Queue: Defense.Allies, ClassicDefense.Allies
+		Queue: DefenseSQ, DefenseMQ
 		BuildDuration: 625
 		BuildPaletteOrder: 35
         BuildLimit: 1
-		Prerequisites: techcenter, ~!nosuperweapons, ~techlevel.high
+		Prerequisites: techcenter, ~!nosuperweapons, ~techlevel.high, ~player.allies, ~techlevel.7
 		Description: Looks like a Missile Silo.\nMaximum one can be built.\n  Special ability: Fake Nuke\nThis missile looks like an Atom Bomb,\nuntil it detonates non-violently.
 		Icon: fake-icon
 	Building:
@@ -543,8 +722,19 @@ MSLF:
 		ClockSequence: clock
 		CircleSequence: circles
 		SupportPowerPaletteOrder: 12
+    SupportPowerChargeBar:
     -WithDeathAnimation:
 	Valued:
 		Cost: 625
 	AppearsOnRadar:
 		ValidRelationships: Ally
+	Health:
+		HP: 800
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-structure
+        Queue: DefenseSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-structure
+        Queue: DefenseSQ

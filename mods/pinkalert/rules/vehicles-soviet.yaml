@@ -5,8 +5,8 @@ AHRV:
 	-SpawnActorOnDeath:
 	-HarvesterHuskModifier:
 	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
-		Prerequisites: proc, ~!global-mineimmune, ~techlevel.low
+		Queue: VehicleSQ, VehicleMQ
+		Prerequisites: proc, ~!global-mineimmune, ~techlevel.low, ~player.soviet, ~techlevel.2
         Description: Collects Valuable Minerals and Scrap Metal for processing.\nSlowly self-repairs when below 50% health.\n  Armed with basic Gun.
         Icon: alticon
 	Tooltip:
@@ -14,7 +14,7 @@ AHRV:
 	Turreted@SECONDARY:
 		Turret: secondary
 		Offset: 508,0,128
-		TurnSpeed: 28
+		TurnSpeed: 20
 	Armament@SECONDARY:
 		Name: secondary
 		Turret: secondary
@@ -71,8 +71,8 @@ AHRV.EmptyHusk:
 AHRV.MineImmune
     Inherits: AHRV
 	Buildable:
-        Queue: ClassicVehicle.Soviet, Vehicle.Soviet
-		Prerequisites: proc, ~global-mineimmune, ~techlevel.low  
+        Queue: VehicleSQ, VehicleMQ
+		Prerequisites: proc, ~global-mineimmune, ~techlevel.low, ~player.soviet, ~techlevel.2
     MineImmune:
 	SpawnActorOnDeath:
 		Actor: AHRV.MineImmune.EmptyHusk
@@ -113,9 +113,9 @@ BRDM:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
 	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildPaletteOrder: 2
-		Prerequisites: ~techlevel.low
+		Prerequisites: ~techlevel.low, ~player.soviet, ~techlevel.2
 		Description: Fast armored car with anti-armor rockets.\nCannot attack Air units.\n  Strong vs Light Vehicles\n  Weak vs Infantry, Aircraft
 	Valued:
 		Cost: 500
@@ -159,6 +159,14 @@ BRDM:
 		Image: BRDM
 	Passenger:
 		CustomPipType: green
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 BRDM.Husk:
 	Inherits: ^Husk
@@ -173,10 +181,10 @@ HAPC:
 	Inherits: APC
     -AttackFrontal:
 	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildPaletteOrder: 3
         BuildDuration: 800
-		Prerequisites: barr, ~techlevel.medium
+		Prerequisites: barr, ~techlevel.medium, ~player.soviet, ~techlevel.4
         Icon: alticon
 	Valued:
 		Cost: 800
@@ -188,7 +196,7 @@ HAPC:
 		Speed: 80
 	AttackTurreted:
 	Turreted:
-		TurnSpeed: 28
+		TurnSpeed: 20
 	WithSpriteTurret:
 	Armament:
 		LocalOffset: 150,0,100
@@ -210,10 +218,10 @@ HAPC.Husk:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferTank
 	Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 900
 		BuildPaletteOrder: 4
-		Prerequisites: ~techlevel.low, ~!heavytank.upgrade
+		Prerequisites: ~techlevel.low, ~!heavytank.upgrade, ~player.soviet, ~techlevel.3
 		Description: Soviet Main Battle Tank.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
         Icon: alticon
 	Valued:
@@ -276,6 +284,14 @@ HAPC.Husk:
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 3TNK.Husk:
 	Inherits: ^Husk
@@ -293,10 +309,10 @@ HAPC.Husk:
     -GrantConditionOnPrerequisite@HEAVYTANKUPG:
     -TransformOnCondition@HEAVYTANKUPG:
  	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 900
 		BuildPaletteOrder: 4
-		Prerequisites: fix, ~techlevel.medium, ~heavytank.upgrade
+		Prerequisites: fix, ~techlevel.medium, ~heavytank.upgrade, ~player.soviet, ~techlevel.4
         Description: Soviet Main Battle Tank, with dual cannons.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
         Icon: icon
 	Armament:
@@ -333,10 +349,10 @@ HAPC.Husk:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferTank
 	Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 1800
 		BuildPaletteOrder: 5
-		Prerequisites: fix, stek, ~techlevel.high
+		Prerequisites: fix, stek, ~techlevel.high, ~player.soviet, ~techlevel.6
 		Description: Big and slow tank, with anti-air capability.\nSlowly self-repairs when below 50% health.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
 	Valued:
 		Cost: 1800
@@ -403,6 +419,7 @@ HAPC.Husk:
 		Delay: 3
 		StartIfBelow: 51
 		DamageCooldown: 150
+        RequiresCondition: !emp-crate-collected
 	SelectionDecorations:
 	Selectable:
 		Class: 4TNK
@@ -414,6 +431,14 @@ HAPC.Husk:
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 4TNK.Husk:
 	Inherits: ^Husk
@@ -432,10 +457,10 @@ V2RL:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferDefense
 	Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 700
 		BuildPaletteOrder: 6
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.soviet, ~techlevel.5
 		Description: Long-range rocket artillery.\n  Strong vs Infantry, Light armor, Buildings\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 700
@@ -497,6 +522,14 @@ V2RL:
 	RenderRangeCircle:
 	RevealOnFire:
 		ArmamentNames: primary
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 V2RL.Husk:
 	Inherits: ^Husk
@@ -513,10 +546,10 @@ TTNK:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
 	Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 1200
 		BuildPaletteOrder: 8
-		Prerequisites: stek, ~techlevel.high
+		Prerequisites: stek, ~techlevel.high, ~player.soviet, ~techlevel.7
 		Description: Tank with mounted tesla coil.\nTesla briefly short-circuits Vehicle and Ships.\n  Strong vs Infantry, Vehicles, Buildings\n  Weak vs Aircraft
 	Valued:
 		Cost: 1200
@@ -563,6 +596,14 @@ TTNK:
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 TTNK.Husk:
 	Inherits: ^Husk
@@ -581,10 +622,10 @@ QTNK:
 	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
 	Inherits@EMP: ^AcceptsEMPCrate
 	Buildable:
-        Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+        Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 2300
 		BuildPaletteOrder: 14
-		Prerequisites: fcom, ~techlevel.high
+		Prerequisites: fcom, ~techlevel.high, ~player.soviet, ~techlevel.7
 		Description: Deals seismic damage to nearby vehicles and structures.\nVehicles get slowed down, Infantry is forced to ground.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry, Aircraft
 	Valued:
 		Cost: 2100
@@ -633,6 +674,14 @@ QTNK:
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 QTNK.Husk:
 	Inherits: ^Husk
@@ -648,10 +697,10 @@ GTNK:
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
     Inherits@Crates: ^AcceptsAllCrates
 	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 950
         BuildPaletteOrder: 9
-		Prerequisites: stek, dome, ~techlevel.high
+		Prerequisites: stek, dome, ~techlevel.high, ~player.soviet, ~techlevel.6
 		Description: Tank with Anti-Air battery mounted on it.\nUses Chaingun against ground units.\n  Strong vs Aircraft, Infantry\n  Weak vs anything Else
 	Valued:
 		Cost: 950
@@ -734,6 +783,14 @@ GTNK:
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: Ground, Unit, Vehicle, Tank, DetonateAttack
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 GTNK.Husk:
 	Inherits: ^Husk
@@ -756,10 +813,10 @@ GTNK.Husk:
 	Valued:
 		Cost: 3600
 	Buildable:
-		Queue: ClassicVehicle.Soviet, Vehicle.Soviet
+		Queue: VehicleSQ, VehicleMQ
 		BuildDuration: 3600
 		BuildPaletteOrder: 15
-		Prerequisites: dome, fix, fcom, ~techlevel.high
+		Prerequisites: dome, fix, fcom, ~techlevel.high, ~player.soviet, ~techlevel.7
 		BuildLimit: 1
 		Description: Extra large and slow tank, with anti-infantry extra.\nMaximum 1 can be built.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft, Ships\n  Special: Robotic\nWireless communications powered.\nRequires a Radar Dome to operate.
 	ExternalCondition@WIRELESS:
@@ -841,6 +898,14 @@ GTNK.Husk:
 		StartIfBelow: 51
 		DamageCooldown: 150
         RequiresCondition: wireless
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
 
 5TNK.Husk:
 	Inherits: ^Husk

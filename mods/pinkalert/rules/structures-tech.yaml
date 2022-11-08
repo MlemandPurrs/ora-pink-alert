@@ -1,3 +1,54 @@
+V19:
+	Inherits: ^TechBuilding
+	Selectable:
+		Bounds: 24, 24
+	CashTrickler:
+        Interval: 50
+		Amount: 20
+		RequiresCondition: enabled
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	Health:
+		HP: 400
+	Tooltip:
+		Name: Oil Derrick
+	TooltipDescription@ally:
+		Description: Provides additional funds.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to receive additional funds.
+		ValidRelationships: Neutral, Enemy
+	SpawnActorOnDeath:
+		Actor: V19.Husk
+        OwnerType: InternalName
+	UpdatesDerrickCount:
+	GrantConditionOnCombatantOwner:
+		Condition: enabled
+	RenderSprites:
+		Image: v19
+
+V19.Husk:
+	Inherits: ^TechBuildingHusk
+	Interactable:
+		Bounds: 24, 24
+	WithSpriteBody:
+	WithIdleOverlay:
+		StartSequence: fire-start
+		Sequence: fire-loop
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	Tooltip:
+		Name: Oil Derrick (Destroyed)
+	TooltipDescription:
+		Description: Capture to receive additional funds.
+		ValidRelationships: Neutral, Enemy, Ally
+	TransformOnCapture:
+		IntoActor: v19
+	RenderSprites:
+		Image: v19.husk
+
 MISS:
 	Inherits: ^TechBuilding
 	Inherits@shape: ^3x2Shape
@@ -226,10 +277,10 @@ RPAD:
 	Tooltip:
 		Name: Reinforcements Pad
 	TooltipDescription@ally:
-		Description: Periodically provides Reinforcements, free of charge.
+		Description: Periodically provides Vehicles, free of charge.
 		ValidRelationships: Ally
 	TooltipDescription@other:
-		Description: Capture to periodically obtain Reinforcements.
+		Description: Capture to periodically obtain Vehicles.
 		ValidRelationships: Neutral, Enemy
 	SpawnActorOnDeath:
 		Actor: RPAD.Husk
@@ -325,9 +376,267 @@ RPAD.Husk:
 	Tooltip:
 		Name: Reinforcements Pad (Destroyed)
 	TooltipDescription:
-		Description: Capture to periodically obtain Reinforcements.
+		Description: Capture to periodically obtain Vehicles.
 		ValidRelationships: Ally, Neutral, Enemy
 	TransformOnCapture:
 		IntoActor: rpad
 	RenderSprites:
 		Image: rpad.destroyed
+
+OREP:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^3x2Shape
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 840,0,0, 840,-1024,0, 420,768,0, -840,0,0, -840,-1024,0, -840,1024,0
+	Selectable:
+        Priority: 0
+		Bounds: 72, 56
+		DecorationBounds: 73, 72
+	Building:
+		Footprint: xXx xxx
+		Dimensions: 3,2
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 800
+	RevealsShroud:
+		Range: 5c0
+	Armor:
+		Type: Wood
+	Tooltip:
+		Name: Ore Purifier
+	TooltipDescription@ally:
+		Description: Generates extra revenue when resources get procured.
+        #   Description: Generates extra revenue whenever Ore Refinery is working
+        #   Gives additional cash when resources are delivered to refineries
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to gain additional income when procuring resources.
+		ValidRelationships: Neutral, Enemy
+	#   TooltipDescription@ally:
+	#	Description: Boosts your income from Refineries by 10%
+	#	ValidRelationships: Ally
+	#   TooltipDescription@other:
+	#	Description: Capture to gain a boost to Income.
+	#	ValidRelationships: Neutral, Enemy
+    #   i assume each purifier will work individually, so its 10% instead 25%
+    ResourcePurifier:
+        Modifier: 10
+	WithBuildingBib:
+	ProvidesPrerequisite@buildingname:
+	RequiresBuildableArea:
+		AreaTypes: building
+	SpawnActorOnDeath:
+		Actor: OREP.Husk
+        OwnerType: InternalName
+
+OREP.Husk:
+	Inherits: ^TechBuildingHusk
+	Interactable:
+		Bounds: 72, 56
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Ore Purifier (Destroyed)
+	TooltipDescription:
+		Description: Capture to gain additional income when procuring resources.
+		ValidRelationships: Neutral, Enemy, Ally  
+	TransformOnCapture:
+		IntoActor: orep
+	RenderSprites:
+		Image: orep.destroyed
+
+CLON:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^2x2Shape
+	CaptureManager:
+		BeingCapturedCondition: being-captured
+	Selectable:
+		Bounds: 48, 48
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 600
+	Tooltip:
+		Name: Cloning Facility
+	RevealsShroud:
+		Range: 5c0
+	GrantConditionOnPrerequisite@MQ:
+		Condition: global-multiqueue
+		Prerequisites: global-multiqueue
+	TooltipDescription@SQally:
+		Description: Clones produced Infantry.
+		ValidRelationships: Ally
+        RequiresCondition: !global-multiqueue
+	TooltipDescription@SQother:
+		Description: Capture to obtain Infantry clones.
+		ValidRelationships: Neutral, Enemy
+        RequiresCondition: !global-multiqueue
+	TooltipDescription@MQally:
+		Description: Speeds up Infantry production.
+		ValidRelationships: Ally
+        RequiresCondition: global-multiqueue
+	TooltipDescription@MQother:
+		Description: Capture to produce Infantry faster.
+		ValidRelationships: Neutral, Enemy
+        RequiresCondition: global-multiqueue
+	WithBuildingBib:
+	ProvidesPrerequisite@buildingname:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+		ProductionTypes: InfantrySQ, Soldier, Dog
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: InfantrySQ, Soldier, Dog
+	Production:
+		Produces: InfantrySQ, CloneSoldier
+    #   bizarrely works on Multi Queue without having to set a Primary building first...
+	ClonesProducedUnits:
+		CloneableTypes: CloneSoldier
+		ProductionType: InfantrySQ
+		RequiresCondition: !global-multiqueue
+	RallyPoint:
+	SpawnActorOnDeath:
+		Actor: CLON.Husk
+        OwnerType: InternalName
+	RenderSprites:
+		Image: clon
+
+CLON.Husk:
+	Inherits: ^TechBuildingHusk
+	Inherits@shape: ^2x2Shape
+	Interactable:
+		Bounds: 48, 48
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Cloning Facility (Destroyed)
+	GrantConditionOnPrerequisite@MQ:
+		Condition: global-multiqueue
+		Prerequisites: global-multiqueue
+	TooltipDescription@SQother:
+		Description: Capture to obtain Infantry clones.
+		ValidRelationships: Neutral, Enemy
+        RequiresCondition: !global-multiqueue
+	TooltipDescription@MQother:
+		Description: Capture to produce Infantry faster.
+		ValidRelationships: Neutral, Enemy
+        RequiresCondition: global-multiqueue      
+	RenderSprites:
+		Image: clon.destroyed
+	TransformOnCapture:
+		IntoActor: clon
+
+APRT:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^3x2Shape
+	AppearsOnMapPreview:
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 420,0,0, 420,-1024,0, 420,1024,0, -777,0,0, -777,-1024,0, -777,1024,0
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2	
+	Tooltip:
+		Name: Airport
+	TooltipDescription@ally:
+		Description: Grants Paratroopers and resupplies Planes.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to obtain Paratroopers.
+		ValidRelationships: Neutral, Enemy
+	Selectable:
+        Priority: 0
+		Bounds: 72, 48
+	Health:
+		HP: 800
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 6c0
+	GrantConditionOnPowerState@LOWPOWER:
+		Condition: lowpower
+		ValidPowerStates: Low, Critical
+	Reservable:
+	ParatroopersPower@paratroopers:
+        PauseOnCondition: lowpower
+		OrderName: SovietParatroopers
+		Prerequisites: infantryproduction, ~techlevel.medium
+		Icon: paratroopers
+		ChargeInterval: 6750
+		Description: Paratroopers
+		LongDesc: A Badger drops a squad of infantry\nanywhere on the map.
+		DropItems: E1,E3,E1,E3,E1
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		RequiresCondition: !directional-abilities
+        SupportPowerPaletteOrder: 4
+        Cursor: airdrop
+	ParatroopersPower@paratroopers-directional:
+        PauseOnCondition: lowpower
+		OrderName: SovietParatroopersDirectional
+		Prerequisites: infantryproduction, ~techlevel.medium
+		Icon: paratroopers
+		ChargeInterval: 6750
+		Description: Paratroopers
+		LongDesc: A Badger drops a squad of infantry\nanywhere on the map.
+		DropItems: E1,E3,E1,E3,E1
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		RequiresCondition: directional-abilities
+        SupportPowerPaletteOrder: 4
+        Cursor: airdrop
+	GrantConditionOnPrerequisite@GLOBALDIRECTIONALABILITY:
+		Condition: directional-abilities
+		Prerequisites: global-directional-abilities
+	SupportPowerChargeBar:
+	GrantConditionOnPowerState@LOWPOWER:
+		Condition: lowpower
+		ValidPowerStates: Low, Critical
+    WithBuildingBib:
+    ProvidesPrerequisite@buildingname:
+	SpawnActorOnDeath:
+		Actor: APRT.Husk
+		OwnerType: InternalName
+	RenderSprites:
+		Image: aprt
+
+APRT.Husk:
+	Inherits: ^TechBuildingHusk
+	Interactable:
+		Bounds: 72,48
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	Tooltip:
+		Name: Airport (Destroyed)
+	TransformOnCapture:
+		IntoActor: aprt
+	RenderSprites:
+		Image: aprt.destroyed

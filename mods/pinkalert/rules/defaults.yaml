@@ -164,7 +164,6 @@
 		Condition: kazakh
 		Prerequisites: player.kazakh
 
-
 ^AutoTargetGround:
 	AutoTarget:
 		AttackAnythingCondition: stance-attackanything
@@ -581,7 +580,7 @@
 		Offset: 0,0,427
 		RequiresCondition: parachute
 	Cloneable:
-		Types: Infantry
+		Types: CloneSoldier
 	DetectCloaked:
 		CloakTypes: Cloak
 		Range: 1c826
@@ -920,7 +919,7 @@
 	Repairable:
 		RepairActors: fix, afld
 	Rearmable:
-		RearmActors: afld
+		RearmActors: afld, aprt
 
 ^Helicopter:
 	Inherits@1: ^ExistsInWorld
@@ -1198,6 +1197,8 @@
 	GrantConditionOnPrerequisite@GLOBALBUILDINGHUSKS:
 		Condition: global-buildinghusks
 		Prerequisites: global-buildinghusks
+	Targetable@AIFixer:
+		TargetTypes: IgnoreThis
 
 ^Defense:
 	Inherits: ^Building
@@ -1300,6 +1301,11 @@
 	CaptureManager:
     Selectable:
         Class: FAKE
+    #   ah snap, doesnt work on red arrow capturing
+    #   GrantConditionOnCapture:
+    #   Condition: kaboom
+    #   KillsSelf:
+    #   RequiresCondition: kaboom
 
 ^CivBuilding:
 	Inherits: ^BasicBuilding
@@ -1407,6 +1413,8 @@
     CapturableProgressBlink:
 	TransformOnCapture:
 		ForceHealthPercentage: 30
+	Targetable@AIFixer:
+		TargetTypes: IgnoreThis
 
 ^Tree:
 	Inherits@1: ^SpriteActor
@@ -1519,6 +1527,8 @@
 		Delay: 8
 	MapEditorData:
 		Categories: Husk
+	Targetable@AIFixer:
+		TargetTypes: IgnoreThis
 
 ^PlaneHusk:
 	Inherits: ^BasicHusk
@@ -1589,7 +1599,7 @@
 		ShowOwnerRow: false
 	Crate:
 		Lifetime: 180
-		TerrainTypes: Clear, Rough, Road, Ore, Beach
+		TerrainTypes: Clear, Rough, Road, Ore, Gems, Scrap, Beach
 	RenderSprites:
 		Palette: effect
 		Image: wcrate
@@ -1653,19 +1663,6 @@
 		Condition: lowpower
 		ValidPowerStates: Low, Critical
 
-^PrimaryBuilding:
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
-        RequiresCondition: !multiqueue
-	WithDecoration@primary:
-		RequiresCondition: primary && !multiqueue
-		Position: Top
-		Margin: 0, 4
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-
 ^ProductionAIBoost:
 	ProductionTimeMultiplier@productionboost:
 		Multiplier: 110
@@ -1687,6 +1684,7 @@
 		Condition: global-unithusks
 		Prerequisites: global-unithusks
 	SpawnActorOnDeath:
+        EffectiveOwnerFromOwner: true
 		RequiresCondition: global-unithusks
 
 ^GlobalBuildingHusks:
@@ -1694,6 +1692,7 @@
 		Condition: global-buildinghusks
 		Prerequisites: global-buildinghusks
 	SpawnActorOnDeath:
+        EffectiveOwnerFromOwner: true
 		RequiresCondition: global-buildinghusks
 
 ^DamagedOnLowPower:
@@ -2012,6 +2011,15 @@
         #   InfiltrationNotification: BuildingInfiltrated
 	TimedConditionBar@Sabotage:
 		Condition: sabotage
+    ProvidesPrerequisite@SQSlowdown:
+        Prerequisite: sqslowdown
+        RequiresCondition: sabotage && !notwhilelow
+	GrantConditionOnPowerState@SQSlowdown:
+		Condition: notwhilelow
+		ValidPowerStates: Low, Critical
+    ProvidesPrerequisite@SQSlowdownLowpower:
+        Prerequisite: sqslowdown-lowpower
+        RequiresCondition: sabotage && notwhilelow
 
 ^InfiltratableRefinery:
     Targetable@INFILTRATION:
@@ -2118,3 +2126,210 @@
 		Notification: EnemyDetected
 	ExternalCondition@AirRadar:
 		Condition: in-airwarning-radius
+
+^QueueUpdater:
+	FreeActor@QUEUEUPDATER:
+		Actor: QueueUpdaterDummy
+		RequiresCondition: updatequeue
+	GrantDelayedCondition@QUEUEUPDATER:
+		Delay: 1
+		Condition: updatequeue
+	GrantConditionOnPrerequisite@MQ:
+		Condition: global-multiqueue
+		Prerequisites: global-multiqueue
+
+^PrimaryBuilding:
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+		RequiresCondition: !global-multiqueue
+	WithDecoration@primary:
+		RequiresCondition: primary && !global-multiqueue
+		Position: Top
+		Margin: 0, 4
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+
+^ProducesBuildings:
+	Inherits@QUEUEUPDATER: ^QueueUpdater
+	Inherits@PRIMARY: ^PrimaryBuilding
+	ProductionQueue@MQBLD:
+		Type: BuildingMQ
+		DisplayOrder: 1
+		Group: Building
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionQueue@MQDEF:
+		Type: DefenseMQ
+		DisplayOrder: 2
+		Group: Defense
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	Production@SQBLDDEF:
+		Produces: BuildingSQ, DefenseSQ
+		RequiresCondition: !global-multiqueue
+	Production@MQBLDDEF:
+		Produces: BuildingMQ, DefenseMQ
+		RequiresCondition: global-multiqueue
+	ProductionBar@SQBLD:
+		ProductionType: BuildingSQ
+		RequiresCondition: !global-multiqueue
+	ProductionBar@SQDEF:
+		ProductionType: DefenseSQ
+		Color: 8A8A8A
+		RequiresCondition: !global-multiqueue
+	ProductionBar@MQBLD:
+		ProductionType: BuildingMQ
+		RequiresCondition: global-multiqueue
+	ProductionBar@MQDEF:
+		ProductionType: DefenseMQ
+		Color: 8A8A8A
+		RequiresCondition: global-multiqueue
+
+^ProducesInfantry:
+	Inherits@QUEUEUPDATER: ^QueueUpdater
+	Inherits@PRIMARY: ^PrimaryBuilding
+	ProductionQueue@MQINF:
+		Type: InfantryMQ
+		DisplayOrder: 3
+		Group: Infantry
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	Production@SQINF:
+		Produces: InfantrySQ, Soldier
+		RequiresCondition: !global-multiqueue
+	Production@MQINF:
+		Produces: InfantryMQ, Soldier
+		RequiresCondition: global-multiqueue
+	ProductionBar@SQINF:
+		ProductionType: InfantrySQ
+		RequiresCondition: !global-multiqueue
+	ProductionBar@MQINF:
+		ProductionType: InfantryMQ
+		RequiresCondition: global-multiqueue
+	GrantExternalConditionToProduced:
+		Condition: produced
+
+^ProducesVehicles:
+	Inherits@QUEUEUPDATER: ^QueueUpdater
+	Inherits@PRIMARY: ^PrimaryBuilding
+	ProductionQueue@MQVEH:
+		Type: VehicleMQ
+		DisplayOrder: 4
+		Group: Vehicle
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	Production@SQVEH:
+		Produces: VehicleSQ
+		RequiresCondition: !global-multiqueue
+	Production@MQVEH:
+		Produces: VehicleMQ
+		RequiresCondition: global-multiqueue
+	ProductionBar@SQVEH:
+		ProductionType: VehicleSQ
+		RequiresCondition: !global-multiqueue
+	ProductionBar@MQVEH:
+		ProductionType: VehicleMQ
+		RequiresCondition: global-multiqueue
+
+^ProducesNaval:
+	Inherits@QUEUEUPDATER: ^QueueUpdater
+	Inherits@PRIMARY: ^PrimaryBuilding
+	ProductionQueue@MQNAV:
+		Type: NavyMQ
+		DisplayOrder: 6
+		Group: Navy
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	Production@SQNAV:
+		Produces: NavySQ, Ship, Submarine
+		RequiresCondition: !global-multiqueue
+	Production@MQNAV:
+		Produces: NavyMQ, Ship, Submarine
+		RequiresCondition: global-multiqueue
+	ProductionBar@SQNAV:
+		ProductionType: NavySQ
+		RequiresCondition: !global-multiqueue
+	ProductionBar@MQNAV:
+		ProductionType: NavyMQ
+		RequiresCondition: global-multiqueue
+
+^ProducesAircraft:
+	Inherits@QUEUEUPDATER: ^QueueUpdater
+	Inherits@PRIMARY: ^PrimaryBuilding
+	ProductionQueue@MQAIR:
+		Type: AircraftMQ
+		DisplayOrder: 5
+		Group: Aircraft
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	Production@SQAIR:
+		Produces: AircraftSQ, Airplane, Helicopter
+		RequiresCondition: !global-multiqueue
+	Production@MQAIR:
+		Produces: AircraftMQ, Airplane, Helicopter
+		RequiresCondition: global-multiqueue
+	ProductionBar@SQAIR:
+		ProductionType: AircraftSQ
+		RequiresCondition: !global-multiqueue
+	ProductionBar@MQAIR:
+		ProductionType: AircraftMQ
+		RequiresCondition: global-multiqueue
+
+^ProducesUpgrades:
+	Inherits@QUEUEUPDATER: ^QueueUpdater
+	ProductionQueue@MQUPG:
+		Type: UpgradeMQ
+		DisplayOrder: 7
+		Group: Upgrade
+		LowPowerModifier: 200
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	Production@SQUPG:
+		Produces: UpgradeSQ
+		RequiresCondition: !global-multiqueue
+	Production@MQUPG:
+		Produces: UpgradeMQ
+		RequiresCondition: global-multiqueue
+	ProductionBar@SQUPG:
+		ProductionType: UpgradeSQ
+		RequiresCondition: !global-multiqueue
+	ProductionBar@MQUPG:
+		ProductionType: UpgradeMQ
+		RequiresCondition: global-multiqueue
+	Exit@UPG:

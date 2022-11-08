@@ -98,11 +98,11 @@ YAK:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
     Inherits@AUTODAMAGE: ^KilledWithoutAirfield
 	Buildable:
-		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		Queue: AircraftSQ, AircraftMQ
 		BuildAtProductionType: Airplane
 		BuildDuration: 800
 		BuildPaletteOrder: 4
-		Prerequisites: afld, ~techlevel.medium
+		Prerequisites: afld, ~techlevel.medium, ~player.soviet, ~!global-noaircraft, ~techlevel.4
 		Description: Anti-Infantry Plane.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
 	Valued:
 		Cost: 800
@@ -179,6 +179,14 @@ YAK:
 		Margin: 4, 3
 		RequiresSelection: true
 		PipCount: 2
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-aircraft
+        Queue: AircraftSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-aircraft
+        Queue: AircraftSQ
 
 YAK.Husk:
 	Inherits: ^PlaneHusk
@@ -200,11 +208,11 @@ MIG:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
     Inherits@AUTODAMAGE: ^KilledWithoutAirfield
 	Buildable:
-		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		Queue: AircraftSQ, AircraftMQ
 		BuildAtProductionType: Airplane
 		BuildDuration: 1500
 		BuildPaletteOrder: 5
-		Prerequisites: afld, stek, ~techlevel.high
+		Prerequisites: afld, stek, ~techlevel.high, ~player.soviet, ~!global-noaircraft, ~techlevel.6
 		Description: Fast Ground-Attack Plane.\n  Strong vs Buildings, Tanks\n  Weak vs Infantry, Light armor, Aircraft
 	Valued:
 		Cost: 1500
@@ -247,6 +255,7 @@ MIG:
 		FacingTolerance: 80
 		PersistentTargeting: false
 		OpportunityFire: False
+        #   PauseOnCondition: !ammo && !ammo_b
 	Aircraft:
 		CruiseAltitude: 2560
 		InitialFacing: 768
@@ -303,6 +312,14 @@ MIG:
 	GrantConditionOnPrerequisite@MIGUPG:
 		Condition: mig.upgrade
 		Prerequisites: migbombs.upgrade
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-aircraft
+        Queue: AircraftSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-aircraft
+        Queue: AircraftSQ
 
 MIG.Husk:
 	Inherits: ^PlaneHusk
@@ -383,11 +400,11 @@ TRAN:
 	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
 	Inherits@EMP: ^AcceptsEMPCrate
 	Buildable:
-		Queue: ClassicAircraft.Allies, Aircraft.Allies
+		Queue: AircraftSQ, AircraftMQ
 		BuildAtProductionType: Helicopter
 		BuildDuration: 1000
 		BuildPaletteOrder: 1
-		Prerequisites: hpad, ~techlevel.medium
+		Prerequisites: hpad, ~techlevel.medium, ~player.allies, ~!global-noaircraft, ~techlevel.4
 		Description: Fast Infantry Transport Helicopter.\n  Unarmed
 	Valued:
 		Cost: 1000
@@ -461,6 +478,14 @@ TRAN:
 		DecorationBounds: 40,36
 	RenderSprites:
 		Image: TRAN
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-aircraft
+        Queue: AircraftSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-aircraft
+        Queue: AircraftSQ
 
 TRAN.Husk:
 	Inherits: ^HelicopterHusk
@@ -526,11 +551,11 @@ HELI:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferVehicle
     Inherits@Crates: ^AcceptsAllCratesExceptCloak
 	Buildable:
-		Queue: ClassicAircraft.Allies, Aircraft.Allies
+		Queue: AircraftSQ, AircraftMQ
 		BuildAtProductionType: Helicopter
 		BuildDuration: 1200
 		BuildPaletteOrder: 2
-		Prerequisites: hpad, ~techlevel.medium
+		Prerequisites: hpad, ~techlevel.medium, ~player.allies, ~!global-noaircraft, ~techlevel.5
 		Description: Helicopter gunship armed\nwith multi-purpose missiles.\n  Strong vs Tanks, Aircraft\n  Weak vs Infantry
 	Valued:
 		Cost: 1200
@@ -567,6 +592,7 @@ HELI:
 		FacingTolerance: 80
 		PersistentTargeting: false
 		OpportunityFire: False
+        #   PauseOnCondition: !ammo && !ammo_b
 	Aircraft:
 		InitialFacing: 896
 		TurnSpeed: 16
@@ -626,6 +652,14 @@ HELI:
 		Prerequisites: helidepth.upgrade
 	Rearmable:
         AmmoPools: ammo, ammo_b
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-aircraft
+        Queue: AircraftSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-aircraft
+        Queue: AircraftSQ
 
 HELI.Husk:
 	Inherits: ^HelicopterHusk
@@ -649,11 +683,11 @@ HIND:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
     Inherits@Crates: ^AcceptsAllCratesExceptCloak
 	Buildable:
-		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		Queue: AircraftSQ, AircraftMQ
 		BuildAtProductionType: Helicopter
 		BuildDuration: 1200
 		BuildPaletteOrder: 2
-		Prerequisites: hpad, ~techlevel.medium
+		Prerequisites: hpad, ~techlevel.medium, ~player.soviet, ~!global-noaircraft, ~techlevel.5
 		Description: Helicopter gunship armed\nwith dual chainguns.\n  Can be upgraded to gain Missiles too.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 1200
@@ -711,6 +745,7 @@ HIND:
 		FacingTolerance: 80
 		PersistentTargeting: false
 		OpportunityFire: False
+        #   PauseOnCondition: !ammo && !ammo_b
 	Aircraft:
 		InitialFacing: 896
 		TurnSpeed: 16
@@ -770,6 +805,14 @@ HIND:
 	GrantConditionOnPrerequisite@HINDUPG:
 		Condition: hind.upgraded
 		Prerequisites: hindrockets.upgrade
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-aircraft
+        Queue: AircraftSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-aircraft
+        Queue: AircraftSQ
 
 HIND.Husk:
 	Inherits: ^HelicopterHusk
@@ -793,11 +836,11 @@ HIP:
 	Inherits@Invuln: ^AcceptsInvulnerabilityCrate
 	Inherits@EMP: ^AcceptsEMPCrate
 	Buildable:
-		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		Queue: AircraftSQ, AircraftMQ
 		BuildAtProductionType: Helicopter
 		BuildDuration: 1000
 		BuildPaletteOrder: 1
-		Prerequisites: hpad, ~techlevel.medium
+		Prerequisites: hpad, ~techlevel.medium, ~player.soviet, ~!global-noaircraft, ~techlevel.4
 		Description: Fast Infantry Transport Helicopter.\n  Unarmed
 	Valued:
 		Cost: 1000
@@ -863,6 +906,14 @@ HIP:
 		DecorationBounds: 40,36
 	RenderSprites:
 		Image: HIP
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-aircraft
+        Queue: AircraftSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-aircraft
+        Queue: AircraftSQ
 
 HIP.Husk:
 	Inherits: ^HelicopterHusk
@@ -913,12 +964,12 @@ NEBR:
     Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferBuilding
     Inherits@AUTODAMAGE: ^KilledWithoutAirfield
 	Buildable:
-		Queue: ClassicAircraft.Soviet, Aircraft.Soviet
+		Queue: AircraftSQ, AircraftMQ
 		BuildAtProductionType: Airplane
         BuildDuration: 2100
 		BuildPaletteOrder: 6
 		BuildLimit: 1
-		Prerequisites: afld, fcom, ~techlevel.high
+		Prerequisites: afld, fcom, ~techlevel.high, ~player.soviet, ~!global-noaircraft, ~techlevel.7
 		Description: Badger modified to carry and drop a Paranuke.\n  Maximum 1 can be built.\n  Strong vs everything on Ground\n  Weak vs Anti-Aircraft measures
         Icon: alticon
 	Tooltip:
@@ -979,6 +1030,14 @@ NEBR:
 		Color: FFFF00
     RenderSprites:
 		Image: badr
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-aircraft
+        Queue: AircraftSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-aircraft
+        Queue: AircraftSQ
 
 NEBR.Husk:
 	Inherits: ^PlaneHusk

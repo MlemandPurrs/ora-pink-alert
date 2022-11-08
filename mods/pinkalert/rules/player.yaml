@@ -9,12 +9,11 @@ Player:
 	Inherits: ^BasePlayer
 	AlwaysVisible:
 	TechTree:
-	ClassicProductionQueue@BuildingAllies:
-		Type: ClassicBuilding.Allies
-        Group: Building
-        Factions: allies, england, france, germany, spain
-        DisplayOrder: 0
-		LowPowerModifier: 300
+	ClassicProductionQueue@Building:
+		Type: BuildingSQ
+		Group: Building
+		DisplayOrder: 1
+		LowPowerModifier: 200
 		ReadyAudio: ConstructionComplete
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
@@ -23,12 +22,11 @@ Player:
 		CancelledAudio: Cancelled
 		SpeedUp: True
 		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@BuildingSoviet:
-		Type: ClassicBuilding.Soviet
-        Group: Building
-        Factions: soviet, russia, ukraine, belarus, kazakh
-        DisplayOrder: 0
-		LowPowerModifier: 300
+	ClassicProductionQueue@Defense:
+		Type: DefenseSQ
+		Group: Defense
+		DisplayOrder: 2
+		LowPowerModifier: 200
 		ReadyAudio: ConstructionComplete
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
@@ -37,40 +35,11 @@ Player:
 		CancelledAudio: Cancelled
 		SpeedUp: True
 		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@DefenseAllies:
-		Type: ClassicDefense.Allies
-        Group: Defense
-        Factions: allies, england, france, germany, spain
-        DisplayOrder: 1
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-		SpeedUp: True
-		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@DefenseSoviet:
-		Type: ClassicDefense.Soviet
-        Group: Defense
-        Factions: soviet, russia, ukraine, belarus, kazakh
-        DisplayOrder: 1
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-		SpeedUp: True
-		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@InfantryAllies:
-		Type: ClassicInfantry.Allies
-        Group: Infantry
-        Factions: allies, england, france, germany, spain
-        DisplayOrder: 2
-		LowPowerModifier: 300
+	ClassicProductionQueue@Infantry:
+		Type: InfantrySQ
+		Group: Infantry
+		DisplayOrder: 3
+		LowPowerModifier: 200
 		ReadyAudio: UnitReady
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
@@ -79,26 +48,11 @@ Player:
 		CancelledAudio: Cancelled
 		SpeedUp: True
 		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@InfantrySoviet:
-		Type: ClassicInfantry.Soviet
-        Group: Infantry
-        Factions: soviet, russia, ukraine, belarus, kazakh
-        DisplayOrder: 2
-		LowPowerModifier: 300
-		ReadyAudio: UnitReady
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Training
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-		SpeedUp: True
-		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@VehicleAllies:
-		Type: ClassicVehicle.Allies
-        Group: Vehicle
-        Factions: allies, england, france, germany, spain
-        DisplayOrder: 3
-		LowPowerModifier: 300
+	ClassicProductionQueue@Vehicle:
+		Type: VehicleSQ
+		Group: Vehicle
+		DisplayOrder: 4
+		LowPowerModifier: 200
 		ReadyAudio: UnitReady
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
@@ -107,12 +61,11 @@ Player:
 		CancelledAudio: Cancelled
 		SpeedUp: True
 		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@VehicleSoviet:
-		Type: ClassicVehicle.Soviet
-        Group: Vehicle
-        Factions: soviet, russia, ukraine, belarus, kazakh
-        DisplayOrder: 3
-		LowPowerModifier: 300
+	ClassicProductionQueue@Aircraft:
+		Type: AircraftSQ
+		Group: Aircraft
+		DisplayOrder: 5
+		LowPowerModifier: 200
 		ReadyAudio: UnitReady
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
@@ -121,12 +74,11 @@ Player:
 		CancelledAudio: Cancelled
 		SpeedUp: True
 		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@AircraftAllies:
-		Type: ClassicAircraft.Allies
-        Group: Aircraft
-        Factions: allies, england, france, germany, spain
-        DisplayOrder: 4
-		LowPowerModifier: 300
+	ClassicProductionQueue@Naval:
+		Type: NavySQ
+		Group: Navy
+		DisplayOrder: 6
+		LowPowerModifier: 200
 		ReadyAudio: UnitReady
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
@@ -135,69 +87,12 @@ Player:
 		CancelledAudio: Cancelled
 		SpeedUp: True
 		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@AircraftSoviet:
-		Type: ClassicAircraft.Soviet
-        Group: Aircraft
-        Factions: soviet, russia, ukraine, belarus, kazakh
-        DisplayOrder: 4
-		LowPowerModifier: 300
-		ReadyAudio: UnitReady
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-		SpeedUp: True
-		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@NavyAllies:
-		Type: ClassicNavy.Allies
-        Group: Navy
-        Factions: allies, england, france, germany, spain
-        DisplayOrder: 5
-		LowPowerModifier: 300
-		ReadyAudio: UnitReady
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-		SpeedUp: True
-		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@NavySoviet:
-		Type: ClassicNavy.Soviet
-        Group: Navy
-        Factions: soviet, russia, ukraine, belarus, kazakh
-        DisplayOrder: 5
-		LowPowerModifier: 300
-		ReadyAudio: UnitReady
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-		SpeedUp: True
-		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@UpgradesAllies:
-		Type: ClassicUpgrades.Allies
-        Group: Upgrades
-        Factions: allies, england, france, germany, spain
-        DisplayOrder: 6
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-		SpeedUp: True
-		BuildTimeSpeedReduction: 100, 91, 82, 73, 64, 55, 50
-	ClassicProductionQueue@UpgradesSoviet:
-		Type: ClassicUpgrades.Soviet
-        Group: Upgrades
-        Factions: soviet, russia, ukraine, belarus, kazakh
-        DisplayOrder: 6
-		LowPowerModifier: 300
-		ReadyAudio: ConstructionComplete
+	ClassicProductionQueue@Upgrade:
+		Type: UpgradeSQ
+		Group: Upgrade
+		DisplayOrder: 7
+		LowPowerModifier: 200
+		ReadyAudio: UpgradeComplete
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
 		QueuedAudio: Building
@@ -406,6 +301,20 @@ Player:
 		Enabled: False
 		DisplayOrder: 27
 		Prerequisites: global-scrapmetal
+	LobbyPrerequisiteCheckbox@NOAIRCRAFT:
+		ID: noaircraft
+		Label: No Aircraft
+		Description: Airplanes and Helicopters wont be available
+		Enabled: False
+		DisplayOrder: 92
+		Prerequisites: global-noaircraft
+	LobbyPrerequisiteCheckbox@EXPENSIVEMCV:
+		ID: expensivemcv
+		Label: Expensive MCV
+		Description: MCV valued twice as much, 5000 instead of 2500
+		Enabled: False
+		DisplayOrder: 100
+		Prerequisites: global-expensivemcv
 	FrozenActorLayer:
 	BaseAttackNotifier:
 	PlayerStatistics:
@@ -425,6 +334,7 @@ Player:
 	GrantConditionOnPrerequisiteManager:
 	EnemyWatcher:
 	ResourceStorageWarning:
+        AdviceInterval: 500
 	PlayerExperience:
 	PlayerRadarTerrain:
 	ProvidesPrerequisite@Allies:
@@ -458,19 +368,43 @@ Player:
 		Factions: kazakh
 		Prerequisite: player.kazakh
     GameSaveViewportManager:
-
-	#   ExternalCondition@TechBuildingHusks:
-	#	Condition: techbuilding-husks-on
-    #   ProvidesPrerequisite@TechBuildingHusks:
-    #   Prerequisite: techbuilding-husks-on
-    #   RequiresCondition: techbuilding-husks-on
-	#   ExternalCondition@BuildingHusks:
-	#	Condition: building-husks-on
-    #   ProvidesPrerequisite@BuildingHusks:
-    #    Prerequisite: building-husks-on
-    #    RequiresCondition: building-husks-on
-	#   ExternalCondition@VehicleHusks:
-	#	 Condition: vehicle-husks-on
-    #   ProvidesPrerequisite@VehicleHusks:
-    #   Prerequisite: global-husks
-    #   RequiresCondition: vehicle-husks-on
+	ExternalCondition@vanillarefinery:
+		Condition: vanilla-refinery
+	ProvidesPrerequisite@vanillarefinery:
+		Prerequisite: vanillarefinery
+		RequiresCondition: vanilla-refinery
+	ExternalCondition@evolvedrefinery:
+		Condition: evolved-refinery
+	ProvidesPrerequisite@evolvedrefinery:
+		Prerequisite: evolvedrefinery
+		RequiresCondition: evolved-refinery
+	ExternalCondition@xperimentalrefinery:
+		Condition: xperimental-refinery
+	ProvidesPrerequisite@xperimentalrefinery:
+		Prerequisite: xperimentalrefinery
+		RequiresCondition: xperimental-refinery
+	ExternalCondition@erccrefinery:
+		Condition: ercc-refinery
+	ProvidesPrerequisite@erccrefinery:
+		Prerequisite: erccrefinery
+		RequiresCondition: ercc-refinery
+	ExternalCondition@NODYNAMICTECH:
+        Condition: no-dynamic-tech
+	ProvidesPrerequisite@TECHII:
+        Prerequisite: techlevel.2
+        RequiresCondition: no-dynamic-tech
+	ProvidesPrerequisite@TECHIII:
+        Prerequisite: techlevel.3
+        RequiresCondition: no-dynamic-tech
+	ProvidesPrerequisite@TECHIV:
+        Prerequisite: techlevel.4
+        RequiresCondition: no-dynamic-tech
+	ProvidesPrerequisite@TECHV:
+        Prerequisite: techlevel.5
+        RequiresCondition: no-dynamic-tech
+	ProvidesPrerequisite@TECHVI:
+        Prerequisite: techlevel.6
+        RequiresCondition: no-dynamic-tech
+	ProvidesPrerequisite@TECHVII:
+        Prerequisite: techlevel.7
+        RequiresCondition: no-dynamic-tech

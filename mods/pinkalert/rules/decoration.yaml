@@ -1,440 +1,71 @@
-T01:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
+BARL:
+	Inherits: ^CivBuilding
+	-Selectable:
+	SelectionDecorations:
+	Health:
+		HP: 10
+	Explodes:
+		Weapon: BarrelExplode
+	Tooltip:
+		Name: Explosive Barrel
+		ShowOwnerRow: False
+	Armor:
+		Type: None
+	Targetable:
+		TargetTypes: Ground, DemoTruck, Barrel, NoAutoTarget
+	-ShakeOnDeath:
+	-SoundOnDamageTransition:
+	-Demolishable:
 	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T01.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
+		Categories: Decoration
+	Interactable:
+		Bounds: 24,24
 
-T01.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
+BRL3:
+	Inherits: ^CivBuilding
+	-Selectable:
+	SelectionDecorations:
+	Health:
+		HP: 10
+	Explodes:
+		Weapon: BarrelExplode
+	Tooltip:
+		Name: Explosive Barrel
+		ShowOwnerRow: False
+	Armor:
+		Type: None
+	Targetable:
+		TargetTypes: Ground, DemoTruck, Barrel, NoAutoTarget
+	-ShakeOnDeath:
+	-SoundOnDamageTransition:
+	-Demolishable:
 	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
+		Categories: Decoration
+	Interactable:
+		Bounds: 24,24
 
-T02:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
+#   Pinkthoth's Petroleum Tank
+TNKR:
+	Inherits: ^CivBuilding
+	-Selectable:
+	Health:
+		HP: 60
+	Explodes:
+		Weapon: TankerExplode
+	Tooltip:
+		Name: Explosive Tanker
+		ShowOwnerRow: False
+	Armor:
+		Type: None
+	Targetable:
+		TargetTypes: GroundActor, DemoTruck, Barrel, NoAutoTarget
+	-ShakeOnDeath:
+	-SoundOnDamageTransition:
+	-Demolishable:
 	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T02.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T02.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T03:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T03.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T03.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T05:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T05.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T05.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T06:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T06.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T06.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T07:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T07.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T07.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T08:
-	Inherits: ^Tree
-	Building:
-		Footprint: x_
-		Dimensions: 2,1
-	SpawnActorOnDeath:
-		Actor: T08.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T08.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: x_
-		Dimensions: 2,1
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T10:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ xx
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T10.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T10.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ xx
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T11:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ xx
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T11.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T11.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ xx
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T12:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T12.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T12.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T13:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T13.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T13.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T14:
-	Inherits: ^Tree
-	Building:
-		Footprint: ___ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T14.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T14.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: ___ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T15:
-	Inherits: ^Tree
-	Building:
-		Footprint: ___ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T15.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T15.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: ___ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T16:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T16.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T16.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T17:
-	Inherits: ^Tree
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: T17.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-T17.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __ x_
-		Dimensions: 2,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC01:
-	Inherits: ^Tree
-	Building:
-		Footprint: ___ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: TC01.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC01.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: ___ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC02:
-	Inherits: ^Tree
-	Building:
-		Footprint: _x_ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: TC02.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC02.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: _x_ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC03:
-	Inherits: ^Tree
-	Building:
-		Footprint: xx_ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: TC03.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC03.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: xx_ xx_
-		Dimensions: 3,2
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC04:
-	Inherits: ^Tree
-	Building:
-		Footprint: ____ xxx_ x___
-		Dimensions: 4,3
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: TC04.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC04.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: ____ xxx_ x___
-		Dimensions: 4,3
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC05:
-	Inherits: ^Tree
-	Building:
-		Footprint: __x_ xxx_ _xx_
-		Dimensions: 4,3
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	SpawnActorOnDeath:
-		Actor: TC05.Husk
-	RequiresBuildableArea:
-		AreaTypes: building
-
-TC05.Husk:
-	Inherits: ^TreeHusk
-	Building:
-		Footprint: __x_ xxx_ _xx_
-		Dimensions: 4,3
-	MapEditorData:
-		ExcludeTilesets: INTERIOR
-	RequiresBuildableArea:
-		AreaTypes: building
+		Categories: Decoration
+	Interactable:
+		Bounds: 24,24
 
 BOXES01:
 	Inherits: ^Tree
@@ -609,3 +240,109 @@ CTFLAG:
     -RequiresSpecificOwners:
     -RenderSprites:
     RenderSprites:
+
+#   Mountaintop object
+MTTOP:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	RenderSprites:
+		Palette: terrain
+	WithSpriteBody:
+	Building:
+		Footprint: xxxx xxxx xxxx xxxx
+		Dimensions: 4, 4
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Tree
+	HiddenUnderShroud:
+	ScriptTriggers:
+	MapEditorData:
+        RequireTilesets: TEMPERAT
+		Categories: Decoration
+	RequiresSpecificOwners:
+		ValidOwnerNames: Neutral
+
+#   Historical ruins
+RUINS1:
+	Inherits: ^DecorativeObject
+  	Building:
+		Footprint: xx xx
+		Dimensions: 2, 2
+  	Tooltip:
+		Name: Ruins
+	RadarColorFromTerrain:
+		Terrain: Rock
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+RUINS2:
+	Inherits: ^DecorativeObject
+  	Building:
+		Footprint: xx xx
+		Dimensions: 2, 2
+  	Tooltip:
+		Name: Ruins
+	RadarColorFromTerrain:
+		Terrain: Rock
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+RUINS3:
+	Inherits: ^DecorativeObject
+  	Building:
+		Footprint: xx xx
+		Dimensions: 2, 2
+  	Tooltip:
+		Name: Ruins
+	RadarColorFromTerrain:
+		Terrain: Rock
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+RUINS4:
+	Inherits: ^DecorativeObject
+  	Building:
+		Footprint: xx xx
+		Dimensions: 2, 2
+  	Tooltip:
+		Name: Ruins
+	RadarColorFromTerrain:
+		Terrain: Rock
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+RUINSSM1:
+	Inherits: ^DecorativeObject
+  	Building:
+		Footprint: x
+		Dimensions: 1, 1
+  	Tooltip:
+		Name: Ruins
+	RadarColorFromTerrain:
+		Terrain: Rock
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+RUINSSM2:
+	Inherits: ^DecorativeObject
+  	Building:
+		Footprint: x
+		Dimensions: 1, 1
+  	Tooltip:
+		Name: Ruins
+	RadarColorFromTerrain:
+		Terrain: Rock
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+CASTLE:
+	Inherits: ^DecorativeObject
+  	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3, 3
+  	Tooltip:
+		Name: Castle Ruins
+	RadarColorFromTerrain:
+		Terrain: Rock
+	MapEditorData:
+		RequireTilesets: TEMPERAT

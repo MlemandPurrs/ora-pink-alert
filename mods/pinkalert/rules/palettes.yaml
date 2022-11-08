@@ -126,3 +126,8 @@
 		Name: scrapmetal
 		Color: B1B1B2
 		RemapIndex: 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95
+	PaletteFromFile@terrain-bush:
+		Name: bush
+		Tileset: TEMPERAT
+		Filename: bushpal.pal
+		ShadowIndex: 3, 4

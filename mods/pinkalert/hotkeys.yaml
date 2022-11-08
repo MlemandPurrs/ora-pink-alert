@@ -18,11 +18,11 @@ ProductionTypeAircraft: U
 	Description: Aircraft Tab
 	Types: Production, Player
 
-ProductionTypeNaval: I
+ProductionTypeNavy: I
 	Description: Naval Tab 
 	Types: Production, Player
 
-ProductionTypeUpgrades: J
+ProductionTypeUpgrade: J
 	Description: Upgrades Tab 
 	Types: Production, Player
 

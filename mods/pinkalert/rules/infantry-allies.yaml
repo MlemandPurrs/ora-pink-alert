@@ -2,11 +2,11 @@ MEDI:
 	Inherits: ^Soldier
     Inherits@ROT: ^RottingInfantry
 	Buildable:
-		Queue: ClassicInfantry.Allies, Infantry.Allies
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 400
 		BuildPaletteOrder: 4
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.allies, ~techlevel.4
 		Description: Heals nearby infantry.\nSelf-heals slowly out of combat\n  Unarmed
 	Selectable:
 		Class: MEDI
@@ -56,6 +56,18 @@ MEDI:
 		StartIfBelow: 101
 		DamageCooldown: 125
 		-RequiresCondition:
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 SPY:
 	Inherits: ^Soldier
@@ -68,11 +80,11 @@ SPY:
 			e7: commandodisguise
             volk: commandodisguise
 	Buildable:
-		Queue: ClassicInfantry.Allies, Infantry.Allies
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 500
 		BuildPaletteOrder: 7
-		Prerequisites: dome, ~techlevel.medium
+		Prerequisites: dome, ~techlevel.medium, ~player.allies, ~techlevel.5
 		Description: Infiltrates enemy structures.\nExact effect depends on the building infiltrated:\n  - Power Plants: Cuts base power for 30 seconds.\n  - Production facilities: Disables production for 30 seconds.\n  - Refinery: Steals 50% of stored resources.\n  - Radar Dome: Shuts down enemy radar for 30 seconds.\n  - Tech Center: Steals exploration and resets shroud.\n  - Super Weapons: Resets preparation timer.\n  Unarmed\n  Can be upgraded to Attack\n  Special Ability: Disguise\nCan appear like enemy Infantry to fool opponents
 	Selectable:
 		Class: SPY
@@ -145,6 +157,18 @@ SPY:
         Cursor: enter-yellow-flipped
 		Payload: 125
 		Type: InfantryRefund
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 #   entirely obsolete given the rework above
 THF:
@@ -155,11 +179,11 @@ THF:
 	Tooltip:
 		Name: Thief
 	Buildable:
-		Queue: ClassicInfantry.Allies, Infantry.Allies
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 500
 		BuildPaletteOrder: 8
-		Prerequisites: atek, ~techlevel.high, ~disabled
+		Prerequisites: atek, ~techlevel.high, ~player.allies, ~techlevel.6, ~disabled
 		Description: Steals enemy credits.\n  Unarmed
 	Selectable:
 		Class: THF
@@ -185,19 +209,32 @@ THF:
         Cursor: enter-yellow-flipped
 		Payload: 125
 		Type: InfantryRefund
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ
 
 E7:
 	Inherits: ^Soldier
     Inherits@ROT: ^RottingInfantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@COMMANDOSKULL: ^CommandoSkull
+    -Cloneable:
 	Buildable:
-		Queue: ClassicInfantry.Allies, Infantry.Allies
+		Queue: InfantrySQ, InfantryMQ
 		BuildAtProductionType: Soldier
 		BuildDuration: 1200
 		BuildPaletteOrder: 6
         BuildLimit: 1
-		Prerequisites: atek, ~techlevel.high
+		Prerequisites: atek, ~techlevel.high, ~player.allies, ~techlevel.7
 		Description: Elite commando infantry. Armed with\ndual pistols and C4.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft\n  Special Ability: Destroy Building with C4
 	Selectable:
 		Class: E7
@@ -274,3 +311,15 @@ E7:
     -Crushable:
     -GrantExternalConditionToCrusher@CRUSHATTEMPTSLOW:
     -GrantExternalConditionToCrusher@CRUSHSLOW:
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-infantry
+        Queue: InfantrySQ
+    ProductionTimeMultiplier@ClonerBoost:
+        Multiplier: 91
+        Prerequisites: clon
+        Queue: InfantryMQ

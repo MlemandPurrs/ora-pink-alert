@@ -1,70 +1,3 @@
-C1:
-	Inherits@1: ^ArmedCivilian
-
-C2:
-	Inherits: ^CivInfantry
-
-C3:
-	Inherits: ^CivInfantry
-	Voiced:
-		VoiceSet: CivilianFemaleVoice
-
-C4:
-	Inherits: ^CivInfantry
-	Voiced:
-		VoiceSet: CivilianFemaleVoice
-
-C5:
-	Inherits: ^CivInfantry
-	Voiced:
-		VoiceSet: CivilianFemaleVoice
-
-C6:
-	Inherits: ^CivInfantry
-
-C7:
-	Inherits@1: ^ArmedCivilian
-
-C8:
-	Inherits: ^CivInfantry
-
-C9:
-	Inherits: ^CivInfantry
-
-C10:
-	Inherits: ^CivInfantry
-	Tooltip:
-		Name: Scientist
-
-C11:
-	Inherits: ^CivInfantry
-
-TECN:
-	Inherits@1: ^ArmedCivilian
-	Tooltip:
-		Name: Technician
-	Selectable:
-		Class: C1
-	RenderSprites:
-		Image: C1
-	DeliversCash:
-        Cursor: enter-yellow-flipped
-		Payload: 10
-		Type: InfantryRefund
-
-TECN_YELLOW:
-	Inherits@1: ^ArmedCivilian
-	Tooltip:
-		Name: Technician
-	Selectable:
-		Class: C7
-	RenderSprites:
-		Image: C7
-	DeliversCash:
-        Cursor: enter-yellow-flipped
-		Payload: 10
-		Type: InfantryRefund
-
 V01:
 	Inherits: ^CivBuilding
 	Building:
@@ -221,102 +154,9 @@ V18:
 	MapEditorData:
 		ExcludeTilesets: INTERIOR
 
-V19:
-	Inherits: ^TechBuilding
-	Selectable:
-		Bounds: 24, 24
-	CashTrickler:
-        Interval: 50
-		Amount: 20
-		RequiresCondition: enabled
-	Building:
-		Footprint: x
-		Dimensions: 1,1
-	Health:
-		HP: 400
-	Tooltip:
-		Name: Oil Derrick
-	TooltipDescription@ally:
-		Description: Provides additional funds.
-		ValidRelationships: Ally
-	TooltipDescription@other:
-		Description: Capture to receive additional funds.
-		ValidRelationships: Neutral, Enemy
-	SpawnActorOnDeath:
-		Actor: V19.Husk
-        OwnerType: InternalName
-	UpdatesDerrickCount:
-	GrantConditionOnCombatantOwner:
-		Condition: enabled
-	RenderSprites:
-		Image: v19
+#   moved V19 to Tech since its made functional
 
-V19.Husk:
-	Inherits: ^TechBuildingHusk
-	Interactable:
-		Bounds: 24, 24
-	WithSpriteBody:
-	WithIdleOverlay:
-		StartSequence: fire-start
-		Sequence: fire-loop
-	Building:
-		Footprint: x
-		Dimensions: 1,1
-	Tooltip:
-		Name: Oil Derrick (Destroyed)
-	TooltipDescription:
-		Description: Capture to receive additional funds.
-		ValidRelationships: Neutral, Enemy, Ally
-	TransformOnCapture:
-		IntoActor: v19
-	RenderSprites:
-		Image: v19.husk
-
-BARL:
-	Inherits: ^CivBuilding
-	-Selectable:
-	SelectionDecorations:
-	Health:
-		HP: 10
-	Explodes:
-		Weapon: BarrelExplode
-	Tooltip:
-		Name: Explosive Barrel
-		ShowOwnerRow: False
-	Armor:
-		Type: None
-	Targetable:
-		TargetTypes: Ground, DemoTruck, Barrel, NoAutoTarget
-	-ShakeOnDeath:
-	-SoundOnDamageTransition:
-	-Demolishable:
-	MapEditorData:
-		Categories: Decoration
-	Interactable:
-		Bounds: 24,24
-
-BRL3:
-	Inherits: ^CivBuilding
-	-Selectable:
-	SelectionDecorations:
-	Health:
-		HP: 10
-	Explodes:
-		Weapon: BarrelExplode
-	Tooltip:
-		Name: Explosive Barrel
-		ShowOwnerRow: False
-	Armor:
-		Type: None
-	Targetable:
-		TargetTypes: Ground, DemoTruck, Barrel, NoAutoTarget
-	-ShakeOnDeath:
-	-SoundOnDamageTransition:
-	-Demolishable:
-	MapEditorData:
-		Categories: Decoration
-	Interactable:
-		Bounds: 24,24
+#   OpenRA custom additions
 
 RICE:
 	Inherits: ^CivField
@@ -364,3 +204,114 @@ WINDMILL:
 		Dimensions: 1,1
 	RequiresBuildableArea:
 		AreaTypes: building
+
+TILLED1:
+	Inherits: ^CivField
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3, 2    
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+TILLED2:
+	Inherits: ^CivField
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3, 2    
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+TILLED3:
+	Inherits: ^CivField
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3, 2    
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+TILLED5:
+	Inherits: ^CivField
+	Building:
+		Footprint: xx xx xx
+		Dimensions: 2, 3    
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+TILLED6:
+	Inherits: ^CivField
+	Building:
+		Footprint: xx xx xx
+		Dimensions: 2, 3  
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+
+HEYSTACK1:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+HEYSTACK2:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+
+MONASTERY:
+	Inherits: ^CivBuilding
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: -490,-384,0, 0,0,0, 0,470,0
+		Type: Rectangle
+			TopLeft: -768, -597
+			BottomRight: 896, 683
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Tooltip:
+		Name: Monastery
+
+ENGH01:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+	Tooltip:
+		Name: English House
+
+ENGH02:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+	Tooltip:
+		Name: English House
+
+ENGH03:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+	Tooltip:
+		Name: English House
+
+ENGCH:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		RequireTilesets: TEMPERAT
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: -490,-384,0, 0,0,0, 0,470,0
+		Type: Rectangle
+			TopLeft: -768, -597
+			BottomRight: 896, 683
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Tooltip:
+		Name: English Church
+
+CTG1:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+   
+CTG2:
+	Inherits: ^CivBuilding
+	MapEditorData:
+		ExcludeTilesets: INTERIOR

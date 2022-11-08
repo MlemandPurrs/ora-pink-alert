@@ -24,7 +24,9 @@ sidebar-allies:
 		background-iconrow: 0, 116, 238, 47
 		background-bottom: 0, 166, 238, 8
 		background-supportoverlay: 12, 324, 64, 48
-        background-prodscroller: 273, 44, 238, 23
+        #   background-prodscroller: 273, 44, 238, 23
+        #   this will be the slider
+        background-tabs: 273, 44, 238, 23
 
 sidebar-button-allies:
 	Inherits: ^Sidebar
@@ -83,7 +85,9 @@ sidebar-soviet:
 		background-iconrow: 0, 116, 238, 47
 		background-bottom: 0, 166, 238, 8
 		background-supportoverlay: 77, 324, 64, 48
-        background-prodscroller: 273, 44, 238, 23
+        #   background-prodscroller: 273, 44, 238, 23
+        #   this will be the slider
+        background-tabs: 273, 44, 238, 23
 
 sidebar-button-soviet:
 	Inherits: ^Sidebar
@@ -165,9 +169,9 @@ production-icons:
 		navy: 187, 68, 16, 16
 		navy-disabled: 187, 85, 16, 16
 		navy-alert: 187, 102, 16, 16
-		upgrades: 187, 120, 16, 16
-		upgrades-disabled: 187, 137, 16, 16
-		upgrades-alert: 187, 154, 16, 16
+		upgrade: 187, 120, 16, 16
+		upgrade-disabled: 187, 137, 16, 16
+		upgrade-alert: 187, 154, 16, 16
 
 order-icons:
 	Inherits: ^Glyphs
