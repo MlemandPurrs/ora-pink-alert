@@ -89,7 +89,7 @@ PT:
 		BuildAtProductionType: Ship
 		BuildPaletteOrder: 1
 		Prerequisites: ~techlevel.low, ~!global-disablenavy, ~player.allies, ~techlevel.3
-		Description: Light scout & support ship.\nDetect nearby Submarines.\n  Strong vs Naval units\n  Weak vs Ground units
+		Description: Light scout & support ship.\nDetects nearby Submarines.\n  Strong vs Naval units\n  Weak vs Ground units
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -546,12 +546,12 @@ SS:
 	Buildable:
 		Queue: NavySQ, NavyMQ
 		BuildAtProductionType: Submarine
-		BuildDuration: 775
-		BuildPaletteOrder: 1
-		Prerequisites: ~techlevel.low, ~!global-disablenavy, ~!subcapacity.upgrade, ~player.soviet, ~techlevel.4
+		BuildDuration: 825
+		BuildPaletteOrder: 2
+		Prerequisites: dome, ~techlevel.medium, ~!global-disablenavy, ~player.soviet, ~techlevel.4
 		Description: Submerged anti-ship unit.\nArmed with torpedoes below sea level.\nUses Grenadelauncher on surface.\nDetects other Submarines nearby.\n  Strong vs Naval units\n  Weak vs Ground units, Aircraft\n  Special Ability: Submerge\nDives underwater to move unseen.\nCan be surfaced to move faster.
 	Valued:
-		Cost: 775
+		Cost: 825
 	Tooltip:
 		Name: Submarine
 	UpdatesPlayerStatistics:
@@ -644,12 +644,6 @@ SS:
 		ValidTargets: Water
 	AutoTargetPriority@ATTACKANYTHING:
 		ValidTargets: Water
-	GrantConditionOnPrerequisite@SSUPG:
-		Condition: submarine.upgraded
-		Prerequisites: subcapacity.upgrade
-	TransformOnCondition@SSUPG:
-		IntoActor: SS.Upgraded
-		RequiresCondition: submarine.upgraded
 	Selectable:
 		Class: SS
 		DecorationBounds: 38,38
@@ -663,83 +657,6 @@ SS:
         Multiplier: 150
         Prerequisites: sqslowdown-lowpower-naval
         Queue: NavySQ
-
-SS.Upgraded:
-    Inherits: SS
-    Inherits@TRANSPORT: ^Transport
-	-GrantConditionOnPrerequisite@SSUPG:
-	-TransformOnCondition@SSUPG:
-	Buildable:
-		Prerequisites: ~techlevel.low, ~!global-disablenavy, ~subcapacity.upgrade, ~player.soviet, ~techlevel.4
-        Description: Submerged anti-ship unit.\nCan carry one Infantry.\nArmed with torpedoes below sea level.\nUses Grenadelauncher on surface.\nDetects other Submarines nearby.\n  Strong vs Naval units\n  Weak vs Ground units, Aircraft\n  Special Ability: Submerge\nDives underwater to move unseen.
-	Mobile:
-		PauseOnCondition: notmobile || emp-crate-collected
-	Cargo:
-		LoadedCondition: loaded
-		Types: Infantry
-		MaxWeight: 1
-		LoadingCondition: notmobile
-		PassengerConditions:
-            medi: healaura
-			mech: selfrepair
-            e7: commando
-            volk: commando
-    ChangesHealth@SelfRepair:
-		RequiresCondition: selfrepair
-        Step: 20
-		Delay: 80
-		StartIfBelow: 101
-	WithDecoration@COMMANDOSKULL:
-		Image: pips
-		Sequence: pip-skull
-		Palette: effect
-		Position: TopLeft
-		ValidRelationships: Ally
-		RequiresCondition: commando
-	ProximityExternalCondition@healingaura:
-		Condition: barracks
-		ValidRelationships: Ally
-		Range: 1c826
-		RequiresCondition: !underwater && healaura && medicauraheal-upgraded && !emp-crate-collected
-	WithRangeCircle@healingaura:
-		Range: 1c826
-		RequiresCondition: !underwater && healaura && medicauraheal-upgraded && !emp-crate-collected
-	GrantConditionOnPrerequisite@healingaura:
-		Condition: medicauraheal-upgraded
-		Prerequisites: medicauraheal.upgrade
-    Sellable:
-        RequiresCondition: ship.sellable && !underwater && !loaded
-	Cloak:
-		CloakTypes: Underwater
-		InitialDelay: 0
-		CloakDelay: 75
-		CloakSound: subshow1.aud
-		UncloakSound: subshow1.aud
-		CloakedCondition: underwater
-		UncloakOn: Attack, Unload, Heal, Dock, SelfHeal, Demolish
-		PauseOnCondition: cloak-force-disabled || crossing-ford || minehit || emp-crate-collected
-		RequiresCondition: !deployed && !notmobile
-	Armament@SECONDARY:
-		Name: secondary
-		Turret: secondary
-		Weapon: GrenadeLauncher
-		LocalOffset: 132,0,96
-		MuzzleSequence: muzzle
-        PauseOnCondition: under-bridge || emp-crate-collected
-        RequiresCondition: !deployed && !botowner && !spain
-	Armament@SECONDARY_SPAIN:
-		Name: secondary
-		Turret: secondary
-		Weapon: GrenadeLauncher.spain
-		LocalOffset: 132,0,96
-		MuzzleSequence: muzzle
-        PauseOnCondition: under-bridge || emp-crate-collected
-        RequiresCondition: !deployed && !botowner && spain
-    Selectable:
-        Class: SS
-    RenderSprites:
-        Image: SS
-    -MapEditorData:
 
 MSUB:
 	Inherits: ^Submarine
@@ -818,7 +735,7 @@ SSFK:
 		BuildAtProductionType: Submarine
 		BuildDuration: 950
 		BuildPaletteOrder: 2
-		Prerequisites: dome, ~techlevel.medium, ~!global-disablenavy, ~player.soviet, ~techlevel.5
+		Prerequisites: dome, ~techlevel.medium, ~!global-disablenavy, ~player.soviet, ~techlevel.5, ~disabled
 		Description: Submerged anti-air platform\narmed with a flak gun.\nDetects other Submarines nearby.\n  Can attack Aircraft\n  Strong vs Infantry, Aircraft\n  Weak vs everything Else.\n  Special Ability: Submerge\nDives underwater to move unseen.\nCan be surfaced to move faster.
 	Health:
 		HP: 180
@@ -1079,3 +996,121 @@ MINS:
 		TargetTypes: Underwater, Mine
 	Explodes:
 		Weapon: ASMine
+
+SEAS:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+    Inherits@Crates: ^AcceptsAllCratesExceptCloak
+	Buildable:
+		Queue: NavySQ, NavyMQ
+        BuildDuration: 600
+		BuildAtProductionType: Submarine
+		BuildPaletteOrder: 1
+		Prerequisites: ~techlevel.low, ~!seascapacity.upgrade, ~!global-disablenavy, ~player.soviet, ~techlevel.3
+		Description: Anti-Air/Anti-Infantry naval unit.\nDetects nearby Submarines.\n  Strong vs Aircraft, Infantry\n Weak vs Naval Units, Vehicles
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Sea Scorpion
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 180
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 28
+		Speed: 72
+	RevealsShroud:
+		Range: 7c0
+	Armament@AA:
+		Name: primary
+		Weapon: FLAK-23-AA
+		LocalOffset: 50,0,376
+		MuzzleSequence: muzzle
+		PauseOnCondition: reload-ag || under-bridge || emp-crate-collected
+        ReloadingCondition: reload-aa
+	Armament@AG:
+        Name: secondary
+		Weapon: FLAK-23-AG
+		LocalOffset: 50,0,376
+		MuzzleSequence: muzzle
+		PauseOnCondition: reload-aa || under-bridge || emp-crate-collected
+        ReloadingCondition: reload-ag
+	AttackFrontal:
+		PauseOnCondition: emp-crate-collected
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	DetectCloaked:
+		CloakTypes: Underwater
+		Range: 3c768
+	RenderDetectionCircle:
+	Selectable:
+        Class: SEAS
+		DecorationBounds: 36,36
+	GrantConditionOnPrerequisite@SEASUPG:
+		Condition: seascorpion.upgraded
+		Prerequisites: seascorpion.upgrade
+	TransformOnCondition@SEASUPG:
+		IntoActor: SEAS.Upgraded
+		RequiresCondition: seascorpion.upgraded
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-naval
+        Queue: NavySQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-naval
+        Queue: NavySQ
+
+SEAS.Upgraded:
+    Inherits: SEAS
+    Inherits@TRANSPORT: ^Transport
+	-GrantConditionOnPrerequisite@SEASUPG:
+	-TransformOnCondition@SEASUPG:
+	Buildable:
+		Prerequisites: ~techlevel.low, ~seascapacity.upgrade, ~!global-disablenavy, ~player.soviet, ~techlevel.3
+ 		Description: Anti-Air/Anti-Infantry naval unit.\nCan carry one Infantry.\nDetects nearby Submarines.\n  Strong vs Aircraft, Infantry\n Weak vs Naval Units, Vehicles
+	Mobile:
+		PauseOnCondition: notmobile || emp-crate-collected
+	Cargo:
+		LoadedCondition: loaded
+		Types: Infantry
+		MaxWeight: 1
+		LoadingCondition: notmobile
+		PassengerConditions:
+            medi: healaura
+			mech: selfrepair
+            e7: commando
+            volk: commando
+    ChangesHealth@SelfRepair:
+		RequiresCondition: selfrepair
+        Step: 20
+		Delay: 80
+		StartIfBelow: 101
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: commando
+	ProximityExternalCondition@healingaura:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	WithRangeCircle@healingaura:
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	GrantConditionOnPrerequisite@healingaura:
+		Condition: medicauraheal-upgraded
+		Prerequisites: medicauraheal.upgrade
+    Sellable:
+        RequiresCondition: ship.sellable && !loaded
+    Selectable:
+        Class: SEAS
+    RenderSprites:
+        Image: SEAS
+    -MapEditorData:

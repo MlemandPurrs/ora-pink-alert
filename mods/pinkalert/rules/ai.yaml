@@ -301,7 +301,7 @@ Player:
         RushInterval: 400
         AttackScanRadius: 16
 		ExcludeFromSquadsTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune, mcv, mnly, tran, hip, yak, mig, heli, hind, nebr, lst, e6
-		NavalUnitsTypes: ss, ssfk, msub, nsub, dd, ca, lst, pt, dred
+		NavalUnitsTypes: seas, ss, ssfk, msub, nsub, dd, ca, lst, pt, dred
 		ConstructionYardTypes: fact
 		NavalProductionTypes: spen, syrd
         IgnoredEnemyTargetTypes: IgnoreThis
@@ -311,7 +311,7 @@ Player:
 		SquadSizeRandomBonus: 2
 		RushInterval: 400
 		AttackScanRadius: 48
-		ExcludeFromSquadsTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune, mcv, mnly, jeep, brdm, apc, hapc, 1tnk, 1tnk.upgraded, 2tnk, 3tnk, 3tnk.upgraded, 4tnk, 5tnk, arty, v2rl, mrj, mgg, truk, dtrk, stnk, ttnk, ctnk, qtnk, e1, e2, e3, e4, e7, volk, spy, dog, medi, mech, shok, tecn, tecn_yellow, chan, pt, dd, ca, dred, lst, ss, ssfk, msub, nsub
+		ExcludeFromSquadsTypes: harv, ahrv, harv.mineimmune, ahrv.mineimmune, mcv, mnly, jeep, brdm, apc, hapc, 1tnk, 1tnk.upgraded, 2tnk, 3tnk, 3tnk.upgraded, 4tnk, 5tnk, arty, v2rl, mrj, mgg, truk, dtrk, stnk, ttnk, ctnk, qtnk, e1, e2, e3, e4, e7, volk, spy, dog, medi, mech, shok, tecn, tecn_yellow, chan, pt, dd, ca, dred, lst, seas, ss, ssfk, msub, nsub
 		ConstructionYardTypes: fact
 		IgnoredEnemyTargetTypes: Submarine, IgnoreThis
 	UnitBuilderBotModule@normal:
@@ -352,6 +352,7 @@ Player:
 			hind: 30
 			mig: 30
 			yak: 30
+            seas: 5
 			ss: 10
             ssfk: 5
 			msub: 10
@@ -382,6 +383,7 @@ Player:
             dd: 4
             ca: 3
             dred: 1
+            seas: 4
             ss: 6
             ssfk: 2
             msub: 4

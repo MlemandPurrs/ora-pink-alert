@@ -107,3 +107,11 @@ nsub:
 	idle:
 		Facings: 16
 	icon: nsubicon
+
+seas:
+    Inherits: emp-overlay
+	idle:
+		Facings: 16
+	muzzle: gunfire2
+		Length: 5
+	icon: seasicon

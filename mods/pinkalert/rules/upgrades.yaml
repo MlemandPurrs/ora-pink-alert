@@ -163,16 +163,16 @@ hindrockets.upgrade:
 	RenderSprites:
 		Image: sovietupgrades.combined
 
-subcapacity.upgrade:
+seascapacity.upgrade:
 	Inherits: ^Upgrade
 	Tooltip:
-		Name: Upgrade: Submarine Carrying hold
+		Name: Upgrade: Sea Scorpion Carrying hold
 	Buildable:
 		BuildPaletteOrder: 4
 		Prerequisites: spen, ~techlevel.high, ~!global-disablenavy, ~player.soviet
 		BuildDuration: 1500
-		Description: Allows Submarines to carry one Infantry.\n   + Submarines can carry one Infantry\n  ! Breaks capacity to Surface on order(Engine limitation)\n  ! Submarine will use Grenadelauncher by itself to compensate
-        Icon: subcapacity
+		Description: Allows Sea Scorpions to carry one Infantry.\n   + Sea Scorpions can carry one Infantry
+        Icon: seascapacity
 	Valued:
 		Cost: 1000
 	RenderSprites:
