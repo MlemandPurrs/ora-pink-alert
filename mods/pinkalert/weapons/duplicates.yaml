@@ -9,12 +9,17 @@ Vulcan.spain:
 ChainGun.spain:
     Inherits: ChainGun
     Range: 6c0
-    
+
 ChainGun.Yak.Right.spain:
     Inherits: ChainGun.spain
 
 ChainGun.Yak.Left.spain:
     Inherits: ChainGun.Yak.Right.spain
+
+ChainGun.batf.spain:
+    Inherits: ChainGun.spain
+	Projectile: InstantHit
+		Blockable: true
 
 Pistol.spain:
     Inherits: Pistol
@@ -138,6 +143,10 @@ Dragon.spain:
 		Shadow: True
 		HorizontalRateOfTurn: 20
 		RangeLimit: 7c0
+
+Dragon2shot.spain:
+    Inherits: Dragon.spain
+    Burst: 2
 
 Hellfire.spain:
     Inherits: Hellfire

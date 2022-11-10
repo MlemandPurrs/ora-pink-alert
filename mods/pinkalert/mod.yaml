@@ -1,6 +1,6 @@
 Metadata:
 	Title: Pink Alert
-	Version: Pink Alert
+	Version: Pink Alert v-2
 	Website: https://www.openra.net
 	WebIcon32: https://raw.githubusercontent.com/OpenRA/ra-classic/mods/raclassic/icon.png
 
@@ -307,7 +307,11 @@ ColorValidator:
     HsvSaturationRange: 0.0, 1.0
     HsvValueRange: 0.0, 1.0
 	TeamColorPresets: C4B060, 4494E4, EC0000, 00C400, FC8800, 707070, 44907C, 702C24, D1987C, A4A4BC, F40000, 54FC54, D47810, 007070, A0F08C, FCFC54, FFDF5E, 273CB3, DE0000, 0C960C, FF9100, 14B1FF, B914FF, FF5EC7, B8DE0E, 145DD4, FF1710, 2DD12E, E79F18, 24D7E6, 6F28BD, CD9AEB
- 
+
+ModCredits:
+	ModCreditsFile: pinkalert|AUTHORS
+	ModTabTitle: Pink Alert Mod
+
 ModContent:
 	InstallPromptMessage: Red Alert requires artwork and audio from the original game.\n\nQuick Install will automatically download this content (without music\nor videos) from a mirror of the 2008 Red Alert freeware release.\n\nAdvanced Install includes options for copying the music, videos, and\nother content from an original game disc or digital installation.
 	QuickDownload: quickinstall

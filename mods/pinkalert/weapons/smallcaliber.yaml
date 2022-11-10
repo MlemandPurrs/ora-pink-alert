@@ -78,6 +78,11 @@ ChainGun.5tnk:
 	BurstDelays: 5
 	ReloadDelay: 40
 
+ChainGun.batf:
+	Inherits: ChainGun
+	Projectile: InstantHit
+		Blockable: true
+
 Pistol:
 	Inherits: ^MachineGun
 	Projectile: InstantHit
@@ -139,6 +144,7 @@ FLAK-23-AG:
 	ReloadDelay: 10
 	Range: 8c0
 	ValidTargets: Ground, Water
+    Report: aacanon3.aud
 	Projectile: InstantHit
 		Blockable: true
 	Warhead@1Dam: SpreadDamage

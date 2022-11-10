@@ -192,3 +192,18 @@ minefinder.upgrade:
 		Cost: 1000
 	RenderSprites:
 		Image: sovietupgrades.combined
+
+smashwalls.upgrade:
+	Inherits: ^Upgrade
+	Tooltip:
+		Name: Upgrade: Wall Crushing
+	Buildable:
+		BuildPaletteOrder: 6
+		Prerequisites: vehicleproduction, fix, ~techlevel.high, ~player.soviet
+		BuildDuration: 1500
+		Description: Allows Mammoth Tanks to smash through Concrete Walls.\n   + Mammoth Tank can crush Concrete Walls
+        Icon: smashwalls
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: sovietupgrades.combined

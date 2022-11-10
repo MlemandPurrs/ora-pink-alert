@@ -450,7 +450,7 @@ APC.Husk:
         PauseOnCondition: emp-crate-collected
         RequiresCondition: !spain
 	Armament@SPAIN:
-		Weapon: 75mm
+		Weapon: 75mm.spain
 		Recoil: 85
 		RecoilRecovery: 25
 		LocalOffset: 768,0,90
@@ -1182,3 +1182,298 @@ CTNK.Chrono:
 		Duration: 2250
 	KillsSelf@warpout:
 		RequiresCondition: !warpin
+
+#   The classic Battle Fortress, as you know if from RA2
+BATF:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+	Inherits@TRANSPORT: ^Transport
+    Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: VehicleSQ, VehicleMQ
+        BuildDuration: 2000
+		BuildPaletteOrder: 15
+        BuildLimit: 1
+		Prerequisites: atek, ~techlevel.high, ~player.allies, ~techlevel.7, ~disabled
+		Description: Tough infantry transport\nwith weapon ports for infantry.\nMaximum one can be built.\nCan carry up to 10 Infantry into battle.\n  Strength and Weakness dependant on it's Passengers.\n  Armed with Chaingun on its own
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Battle Fortress
+	Health:
+		HP: 700
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		TurnSpeed: 10
+		Speed: 50
+		PauseOnCondition: notmobile || emp-crate-collected
+	AttackFrontal:
+		FacingTolerance: 24
+		PauseOnCondition: emp-crate-collected
+	Armament:
+		Weapon: Vulcan
+		MuzzleSequence: muzzle
+		LocalOffset: 746,0,196
+		RequiresCondition: !loaded && !spain
+		PauseOnCondition: emp-crate-collected
+		Turret:
+	Armament@SPAIN:
+		Weapon: Vulcan.spain
+		MuzzleSequence: muzzle
+		LocalOffset: 746,0,196
+		RequiresCondition: !loaded && spain
+		PauseOnCondition: emp-crate-collected
+		Turret:
+	RevealsShroud:
+		Range: 6c0
+	Turreted:
+		TurnSpeed: 255
+		Offset: 0,0,210
+	AttackOpenTopped:
+		Armaments: garrisoned
+		PortOffsets: 825,0,256, 348,-482,256, -348,-482,256, -448,482,256, 448,482,256
+		PauseOnCondition: emp-crate-collected
+		RequiresCondition: loaded
+	WithMuzzleOverlay:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 10
+		LoadingCondition: notmobile
+		LoadedCondition: loaded
+	Passenger:
+		CustomPipType: red
+	Selectable:
+        Class: BATF
+		DecorationBounds: 28,28
+	Capturable:
+		RequiresCondition: !loaded
+	SpawnActorOnDeath:
+		Actor: BATF.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	RevealOnDeath:
+		Duration: 100
+		Radius: 2c512
+
+BATF.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Battle Fortress (Destroyed)
+	TransformOnCapture:
+		IntoActor: batf
+	RenderSprites:
+		Image: batf.destroyed
+
+#   based on CA 0.70 version of BATF
+BATF2:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+    Inherits@AUTOTARGETEXTRA: ^AutoTargetPreferInfantry
+	Inherits@TRANSPORT: ^Transport
+    Inherits@Crates: ^AcceptsAllCrates
+	Buildable:
+		Queue: VehicleSQ, VehicleMQ
+        BuildDuration: 2000
+		BuildPaletteOrder: 15
+        BuildLimit: 1
+		Prerequisites: atek, ~techlevel.high, ~player.allies, ~techlevel.7
+		Description: Tough infantry transport with multiple weapons.\nMaximum one can be built.\nCan carry up to 10 Infantry into battle.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Battle Fortress
+	Health:
+		HP: 700
+	Armor:
+		Type: Heavy
+	Mobile:
+        Locomotor: tracked-crusher
+		TurnSpeed: 10
+		Speed: 50
+		PauseOnCondition: notmobile || emp-crate-collected
+	RevealsShroud:
+		Range: 6c0
+	#   GrantCondition@pauseformaingun:
+	#	Condition: pauseformaingun
+	#	RequiresCondition: ammoready
+    AmmoPool:
+		Name: ammo
+		Armaments: primary
+		Ammo: 12
+		AmmoCondition: ammoready
+        InitialAmmo: 0 
+    ReloadAmmoPool:
+		AmmoPool: ammo
+		Delay: 400
+		Count: 12
+		SelectionBarColor: FFFF00
+		PauseOnCondition: emp-crate-collected
+        RequiresCondition: !ammoready
+    WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 6
+		PipCount: 3
+		FullSequence: green
+		RequiresSelection: true
+		AmmoPools: ammo
+	AttackTurreted:
+		Turrets: primary, secondary, tertiary
+		Armaments: primary, secondary, tertiary, quartenary
+		PauseOnCondition: emp-crate-collected
+    #   amaaan, fuck it
+    #   AttackFrontal:
+    #   Armaments: primary
+    #   PauseOnCondition: !pauseformaingun
+	Armament@MAIN:
+        Name: primary
+		Weapon: Chaingun.batf
+		MuzzleSequence: muzzle
+		LocalOffset: 1140,0,360
+		PauseOnCondition: emp-crate-collected || !ammoready
+		RequiresCondition: !spain
+		Turret:
+	Armament@SECONDARY_LEFT:
+		Name: secondary
+		Turret: primary
+		Weapon: 75mm
+		LocalOffset: 200,0,300
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected || ammoready
+        RequiresCondition: !spain
+	Armament@SECONDARY_RIGHT:
+		Name: tertiary
+		Turret: secondary
+		Weapon: 75mm
+		FireDelay: 8
+		LocalOffset: 200,0,300
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected || ammoready
+        RequiresCondition: !spain
+	Armament@REAR:
+		Name: quartenary
+		Turret: tertiary
+		Weapon: Dragon2shot
+		LocalOffset: -200,0,300
+        PauseOnCondition: emp-crate-collected || ammoready
+		RequiresCondition: !spain
+	Armament@MAIN_SPAIN:
+        Name: primary
+		Weapon: Chaingun.batf.spain
+		MuzzleSequence: muzzle
+		LocalOffset: 1074,0,420
+		PauseOnCondition: emp-crate-collected || !ammoready
+		RequiresCondition: spain
+		Turret:
+	Armament@SECONDARY_LEFT_SPAIN:
+		Name: secondary
+		Turret: primary
+		Weapon: 75mm.spain
+		LocalOffset: 200,0,300
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected || ammoready
+        RequiresCondition: spain
+	Armament@SECONDARY_RIGHT_SPAIN:
+		Name: tertiary
+		Turret: secondary
+		Weapon: 75mm.spain
+		FireDelay: 8
+		LocalOffset: 200,0,300
+		MuzzleSequence: muzzle
+        PauseOnCondition: emp-crate-collected || ammoready
+        RequiresCondition: spain
+	Armament@REAR_SPAIN:
+		Name: quartenary
+		Turret: tertiary
+		Weapon: Dragon2shot.spain
+		LocalOffset: -200,0,300
+        PauseOnCondition: emp-crate-collected || ammoready
+		RequiresCondition: spain
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: 200,-300,0
+		TurnSpeed: 10
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 200,300,0
+		TurnSpeed: 10
+	Turreted@TERTIARY:
+		Turret: tertiary
+		Offset: -300,0,358
+		TurnSpeed: 10
+		PauseOnCondition: !loaded
+	WithMuzzleOverlay:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithSpriteTurret@SECONDARY:
+		Turret: secondary
+	WithSpriteTurret@TERTIARY:
+		Turret: tertiary
+		Sequence: turret2
+	Cargo:
+		Types: Infantry
+		MaxWeight: 10
+		LoadingCondition: notmobile
+		LoadedCondition: loaded
+		PassengerConditions:
+            medi: healaura
+			mech: selfrepair
+            e7: commando
+            volk: commando
+    ChangesHealth@SelfRepair:
+		RequiresCondition: selfrepair
+        Step: 20
+		Delay: 80
+		StartIfBelow: 101
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: commando
+	ProximityExternalCondition@healingaura:
+		Condition: barracks
+		ValidRelationships: Ally
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	WithRangeCircle@healingaura:
+		Range: 1c826
+		RequiresCondition: healaura && medicauraheal-upgraded && !emp-crate-collected
+	GrantConditionOnPrerequisite@healingaura:
+		Condition: medicauraheal-upgraded
+		Prerequisites: medicauraheal.upgrade
+	Passenger:
+        Weight: 10
+		CustomPipType: white
+	Selectable:
+        Class: BATF
+		DecorationBounds: 44,38,0,-4
+	Capturable:
+		RequiresCondition: !loaded
+	SpawnActorOnDeath:
+		Actor: BATF2.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	RevealOnDeath:
+		Duration: 100
+		Radius: 2c512
+    ProductionTimeMultiplier@SQSlowdown:
+        Multiplier: 200
+        Prerequisites: sqslowdown-vehicle
+        Queue: VehicleSQ
+    ProductionTimeMultiplier@SQSlowdownLowpower:
+        Multiplier: 150
+        Prerequisites: sqslowdown-lowpower-vehicle
+        Queue: VehicleSQ
+
+BATF2.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Battle Fortress (Destroyed)
+	TransformOnCapture:
+		IntoActor: batf2
+	RenderSprites:
+		Image: batf2.destroyed

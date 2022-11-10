@@ -702,6 +702,7 @@ sovietupgrades.combined:
     hindrockets: hindicon
     seascapacity: seasicon
     minefinder: dogicon
+    smashwalls: 4tnkicon
 
 colorpicker.mammy:
 	idle: 4tnk-decor2

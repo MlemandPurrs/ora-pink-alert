@@ -111,6 +111,10 @@ MaverickAA:
 Dragon:
 	Inherits: ^AntiGroundMissile
 
+Dragon2shot:
+    Inherits: Dragon
+    Burst: 2
+
 Hellfire:
 	Inherits: ^AntiGroundMissile
 	ReloadDelay: 60

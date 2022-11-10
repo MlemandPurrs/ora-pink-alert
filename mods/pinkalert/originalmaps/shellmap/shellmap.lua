@@ -13,7 +13,7 @@ ProducedUnitTypes =
 	{ factory = SBarracks1, types = { "e1", "e1", "e2", "e3", "e3" } },
 	{ factory = SKennel1, types = { "dog" } },
 	{ factory = ANavalYard1, types = { "pt", "dd", "dd", "pt" } },
-	{ factory = SSubPen1, types = { "ss" } }
+	{ factory = SSubPen1, types = { "seas", "ss", "seas", "seas" } }
 }
 
 BindActorTriggers = function(a)

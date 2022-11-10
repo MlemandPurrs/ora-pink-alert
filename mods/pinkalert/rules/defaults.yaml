@@ -1268,6 +1268,9 @@
 		HP: 100
 	MapEditorData:
 		Categories: Wall
+	GrantExternalConditionToCrusher@CRUSHSLOW:
+		OnCrushCondition: crush-slow
+		OnCrushDuration: 50
 
 ^FakeBuilding:
 	Inherits: ^Building
